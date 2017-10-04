@@ -101,21 +101,23 @@ function validate(name, phone, password, confirmPass, gRecaptchaResponse) {
 }
 
 function FormRegister() {
-	this.fullName = function() {return $('#fullName').val()};
-	this.phone = function() {return $('#phone').val().trim()};
+	this.name = function() {return $('#name').val()};
+	this.phone = function() { return $('#phone').val().trim() };
+	this.gender = function() { return $('#gender').val() };
 	this.password = function() {return $('#password').val()};
 	this.confirmPass = function() {return $('#confirmPassword').val()};
 	this.gRecaptchaResponse = function() {return $('#g-recaptcha-response').val()};
 	this.otp = function() {return $('#otp').val()};
 	
-	this.setOtp = function(otp){$('#otp').val(otp)};
 	this.setPhone = function(value){$('#phone').val(value)};
-	this.setPass = function(value){$('#pass').val(value)};
+	this.setPass = function(value){$('#password').val(value)};
 	
 	this.requestRegister = function() {
 		return {
-			userName : this.phone(),
-			fullName : this.fullName(),
+			username : this.phone(),
+			phone : this.phone(),
+			gender : this.gender(),
+			name : this.name(),
 			password : this.password(),
 			gRecaptchaResponse : this.gRecaptchaResponse()
 		}
@@ -127,17 +129,17 @@ function FormRegister() {
 		}
 	}
 	this.validate = function() {
-		return validate(this.fullName(), this.phone(), this.password(), this.confirmPass(), this.gRecaptchaResponse());
+		return validate(this.name(), this.phone(), this.password(), this.confirmPass(), this.gRecaptchaResponse());
 	}
 }
 // ON LOAD
 $(document).ready(function() {
 	$('#phone').keypress(function(event) {
 		if (event.keyCode == 13 || event.which == 13) {
-			$('#pass').focus();
+			$('#password').focus();
 		}
 	});
-	$('#pass').keypress(function(event) {
+	$('#password').keypress(function(event) {
 		if (event.keyCode == 13 || event.which == 13) {
 			loginXenhan();
 		}

@@ -25,7 +25,7 @@
 						<input type="radio" name="gender" id="gender" value="1" checked="checked">Nam
 					</label>
 					<label class="radio-inline">
-						<input type="radio" name="gender" id="gender"  value="2">Nữ
+						<input type="radio" name="gender"  value="2">Nữ
 					</label>
 				</div>
 
