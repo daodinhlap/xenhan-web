@@ -14,8 +14,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	
-	<link rel="icon" href="/resources/images/mtop-favicon.png" type="image/x-icon">
-	<link rel="shortcut icon" href="/resources/images/mtop-favicon.png" type="image/x-icon">
+	<link rel="icon" href="resources/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/resources/images/icon_logo.png" type="image/x-icon">
 	
 	<link rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">

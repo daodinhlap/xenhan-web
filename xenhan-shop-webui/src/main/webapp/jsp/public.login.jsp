@@ -48,7 +48,5 @@
 		<div class="button-container" style="margin-top: 10px">
 			<a rel="nofollow" rel="noreferrer" href="/dang-ky"> Đăng ký </a>
 		</div>
-		
-		<jsp:include page="./common/link.app.jsp" />
 	</div>
 </div>

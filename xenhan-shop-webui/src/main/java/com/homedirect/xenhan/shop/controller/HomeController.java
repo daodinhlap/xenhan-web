@@ -41,6 +41,16 @@ public class HomeController extends AbstractController {
     mv.addObject("title","Xe Nhàn - Shop");
     return mv;
   }
+  
+  @GetMapping(value = "/dang-ky")
+  public ModelAndView registry() {
+//    String token = (String)httpRequest.getSession().getAttribute(PaydAuthenticationFilter.TOKEN_ATTRIBUTE_NAME);
+//    logger.info("----  > token = "+ token);
+//    if(StringUtils.isEmpty(token)) return new ModelAndView("redirect:/dang-nhap");
+    ModelAndView mv = new ModelAndView("public.register");
+    mv.addObject("title","Xe Nhàn - Đăng ký");
+    return mv;
+  }
 
   /* LOGIN */
   @GetMapping(value = "/dang-nhap")

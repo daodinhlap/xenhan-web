@@ -17,7 +17,7 @@
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="/">
-				<img class="logo-center" src="/resources/images/mtop-logo.png">
+				<img class="logo-center" src="/resources/favicon.ico">
 			</a>
 		</div>
 		<div id="navbar-header" class="navbar-collapse collapse">
