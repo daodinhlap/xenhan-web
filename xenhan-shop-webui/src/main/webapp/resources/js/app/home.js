@@ -31,43 +31,8 @@ function registerXenhan() {
 			}
 		}).fail(function(data) {
 			console.log(data);
-			var responseText = data.responseText;
-			if (responseText == ErrorCode.EXISTED_PAYD_ACCOUNT) {
-				noti.fail("Thông báo!", "Bạn đã . Vui lòng đăng nhập bằng tài khoản HomeDirect để sử dụng",function() {goHome()});
-				return;
-			}
-			if (responseText == ErrorCode.INVALID_CAPTCHA) {
-				error.push({message: "Mã bảo mật không hợp lệ", id: "alert"});
-				noti.error(error);
-				setTimeout(() => { reload() }, 3000);
-				return;
-			}
-			if (responseText == ErrorCode.EXISTED_ACCOUNT_NOT_IN_PAYD) {
-				noti.confirm("Bạn đã có tài khoản HomeDirect, bạn có muốn kích hoạt Ví với tài khoản HomeDirect đã có không?",
-						function(result) {
-							if (result) {registerXenhanAccount()}; return;
-							goHome();
-						});
-				return;
-			}
-			noti.fail("Thông báo!","Đăng ký ví không thành công. Vui lòng thử lại sau",function() {reload()});
+			noti.fail("Thông báo!","Đăng ký không thành công. Vui lòng thử lại sau",function() {reload()});
 		});
-}
-
-
-function countDownTimeResend(){
-	var countDownDate = new Date().getTime() + 45000;//+45s
-	var x = setInterval(function() {
-	  var now = new Date().getTime();
-	  var distance = countDownDate - now;
-	  $('#countDownOTP').text(Math.floor(distance/1000));
-	  countDownOTP = distance;
-	  if (distance < 0) {
-	    clearInterval(x);
-	    $('#countDownOTP').text("0");
-	    countDownOTP = 0
-	  }
-	}, 1000);
 }
 
 
@@ -93,86 +58,6 @@ function loginXenhan() {
 		window.location.href = '/';
 	}).fail(function(data) {
 		window.location.href = '/';
-	});
-}
-
-function resendOtp() {
-	if(countDownOTP > 0){
-		noti.dialog("<i class='fa fa-ban fa-2x' aria-hidden='true' style='color: #ff0000'></i> " +
-				"Hãy đợi sau <span id='countDownOTP'></span> giây để gửi lại mã xác nhận!", 3);
-		return;
-	}
-	$.ajax({
-		type : 'GET',
-		contentType : 'application/json',
-		url : url_resendOtp + "?phone=" + form.phone(),
-	}).done(function(data) {
-		console.log(JSON.stringify(data));
-		if (data.code != "01") {
-			noti.fail("Thông báo", "Có lỗi xảy ra, xin vui lòng thử lại sau", function(){});
-			return;
-		}
-		noti.dialog("<i class='fa fa-check fa-2x' aria-hidden='true' style='color: #1b926c'></i>" +
-				"Mã xác nhận OTP đã được gửi lại cho bạn !",3);
-		countDownTimeResend(); // countdown time
-	}).fail(function(data) {
-		console.log("Error: " + JSON.stringify(data));
-		noti.fail("Thông báo", "Có lỗi xảy ra, xin vui lòng thử lại sau", function(){});
-	}).always(function() {
-	});
-}
-
-function confirmOTP() {
-	var otp = form.otp();
-	if (!otp) {
-		error.push({message: Error_message.EMPTY_OTP, id: "otp"});
-		noti.error(error);
-		return;
-	}
-	var request = {
-		otp : otp,
-		phone : form.phone()
-	}
-	$.ajax({
-		type : 'POST',
-		contentType : 'application/json',
-		url : url_confirmOtp,
-		data : JSON.stringify(request)
-	}).done(function(data) {
-		console.log(JSON.stringify(data));
-		if (!data){
-			error.push({message: Error_message.CONNECT_FAIL, id: "alert"});
-			noti.error(error);
-			setTimeout(() => {
-				reload();
-			}, 3000);
-			return;
-		}
-		if (data.code == ErrorCode.NOT_MATCH){
-			error.push({message: Error_message.NOT_MATCH_OTP, id: "otp"});
-			noti.error(error);
-			form.setOtp("");
-			return;
-		}
-		if (data.code != ErrorCode.SUCCESS) {
-			error.push({message: data.message, id: "alert"});
-			noti.error(error);
-			return;
-		}
-		// ok
-		var message = " SĐT: <strong>" + form.phone() + "</strong> và mật khẩu này (là tài khoản HomeDirect)" +
-				" được dùng chung cho tất cả các dịch vụ mà HomeDirect cung cấp";
-		if(onlyRegisterAccount){
-			message = "Sử dụng tài khoản HomeDirect đã có để đăng nhập";
-		}
-		noti.ok("Đăng ký Ví thành công", message, function() { goHome() });
-	}).fail(function(data) {
-		error.push({message: "Xác nhận đăng ký thất bại! Xin vui lòng thử lại", id: "alert"});
-		noti.error(error);
-		setTimeout(() => {
-			reload();
-		}, 3000);
-	}).always(function() {
 	});
 }
 
