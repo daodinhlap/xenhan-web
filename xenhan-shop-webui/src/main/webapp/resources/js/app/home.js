@@ -4,7 +4,7 @@ var onlyRegisterAccount = false;
 var countDownOTP = 0;
 // URL
 var url_login = BASE_URL + "/login";
-var url_register = BASE_URL + "/dang-ky";
+var url_register = BASE_URL + "/tao-tai-khoan-nguoi-dung";
 var url_resendOtp = BASE_URL + "/gui-lai-otp";
 var url_confirmOtp = BASE_URL + "/confirm-otp";
 //===================================================================================
@@ -15,6 +15,8 @@ function registerXenhan() {
 		noti.error(error);
 		return;
 	}
+	
+	alert(JSON.stringify(form.requestRegister()));
 
 	$.ajax({
 			type : 'POST',
@@ -69,13 +71,13 @@ function cancleRegister(){
 		});
 }
 
-function validate(fullName, phone, password, confirmPass, gRecaptchaResponse) {
-	if (!phone && !password && !fullName && !confirmPass) {
+function validate(name, phone, password, confirmPass, gRecaptchaResponse) {
+	if (!phone && !password && !name && !confirmPass) {
 		error.push({message: Error_message.EMPTY_INPUT, id: "alert"});
 		return error;
 	}
-	if (fullName.length < 6 || fullName.length > 50) {
-		error.push({message:"Họ tên hợp lệ có độ dài từ 6 đến 50 ký tự", id: "fullName"});
+	if (name.length < 6 || name.length > 50) {
+		error.push({message:"Họ tên hợp lệ có độ dài từ 6 đến 50 ký tự", id: "name"});
 	}
 	if (!phone) {
 		error.push({message:"Xin vui lòng nhập số điện thoại", id: "phone"});
@@ -84,36 +86,38 @@ function validate(fullName, phone, password, confirmPass, gRecaptchaResponse) {
 		error.push({message:"Số điện thoại không đúng định dạng", id: "phone"});
 	}
 	if (password.length < 6 || password.length > 30) {
-		error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "pass"});
+		error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "password"});
 	}
 	if (confirmPass.length < 6 || confirmPass.length > 30) {
-		error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "confirmPass"});
+		error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "confirmPassword"});
 	}
 	if (strcmp(password, confirmPass) != 0 && confirmPass.length >= 6) {
-		error.push({message:"Mật khẩu không đúng. Nhập lại mật khẩu", id: "confirmPass"});
+		error.push({message:"Mật khẩu không đúng. Nhập lại mật khẩu", id: "confirmPassword"});
 	}
-	if(!gRecaptchaResponse){
-		error.push({message:"Xin vui lòng xác thực!", id: "g-recaptcha-response"});
-	}
+	//if(!gRecaptchaResponse){
+	//	error.push({message:"Xin vui lòng xác thực!", id: "g-recaptcha-response"});
+	//}
 	return error;
 }
 
 function FormRegister() {
-	this.fullName = function() {return $('#fullName').val()};
-	this.phone = function() {return $('#phone').val().trim()};
+	this.name = function() {return $('#name').val()};
+	this.phone = function() { return $('#phone').val().trim() };
+	this.gender = function() { return $('#gender').val() };
 	this.password = function() {return $('#password').val()};
-	this.confirmPass = function() {return $('#confirmPass').val()};
+	this.confirmPass = function() {return $('#confirmPassword').val()};
 	this.gRecaptchaResponse = function() {return $('#g-recaptcha-response').val()};
 	this.otp = function() {return $('#otp').val()};
 	
-	this.setOtp = function(otp){$('#otp').val(otp)};
 	this.setPhone = function(value){$('#phone').val(value)};
-	this.setPass = function(value){$('#pass').val(value)};
+	this.setPass = function(value){$('#password').val(value)};
 	
 	this.requestRegister = function() {
 		return {
-			userName : this.phone(),
-			fullName : this.fullName(),
+			username : this.phone(),
+			phone : this.phone(),
+			gender : this.gender(),
+			name : this.name(),
 			password : this.password(),
 			gRecaptchaResponse : this.gRecaptchaResponse()
 		}
@@ -125,17 +129,17 @@ function FormRegister() {
 		}
 	}
 	this.validate = function() {
-		return validate(this.fullName(), this.phone(), this.password(), this.confirmPass(), this.gRecaptchaResponse());
+		return validate(this.name(), this.phone(), this.password(), this.confirmPass(), this.gRecaptchaResponse());
 	}
 }
 // ON LOAD
 $(document).ready(function() {
 	$('#phone').keypress(function(event) {
 		if (event.keyCode == 13 || event.which == 13) {
-			$('#pass').focus();
+			$('#password').focus();
 		}
 	});
-	$('#pass').keypress(function(event) {
+	$('#password').keypress(function(event) {
 		if (event.keyCode == 13 || event.which == 13) {
 			loginXenhan();
 		}
