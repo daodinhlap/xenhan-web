@@ -45,7 +45,7 @@ function Dropoff() {
 
 }
 
-function Contact() {
-    this.userName = '';
-    this.phone = '';
+function Contact(userName, phone) {
+    this.userName = userName;
+    this.phone = phone;
 }

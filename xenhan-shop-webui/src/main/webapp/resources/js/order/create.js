@@ -1,6 +1,6 @@
 var noti = new Notify();
-
-var url_bankFee = BASE_URL + "/ngan-hang/phi?bankId=";
+var form = new Form();
+var url_bankFee = BASE_URL + "/";
 // ============================================
 
 // ON LOAD
@@ -8,31 +8,48 @@ $(document).ready(function($) {
 
 });
 
+function create() {
+    //TODO: validate
 
+    var order = makeModel();
+    console.log(order);
+
+}
+
+function move(){
+    $('#info-receiver').toggle();
+    $('#info-order').toggle();
+}
 
 // MODEL
-function makeOrder(){
-    this.
+function Form(){
+    this.userName = function(){ return $('#userName').val()};
+	this.phone = function(){ return $('#phone').val()};
+	this.address = function(){ return $('#address').val()};
+	this.province = function(){ return $('#province option:selected').text()};
+    this.district = function(){ return $('#district option:selected').text()};
+	this.note = function(){ return $('#note').val()};
 
-	this.sourceAccountNo = function(){ return $('#sourceAccount').find(':selected').data('accountno')};
-	this.balance = function(){ return $('#sourceAccount').val()};
-	
-	this.amount = function(){ return $('#amount').val()};
-	this.bankAccountId = function(){ return this.bank().data("id")};
-	this.bankId = function(){ return this.bank().data("bankid")};
-	this.bankName = function(){ return this.bank().data("bankname")};
-	this.bankAccountName = function(){ return this.bank().data("bankaccountname")};
-	this.bankAccount = function(){ return this.bank().data("bankaccount")};
-	this.branchName = function(){ return this.bank().data("branchname")};
+	this.cod = function(){ return $('#cod').val()};
+    this.amount = function(){ return $('#amount').val()};
+    this.coupon = function(){ return $('#coupon').val()};
+    this.shipAmount = function(){ return $('#shipAmount').text()};
+}
 
-	this.validate = function (){
-		if(!this.amount()){
-			error.push({message: Error_message.EMPTY_AMOUNT, id: "amount"});
-		}
-		if(numberFormat(this.amount()) > Math.round(this.balance())){
-			error.push({message: Error_message.BALANCE_INVALID, id: "alert"});
-		}
-		return error;
-	}
+function makeModel(){
+    var order = new Order();
+    order.cod = form.cod();
+
+    var dropoff = new Dropoff();
+    dropoff.address = form.address();
+    dropoff.province = form.province();
+    dropoff.district = form.district();
+    dropoff.contact = new Contact(form.userName(), form.phone());
+
+    order.dropoff = dropoff;
+    order.goodAmount = form.amount();
+    order.shipAmount = form.shipAmount();
+
+    return order;
 }
 
