@@ -324,44 +324,6 @@ function currencyFormat(number) {
 }
 
 
-function countDownOTP(position) {
-	$('#confirmOtp').show();
-	var id = "countDown";
-	if(position){
-		id = position.id; 
-	}
-	var now = new Date();
-	now.setMinutes(now.getMinutes() + 5);
-	now.setSeconds(now.getSeconds() + 5);
-	var countDownDate = new Date(now).getTime();
-
-	var countDown = setInterval(function() {
-		var now = new Date().getTime();
-		var distance = countDownDate - now;
-
-		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-		$('#' + id).html("Mã OTP sẽ hết hạn sau: <span style='color:red'>"+minutes + " phút : " + seconds + " giây<span>");
-
-		if (distance < 0) {
-			clearInterval(countDown);
-			$('#' + id).text("Hết hạn nhập OTP !");
-			noti.fail("Thông báo","Hết thời gian nhập mã xác nhận OTP. Xin vui lòng thực hiện lại giao dịch!",function(){reload()});
-			$('#' + id).hide();
-		}
-	}, 1000);
-	return countDown;
-}
-function clearCountDown(position) {
-	clearInterval(countDown);
-	var id = "countDown";
-	if(position){
-		id = position.id; 
-	}
-	$('#' + id).text('');
-}
-
 function showMessage(input) {
 	if (input == "clean") {
 		$('#alert').hide();
@@ -475,40 +437,6 @@ function Notify(){
 		},time * 1000);
 		return noti;
 	}
-}
-
-function handlerCopyCard(){
-	$("[id^=copy]").click(function(e){
-		copy(e.target.id);
-	});
-}
-function copy(id_target){
-	window.getSelection().removeAllRanges();
-    var target = document.querySelector('#'+id_target);
-    var range = document.createRange();
-    range.selectNode(target);
-    window.getSelection().addRange(range);
-    try  {
-    	document.execCommand('copy');
-        noti.dialog("Đã copy: <strong>"+ target.innerText +"</strong>",1);
-    } catch (err) {
-        noti.dialog("Copy lỗi! Xin thử lại",1);
-    }
-    window.getSelection().removeAllRanges();
-}
-
-function checkTimesSendOTP(data) {
-	if(data.code != ErrorCode.NOT_MATCH){
-		submitOtp = 0;
-	}
-	if(submitOtp  > 2 && data.code != ErrorCode.SUCCESS) {
-		error.push({message: Error_message.MAX_SEND_OTP, id: "alert"});
-		noti.error(error);
-		
-		setTimeout(() => { reload();}, 3000);
-		return;
-	}
-	form.setOtp("");
 }
 
 function getLinkConfirm(requestId, code){
