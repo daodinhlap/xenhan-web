@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequestMapping("/")
 public class HomeController extends AbstractController {
-  
+
   private final static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
   @Autowired
@@ -34,14 +34,11 @@ public class HomeController extends AbstractController {
   /* HOME */
   @GetMapping(value = "/")
   public ModelAndView home(HttpServletRequest httpRequest) {
-//    String token = (String)httpRequest.getSession().getAttribute(PaydAuthenticationFilter.TOKEN_ATTRIBUTE_NAME);
-//    logger.info("----  > token = "+ token);
-//    if(StringUtils.isEmpty(token)) return new ModelAndView("redirect:/dang-nhap");
     ModelAndView mv = new ModelAndView("home");
     mv.addObject("title","Xe Nhàn - Shop");
     return mv;
   }
-  
+
   @GetMapping(value = "/dang-ky")
   public ModelAndView registry() {
     ModelAndView mv = new ModelAndView("public.register");
@@ -56,5 +53,4 @@ public class HomeController extends AbstractController {
     mv.addObject("title","Xe Nhàn - Đăng Nhập");
     return mv;
   }
-
 }

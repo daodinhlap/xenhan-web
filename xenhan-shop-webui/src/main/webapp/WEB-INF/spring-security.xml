@@ -18,10 +18,7 @@
 	</beans:bean> 
 
 	<beans:bean id="customUsernamePasswordAuthenticationFilter"
-		class="com.homedirect.payd.web.auth.PaydAuthenticationFilter">
-		<!-- beans:constructor-arg ref="loginPathRequestMatcher"/>
-		<beans:constructor-arg ref="environment"/>
-		<beans:constructor-arg ref="httpClient"/-->
+		class="com.homedirect.xenhan.web.auth.XnAuthenticationFilter">
 		<beans:constructor-arg ref="apiExchangeService"/>
 			
 		<beans:property name="authenticationManager" ref="authenticationManager" />
@@ -48,7 +45,6 @@
 		<csrf disabled="true" />
 		<custom-filter position="FORM_LOGIN_FILTER"
 			ref="customUsernamePasswordAuthenticationFilter" />
-		<custom-filter after="FORM_LOGIN_FILTER" ref="concurrencyFilter" />
 
 		<intercept-url pattern="/dang-nhap" access="permitAll" />
 		<intercept-url pattern="/dang-ky" access="permitAll" />
@@ -70,13 +66,8 @@
 			session-authentication-strategy-ref="session-management" />
 	</http>
 
-	<beans:bean id="concurrencyFilter"
-		class="com.homedirect.payd.web.auth.PaydConcurrentSessionFilter">
-		<beans:constructor-arg ref="sessionRegistry" />
-		<beans:constructor-arg name="expiredUrl" value="/" />
-	</beans:bean>
 
-	<beans:bean id="sessionRegistry" class="com.homedirect.payd.web.auth.PaydSessionRegistry" />
+	<beans:bean id="sessionRegistry" class="com.homedirect.xenhan.web.auth.XnSessionRegistry" />
 
 	<beans:bean id="session-management"
 		class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
@@ -100,8 +91,6 @@
 		<authentication-provider ref="customAuthenticationProvider" />
 	</authentication-manager>
 
-	<beans:bean id="customAuthenticationProvider" class="com.homedirect.payd.web.auth.UserAuthProvider" />
-
-	<!-- beans:bean id="authenticationService" class="com.homedirect.payd.web.auth.AuthenticationService" /-->
+	<beans:bean id="customAuthenticationProvider" class="com.homedirect.xenhan.web.auth.UserAuthProvider" />
 
 </beans:beans>

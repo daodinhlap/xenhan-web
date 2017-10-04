@@ -52,13 +52,14 @@ function loginXenhan() {
 	}
 	$.ajax({
 		type : 'POST',
-		url : url_login,
+		url : '/login',
 		data : form.requestLogin(),
 	}).done(function(data) {
 		window.location.href = '/';
 	}).fail(function(data) {
 		window.location.href = '/';
 	});
+	
 }
 
 function cancleRegister(){
