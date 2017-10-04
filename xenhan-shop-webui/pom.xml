@@ -4,12 +4,12 @@
 					http://www.springframework.org/schema/data/mongo
           			http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>com.homedirect.paydee</groupId>
 	<artifactId>xenhan-shop-webui</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
-	
+
 	<name>Xenhan Shop Webapp</name>
 	<url>http://maven.apache.org</url>
 
@@ -20,6 +20,12 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.5</version>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -80,15 +86,15 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
-			
+
+
 		<!-- WEB -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-extras</artifactId>
 			<version>3.0.7</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>el-api</artifactId>
@@ -128,7 +134,7 @@
 			<artifactId>htmlcompressor</artifactId>
 			<version>1.5.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
@@ -152,8 +158,30 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.4</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.homedirect.user</groupId>
+			<artifactId>user-model</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.homedirect.xenhan</groupId>
+			<artifactId>xenhan-model</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-integration</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>xenhan-shop-webui</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
@@ -206,12 +234,6 @@
 					<jvmArgs>-Xmx2048m -Xms1536m
 						-XX:PermSize=128m -XX:MaxPermSize=512m</jvmArgs>
 					<reload>manual</reload>
-					<systemProperties>
-						<systemProperty>
-							<name>lib</name>
-							<value>${basedir}/target/moom-webui/WEB-INF/lib</value>
-						</systemProperty>
-					</systemProperties>
 					<scanIntervalSeconds>30</scanIntervalSeconds>
 					<systemProperties>
 						<systemProperty>
@@ -226,7 +248,6 @@
 				</configuration>
 			</plugin>
 
-		
 			<plugin>
 				<groupId>com.tunyk.mvn.plugins.htmlcompressor</groupId>
 				<artifactId>htmlcompressor-maven-plugin</artifactId>
@@ -238,7 +259,8 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
