@@ -46,7 +46,7 @@
 
 				<div class="form-group">
 					<label>Nhập lại mật khẩu  <span style="color: red">*</span>:</label>
-					<input type="password" class="form-control" id="rePassword">
+					<input type="password" class="form-control" id="confirmPassword">
 				</div>
 			</form>
 

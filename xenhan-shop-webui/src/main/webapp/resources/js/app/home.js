@@ -4,7 +4,7 @@ var onlyRegisterAccount = false;
 var countDownOTP = 0;
 // URL
 var url_login = BASE_URL + "/login";
-var url_register = BASE_URL + "/dang-ky";
+var url_register = BASE_URL + "/tao-tai-khoan-nguoi-dung";
 var url_resendOtp = BASE_URL + "/gui-lai-otp";
 var url_confirmOtp = BASE_URL + "/confirm-otp";
 //===================================================================================
@@ -15,6 +15,8 @@ function registerXenhan() {
 		noti.error(error);
 		return;
 	}
+	
+	alert(url_register);
 
 	$.ajax({
 			type : 'POST',
@@ -84,17 +86,17 @@ function validate(fullName, phone, password, confirmPass, gRecaptchaResponse) {
 		error.push({message:"Số điện thoại không đúng định dạng", id: "phone"});
 	}
 	if (password.length < 6 || password.length > 30) {
-		error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "pass"});
+		error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "password"});
 	}
 	if (confirmPass.length < 6 || confirmPass.length > 30) {
-		error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "confirmPass"});
+		error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "confirmPassword"});
 	}
 	if (strcmp(password, confirmPass) != 0 && confirmPass.length >= 6) {
-		error.push({message:"Mật khẩu không đúng. Nhập lại mật khẩu", id: "confirmPass"});
+		error.push({message:"Mật khẩu không đúng. Nhập lại mật khẩu", id: "confirmPassword"});
 	}
-	if(!gRecaptchaResponse){
-		error.push({message:"Xin vui lòng xác thực!", id: "g-recaptcha-response"});
-	}
+	//if(!gRecaptchaResponse){
+	//	error.push({message:"Xin vui lòng xác thực!", id: "g-recaptcha-response"});
+	//}
 	return error;
 }
 
@@ -102,7 +104,7 @@ function FormRegister() {
 	this.fullName = function() {return $('#fullName').val()};
 	this.phone = function() {return $('#phone').val().trim()};
 	this.password = function() {return $('#password').val()};
-	this.confirmPass = function() {return $('#confirmPass').val()};
+	this.confirmPass = function() {return $('#confirmPassword').val()};
 	this.gRecaptchaResponse = function() {return $('#g-recaptcha-response').val()};
 	this.otp = function() {return $('#otp').val()};
 	
