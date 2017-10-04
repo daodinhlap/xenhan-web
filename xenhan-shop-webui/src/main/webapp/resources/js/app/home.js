@@ -8,13 +8,14 @@ var url_register = BASE_URL + "/dang-ky";
 var url_resendOtp = BASE_URL + "/gui-lai-otp";
 var url_confirmOtp = BASE_URL + "/confirm-otp";
 //===================================================================================
-// Register Payd user
+// Register xenhan user
 function registerXenhan() {
 	var hasError = form.validate();
 	if(hasError ==  undefined || hasError.length != 0){
 		noti.error(error);
 		return;
 	}
+
 	$.ajax({
 			type : 'POST',
 			contentType : 'application/json',
@@ -28,12 +29,11 @@ function registerXenhan() {
 				setTimeout(() => { reload() }, 3000);
 				return;
 			}
-			showPopupConfirm(); // OK
 		}).fail(function(data) {
 			console.log(data);
 			var responseText = data.responseText;
 			if (responseText == ErrorCode.EXISTED_PAYD_ACCOUNT) {
-				noti.fail("Thông báo!", "Bạn đã có ví. Vui lòng đăng nhập bằng tài khoản HomeDirect để sử dụng",function() {goHome()});
+				noti.fail("Thông báo!", "Bạn đã . Vui lòng đăng nhập bằng tài khoản HomeDirect để sử dụng",function() {goHome()});
 				return;
 			}
 			if (responseText == ErrorCode.INVALID_CAPTCHA) {
@@ -53,39 +53,8 @@ function registerXenhan() {
 			noti.fail("Thông báo!","Đăng ký ví không thành công. Vui lòng thử lại sau",function() {reload()});
 		});
 }
-// register xenhan Account
-function registerXenhanAccount() {
-	onlyRegisterAccount = true;
-	var request = {
-		userName : form.phone()
-	};
-	$.ajax({
-		type : 'POST',
-		contentType : 'application/json',
-		url : url_register,
-		data : JSON.stringify(request),
-		dataType : 'text'
-	}).done(function(data) {
-		if (!data) {// I/O fail
-			error.push({message: Error_message.CONNECT_FAIL, id: "alert"});
-			noti.error(error);
-			setTimeout(() => { reload() }, 3000);
-			return;
-		}
-		showPopupConfirm(); // OK
-	}).fail(function(data) {
-		console.log(data);
-		noti.fail("Thông báo", "Đăng ký ví không thành công. Vui lòng thử lại sau", function() {reload()});
-	});
-}
-function showPopupConfirm(){
-	$("#phoneRegister").text(form.phone());
-	
-	$('#confirm-otp').show();
-	$('#form-register').hide();
-	
-	countDownTimeResend();// start countdown time resend OTP
-}
+
+
 function countDownTimeResend(){
 	var countDownDate = new Date().getTime() + 45000;//+45s
 	var x = setInterval(function() {
@@ -126,6 +95,7 @@ function loginXenhan() {
 		window.location.href = '/';
 	});
 }
+
 function resendOtp() {
 	if(countDownOTP > 0){
 		noti.dialog("<i class='fa fa-ban fa-2x' aria-hidden='true' style='color: #ff0000'></i> " +

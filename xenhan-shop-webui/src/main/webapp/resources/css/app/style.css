@@ -101,7 +101,6 @@ body {
   position: relative;
   /*max-width: 335px;*/
   width: 100%;
-  margin: 0 auto 100px;
 }
 .container.active .card:first-child {
   background: #f2f2f2;
@@ -176,20 +175,8 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   -webkit-transition: .3s ease;
   transition: .3s ease;
-  /* Title */
-  /* Inputs */
-  /* Button */
-  /* Footer */
-  /* Alt Card */
 }
-.card:first-child {
-  background: #fafafa;
-  height: 10px;
-  border-radius: 5px 5px 0 0;
-  margin: 0 10px;
-  padding: 0;
-  display: none;
-}
+
 .card .title {
   position: relative;
   z-index: 1;
@@ -201,256 +188,8 @@ body {
   font-weight: 600;
   text-transform: uppercase;
 }
-.card .input-container {
-  position: relative;
-  margin: 0 35px 20px;
-}
-.card .input-container input {
-  outline: none;
-  z-index: 1;
-  position: relative;
-  background: none;
-  width: 100%;
-  height: 60px;
-  border: 0;
-  color: #212121;
-  font-size: 24px;
-  font-weight: 400;
-}
-.card .input-container input:focus ~ label {
-  color: #9d9d9d;
-  -webkit-transform: translate(-12%, -50%) scale(0.75);
-          transform: translate(-12%, -50%) scale(0.75);
-}
-.card .input-container input:focus ~ .bar:before, .card .input-container input:focus ~ .bar:after {
-  width: 50%;
-}
-.card .input-container input:valid ~ label {
-  color: #9d9d9d;
-  -webkit-transform: translate(-12%, -50%) scale(0.75);
-          transform: translate(-12%, -50%) scale(0.75);
-}
-.card .input-container label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #757575;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 75px;
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
-}
-.card .input-container .bar {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  background: #757575;
-  width: 100%;
-  height: 1px;
-}
-.card .input-container .bar:before, .card .input-container .bar:after {
-  content: '';
-  position: absolute;
-  background: #f3931f;
-  width: 0;
-  height: 2px;
-  -webkit-transition: .2s ease;
-  transition: .2s ease;
-}
-.card .input-container .bar:before {
-  left: 50%;
-}
-.card .input-container .bar:after {
-  right: 50%;
-}
-.card .button-container {
-  margin: 0 60px;
-  text-align: center;
-}
-.card .button-container button {
-  outline: 0;
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  background: 0;
-  /*width: 160px;*/
-  width: 50%;
-  height:45px;
-  border: 1px solid #21ba45;
-  font-size: 20px;
-  line-height: 1;
-  background: #21ba45 ;
-  color: #fff;
-  overflow: hidden;
-  -webkit-transition: .3s ease;
-  transition: .3s ease;
-}
 
-.card .button-container button.submainpayd {
-  background: #f5f5f5;
-}
-.card .button-container button span {
-  position: relative;
-  z-index: 1;
-  color: #f5f5f5;
-  -webkit-transition: .3s ease;
-  transition: .3s ease;
-}
-.card .button-container button.submainpayd span {
-    color: #f3931f;
-}
-.card .button-container button:before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: block;
-  background: #f3931f;
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  margin: -15px 0 0 -15px;
-  opacity: 0;
-  -webkit-transition: .3s ease;
-  transition: .3s ease;
-}
-.card .button-container button:hover, .card .button-container button:active, .card .button-container button:focus {
-  border-color: #f3931f;
-  background: #fff;
-}
-.card .button-container button:hover span, .card .button-container button:active span, .card .button-container button:focus span {
-  color: #f3931f;
-}
-.card .button-container button:active span, .card .button-container button:focus span {
-  color: #ffffff;
-}
-.card .button-container button:active:before, .card .button-container button:focus:before {
-  opacity: 1;
-  -webkit-transform: scale(10);
-  transform: scale(10);
-}
-.card .footer {
-  margin: 20px 0 0;
-  color: #d3d3d3;
-  font-size: 16px;
-  font-weight: 300;
-  text-align: center;
-}
-.card .footer a {
-  color: #757575;
-  text-decoration: none;
-  -webkit-transition: .3s ease;
-  transition: .3s ease;
-}
-.card .footer a:hover {
-  color: #f3931f;
-}
-.card.alt {
-  position: absolute;
-  top: 40px;
-  right: -70px;
-  z-index: 10;
-  width: 140px;
-  height: 140px;
-  background: none;
-  border-radius: 100%;
-  box-shadow: none;
-  padding: 0;
-  -webkit-transition: .3s ease;
-  transition: .3s ease;
-  /* Toggle */
-  /* Title */
-  /* Input */
-  /* Button */
-}
-.card.alt .toggle {
-  position: relative;
-  background: #f3931f;
-  width: 140px;
-  height: 140px;
-  border-radius: 100%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  color: #ffffff;
-  font-size: 58px;
-  line-height: 140px;
-  text-align: center;
-  cursor: pointer;
-}
-.card.alt .toggle:before {
-  content: '\f040';
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-transform: translate(0, 0);
-          transform: translate(0, 0);
-}
-.card.alt .title,
-.card.alt .input-container,
-.card.alt .button-container {
-  left: 100px;
-  opacity: 0;
-  visibility: hidden;
-}
-.card.alt .title {
-  position: relative;
-  border-color: #ffffff;
-  color: #ffffff;
-}
-.card.alt .title .close {
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  right: 60px;
-  display: inline;
-  color: #ffffff;
-  font-size: 58px;
-  font-weight: 400;
-}
-.card.alt .title .close:before {
-  content: '\00d7';
-}
-.card.alt .input-container input {
-  color: #ffffff;
-}
-.card.alt .input-container input:focus ~ label {
-  color: #ffffff;
-}
-.card.alt .input-container input:focus ~ .bar:before, .card.alt .input-container input:focus ~ .bar:after {
-  background: #ffffff;
-}
-.card.alt .input-container input:valid ~ label {
-  color: #ffffff;
-}
-.card.alt .input-container label {
-  color: rgba(255, 255, 255, 0.8);
-}
-.card.alt .input-container .bar {
-  background: rgba(255, 255, 255, 0.8);
-}
-.card.alt .button-container button {
-  width: 100%;
-  background: #ffffff;
-  border-color: #ffffff;
-}
-.card.alt .button-container button span {
-  color: #f3931f;
-}
-.card.alt .button-container button:hover {
-  background: rgba(255, 255, 255, 0.9);
-}
-.card.alt .button-container button:active:before, .card.alt .button-container button:focus:before {
-  display: none;
-}
-.form-control {
-	border-radius:0px;
-	/*background: #cd770e;
-	border: none;
-	color: #fff !important;*/
-}
+
 .navbar-inverse .navbar-nav > li > a {color: #fff;}
 .navbar-inverse .navbar-nav > li > a:hover {opacity: 0.5}
 .nav > li > a:focus, .nav > li > a:hover {background-color: transparent;}
@@ -460,28 +199,6 @@ body {
 
 .nav-sidebar > li > a { padding: 10px 10px 10px 10px; color: #32383d}
 .nav-sidebar> li >a > img {max-width: 33px; margin-right:5px}
-.icon-taikhoan {background: url(/resources/images/icon-taikhoan.png) no-repeat center left 10px;}
-.icon-lichsu {background: url(/resources/images/icon-lichsu.png) no-repeat center left 10px;}
-.icon-chuyentien {background: url(/resources/images/icon-chuyentien.png) no-repeat center left 10px;}
-.icon-ruttien {background: url(/resources/images/icon-ruttien.png) no-repeat center left 10px;}
-.icon-naptien {background: url(/resources/images/icon-naptien.png) no-repeat center left 10px;}
-.icon-muathe {background: url(/resources/images/icon-muathe.png) no-repeat center left 10px;}
-.icon-muathegame {background: url(/resources/images/icon-muathegame.png) no-repeat center left 10px;}
-.icon-napthe {background: url(/resources/images/icon-napthe.png) no-repeat center left 10px;}
-.icon-logout {background: url(/resources/images/icon-logout.png) no-repeat center left 10px;}
-.icon-saoke {background: url(/resources/images/icon-saoke.png) no-repeat center left 10px;}
-.icon-napTKgame {background: url(/resources/images/icon-napTKgame.png) no-repeat center left 10px;}
-
-.active-chuyentien {background: url(/resources/images/icon-chuyentien-active.png) no-repeat center left 10px #f3931f;}
-.active-ruttien {background: url(/resources/images/icon-ruttien-active.png) no-repeat center left 10px #f3931f;}
-.active-muathe {background: url(/resources/images/icon-muathe-active.png) no-repeat center left 10px #f3931f;}
-.active-muathegame {background: url(/resources/images/icon-muathegame-active.png) no-repeat center left 10px #f3931f;}
-.active-taikhoan {background: url(/resources/images/icon-taikhoan-active.png) no-repeat center left 10px #f3931f;}
-.active-lichsu {background: url(/resources/images/icon-lichsu-active.png) no-repeat center left 10px #f3931f;}
-.active-naptien {background: url(/resources/images/icon-naptien-active.png) no-repeat center left 10px #f3931f;}
-.active-napthe {background: url(/resources/images/icon-napthe-active.png) no-repeat center left 10px #f3931f;}
-.active-saoke {background: url(/resources/images/icon-saoke-active.png) no-repeat center left 10px #f3931f;}
-.active-napTKgame {background: url(/resources/images/icon-napTKgame-active.png) no-repeat center left 10px #f3931f;}
 .menu-active{background-color: #f3931f;}
 
 .active-menu-a a{color:#fff !important}
@@ -1021,12 +738,20 @@ body {
 	/* margin: 4px 0px 4px 0; */
 	width: 25%;
 }
-
-label > input{ 
-  visibility: hidden; 
-  position: absolute;
+label{
+  font-weight: normal;
 }
-label > input + img{ 
+input[type="radio"] {
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
+}
+.button-container{
+    text-align: center  ;
+}
+.btn-xenhan{
+    width: 50%;
+}
+label > input + img{
   cursor:pointer;
   /* border:2px solid transparent;  */
   border: 1px solid #ccc
@@ -1184,13 +909,7 @@ a {color: #337ab7;}
 .border{border: 2px solid #f3931f !important;}
 .normal-border {border: 1px solid #ccc;}
 .margin-0{margin: 0px}
-.border-
-	border-radius: 0px;
-    border-style: none;
-    border-bottom-style: solid;
-    border-bottom-width: 2px;
-    }
-.margin-top--10{margin-top: -10px}   
+.margin-top--10{margin-top: -10px}
 .margin-top-10{margin-top: 10px}   
 .margin-top-15{margin-top: 15px}
 

@@ -4,103 +4,61 @@
 
 <script src='https://www.google.com/recaptcha/api.js?hl=vi'></script>
 
-<div class="container" style="margin-top: -30px;">
-	<div class="card"></div>
+<div class="container" style=" margin-top: -30px;">
 	<div class="card" style=" padding: 20px 0px 20px 0px;">
-	
+
 		<p id="alert"></p>
-		<div id="form-register">
-			<img class="ui centered small image" style="width: 130px;" src="/resources/images/app_logo_orange.png">
-			<h1 class="title">Đăng ký</h1>
-			<!-- FULL NAME -->
-			<div class="input-container">
-				<input type="text" id="fullName" required="required" value="" autocomplete="on"/> <label
-					for="fullName">Họ tên</label>
-				<div class="bar"></div>
-			</div>
-			
-			<div class="input-container">
-			<div class="radio radio-inline">
-              	<label for="gender" class="radio-inline">Nam </label><input name="gender" type="radio" value="1" tabindex="0"/>
-              	</div>
-              	<div class="radio radio-inline">
-              	<label for="gender" class="radio-inline">Nữ </label><input name="gender" type="radio" value="0" tabindex="0"/>
-              	</div>
-				<div class="bar"></div>
-			</div>
-			<!-- PHONE -->
-			<div class="input-container">
-				<input type="tel" id="phone" required="required" value="" style="height: 40px; margin-top: 15px;" autocomplete="on"/> <label
-					for="phone">Số điện thoại</label>
-				<div class="bar"></div>
-			</div>
-			<!-- PASSWORD -->
-			<div class="input-container">
-				<input type="password" id="pass" required="required" value="" style="height: 40px; margin-top: 15px;"/> <label
-					for="pass">Nhập mật khẩu</label>
-				<div class="bar"></div>
-			</div>
-			<div class="input-container">
-				<input type="password" id="confirmPass" required="required" value="" style="height: 40px; margin-top: 15px;"/> <label
-					for="confirmPass">Nhập lại mật khẩu</label>
-				<div class="bar"></div>
-			</div>
-			<div class="input-container">
-				<div style="float:left; margin-bottom: 5px">
-					<p>Hotline: <a href='tel:02871099710'>028 710 99710</a></p>
+		<div style="text-align: center">
+			<img class="ui centered small image" style="width: 150px;" src="/resources/images/app_logo_orange.png">
+		</div>
+		<h1 class="title">Đăng ký tài khoản</h1>
+
+		<div id="form-register" class="container">
+			<form>
+				<div class="form-group">
+					<label>Họ và tên <span style="color: red">*</span>:</label>
+					<input type="text" class="form-control" id="fullName">
 				</div>
-			</div>
-			<!-- RE CAPTCHA  -->
-			<div class="input-container" style="margin-bottom: 15px">
-				<div class="g-recaptcha" data-sitekey="${googleCaptchaSiteKey}" 
-				data-theme="light" style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;"></div>
-			</div>
-	
-			<div class="button-container">
-				<button onclick="registerXenhan()">
+
+				<div class="form-group">
+					<label class="radio-inline">
+						<input type="radio" name="gender" value="1">Nam
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="gender" value="2">Nữ
+					</label>
+				</div>
+
+				<div class="form-group">
+					<label>Số điện thoại đăng nhập <span style="color: red">*</span>:</label>
+					<input type="text" class="form-control" id="phone">
+				</div>
+
+				<div class="form-group">
+					<label>Email <span style="color: red">*</span>:</label>
+					<input type="text" class="form-control" id="email">
+				</div>
+
+				<div class="form-group">
+					<label>Mật khẩu <span style="color: red">*</span>:</label>
+					<input type="password" class="form-control" id="password">
+				</div>
+
+				<div class="form-group">
+					<label>Nhập lại mật khẩu  <span style="color: red">*</span>:</label>
+					<input type="password" class="form-control" id="rePassword">
+				</div>
+			</form>
+
+			<div class="button-container" style=" clear: both;">
+				<button type="button" class="btn btn-success btn-xenhan" onclick="registerXenhan()">
 					<span>Đăng ký</span>
 				</button>
+
+				<div style="margin-top: 10px">
+					<i class="fa fa-arrow-circle-left"></i>&nbsp;<a href="/dang-nhap">Đăng nhập</a>
+				</div>
 			</div>
-			<div class="footer">
-	 			<i class="fa fa-arrow-circle-left"></i>&nbsp;<a href="/">Đăng nhập</a>
-	 			<c:if test="${not empty error }">
-		 			<c:set var="error" scope="session" value=""/>
-	 			</c:if>
-			</div>
-			
 		</div>
-		
-		
-		<div id="confirm-otp" style="display: none" >
-			
-			<h1 class="title">XÁC NHẬN ĐĂNG KÝ</h1>
-			
-			<div class="input-container">
-				<p>Mã xác nhận (OTP) đã được gửi tới số điện thoại: <strong id="phoneRegister"></strong><br></p>
-			</div>
-			
-			<div class="input-container">
-				<input type="tel" required="required" id="otp" /> 
-				<label for="otp">Nhập mã OTP</label>
-				<div class="bar"></div>
-				
-			</div>
-			<div style="float:right; margin-right: 15px">
-				<a href="#" onclick="resendOtp()">Gửi lại mã OTP</a>
-			</div>
-			<div style="float:left; margin-left: 15px">
-				<p>Hotline: <a href='tel:02871099710'>028 71099710</a></p>
-			</div>
-			
-			<div class="button-container">
-				<button onclick="confirmOTP()"> <span>Xác Nhận</span> </button>
-			</div>
-			
-			<div style="text-align: center; margin-top: 20px" >
-				<a style ="color: #777;" href="#" onclick="cancleRegister()">Hủy đăng ký</a>
-			</div>
-	
-		</div>	
-		
 	</div>
 </div>
