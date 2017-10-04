@@ -10,13 +10,22 @@
 	
 		<p id="alert"></p>
 		<div id="form-register">
-		
+			<img class="ui centered small image" style="width: 130px;" src="/resources/images/app_logo_orange.png">
 			<h1 class="title">Đăng ký</h1>
-				
 			<!-- FULL NAME -->
 			<div class="input-container">
 				<input type="text" id="fullName" required="required" value="" autocomplete="on"/> <label
 					for="fullName">Họ tên</label>
+				<div class="bar"></div>
+			</div>
+			
+			<div class="input-container">
+			<div class="radio radio-inline">
+              	<label for="gender" class="radio-inline">Nam </label><input name="gender" type="radio" value="1" tabindex="0"/>
+              	</div>
+              	<div class="radio radio-inline">
+              	<label for="gender" class="radio-inline">Nữ </label><input name="gender" type="radio" value="0" tabindex="0"/>
+              	</div>
 				<div class="bar"></div>
 			</div>
 			<!-- PHONE -->
