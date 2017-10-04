@@ -45,6 +45,7 @@
 		<csrf disabled="true" />
 		<custom-filter position="FORM_LOGIN_FILTER"
 			ref="customUsernamePasswordAuthenticationFilter" />
+		 <custom-filter after="FORM_LOGIN_FILTER" ref="concurrencyFilter" />
 
 		<intercept-url pattern="/dang-nhap" access="permitAll" />
 		<intercept-url pattern="/dang-ky" access="permitAll" />
@@ -55,7 +56,7 @@
 		<intercept-url pattern="/ngan-hang/**" access="hasAnyRole('ROLE_USER')" />
 		<intercept-url pattern="/thong-tin-ca-nhan/**" access="hasAnyRole('ROLE_USER')" />
 
-		<logout logout-success-url="/" />
+		<logout logout-success-url="/dang-nhap" />
 
 		<headers>
 			<frame-options policy="SAMEORIGIN" />
@@ -68,6 +69,12 @@
 
 
 	<beans:bean id="sessionRegistry" class="com.homedirect.xenhan.web.auth.XnSessionRegistry" />
+	
+	<beans:bean id="concurrencyFilter"
+		class="com.homedirect.xenhan.web.auth.XnConcurrentSessionFilter">
+		<beans:constructor-arg ref="sessionRegistry" />
+		<beans:constructor-arg name="expiredUrl" value="/" />
+	</beans:bean>
 
 	<beans:bean id="session-management"
 		class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">

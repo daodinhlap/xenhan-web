@@ -12,6 +12,7 @@ import org.apache.http.client.HttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -41,6 +42,7 @@ import com.homedirect.session.model.UserSession;
  * Jul 25, 2017
  */
 @Component
+@PropertySource("classpath:application.properties")
 public class ApiExchangeService {
   
   public final static String TOKEN_ATTRIBUTE_NAME = "TOKEN-ID";
@@ -60,7 +62,7 @@ public class ApiExchangeService {
   public ApiExchangeService(Environment env, HttpClient httpClient) {
     this.env = env;
     this.apiAddress = env.getProperty("xenhan.frontgate.url");
-    logger.info("\n Call Pay Url === "  + env.getProperty("xenhan.frontgate.url") + "\n");
+    logger.info("\n Call XeNhan Url === "  + env.getProperty("xenhan.frontgate.url") + "\n");
     restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory(httpClient));
   }
   
@@ -198,7 +200,7 @@ public class ApiExchangeService {
     builder.queryParam("username", username).queryParam("password", password);
     URI uri = builder.build().encode().toUri();
 
-//    logger.info("\n ---  > "+ username + " : "+ password + " \n");
+    logger.info("\n login ---  > "+ username + " : "+ password + " \n");
 
     HttpEntity<?> entity = createEntity(request);
     return restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
@@ -209,10 +211,10 @@ public class ApiExchangeService {
     try {
       HttpEntity<?> reqEntity = createEntity(request);
       ResponseEntity<UserSessionResponse> entity = restTemplate.exchange(url, HttpMethod.GET, reqEntity, UserSessionResponse.class);
-      SimpleUser simpleUser = entity.getBody().getData().getUser();
-      logger.info("\n ==> GET USER SESSION: {} - {}\n", url, MAPPER.writeValueAsString(simpleUser));
+//      SimpleUser simpleUser = entity.getBody().getData().getUser();
+//      logger.info("\n ==> GET USER SESSION: {} - {}\n", url, MAPPER.writeValueAsString(simpleUser));
       return entity.getBody().getData();
-    } catch (RestClientException|JsonProcessingException e) {
+    } catch (RestClientException e) {
       logger.error(url + " : " + e.toString(), e);
       return null;
     }

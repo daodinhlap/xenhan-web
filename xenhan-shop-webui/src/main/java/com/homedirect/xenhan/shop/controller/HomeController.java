@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.homedirect.common.util.StringUtils;
+import com.homedirect.xenhan.web.connection.ApiExchangeService;
+
 
 /**
  *  Author : Duy Kien Ngo
@@ -28,14 +31,17 @@ public class HomeController extends AbstractController {
   private final static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
   @Autowired
-  public HomeController(Environment  env) {
+  public HomeController() {
   }
 
   /* HOME */
   @GetMapping(value = "/")
   public ModelAndView home(HttpServletRequest httpRequest) {
+    String token = (String)httpRequest.getSession().getAttribute(ApiExchangeService.TOKEN_ATTRIBUTE_NAME);
+    logger.info("----  > token = "+ token);
+    if(StringUtils.isEmpty(token)) return new ModelAndView("redirect:/dang-nhap");
     ModelAndView mv = new ModelAndView("home");
-    mv.addObject("title","Xe Nhàn - Shop");
+    mv.addObject("title", "Xe Nhàn - Shop");
     return mv;
   }
 

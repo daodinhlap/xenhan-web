@@ -53,7 +53,7 @@ function loginXenhan() {
 	$.ajax({
 		type : 'POST',
 		url : '/login',
-		data : form.requestLogin(),
+		data : 'username='+ phone + '&password=' + pass,
 	}).done(function(data) {
 		window.location.href = '/';
 	}).fail(function(data) {
@@ -101,7 +101,7 @@ function validate(fullName, phone, password, confirmPass, gRecaptchaResponse) {
 function FormRegister() {
 	this.fullName = function() {return $('#fullName').val()};
 	this.phone = function() {return $('#phone').val().trim()};
-	this.password = function() {return $('#pass').val()};
+	this.password = function() {return $('#password').val()};
 	this.confirmPass = function() {return $('#confirmPass').val()};
 	this.gRecaptchaResponse = function() {return $('#g-recaptcha-response').val()};
 	this.otp = function() {return $('#otp').val()};

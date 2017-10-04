@@ -21,12 +21,12 @@
 		<div class="container">
 			<div class="form-group">
 				<label>Số điện thoại  <span style="color: red">*</span></label>
-				<input type="tel" class="form-control" id="phone">
+				<input type="tel" class="form-control" id="phone" value="01677869226">
 			</div>
 
 			<div class="form-group">
 				<label>Mật khẩu  <span style="color: red">*</span></label>
-				<input type="password" class="form-control" id="password">
+				<input type="password" class="form-control" id="password" value="123456">
 			</div>
 
 			<div>

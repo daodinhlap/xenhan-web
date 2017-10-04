@@ -13,19 +13,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 public class AccountTokenAuthFilter extends UsernamePasswordAuthenticationFilter {
   
-//  private final  static Logger LOGGER = LoggerFactory.getLogger(AccountTokenAuthFilter.class);
-	
-//	@Autowired
-//	protected AgentUpdateService agentUpdateService;
-
   @Override
   protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                           FilterChain chain, Authentication authResult)
                                               throws IOException, ServletException {
     super.successfulAuthentication(request, response, chain, authResult);
-//    String id = authResult.getName().toString();
-//    long lastAccess =System.currentTimeMillis();
-//    agentUpdateService.set(id, "lastAccess", String.valueOf(lastAccess));
   }
 
   @Override

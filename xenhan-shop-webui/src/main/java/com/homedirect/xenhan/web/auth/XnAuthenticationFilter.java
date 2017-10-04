@@ -29,15 +29,14 @@ public class XnAuthenticationFilter extends UsernamePasswordAuthenticationFilter
   private static final Logger LOGGER = LoggerFactory.getLogger(XnAuthenticationFilter.class);
   
   public final static String ERROR_LOGIN = "Số điện thoại hoặc mật khẩu không đúng! Xin vui lòng thử lại";
-  public final static String ERROR_LOGIN_MTOP = "Bạn chưa có ví trên MTOP! Vui lòng đăng ký để sử dụng";
+  public final static String ERROR_LOGIN_XN = "Bạn chưa đăng ký sử dụng dịch vụ Xe Nhàn!";
   
-  public final static String TOKEN_ATTRIBUTE_NAME = "TOKEN-ID";
   public final static String FULLNAME_ATTRIBUTE = "FULLNAME";
   public final static String USERNAME_ATTRIBUTE = "USERNAME";
   public final static String IDENTITY_ATTRIBUTE = "IDENTITY";
   public static final String SPRING_SECURITY_LAST_USERNAME_KEY = "SPRING_SECURITY_LAST_USERNAME";
   
-  public static final String XN_DOMAIN = "XeNhan";
+  public static final String XN_DOMAIN = "XENHAN";
 
   private ApiExchangeService apiExchangeService;
 
@@ -53,7 +52,7 @@ public class XnAuthenticationFilter extends UsernamePasswordAuthenticationFilter
       loginResponse = apiExchangeService.login(request);
 //      loginResponse = restTemplate.getForEntity(uri, String.class);
     } catch (Exception e) {
-      logger.error("LOGIN ERROR " + e.getMessage());
+      logger.error("LOGIN ERROR " + e.getMessage(), e);
       return loginFailured(request, response, ERROR_LOGIN);
     }
 
@@ -64,9 +63,9 @@ public class XnAuthenticationFilter extends UsernamePasswordAuthenticationFilter
       
       // check user has account on MTOP
       boolean hasAccount = authentication.getUser().getUser().getMemberships().stream().anyMatch(member -> {
-        return member.getDomain().equals(XN_DOMAIN)  && member.getGroupName().contains("XENHAN");
+        return member.getDomain().equals(XN_DOMAIN);
       });
-      if(!hasAccount) return loginFailured(request, response, ERROR_LOGIN_MTOP);
+      if(!hasAccount) return loginFailured(request, response, ERROR_LOGIN_XN);
 
       HttpSession session = request.getSession(true);
       if (session != null) { // getAllowSessionCreation()
@@ -75,7 +74,7 @@ public class XnAuthenticationFilter extends UsernamePasswordAuthenticationFilter
         session.setAttribute(USERNAME_ATTRIBUTE, usernameKey);
         session.setAttribute(FULLNAME_ATTRIBUTE, authentication.getUser().getUser().getUserProfile().getFullName());
         session.setAttribute(IDENTITY_ATTRIBUTE, authentication.getUser().getUser().getUserProfile().getIdentityCard());
-        session.setAttribute(TOKEN_ATTRIBUTE_NAME, token);
+        session.setAttribute(ApiExchangeService.TOKEN_ATTRIBUTE_NAME, token);
       }
 
       List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
