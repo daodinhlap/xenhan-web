@@ -48,7 +48,7 @@
 			</div>
 	
 			<div class="button-container">
-				<button onclick="registerPayd()">
+				<button onclick="registerXenhan()">
 					<span>Đăng ký</span>
 				</button>
 			</div>

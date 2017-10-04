@@ -99,7 +99,7 @@ body {
 /* Container */
 .container {
   position: relative;
-  max-width: 335px;
+  /*max-width: 335px;*/
   width: 100%;
   margin: 0 auto 100px;
 }
@@ -197,7 +197,7 @@ body {
   margin: 0 0 15px;
   padding: 5px 0 5px 30px;
   color: #f3931f;
-  font-size: 25px;
+  /*font-size: 25px;*/
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -274,12 +274,13 @@ body {
   position: relative;
   display: inline-block;
   background: 0;
-  width: 160px;
+  /*width: 160px;*/
+  width: 50%;
   height:45px;
-  border: 1px solid #f3931f;
+  border: 1px solid #21ba45;
   font-size: 20px;
   line-height: 1;
-  background: #f3931f ;
+  background: #21ba45 ;
   color: #fff;
   overflow: hidden;
   -webkit-transition: .3s ease;

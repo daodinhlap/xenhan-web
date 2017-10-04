@@ -6,7 +6,10 @@
 	<div class="card"></div>
 	<div class="card">
 		<p id="alert"></p>
-		<h1 class="title">Đăng Nhập</h1>
+		<div style="text-align: center">
+			<img src="/resources/images/logo-xenhan.png">
+		</div>
+		<h4 class="title">Đăng Nhập</h4>
 		<c:choose>
 			<c:when test="${not empty error}">
 				<div class="input-container" style="color: red">
@@ -28,23 +31,22 @@
 				<div class="bar"></div>
 			</div>
 		</form>
+
 		<div class="input-container">
 			<a style=" float: right;margin-top: -10px;margin-bottom: 20px; cursor: pointer;"
 	     		rel="nofollow" rel="noreferrer" id="forgotPassword">Quên mật khẩu</a>
      	</div>
-     	
-		<div class="button-container">
-			<button onclick="loginPayd()">
+
+		<%--BUTTON--%>
+		<div class="button-container"  style="clear: both">
+			<button onclick="loginXenhan()">
 				<span>Đăng nhập</span>
 			</button>
 		</div>
+		<%--BUTTON--%>
 		
 		<div class="button-container" style="margin-top: 10px">
-			<a rel="nofollow" rel="noreferrer" href="/dang-ky">
-				<button class="submainpayd">
-					<span>Đăng ký</span>
-				</button>
-			</a>
+			<a rel="nofollow" rel="noreferrer" href="/dang-ky"> Đăng ký </a>
 		</div>
 		
 		<jsp:include page="./common/link.app.jsp" />

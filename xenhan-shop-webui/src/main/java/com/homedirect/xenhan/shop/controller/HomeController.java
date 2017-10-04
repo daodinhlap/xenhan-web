@@ -42,5 +42,20 @@ public class HomeController extends AbstractController {
     return mv;
   }
 
+  /* LOGIN */
+  @GetMapping(value = "/dang-nhap")
+  public ModelAndView loginView() {
+    ModelAndView mv = new ModelAndView("public.login");
+    mv.addObject("title","Xe Nhàn - Đăng Nhập");
+    return mv;
+  }
+
+    @GetMapping(value = "/login")
+    public ModelAndView login() {
+      ModelAndView mv = new ModelAndView("public.login");
+      mv.addObject("title", "Xe Nhàn - Đăng Nhập");
+      return mv;
+    }
+
 
 }

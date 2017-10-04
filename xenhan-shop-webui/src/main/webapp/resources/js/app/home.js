@@ -9,7 +9,7 @@ var url_resendOtp = BASE_URL + "/gui-lai-otp";
 var url_confirmOtp = BASE_URL + "/confirm-otp";
 //===================================================================================
 // Register Payd user
-function registerPayd() {
+function registerXenhan() {
 	var hasError = form.validate();
 	if(hasError ==  undefined || hasError.length != 0){
 		noti.error(error);
@@ -45,7 +45,7 @@ function registerPayd() {
 			if (responseText == ErrorCode.EXISTED_ACCOUNT_NOT_IN_PAYD) {
 				noti.confirm("Bạn đã có tài khoản HomeDirect, bạn có muốn kích hoạt Ví với tài khoản HomeDirect đã có không?",
 						function(result) {
-							if (result) {registerPaydAccount()}; return;
+							if (result) {registerXenhanAccount()}; return;
 							goHome();
 						});
 				return;
@@ -53,8 +53,8 @@ function registerPayd() {
 			noti.fail("Thông báo!","Đăng ký ví không thành công. Vui lòng thử lại sau",function() {reload()});
 		});
 }
-// register pay Account
-function registerPaydAccount() {
+// register xenhan Account
+function registerXenhanAccount() {
 	onlyRegisterAccount = true;
 	var request = {
 		userName : form.phone()
@@ -102,8 +102,8 @@ function countDownTimeResend(){
 }
 
 
-// Login Payd
-function loginPayd() {
+// Login Xenhan
+function loginXenhan() {
 	var phone = form.phone();
 	var pass = form.password();
 	if (isEmpty(phone) || isEmpty(pass)) {
@@ -281,7 +281,7 @@ $(document).ready(function() {
 	});
 	$('#pass').keypress(function(event) {
 		if (event.keyCode == 13 || event.which == 13) {
-			loginPayd();
+			loginXenhan();
 		}
 	});
 	form.setPhone("");
