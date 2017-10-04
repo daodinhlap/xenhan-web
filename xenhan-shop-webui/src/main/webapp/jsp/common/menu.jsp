@@ -11,7 +11,7 @@
 			<c:set var = "fullName"><%= session.getAttribute("FULLNAME") %></c:set>
 			<c:set var = "phone"><%= session.getAttribute("USERNAME") %></c:set>
 		
-			<a href="/tai-khoan/truy-van-tai-khoan" style="color: #555;">
+			<a href="#" style="color: #555;">
 				<div class="col-xs-3 col-sm-3 col-md-4 padding-0 ">
 					<img class="avatar" src="/resources/images/icon-user.png">
 				</div>
@@ -29,17 +29,19 @@
 			</a>
 		</div>
 		<ul class="nav nav-sidebar" style=" font-size: 14px;">
-
 			<li><a href="/"><img width="30px" src="/resources/images/icon-dichvu-menu.png"><span>Dịch vụ</span></a></li>
-			<li><a href="/tai-khoan/sao-ke?accountNo=">
-				<img src="/resources/images/icon-lichsu-menu.png"><span>Lịch sử giao dịch</span></a>
+			<li><a href="/tao-don">
+				<img src="/resources/images/icon-lichsu-menu.png"><span>Tạo đơn hàng</span></a>
 			</li>
-			<li><a href="/ngan-hang/thiet-lap-ngan-hang"><img src="/resources/images/icon-nganhang-menu.png"><span>Thiết lập ngân hàng</span></a></li>
-			<li><a href="/tai-khoan/doi-mat-khau"><img src="/resources/images/icon-matkhau-menu.png"><span>Mật khẩu đăng nhập</span></a></li>
-			<li><a href="/tai-khoan/doi-PIN"><img src="/resources/images/icon-PIN.png"><span>Mật khẩu giao dịch</span></a></li>
-			<li><a href="tel:02871099710"><img src="/resources/images/icon-hotline-menu.png"><span>Hotline  028 710 99710</span></a></li>
-			<!-- <li><a href="#"><img src="/resources/images/icon-hotro-menu.png"><span>Trợ giúp</span></a></li> -->
-			<li><a href="/dang-xuat"><img src="/resources/images/icon-thoat-menu.png"><span>Thoát</span></a></li>
+			<li><a href="/#">
+				<img src="/resources/images/icon-lichsu-menu.png"><span>Tạo đơn hàng từ Excel</span></a>
+			</li>
+			<li><a href="#"><img src="/resources/images/icon-nganhang-menu.png"><span>Lịch sử đơn hàng</span></a></li>
+			<li><a href="#"><img src="/resources/images/icon-nganhang-menu.png"><span>Thông Tin Tài Khoản</span></a></li>
+			<li><a href="#"><img src="/resources/images/icon-nganhang-menu.png"><span>Thông Tin Shop</span></a></li>
+			<li><a href="#"><img src="/resources/images/icon-nganhang-menu.png"><span>Đổi Mật Khẩu</span></a></li>
+			<li><a href="#"><img src="/resources/images/icon-nganhang-menu.png"><span>Liên Hệ</span></a></li>
+			<li><a href="/dang-xuat"><img src="/resources/images/icon-thoat-menu.png"><span>Đăng Xuất</span></a></li>
 			
 			
 			
