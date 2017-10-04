@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60">
+	<Properties>
+		<Property name="path">logs</Property>
+		<Property name="filename">mtop-webui</Property>
+		<Property name="stdout">stdout</Property>
+		<Property name="daily">daily-file</Property>
+		<Property name="appender">stdout</Property>
+		<Property name="level">info</Property>
+	</Properties>
+	<Appenders>
+		<Console name="${stdout}" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}.%M(%L) - %msg%n" />
+		</Console>
+		<RollingFile name="${daily}" fileName="${path}/${filename}-info.log"
+			filePattern="${path}/${filename}-%d{yyyy-MM-dd}.log">
+			<PatternLayout
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}.%M(%L) - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.homedirect" level="debug" additivity="false">
+			<appender-ref ref="${daily}" />
+		</Logger>
+		<Logger name="org.springframework.data" level="debug"
+			additivity="false">
+			<appender-ref ref="${daily}" />
+		</Logger>
+		<Root level="debug" additivity="false">
+			<appender-ref ref="stdout" />
+		</Root>
+	</Loggers>
+</Configuration>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!-- Templates -->
+	<definition name="layout.basic" template="/jsp/common/basic.jsp">
+		<put-attribute name="header" value="/jsp/common/header.jsp" />
+		<put-attribute name="menu" value="/jsp/common/menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="" />
+		<put-list-attribute name="stylesheets">	
+			<add-attribute value="/resources/css/frame/bootstrap.min.css" />
+			<add-attribute value="/resources/plugins/pace/pace.min.css" />
+			<add-attribute value="/resources/plugins/design/material.min.css" />
+			<add-attribute value="/resources/plugins/carousel/owl.carousel.min.css" />
+			<add-attribute value="/resources/plugins/carousel/owl.theme.default.min.css" />
+			<add-attribute value="/resources/css/frame/dashboard.css" />
+			<add-attribute value="/resources/css/frame/gsi-step-indicator.min.css" />
+			<add-attribute value="/resources/css/app/style.css" />
+		</put-list-attribute>
+		<put-list-attribute name="scripts">
+			<add-attribute value="/resources/plugins/jquery-2.2.3.min.js" />
+			<add-attribute value="/resources/plugins/bootstrap.min.js" />
+			<add-attribute value="/resources/plugins/date.js" />
+			<add-attribute value="/resources/plugins/design/material.min.js" />
+			<add-attribute value="/resources/plugins/alert/bootbox.min.js" />
+			<add-attribute value="/resources/plugins/pace/pace.min.js" />
+			<add-attribute value="/resources/plugins/carousel/owl.carousel.min.js" />
+			<add-attribute value="/resources/plugins/holder.js" />
+			<add-attribute value="/resources/js/app/text.js" />
+			<add-attribute value="/resources/plugins/md5/md5.min.js" />
+			<add-attribute value="/resources/js/app/common.js" />
+		</put-list-attribute>
+	</definition>
+
+	<!-- Pages -->
+
+	<!-- User Pages -->
+
+	<definition name="public.confirm" extends="layout.basic">
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/jsp/public.confirm.jsp" />
+		<put-attribute name="menu" value="" />
+		<put-attribute name="footer" value="" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/app/confirm.js" />
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="public.*" extends="layout.basic">
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/jsp/public.{1}.jsp" />
+		<put-attribute name="menu" value="" />
+		<put-attribute name="footer" value="" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/app/home.js" />
+		</put-list-attribute>
+	</definition>
+
+	<definition name="user.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/user/{1}.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/app/homePage.js" />
+		</put-list-attribute>
+	</definition>
+
+	<!-- Account Pages -->
+	<definition name="account.cheque" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/account/cheque.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/plugins/datePicker/moment-with-locales.js" />
+			<add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.js" />
+			<add-attribute value="/resources/js/app/cheque.js" />
+		</put-list-attribute>
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.css" />
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="account.accounts" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/account/accounts.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/plugins/datePicker/moment-with-locales.js" />
+			<add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.js" />
+			<add-attribute value="/resources/plugins/select/select2.full.min.js" />
+			<add-attribute value="/resources/js/app/place.js" />
+			<add-attribute value="/resources/js/app/accounts.js" />
+		</put-list-attribute>
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.css" />
+			<add-attribute value="/resources/plugins/select/select2.min.css" />
+		</put-list-attribute>
+	</definition>
+	
+	
+	<definition name="account.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/account/{1}.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/app/{1}.js" />
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="cheque.detail" template="/jsp/account/cheque.detail.jsp">
+	</definition>
+
+	<!-- Statement Pages -->
+	<definition name="statement.withdraw.cash" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/statement/withdraw.cash.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/plugins/select/select2.full.min.js" />
+			<add-attribute value="/resources/js/app/place.js" />
+			<add-attribute value="/resources/js/app/withdraw.cash.js" />
+		</put-list-attribute>
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/plugins/select/select2.min.css" />
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="statement.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/statement/{1}.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/app/{1}.js" />
+		</put-list-attribute>
+	</definition>
+	
+
+	<definition name="buy.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/statement/buy.{1}.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+<!-- 			<add-attribute value="/resources/plugins/tableExport/xlsx.core.js" />
+			<add-attribute value="/resources/plugins/tableExport/Blob.js" />
+			<add-attribute value="/resources/plugins/tableExport/FileSaver.js" />
+			<add-attribute value="/resources/plugins/tableExport/tableexport.js" /> -->
+			<add-attribute value="/resources/js/app/buycard.js" />
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="topup.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/statement/topup.{1}.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/app/topup.js" />
+		</put-list-attribute>
+	</definition>
+
+
+</tiles-definitions>

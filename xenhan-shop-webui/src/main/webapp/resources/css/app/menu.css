@@ -1,0 +1,27 @@
+.menu-content {
+	font-size:14px;
+	background-color:#FF6E40
+}
+
+.menu-content a {
+	text-decoration: none;
+	color:#fff
+}
+
+.menu-content button {
+	font-size: 14px;
+	color:#fff
+}
+
+.menu-button {
+	color:#fff;
+	font-size: 14px;
+}
+
+md-menu-bar md-menu.md-open > button {
+	background: rgba(238, 238, 238, 0) !important
+}
+
+md-menu-item>a.md-button {
+	padding-top:0px !important;
+}
