@@ -73,24 +73,9 @@ $( document ).ready(function() {
     if(path.indexOf("/giao-dich/nap-tai-khoan-game") != -1){
     	setHighlight(menu,".naptkgame",images.topupGame);
     }
-    // for carousel Issuer
-    $('.owl-carousel').owlCarousel({
-    	  margin:3,
-    	  responsiveClass:true,	
-    	  responsive:{
-    	      0:{items:3},
-    	      300:{items:4},
-    	      767:{items:5},
-    	      1000:{items:5}
-    	  }
-    	})
+
 	// handler tooltip
 	$('[data-toggle="tooltip"]').tooltip(); 
-    
-    // close header
-    $('body').click(function(){
-    	$('#navbar-header').collapse('hide');
-    });
 });
 
 function setHighlight(li,className,image){

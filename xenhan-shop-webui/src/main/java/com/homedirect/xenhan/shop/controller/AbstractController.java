@@ -16,7 +16,6 @@ public class AbstractController {
 
   public final static String TOKEN_ATTRIBUTE_NAME = "token-id";
 
-
   @Autowired
 //  protected ApiExchangeService apiExchangeService;
 

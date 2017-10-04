@@ -12,9 +12,11 @@ body {
     clear: both;
 }.h3, h3 {
     font-size: 15px;
+     font-weight: bold;
 }
 .h2, h2 {
     font-size: 18px;
+    font-weight: bold;
 }
 .h1, h1{
     font-size: 22px;
@@ -170,7 +172,6 @@ body {
   position: relative;
   background: #ffffff;
   border-radius: 5px;
-  padding: 45px 0 40px 0;
   box-sizing: border-box;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   -webkit-transition: .3s ease;
@@ -429,7 +430,10 @@ body {
     opacity: 0;
   }
 }
-.navbar-brand img {width: 70px;}
+.navbar-brand img {
+    width: 50px;
+    margin-top: -10px;
+}
 .navbar-inverse {background-color: #f3931f !important;}
 
 .controls .discount {
@@ -441,8 +445,6 @@ body {
     color: #fff;
     font-weight: bold !important;
 }
-.btn-default {background-color: #e6e6e6;}
-.btn-primary {background-color: #f3931f;}
 .btn-primary:hover {
     color: #fff;
     background-color: #f3931f;
@@ -482,7 +484,7 @@ body {
 .navbar-form p {margin: 3px 0;color: #fff}
 .navbar-form span {font-weight: bold;}
 .navbar-form {display: none;}
-.box-info input,.form-right,.form-group select,.box-info textarea {width: 30%;float: left;}
+.box-info input,.form-right {width: 30%;float: left;}
 .form-group {width: 100%; position: relative; float: left;margin-bottom: 20px}
 .issuer{margin-bottom: 5px;}
 .form-radio {float: left;width: 30%}
@@ -739,7 +741,7 @@ body {
 	width: 25%;
 }
 label{
-  font-weight: normal;
+  font-weight: bold;
 }
 input[type="radio"] {
   -webkit-transform: scale(1.5);
@@ -872,6 +874,9 @@ td > a > img{
 	border-color: orange;
 }
 li > span > a{color:white;}
+.center{
+    text-align: center;
+}
 .center-name {
 	margin: 0;
     position: absolute;

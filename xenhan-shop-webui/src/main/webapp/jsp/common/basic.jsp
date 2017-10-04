@@ -21,7 +21,7 @@
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-			
+
 	<tilesx:useAttribute id="listCss" name="stylesheets" classname="java.util.List" />
 	<c:forEach var="item" items="${listCss}">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}${item}" />

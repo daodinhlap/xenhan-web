@@ -3,7 +3,7 @@
 <%@ page pageEncoding="UTF-8"%>
 
 <div class="container">
-	<div class="card">
+	<div class="card" style="padding: 20px 0px;">
 		<p id="alert"></p>
 		<div class="ui centered small image" style="text-align: center">
 			<img style="width: 150px;" src="/resources/images/app_logo_orange.png">

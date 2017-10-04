@@ -17,7 +17,7 @@
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="/">
-				<img class="logo-center" src="/resources/favicon.ico">
+				<img class="logo-center" src="/resources/images/app_logo_white.png">
 			</a>
 		</div>
 		<div id="navbar-header" class="navbar-collapse collapse">
@@ -45,20 +45,8 @@
 					</a>
 				</li>
 				<li><a class="li-header" href="/">
-					<img width="30px" src="/resources/images/icon-dichvu-menu.png"><span>Dịch vụ</span></a></li>
-				<li><a class="li-header" href="/tai-khoan/sao-ke?accountNo=">
-					<img width="30px" src="/resources/images/icon-lichsu-menu.png"><span>Lịch sử giao dịch</span></a></li>
-				<li><a class="li-header" href="/ngan-hang/thiet-lap-ngan-hang">
-					<img width="30px" src="/resources/images/icon-nganhang-menu.png"><span>Thiết lập ngân hàng</span></a></li>
-				<li><a class="li-header" href="/tai-khoan/doi-mat-khau">
-					<img width="30px" src="/resources/images/icon-matkhau-menu.png"><span>Mật khẩu đăng nhập</span></a></li>
-				<li><a class="li-header" href="/tai-khoan/doi-PIN">
-					<img width="30px" src="/resources/images/icon-PIN.png"><span>Mật khẩu giao dịch</span></a></li>
-				<li><a class="li-header" href="tel:02871099710">
-					<img width="30px" src="/resources/images/icon-hotline-menu.png"><span>Hotline  028 710 99710</span></a></li>
-				<!-- <li><a href="#"><img src="/resources/images/icon-hotro.png"><span>Trợ giúp</span></a></li> -->
-				<li><a class="li-header" href="/dang-xuat">
-					<img width="30px" src="/resources/images/icon-thoat-menu.png"><span>Thoát</span></a></li>
+					<img width="30px" src=""><span>Dịch vụ</span></a></li>
+
 			</ul>
 		</div>
 	</div>
