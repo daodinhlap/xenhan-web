@@ -15,6 +15,11 @@ function create() {
     console.log(order);
 
 }
+function next() {
+    getFee(form.provinceId(), form.districtId());
+    move();
+
+}
 
 function move(){
     $('#info-receiver').toggle();
@@ -26,7 +31,10 @@ function Form(){
     this.userName = function(){ return $('#userName').val()};
 	this.phone = function(){ return $('#phone').val()};
 	this.address = function(){ return $('#address').val()};
-	this.province = function(){ return $('#province option:selected').text()};
+    this.provinceId = function(){ return $('#province').val()};
+    this.districtId = function(){ return $('#district').val()};
+
+    this.province = function(){ return $('#province option:selected').text()};
     this.district = function(){ return $('#district option:selected').text()};
 	this.note = function(){ return $('#note').val()};
 

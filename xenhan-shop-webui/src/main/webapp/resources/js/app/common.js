@@ -221,34 +221,26 @@ function getTransactionType(){
 	return $('#transType').val();
 }
 
-function getRate(productId){
-	var transType = getTransactionType();
-	var accountNo = $('select#sourceAccountNo option:selected').val();
+function getFee(provinceId, districtId){
 
-	console.log('Get rate...: productId: '+productId + '- transType: ' + transType + '- AccNo:' + accountNo);
-	var url = BASE_URL + "/giao-dich/ti-le-chiet-khau";
-	var request = {
-			transType: transType,
-			productId: productId,
-			accountNo: accountNo
-	};
+    // token-id:
+    // shop-name:XENHAN-SHOP-HCM_shop-Shop-Aquary-Q1-COD-1495796097814
+    // province-id:1
+    // district-id:1
+    // package-id:2
+
+	var url = BASE_URL + "/get-fee?provinceId="+provinceId+"&districtId="+districtId;
 	$.ajax({
 		type : 'GET',
-		contentType : 'application/json',
-		url : url,
-		data: request,
-		async: false
+		url : url
 	}).done(function(data) {
+		console.log(data);
 		if(data.code != ErrorCode.SUCCESS){
-			toViewDiscount();
 			return;
 		}
-		toViewDiscount(data.data.value)
 	}).fail(function(data) {
 		console.log("ERROR: " + JSON.stringify(data));
-		$('#discount').text("0");
 	}).always(function(){
-		calculateMoney();
 	});
 }
 

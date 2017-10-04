@@ -33,7 +33,7 @@
     <div class="form-group">
         <label>Quận/Huyện <span style="color: red">*</span></label>
         <select class="form-control" id="district">
-            <option>Cầu Giấy</option>
+            <option value="1">Cầu Giấy</option>
         </select>
     </div>
 
@@ -44,7 +44,7 @@
 
     <div class="form-group center">
         <button class="btn btn-primary"><i class="fa fa-refresh"></i>&nbsp;Đặt lại</button>
-        <button class="btn btn-primary" onclick="move()">
+        <button class="btn btn-primary" onclick="next()">
             Tiếp tục&nbsp;<i class="fa fa-arrow-right"></i></button>
     </div>
 </div>
