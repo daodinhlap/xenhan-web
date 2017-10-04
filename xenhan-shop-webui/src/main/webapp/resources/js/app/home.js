@@ -16,7 +16,7 @@ function registerXenhan() {
 		return;
 	}
 	
-	alert(url_register);
+	alert(JSON.stringify(form.requestRegister()));
 
 	$.ajax({
 			type : 'POST',
@@ -71,13 +71,13 @@ function cancleRegister(){
 		});
 }
 
-function validate(fullName, phone, password, confirmPass, gRecaptchaResponse) {
-	if (!phone && !password && !fullName && !confirmPass) {
+function validate(name, phone, password, confirmPass, gRecaptchaResponse) {
+	if (!phone && !password && !name && !confirmPass) {
 		error.push({message: Error_message.EMPTY_INPUT, id: "alert"});
 		return error;
 	}
-	if (fullName.length < 6 || fullName.length > 50) {
-		error.push({message:"Họ tên hợp lệ có độ dài từ 6 đến 50 ký tự", id: "fullName"});
+	if (name.length < 6 || name.length > 50) {
+		error.push({message:"Họ tên hợp lệ có độ dài từ 6 đến 50 ký tự", id: "name"});
 	}
 	if (!phone) {
 		error.push({message:"Xin vui lòng nhập số điện thoại", id: "phone"});
