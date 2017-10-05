@@ -26,8 +26,7 @@ function registerXenhan() {
 			dataType : 'text'
 		}).done(function(data) {
 			if (data != 'done') {
-				alert(data);
-				noti.error(data);
+				error.push({message: data, id: "alert"});
 				return;
 			} 
 			window.location.replace('/dang-nhap');

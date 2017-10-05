@@ -6,8 +6,6 @@
 
 <div class="container" style=" margin-top: -30px;">
 	<div class="card" style=" padding: 20px 0px 20px 0px;">
-
-		<p id="alert">${error} ${not empty error ? error : ''}</p>
 		<div style="text-align: center">
 			<img class="ui centered small image" style="width: 150px;" src="/resources/images/app_logo_orange.png">
 		</div>
@@ -31,25 +29,25 @@
 
 				<div class="form-group">
 					<label>Số điện thoại đăng nhập <span style="color: red">*</span>:</label>
-					<input type="text" class="form-control" id="phone" name="phone" value="0989654990">
+					<input type="text" class="form-control" id="phone" name="phone">
 				</div>
 
 				<div class="form-group">
 					<label>Email <span style="color: red">*</span>:</label>
-					<input type="text" class="form-control" id="email" name="email" value="van_a@gmail.com">
+					<input type="text" class="form-control" id="email" name="email">
 				</div>
 
 				<div class="form-group">
 					<label>Mật khẩu <span style="color: red">*</span>:</label>
-					<input type="password" class="form-control" id="password" name="password" value="123456">
+					<input type="password" class="form-control" id="password" name="password">
 				</div>
 
 				<div class="form-group">
 					<label>Nhập lại mật khẩu  <span style="color: red">*</span>:</label>
-					<input type="password" class="form-control" id="confirmPassword" value="123456">
+					<input type="password" class="form-control" id="confirmPassword">
 				</div>
 			</form>
-
+			<p id="alert"></p>
 			<div class="button-container" style=" clear: both;">
 				<button type="button" class="btn btn-success btn-xenhan" onclick="registerXenhan()">
 					<span>Đăng ký</span>
