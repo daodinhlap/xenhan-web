@@ -64,14 +64,16 @@ public class XnAuthenticationFilter extends UsernamePasswordAuthenticationFilter
         return member.getDomain().equals(AttributeConfig.XN_DOMAIN)
                 && member.getGroupName().contains(AttributeConfig.XN_SHOP_PREFIX);
       }).collect(Collectors.toList());
-      if(CollectionUtils.isEmpty(memberships)) return loginFailured(request, response, ERROR_LOGIN_XN);
-
+      
       HttpSession session = request.getSession(true);
       if (session != null) { // getAllowSessionCreation()
         String usernameKey = TextEscapeUtils.escapeEntities(request.getParameter("username"));
         session.setAttribute(SPRING_SECURITY_LAST_USERNAME_KEY, usernameKey);
         session.setAttribute(AttributeConfig.USERNAME, usernameKey);
-        session.setAttribute(AttributeConfig.SHOPNAME, memberships.get(0).getGroupName());
+        if(!CollectionUtils.isEmpty(memberships)) {
+          session.setAttribute(AttributeConfig.SHOPNAME, memberships.get(0).getGroupName());
+        } 
+//        session.setAttribute(AttributeConfig.MEMBERSHIPS, memberships);
         session.setAttribute(AttributeConfig.FULLNAME, authentication.getUser().getUser().getUserProfile().getFullName());
         session.setAttribute(AttributeConfig.IDENTITY, authentication.getUser().getUser().getUserProfile().getIdentityCard());
         session.setAttribute(ApiExchangeService.TOKEN_ATTRIBUTE_NAME, token);

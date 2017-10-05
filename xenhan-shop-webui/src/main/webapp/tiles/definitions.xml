@@ -48,6 +48,16 @@
 			<add-attribute value="/resources/js/app/home.js" />
 		</put-list-attribute>
 	</definition>
+	
+	<definition name="shop.*" extends="layout.basic">
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/jsp/public.{1}.jsp" />
+		<put-attribute name="menu" value="" />
+		<put-attribute name="footer" value="" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/app/shop.js" />
+		</put-list-attribute>
+	</definition>
 
 	<definition name="order.*" extends="layout.basic">
 		<put-attribute name="body" value="/jsp/order/{1}.jsp" />

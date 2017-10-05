@@ -23,7 +23,6 @@ public class AbstractController {
 
   private final static Logger logger = LoggerFactory.getLogger(AbstractController.class);
 
-
   public AbstractController() {
 //    walletType = env.getProperty("wallet-type");
 //    this.paydAddress = env.getProperty("payd.frontgate.url");
