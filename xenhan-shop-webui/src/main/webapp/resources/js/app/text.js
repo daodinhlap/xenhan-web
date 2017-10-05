@@ -1,6 +1,6 @@
 var ErrorCode = {
 		UNKNOWN: "00",
-		SUCCESS:"01",
+		SUCCESS:"1",
 		NOT_MATCH:"07",
 		NOT_MATCH_OLD_PIN:"04",
 		EXISTED_PAYD_ACCOUNT:"17",

@@ -33,6 +33,15 @@ function create() {
         data : JSON.stringify(order),
     }).done(function(data) {
         console.log(data);
+        if(data.code != ErrorCode.SUCCESS){
+            noti.error([{id:"alert", message: data.message}]);
+            return;
+        }
+        noti.confirm("Tạo đơn hàng thành công. Bạn muốn tạo thêm đơn?", function(result) {
+            if (!result) {
+                goHome();
+            };
+        });
     }).fail(function(data) {
         console.log("ERROR: " + JSON.stringify(data));
     }).always(function(){

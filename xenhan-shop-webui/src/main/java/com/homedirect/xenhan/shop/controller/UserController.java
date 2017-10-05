@@ -1,8 +1,7 @@
 package com.homedirect.xenhan.shop.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.common.response.UserDetailEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.homedirect.repo.model.response.RepositoryResponse;
-import com.homedirect.xenhan.model.AttributeConfig;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * author: hieunv - hieu.nguyen2@homedirect.com.vn

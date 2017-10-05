@@ -3,6 +3,7 @@ package com.homedirect.xenhan.shop.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.homedirect.repo.model.UserProfile;
 import com.homedirect.xenhan.model.Order;
 import com.homedirect.xenhan.util.JsonUtil;
 import org.slf4j.Logger;
@@ -34,8 +35,10 @@ public class ShopController extends AbstractController {
   /* CREATE Order */
   @GetMapping(value = "/tao-don")
   public ModelAndView home(HttpServletRequest httpRequest) {
+    UserProfile profile = (UserProfile) httpRequest.getSession().getAttribute(AttributeConfig.USER_PROFILE);
     ModelAndView mv = new ModelAndView("order.create");
     mv.addObject("title","Xe Nhàn - Tạo đơn hàng");
+    mv.addObject("province", profile.getProvince());
     return mv;
   }
 

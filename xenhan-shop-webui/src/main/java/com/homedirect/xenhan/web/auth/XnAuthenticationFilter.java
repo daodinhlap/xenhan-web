@@ -74,6 +74,7 @@ public class XnAuthenticationFilter extends UsernamePasswordAuthenticationFilter
           session.setAttribute(AttributeConfig.SHOPNAME, memberships.get(0).getGroupName());
         } 
 //        session.setAttribute(AttributeConfig.MEMBERSHIPS, memberships);
+        session.setAttribute(AttributeConfig.USER_PROFILE, authentication.getUser().getUser().getUserProfile());
         session.setAttribute(AttributeConfig.FULLNAME, authentication.getUser().getUser().getUserProfile().getFullName());
         session.setAttribute(AttributeConfig.IDENTITY, authentication.getUser().getUser().getUserProfile().getIdentityCard());
         session.setAttribute(ApiExchangeService.TOKEN_ATTRIBUTE_NAME, token);
