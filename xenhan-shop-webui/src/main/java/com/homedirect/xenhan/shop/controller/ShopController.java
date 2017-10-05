@@ -23,4 +23,12 @@ public class ShopController extends AbstractController {
     return mv;
   }
 
+
+    /* CREATE Shop */
+    @GetMapping(value = "/tao-shop")
+    public ModelAndView createShop(HttpServletRequest httpRequest) {
+        ModelAndView mv = new ModelAndView("shop.create");
+        mv.addObject("title","Xe Nhàn-Đăng ký Shop");
+        return mv;
+    }
 }

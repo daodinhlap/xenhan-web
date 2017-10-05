@@ -57,4 +57,11 @@
 		</put-list-attribute>
 	</definition>
 
+	<definition name="shop.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/shop/{1}.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/shop/{1}.js" />
+		</put-list-attribute>
+	</definition>
+
 </tiles-definitions>
