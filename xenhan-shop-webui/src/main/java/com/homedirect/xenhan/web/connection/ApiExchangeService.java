@@ -188,6 +188,18 @@ public class ApiExchangeService {
 
   }
 
+  public <T> T getPure(HttpServletRequest httpRequest, String url, TypeReference<T> reference) throws RestClientException {
+    HttpEntity<?> entity = createEntity(httpRequest);
+    ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+    try {
+      return MAPPER.readValue(response.getBody(), reference);
+    } catch (IOException e) {
+      logger.error(e.getMessage(), e);
+      return null;
+    }
+
+  }
+
   public boolean isUnSuccessResponse(RepositoryResponse<?> response) {
     return Integer.valueOf(response.getCode()) != XnErrorCode.SUCCESS || response.getData() == null;
   }

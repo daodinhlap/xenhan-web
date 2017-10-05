@@ -222,26 +222,17 @@ function getTransactionType(){
 }
 
 function getFee(provinceId, districtId){
-
-    // token-id:
-    // shop-name:XENHAN-SHOP-HCM_shop-Shop-Aquary-Q1-COD-1495796097814
-    // province-id:1
-    // district-id:1
-    // package-id:2
-
 	var url = BASE_URL + "/get-fee?provinceId="+provinceId+"&districtId="+districtId;
 	$.ajax({
 		type : 'GET',
 		url : url
 	}).done(function(data) {
 		console.log(data);
-		if(data.code != ErrorCode.SUCCESS){
-			return;
-		}
+		$("#shipAmount").text(data);
 	}).fail(function(data) {
 		console.log("ERROR: " + JSON.stringify(data));
 	}).always(function(){
-	});
+    });
 }
 
 function toViewDiscount(value){

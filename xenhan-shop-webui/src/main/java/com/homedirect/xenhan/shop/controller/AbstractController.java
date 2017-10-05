@@ -3,6 +3,7 @@
  **************************************************************************/
 package com.homedirect.xenhan.shop.controller;
 
+import com.homedirect.xenhan.web.connection.ApiExchangeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AbstractController {
 
   public final static String TOKEN_ATTRIBUTE_NAME = "token-id";
+  public static final int DEFAULT_PACKAGE_ID = 2;
 
   @Autowired
-//  protected ApiExchangeService apiExchangeService;
+  protected ApiExchangeService apiExchangeService;
 
   private final static Logger logger = LoggerFactory.getLogger(AbstractController.class);
 

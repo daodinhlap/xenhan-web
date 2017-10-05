@@ -18,7 +18,6 @@ function create() {
 function next() {
     getFee(form.provinceId(), form.districtId());
     move();
-
 }
 
 function move(){

@@ -77,7 +77,7 @@
 
     <div class="form-group">
         <label>Phí ship</label>
-        <label id="shipAmount"></label>
+        <label id="shipAmount" style="float: right"></label>
     </div>
 
     <div class="form-group">
