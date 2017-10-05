@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/shop")
 public class ShopController extends AbstractController {
 
-    /* CREATE Order */
-    @GetMapping(value = "/tao-don")
-    public ModelAndView home(HttpServletRequest httpRequest) {
-        ModelAndView mv = new ModelAndView("order.create");
-        mv.addObject("title","Xe Nhàn-Tạo đơn hàng");
-        return mv;
-    }
+  /* CREATE Order */
+  @GetMapping(value = "/tao-don")
+  public ModelAndView home(HttpServletRequest httpRequest) {
+    ModelAndView mv = new ModelAndView("order.create");
+    mv.addObject("title","Xe Nhàn-Tạo đơn hàng");
+    return mv;
+  }
 
 
     /* CREATE Shop */

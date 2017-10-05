@@ -28,12 +28,10 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.repo.model.response.UserSessionResponse;
-import com.homedirect.session.model.SimpleUser;
 import com.homedirect.session.model.UserSession;
 
 /**
@@ -202,6 +200,10 @@ public class ApiExchangeService {
 
   public boolean isUnSuccessResponse(RepositoryResponse<?> response) {
     return Integer.valueOf(response.getCode()) != XnErrorCode.SUCCESS || response.getData() == null;
+  }
+  
+  public boolean isSuccessResponse(RepositoryResponse<?> response) {
+    return Integer.valueOf(response.getCode()) == XnErrorCode.SUCCESS && response.getData() != null;
   }
   
   public ResponseEntity<String> login(HttpServletRequest request) {

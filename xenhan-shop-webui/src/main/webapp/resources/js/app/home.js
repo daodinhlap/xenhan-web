@@ -16,7 +16,7 @@ function registerXenhan() {
 		return;
 	}
 	
-	alert(JSON.stringify(form.requestRegister()));
+	//alert(JSON.stringify(form.requestRegister()));
 
 	$.ajax({
 			type : 'POST',
@@ -25,15 +25,14 @@ function registerXenhan() {
 			data : JSON.stringify(form.requestRegister()),
 			dataType : 'text'
 		}).done(function(data) {
-			if (!data) {// I/O fail
-				error.push({message: Error_message.CONNECT_FAIL, id: "alert"});
-				noti.error(error);
-				setTimeout(() => { reload() }, 3000);
+			if (data != 'done') {
+				error.push({message: data, id: "alert"});
 				return;
-			}
+			} 
+			window.location.replace('/dang-nhap');
 		}).fail(function(data) {
 			console.log(data);
-			noti.fail("Thông báo!","Đăng ký không thành công. Vui lòng thử lại sau",function() {reload()});
+			noti.fail("Thông báo!","Đăng ký không thành công. Vui lòng thử lại sau", function() { reload() });
 		});
 }
 
@@ -103,19 +102,21 @@ function validate(name, phone, password, confirmPass, gRecaptchaResponse) {
 function FormRegister() {
 	this.name = function() {return $('#name').val()};
 	this.phone = function() { return $('#phone').val().trim() };
-	this.gender = function() { return $('#gender').val() };
+	this.email = function() { return $('#email').val().trim() };
+	this.gender = function() { return $('input[name=gender]:checked').val() };
 	this.password = function() {return $('#password').val()};
 	this.confirmPass = function() {return $('#confirmPassword').val()};
 	this.gRecaptchaResponse = function() {return $('#g-recaptcha-response').val()};
 	this.otp = function() {return $('#otp').val()};
 	
-	this.setPhone = function(value){$('#phone').val(value)};
-	this.setPass = function(value){$('#password').val(value)};
+	this.setPhone = function(value){ $('#phone').val(value) };
+	this.setPass = function(value){ $('#password').val(value) };
 	
 	this.requestRegister = function() {
 		return {
 			username : this.phone(),
 			phone : this.phone(),
+			email : this.email(),
 			gender : this.gender(),
 			name : this.name(),
 			password : this.password(),
