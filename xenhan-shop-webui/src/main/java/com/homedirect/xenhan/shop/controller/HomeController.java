@@ -4,11 +4,16 @@
 package com.homedirect.xenhan.shop.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.homedirect.common.util.StringUtils;
+import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.common.request.XnUserInforRequest;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.web.connection.ApiExchangeService;
@@ -36,18 +42,18 @@ public class HomeController extends AbstractController {
   private final static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
   @Autowired
-  private ApiExchangeService apiExchangeService;
-
-  @Autowired
   public HomeController() {
   }
 
   /* HOME */
   @GetMapping(value = "/")
-  public ModelAndView home(HttpServletRequest httpRequest) {
+  public ModelAndView home(HttpServletRequest httpRequest, HttpSession session) {
     String token = (String)httpRequest.getSession().getAttribute(ApiExchangeService.TOKEN_ATTRIBUTE_NAME);
-    logger.info("----  > token = "+ token);
     if(StringUtils.isEmpty(token)) return new ModelAndView("redirect:/dang-nhap");
+    
+    String shopName = (String)session.getAttribute(AttributeConfig.SHOPNAME);
+    if(StringUtils.isEmpty(shopName))  return new ModelAndView("redirect:/shop/tao-shop");
+    
     ModelAndView mv = new ModelAndView("home");
     mv.addObject("title", "Xe Nhàn - Shop");
     return mv;
@@ -72,12 +78,21 @@ public class HomeController extends AbstractController {
       return entity.getBody().getMessage().getBytes();
     }
   }
-
+  
   /* LOGIN */
   @GetMapping(value = "/dang-nhap")
   public ModelAndView loginView() {
     ModelAndView mv = new ModelAndView("public.login");
     mv.addObject("title","Xe Nhàn - Đăng Nhập");
     return mv;
+  }
+  
+  @GetMapping(value="/dang-xuat")
+  public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth != null) {    
+      new SecurityContextLogoutHandler().logout(request, response, auth);
+    }
+    return new ModelAndView("redirect:/");
   }
 }

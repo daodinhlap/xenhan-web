@@ -51,9 +51,7 @@
 		<intercept-url pattern="/dang-ky" access="permitAll" />
 		<intercept-url pattern="/resources/*" access="permitAll" />
 
-		<intercept-url pattern="/tai-khoan/**" access="hasAnyRole('ROLE_USER')" />
-		<intercept-url pattern="/giao-dich/**" access="hasAnyRole('ROLE_USER')" />
-		<intercept-url pattern="/ngan-hang/**" access="hasAnyRole('ROLE_USER')" />
+		<intercept-url pattern="/shop/**" access="hasAnyRole('ROLE_USER')" />
 		<intercept-url pattern="/thong-tin-ca-nhan/**" access="hasAnyRole('ROLE_USER')" />
 
 		<logout logout-success-url="/dang-nhap" />

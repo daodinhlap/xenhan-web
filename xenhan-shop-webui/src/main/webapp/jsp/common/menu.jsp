@@ -9,6 +9,7 @@
 		<div class="user-login">
 		
 			<c:set var = "fullName"><%= session.getAttribute("FULLNAME") %></c:set>
+			<c:set var = "shopName"><%= session.getAttribute("SHOPNAME") %></c:set>
 			<c:set var = "phone"><%= session.getAttribute("USERNAME") %></c:set>
 		
 			<a href="#" style="color: #555;">
@@ -29,16 +30,18 @@
 			</a>
 		</div>
 		<ul class="nav nav-sidebar" style=" font-size: 14px;">
-			<li><a href="/"><img width="30px" src="/resources/images/icon-dichvu-menu.png"><span>Dịch vụ</span></a></li>
-			<li><a href="/shop/tao-don">
-				<img src="/resources/images/icon-lichsu-menu.png"><span>Tạo đơn hàng</span></a>
-			</li>
-			<li><a href="/#">
-				<img src="/resources/images/icon-lichsu-menu.png"><span>Tạo đơn hàng từ Excel</span></a>
-			</li>
-			<li><a href="#"><img src="/resources/images/icon-nganhang-menu.png"><span>Lịch sử đơn hàng</span></a></li>
-			<li><a href="#"><img src="/resources/images/icon-nganhang-menu.png"><span>Thông Tin Tài Khoản</span></a></li>
-			<li><a href="#"><img src="/resources/images/icon-nganhang-menu.png"><span>Thông Tin Shop</span></a></li>
+			<c:if test="${not empty shopName && !shopName.equals('null') }">
+				<li><a href="/"><img width="30px" src="/resources/images/icon-dichvu-menu.png"><span>Dịch vụ</span></a></li>
+				<li><a href="/shop/tao-don">
+					<img src="/resources/images/icon-lichsu-menu.png"><span>Tạo đơn hàng</span></a>
+				</li>
+				<li><a href="/#">
+					<img src="/resources/images/icon-lichsu-menu.png"><span>Tạo đơn hàng từ Excel</span></a>
+				</li>
+				<li><a href="#"><img src="/resources/images/icon-nganhang-menu.png"><span>Lịch sử đơn hàng</span></a></li>
+				<li><a href="/shop/thong-tin-shop"><img src="/resources/images/icon-nganhang-menu.png"><span>Thông Tin Tài Khoản</span></a></li>
+				<li><a href="/shop/thong-tin-shop"><img src="/resources/images/icon-nganhang-menu.png"><span>Thông Tin Shop</span></a></li>
+			</c:if>
 			<li><a href="#"><img src="/resources/images/icon-nganhang-menu.png"><span>Đổi Mật Khẩu</span></a></li>
 			<li><a href="#"><img src="/resources/images/icon-nganhang-menu.png"><span>Liên Hệ</span></a></li>
 			<li><a href="/dang-xuat"><img src="/resources/images/icon-thoat-menu.png"><span>Đăng Xuất</span></a></li>
