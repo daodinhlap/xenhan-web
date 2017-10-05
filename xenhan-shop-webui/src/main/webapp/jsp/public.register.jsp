@@ -7,7 +7,7 @@
 <div class="container" style=" margin-top: -30px;">
 	<div class="card" style=" padding: 20px 0px 20px 0px;">
 
-		<p id="alert"></p>
+		<p id="alert">${error} ${not empty error ? error : ''}</p>
 		<div style="text-align: center">
 			<img class="ui centered small image" style="width: 150px;" src="/resources/images/app_logo_orange.png">
 		</div>
@@ -21,12 +21,12 @@
 				</div>
 
 				<div class="form-group">
-					<label class="radio-inline">
-						<input type="radio" name="gender" id="gender" value="1" checked="checked">Nam
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="gender"  value="2">Nữ
-					</label>
+						<label class="radio-inline">
+							<input type="radio" name="gender" value="1">Nam
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="gender" value="2" checked="checked">Nữ
+						</label>
 				</div>
 
 				<div class="form-group">

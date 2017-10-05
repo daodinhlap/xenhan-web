@@ -30,7 +30,7 @@
 		</div>
 		<ul class="nav nav-sidebar" style=" font-size: 14px;">
 			<li><a href="/"><img width="30px" src="/resources/images/icon-dichvu-menu.png"><span>Dịch vụ</span></a></li>
-			<li><a href="/tao-don">
+			<li><a href="/shop/tao-don">
 				<img src="/resources/images/icon-lichsu-menu.png"><span>Tạo đơn hàng</span></a>
 			</li>
 			<li><a href="/#">
