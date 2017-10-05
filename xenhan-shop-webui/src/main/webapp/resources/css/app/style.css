@@ -454,7 +454,6 @@ body {
     float: right;
     margin: 5px 33px 0px 0;
 }
-.form-group p {margin-left: 15px;}
 
 .navbar-nav {display: none;}
 .table-striped > tbody > tr:nth-of-type(2n+1) {background-color: #fbf1ca;}

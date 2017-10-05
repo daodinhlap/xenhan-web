@@ -21,7 +21,7 @@ public class AbstractController {
   @Autowired
   protected ApiExchangeService apiExchangeService;
 
-  private final static Logger logger = LoggerFactory.getLogger(AbstractController.class);
+  public final static Logger logger = LoggerFactory.getLogger(AbstractController.class);
 
 
   public AbstractController() {

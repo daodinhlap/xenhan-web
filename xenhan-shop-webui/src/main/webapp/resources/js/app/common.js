@@ -36,10 +36,6 @@ var images = {
 	
 }
 
-var AuthenMethod = {
-		OTP:0,
-		PINCODE:1
-}
 
 $( document ).ready(function() {
     // set highligh menu
@@ -150,77 +146,6 @@ function strcmp(a, b) {
 	return (a < b ? -1 : (a > b ? 1 : 0));
 }
 
-function getBalance() {
-	var accountNo = $('select#sourceAccountNo option:selected').val();
-	console.log(" Get balance of acc No:" + accountNo);
-	var url = BASE_URL + "/giao-dich/so-du?accountNo=" + accountNo;
-	$.ajax({
-		type : 'GET',
-		contentType : 'application/json',
-		url : url,
-		dataType : 'json',
-		success : function(data) {
-			var balance = currencyFormat(data.data);
-			$("#balance").text(balance);
-		},
-		error : function(data) {
-			console.log("Error: " + JSON.stringify(data));
-		}
-	});
-}
-
-function getDenomination(issuer) {
-	var issuer = $('input[type=radio][name=issuer]:checked').val();
-	console.log("Get deno of Issuer Code  : " + issuer);
-	// call service get deno
-	var url = BASE_URL + "/giao-dich/menh-gia-the?issuerCode="+ issuer;
-	$.ajax({
-		type : 'GET',
-		contentType : 'application/json',
-		url : url,
-		dataType : 'json',
-		async: false
-		}).done(function(data) {
-			// bind deno to view
-			bindDenomination(data);
-		}).fail(function(data) {
-			console.log("error: " + JSON.stringify(data));
-		}).always(function() {
-			// get Rate -> calculator price
-			var productid = $('input[type=radio][name=denomination]:checked').data("productid");
-			getRate(productid);
-		});
-}
-
-function bindDenomination(data){
-	$("#denomination label").remove();
-	$.each(data, function(idx, value) {
-		$('#denomination').append(
-				$("<label class='viettel btn icon-menhgia menhgia'>")
-				.append($("<input>").attr("type","radio")
-									.attr("data-productid",value.id)
-									.attr("value",value.denomination)
-									.attr("name","denomination"))
-				.append($("<div class='denomination btn btn-default' style='font-size:12px;'>").text(currencyFormat(value.denomination)))
-		);
-	});
-	
-	$("#denomination label").first().find("input").attr("checked","checked");
-	console.log("Bind denomination done !!!");
-}
-
-function handlerChangeDenomination(){
-	// Change denomination
-	$('#denomination > label > input[type=radio][name=denomination]').change(function(){
-		var productId = $(this).data('productid');
-		getRate(productId);
-	});
-}
-
-function getTransactionType(){
-	return $('#transType').val();
-}
-
 function getFee(provinceId, districtId){
 	var url = BASE_URL + "/get-fee?provinceId="+provinceId+"&districtId="+districtId;
 	$.ajax({
@@ -252,15 +177,7 @@ function toViewDiscount(value){
 	
 }
 
-function calculateMoney(){
-	$('#price').text('');
-	var price = $('input[type=radio][name=denomination]:checked').val();
-//	var discount = $('#discount').text();
-	var quantity = $('#quantity').val();
-	if(!quantity) quantity = 1;
-	var money = currencyFormat( (100 - discount) * (price * quantity)/100 );
-	$('#price').text(money);
-}
+
 
 function goHome() {
 	window.location.href = "/";

@@ -63,7 +63,7 @@
     </div>
 
     <div class="form-group">
-        <label>Tiền hàng<span style="color: red">*</span></label>
+        <label id="amount-text">Tiền hàng<span style="color: red">*</span></label>
         <input type="text" class="form-control" id="amount">
     </div>
     <div class="form-group">
@@ -73,6 +73,7 @@
 
     <div class="form-group">
         <label><i>Tiền giảm giá</i></label>
+        <label id="couponAmount" style="float: right"></label>
     </div>
 
     <div class="form-group">
@@ -81,7 +82,8 @@
     </div>
 
     <div class="form-group">
-        <label>Shop nợ Xe nhàn</label>
+        <label id="action">Shop nợ Xe nhàn</label>
+        <label id="totalAmount" style="float: right"></label>
     </div>
 
     <div class="form-group center">

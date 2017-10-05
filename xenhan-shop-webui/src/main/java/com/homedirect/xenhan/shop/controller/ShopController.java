@@ -1,9 +1,12 @@
 package com.homedirect.xenhan.shop.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.homedirect.repo.model.response.RepositoryResponse;
+import com.homedirect.xenhan.model.Order;
+import com.homedirect.xenhan.util.JsonUtil;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,12 +26,20 @@ public class ShopController extends AbstractController {
     return mv;
   }
 
+  @PostMapping(value = "/create-order")
+  public ResponseEntity<?> createOrder(@RequestBody Order order, HttpServletRequest httpRequest) {
+    logger.info("\n CREATE ORDER: {}\n", JsonUtil.toJson(order));
+    
+    order.setPackageId(DEFAULT_PACKAGE_ID);
+    String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "create-order");
+    return apiExchangeService.post(httpRequest, url ,order);
+  }
 
-    /* CREATE Shop */
-    @GetMapping(value = "/tao-shop")
-    public ModelAndView createShop(HttpServletRequest httpRequest) {
-        ModelAndView mv = new ModelAndView("shop.create");
-        mv.addObject("title","Xe Nhàn-Đăng ký Shop");
-        return mv;
-    }
+  /* CREATE Shop */
+  @GetMapping(value = "/tao-shop")
+  public ModelAndView createShop(HttpServletRequest httpRequest) {
+    ModelAndView mv = new ModelAndView("shop.create");
+    mv.addObject("title","Xe Nhàn-Đăng ký Shop");
+    return mv;
+  }
 }

@@ -183,7 +183,6 @@ public class ApiExchangeService {
       logger.error(e.getMessage(), e);
       return null;
     }
-
   }
 
   public <T> T getPure(HttpServletRequest httpRequest, String url, TypeReference<T> reference) throws RestClientException {
@@ -195,7 +194,6 @@ public class ApiExchangeService {
       logger.error(e.getMessage(), e);
       return null;
     }
-
   }
 
   public boolean isUnSuccessResponse(RepositoryResponse<?> response) {

@@ -1,15 +1,16 @@
 package com.homedirect.xenhan.shop.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.homedirect.common.util.StringUtils;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
+import com.homedirect.xenhan.voucher.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,4 +41,18 @@ public class InfoController extends AbstractController {
 
         return apiExchangeService.getPure(httpRequest, uriBuilder.build().toString(), new TypeReference<Double>(){});
     }
+
+    @GetMapping(value = "/check-coupon")
+    public RepositoryResponse<?> getFee(@RequestParam(value = "coupon", required = true) String coupon,
+                                        HttpServletRequest httpRequest) {
+        logger.info("\n CHECK COUPON:{}\n",coupon);
+        if(StringUtils.isEmpty(coupon)) return null;
+
+        URI uri = apiExchangeService.createEncodeUrlWithToken(httpRequest, "coupon", "check-coupon-info");
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromUri(uri);
+        uriBuilder.queryParam("code", coupon);
+        return apiExchangeService.get(httpRequest, uriBuilder.build().toString(),
+                                        new TypeReference<RepositoryResponse<Response>>(){});
+    }
+
 }
