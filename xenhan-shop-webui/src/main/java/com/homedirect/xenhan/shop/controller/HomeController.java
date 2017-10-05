@@ -72,7 +72,7 @@ public class HomeController extends AbstractController {
       return entity.getBody().getMessage().getBytes();
     }
   }
-
+  
   /* LOGIN */
   @GetMapping(value = "/dang-nhap")
   public ModelAndView loginView() {
