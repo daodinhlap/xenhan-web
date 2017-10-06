@@ -1,5 +1,8 @@
 var form = new Form();
 var noti = new Notify();
+var orders = [];
+var ordersSelected = [];
+
 var URL_HISTORY = BASE_URL + "/shop/history";
 var URL_HISTORY_TOTAL = BASE_URL + "/shop/total";
 
@@ -18,6 +21,7 @@ $(document).ready(function($) {
 });
 
 function getHistory(index){
+    order = [];
     buildTable();
 
     var request = form.getRequest();
@@ -37,6 +41,7 @@ function getHistory(index){
             noti.error([{message: data, id: "alert"}]);
             return;
         }
+        orders = data.pageItems;
         buildTable(data)
 
     }).fail(function(data) {
@@ -54,7 +59,6 @@ function getTotal(request) {
         url : URL_HISTORY_TOTAL,
         data : JSON.stringify(request)
     }).done(function(data) {
-        console.log(data);
         buildTotal(data);
     }).fail(function(data) {
         console.log(data);
@@ -90,6 +94,7 @@ function buildTable(orderPage) {
     orders.forEach((order, i) =>{
         table.append(
             $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
+                    .append($("<td align=\"left\">").append($("<input type='checkbox' onclick='check($(this),"+ order.id+")'>")))
                     .append($("<td align=\"left\">"+order.id+"</td>"))
                     .append($("<td align=\"left\">"+ddMMyyyy(order.createdDate)+"</td>"))
                     .append($("<td align=\"left\">"+ddMMyyyy(order.closedDate)+"</td>"))
@@ -134,6 +139,28 @@ function Form() {
             typeOfView: this.typeOfView(),
         }
     }
+}
+
+function print(){
+    console.log(ordersSelected.length);
+    printHorizontal(ordersSelected);
+}
+
+function check(check, orderId) {
+    if (check.is(':checked')) {
+        selectOrder(orderId);
+    } else {
+        unSelectOrder(orderId)
+    }
+}
+function selectOrder(orderId) {
+    var selected = orders.find((o) => {return o.id == orderId});
+    ordersSelected.push(selected);
+}
+function unSelectOrder(orderId) {
+    var selected = orders.find((o) => {return o.id == orderId});
+    var index = orders.indexOf(selected);
+    ordersSelected.splice(index, 1);
 }
 
 function ddMMyyyy(long){

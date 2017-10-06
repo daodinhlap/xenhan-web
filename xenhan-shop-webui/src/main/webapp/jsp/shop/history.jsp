@@ -85,11 +85,15 @@
                 <thead>
                     <tr>
                         <th>Tổng</th>
-                        <th style="text-align: right" colspan="5" id="totalGoodAmount"></th>
+                        <th style="text-align: right" colspan="6" id="totalGoodAmount"></th>
                         <th style="text-align: right" id="totalShipAmount"></th>
                     </tr>
                     <tr>
                         <th>STT</th>
+                        <th>
+                            <a href="#" onclick="print()" data-toggle="tooltip" title="In phiếu">
+                                <i class="fa fa-print"></i></a>
+                        </th>
                         <th style="text-align: left">Mã đơn</th>
                         <th style="text-align: left">Ngày tạo</th>
                         <th style="text-align: left">Ngày kết thúc</th>
