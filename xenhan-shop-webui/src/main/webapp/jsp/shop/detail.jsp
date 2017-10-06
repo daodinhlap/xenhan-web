@@ -15,7 +15,7 @@
 				<div class="form-group">
 					<div class="error">
 						<label>Lỗi xảy ra:</label>
-						<div class="controls" style="float: right">
+						<div class="controls">
 							<p>${error}</p>
 						</div>
 					</div>
@@ -25,7 +25,7 @@
 				<div class="form-group">
 					<div class="buy-card-mobile">
 						<label>Tên Shop:</label>
-						<div class="controls" style="float: right">
+						<div class="controls">
 							<p>${shop.fullName}</p>
 						</div>
 					</div>
@@ -34,13 +34,13 @@
 				<div class="form-group">
 					<div class="buy-card-mobile">
 						<label class="width-50">Địa chỉ:</label>
-						<div style="float: right; text-align: right;" class="width-50">${shop.address}</div>
+						<div class="width-50">${shop.address}</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="buy-card-mobile">
 						<label>Tỉnh/Thành phố:</label>
-						<div class="controls" style="float: right">
+						<div class="controls">
 							<p>${shop.town.name}</p>
 						</div>
 					</div>
@@ -48,7 +48,7 @@
 				<div class="form-group">
 					<div class="buy-card-mobile">
 						<label>Quận/Huyện:</label>
-						<div class="controls" style="float: right">
+						<div class="controls">
 							<p>${shop.town.district.name}</p>
 						</div>
 					</div>
@@ -57,7 +57,7 @@
 				<div class="form-group">
 					<div class="buy-card-mobile">
 						<label>Số điện thoại:</label>
-						<div class="controls" style="float: right">
+						<div class="controls">
 							<p>${shop.phone}</p>
 						</div>
 					</div>
@@ -66,7 +66,7 @@
 				<div class="form-group">
 					<div class="buy-card-mobile">
 						<label class="label-inline-88">Email:</label>
-						<div class="controls" style="float: right">
+						<div class="controls">
 							<p>${shop.email}</p>
 						</div>
 					</div>
@@ -75,7 +75,7 @@
 				<div class="form-group">
 					<div class="buy-card-mobile">
 						<label class="label-inline-88">Website:</label>
-						<div class="controls" style="float: right">
+						<div class="controls">
 							<p>${shop.website}</p>
 						</div>
 					</div>

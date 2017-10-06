@@ -22,8 +22,8 @@ import java.net.URI;
  */
 @RestController
 @RequestMapping("/")
-public class InfoController extends AbstractController {
-    private final static Logger logger = LoggerFactory.getLogger(InfoController.class);
+public class DataController extends AbstractController {
+    private final static Logger logger = LoggerFactory.getLogger(DataController.class);
 
     @GetMapping(value = "/get-fee")
     public Double getFee(@RequestParam(value = "provinceId", required = true) String provinceId,
