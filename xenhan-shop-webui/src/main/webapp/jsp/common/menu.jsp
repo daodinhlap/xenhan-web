@@ -36,7 +36,9 @@
 				<li><a href="/shop/tao-don">
 					<img src="/resources/images/"><span>Tạo đơn hàng</span></a>
 				</li>
-				<li><a href="#"><img src="/resources/images/icon-nganhang-menu.png"><span>Lịch sử đơn hàng</span></a></li>
+				<li><a href="/shop/lich-su">
+					<img src="/resources/images/icon-nganhang-menu.png"><span>Lịch sử đơn hàng</span></a>
+				</li>
 				<li><a href="/user/thong-tin-nguoi-dung"><img src="/resources/images/icon-nganhang-menu.png"><span>Thông Tin Tài Khoản</span></a></li>
 				<li><a href="/shop/thong-tin-shop"><img src="/resources/images/icon-nganhang-menu.png"><span>Thông Tin Shop</span></a></li>
 			</c:if>
