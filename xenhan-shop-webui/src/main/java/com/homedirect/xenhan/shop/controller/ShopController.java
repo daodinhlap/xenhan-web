@@ -50,10 +50,10 @@ public class ShopController extends AbstractController {
   /* CREATE Order */
   @GetMapping(value = "/tao-don")
   public ModelAndView create(HttpServletRequest httpRequest) {
-    UserProfile profile = (UserProfile) httpRequest.getSession().getAttribute(AttributeConfig.USER_PROFILE);
+    Shop shop = getShopInfo(httpRequest);
     ModelAndView mv = new ModelAndView("order.create");
     mv.addObject("title","Xe Nhàn - Tạo đơn hàng");
-    mv.addObject("province", profile.getProvince());
+    mv.addObject("province", shop.getTown().getName());
     return mv;
   }
 
@@ -137,17 +137,27 @@ public class ShopController extends AbstractController {
   public ModelAndView showShop(HttpServletRequest httpRequest, HttpSession session) {
     ModelAndView mv = new ModelAndView("shop.detail");
     mv.addObject("title","Xe Nhàn - Thông Tin Shop");
-    String url = apiExchangeService.createUrlWithToken(httpRequest, "shop", "get-shop");
-    url += "&shop-name=" + session.getAttribute(AttributeConfig.SHOPNAME);
-    logger.info("url " + url);
-    TypeReference<RepositoryResponse<Shop>> reference = new TypeReference<RepositoryResponse<Shop>>() {};
     try {
-      RepositoryResponse<Shop> entity = apiExchangeService.get(httpRequest, url, reference);
-      mv.addObject("shop", entity.getData());
+        Shop shop = getShopInfo(httpRequest);
+        mv.addObject("shop", shop);
     } catch (Exception e) {
       logger.error(e.getMessage(), e);
       mv.addObject("error", e.getMessage());
     }
     return mv;
+  }
+
+  private Shop getShopInfo(HttpServletRequest httpRequest){
+      Shop shop =(Shop) httpRequest.getSession().getAttribute(AttributeConfig.SHOP);
+      if(shop == null){
+          String shopName =(String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME);
+          String url = apiExchangeService.createUrlWithToken(httpRequest, "shop", "get-shop?shop-name=" + shopName);
+          RepositoryResponse<Shop> shopResponse = apiExchangeService.get(httpRequest, url, new TypeReference<RepositoryResponse<Shop>>(){});
+
+          shop = shopResponse.getData();
+          httpRequest.getSession().setAttribute(AttributeConfig.SHOP, shopResponse.getData());
+          logger.info("\n GET SHOP INFO: {}", JsonUtil.toJson(shopResponse.getData()));
+      }
+      return shop;
   }
 }

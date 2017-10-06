@@ -3,6 +3,7 @@
  **************************************************************************/
 package com.homedirect.xenhan.shop.controller;
 
+import com.homedirect.xenhan.model.Shop;
 import com.homedirect.xenhan.web.connection.ApiExchangeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +25,7 @@ public class AbstractController {
   public final static Logger logger = LoggerFactory.getLogger(AbstractController.class);
 
   public AbstractController() {
-//    walletType = env.getProperty("wallet-type");
-//    this.paydAddress = env.getProperty("payd.frontgate.url");
-//    logger.info("\n Call Pay Url === "  + env.getProperty("payd.frontgate.url") + "\n");
+
   }
 
   

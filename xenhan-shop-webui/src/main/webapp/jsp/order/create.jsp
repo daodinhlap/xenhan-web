@@ -3,10 +3,11 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+
 <div class="col-md-6 col-md-offset-3  mobile-padding">
 
     <ul class="nav nav-tabs">
-      <li><a data-toggle="tab" href="#create">Tạo Đơn</a></li>
+      <li><a data-toggle="tab" href="#create">Tạo Đơn Lẻ</a></li>
       <li class="active"><a data-toggle="tab" href="#import">Nhập Đơn Từ Excel</a></li>
     </ul>
 
