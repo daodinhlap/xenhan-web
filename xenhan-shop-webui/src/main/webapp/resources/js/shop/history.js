@@ -83,12 +83,13 @@ function buildTable(orderPage) {
         return;
     }
     var page = new Page(orderPage);
+    var index = page.pageNumber;
     var orders = page.pageItems;
 
 
     orders.forEach((order, i) =>{
         table.append(
-            $("<tr>").append($("<td>"+(i+1)+"</td>"))
+            $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
                     .append($("<td align=\"left\">"+order.id+"</td>"))
                     .append($("<td align=\"left\">"+ddMMyyyy(order.createdDate)+"</td>"))
                     .append($("<td align=\"left\">"+ddMMyyyy(order.closedDate)+"</td>"))
@@ -96,7 +97,9 @@ function buildTable(orderPage) {
                     .append($("<td align=\"right\">"+currencyFormat(order.goodAmount)+"</td>"))
                     .append($("<td align=\"right\">"+currencyFormat(order.shipAmount)+"</td>"))
         );
-    })
+    });
+
+    buildPagination(page);
 }
 
 function buildTotal(total){
@@ -159,4 +162,17 @@ function yyyy_mm_dd(dateStr, type){
         return el[2]+"-"+el[1]+"-"+el[0] + " 23:59:59";
     }
     return "";
+}
+
+function buildPagination(page){
+    var el = $('#pagination');
+    el.empty();
+
+    for(i = 0; i < page.pagesAvailable; i++){
+        el.append(
+            $("<li>").append($("<a href='#'>").text(""+(i+1)).attr("onclick","getHistory("+ (i+1) +")"))
+        )
+
+    }
+
 }

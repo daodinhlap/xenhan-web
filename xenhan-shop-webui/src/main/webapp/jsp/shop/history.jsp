@@ -101,6 +101,12 @@
                 <tbody id="table-history">
                 </tbody>
             </table>
+
+            <div style="text-align: right">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </div>
+
         </div>
     </div>
 </div>
