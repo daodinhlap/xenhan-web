@@ -18,14 +18,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.homedirect.common.util.StringUtils;
+import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.common.request.XnUserInforRequest;
-import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.web.connection.ApiExchangeService;
 
 
@@ -84,6 +83,13 @@ public class HomeController extends AbstractController {
   public ModelAndView loginView() {
     ModelAndView mv = new ModelAndView("public.login");
     mv.addObject("title","Xe Nhàn - Đăng Nhập");
+    return mv;
+  }
+  
+  @GetMapping(value="khong-tim-thay-trang")
+  public ModelAndView notFoundPage(HttpServletRequest request, HttpServletResponse response) {
+    ModelAndView mv = new ModelAndView("public.error");
+    mv.addObject("title","Xe Nhàn - Trang Không Tìm Thấy");
     return mv;
   }
   

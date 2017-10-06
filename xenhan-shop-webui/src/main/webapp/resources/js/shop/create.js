@@ -79,3 +79,5 @@ function FormRegisterShop() {
 		return validate(this.address(), this.phone());
 	}
 }
+
+

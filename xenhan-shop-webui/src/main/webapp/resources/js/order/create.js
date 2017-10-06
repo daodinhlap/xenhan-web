@@ -22,6 +22,22 @@ $(document).ready(function($) {
 
 });
 
+$('#fine-uploader-gallery').fineUploader({
+    template: 'qq-template-excel',
+    request: {
+        endpoint: '/shop/nhap-don-tu-excel'
+    },
+    validation: {
+        allowedExtensions: ['xlsx', 'xls']
+    },
+    callbacks: {
+        onComplete: function(id, name, response) {
+           if(response['success'] != true) return;
+           setInterval(window.location.replace('/shop/lich-su-don-hang'), 5*1000);
+        }
+     }
+});
+
 function create() {
     //TODO: validate
 
