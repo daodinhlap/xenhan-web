@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ page pageEncoding="UTF-8"%>
+<div class="col-md-6 col-md-offset-3  mobile-padding">
 
 <div class="container">
 	<div class="card" style="padding: 20px 0px;">
@@ -60,4 +61,6 @@
 		<%--</div>--%>
 
 	</div>
+</div>
+
 </div>

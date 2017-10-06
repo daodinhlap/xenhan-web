@@ -4,6 +4,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
+<div class="col-sm-4 col-sm-offset-3 col-md-6 col-md-offset-3  mobile-padding">
 <div id="info-receiver" class="container card">
     <div class="center">
         <h2>Thông tin đăng ký Shop</h2>
@@ -112,4 +113,5 @@
         <button class="btn btn-danger" onclick="cancleRegisterShop()">Hủy</button>
         <button class="btn btn-success" onclick="registerShop()"> Đăng ký</button>
     </div>
+</div>
 </div>

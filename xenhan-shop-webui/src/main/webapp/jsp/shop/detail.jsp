@@ -4,6 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
+<div class="col-sm-4 col-sm-offset-3 col-md-6 col-md-offset-3  mobile-padding">
+
 <div id="account-view">
 	<!-- Shop -->
 	<h2 class="page-header">THÔNG TIN SHOP</h2>
@@ -82,6 +84,8 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
+</div>
+
 </div>
 
 

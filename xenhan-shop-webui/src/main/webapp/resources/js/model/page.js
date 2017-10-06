@@ -8,3 +8,12 @@ function Page (page){
     this.time = page.time;
     this.totalItems = page.totalItems;
 }
+
+function Total(total) {
+    this.total = total.total;
+    this.totalDropoffAmount = total.totalDropoffAmount;
+    this.totalGoodAmount = total.totalGoodAmount;
+    this.totalPickupAmount = total.totalPickupAmount;
+    this.totalReturnAmount = total.totalReturnAmount;
+    this.totalShipAmount = total.totalShipAmount;
+}

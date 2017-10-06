@@ -1,6 +1,7 @@
 var form = new Form();
 var noti = new Notify();
 var URL_HISTORY = BASE_URL + "/shop/history";
+var URL_HISTORY_TOTAL = BASE_URL + "/shop/total";
 
 //================================================================
 //ON LOADED
@@ -14,12 +15,18 @@ $(document).ready(function($) {
 
     // get history
     getHistory();
-
 });
 
 function getHistory(index){
+    buildTable();
+
     var request = form.getRequest();
     request.index = index? index: 1;
+    request.fromDate = yyyy_mm_dd(request.fromDate, "begin");
+    request.toDate = yyyy_mm_dd(request.toDate, "end");
+
+    getTotal(request);
+
     $.ajax({
         type : 'POST',
         contentType : 'application/json',
@@ -27,7 +34,7 @@ function getHistory(index){
         data : JSON.stringify(request)
     }).done(function(data) {
         if (!data) {
-            error.push({message: data, id: "alert"});
+            noti.error([{message: data, id: "alert"}]);
             return;
         }
         buildTable(data)
@@ -37,6 +44,23 @@ function getHistory(index){
         noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() { reload() });
     }).always(function () {
     });
+}
+
+function getTotal(request) {
+    buildTotal();
+    $.ajax({
+        type : 'POST',
+        contentType : 'application/json',
+        url : URL_HISTORY_TOTAL,
+        data : JSON.stringify(request)
+    }).done(function(data) {
+        console.log(data);
+        buildTotal(data);
+    }).fail(function(data) {
+        console.log(data);
+    }).always(function () {
+    });
+
 }
 
 function configDatePicker(ids){
@@ -52,21 +76,38 @@ function configDatePicker(ids){
     }
 }
 function buildTable(orderPage) {
+    var table = $('#table-history');
+
+    if(!orderPage){
+        table.empty();
+        return;
+    }
     var page = new Page(orderPage);
     var orders = page.pageItems;
 
-    var table = $('#table-history');
+
     orders.forEach((order, i) =>{
         table.append(
-            $("<tr>").append($("<td align=\"right\">"+(i+1)+"</td>"))
-                    .append($("<td align=\"right\">"+order.id+"</td>"))
-                    .append($("<td align=\"right\">"+ddMMyyyy(order.createdDate)+"</td>"))
-                    .append($("<td align=\"right\">"+ddMMyyyy(order.closedDate)+"</td>"))
-                    .append($("<td align=\"right\">"+order.dropoff.address+"</td>"))
+            $("<tr>").append($("<td>"+(i+1)+"</td>"))
+                    .append($("<td align=\"left\">"+order.id+"</td>"))
+                    .append($("<td align=\"left\">"+ddMMyyyy(order.createdDate)+"</td>"))
+                    .append($("<td align=\"left\">"+ddMMyyyy(order.closedDate)+"</td>"))
+                    .append($("<td align=\"left\">"+order.dropoff.address+"</td>"))
                     .append($("<td align=\"right\">"+currencyFormat(order.goodAmount)+"</td>"))
                     .append($("<td align=\"right\">"+currencyFormat(order.shipAmount)+"</td>"))
         );
     })
+}
+
+function buildTotal(total){
+    form.setTotalGoodAmount("");
+    form.setTotalShipAmount("");
+    if(!total) return;
+
+    var total = new Total(total);
+    form.setTotalGoodAmount(currencyFormat(total.totalGoodAmount));
+    form.setTotalShipAmount(currencyFormat(total.totalShipAmount));
+
 }
 
 function Form() {
@@ -76,6 +117,9 @@ function Form() {
     this.status = function() {return $('#status').val()};
     this.typeOfView = function() {return $('#typeOfView').val()};
     this.index = function() {return $('#index').val()};
+
+    this.setTotalGoodAmount = function(value) {return $('#totalGoodAmount').text(value)};
+    this.setTotalShipAmount = function(value) {return $('#totalShipAmount').text(value)};
 
     this.getRequest = function() {
         return {
@@ -87,16 +131,6 @@ function Form() {
             typeOfView: this.typeOfView(),
         }
     }
-
-    // fromDate
-    // toDate
-    // index
-    // keyword
-    // packageId
-    // shopName
-    // size
-    // status
-    // typeOfView
 }
 
 function ddMMyyyy(long){
@@ -114,4 +148,15 @@ function ddMMyyyy(long){
         mm='0'+mm;
     }
     return dd+'/'+mm+'/'+yyyy;
+}
+
+function yyyy_mm_dd(dateStr, type){
+    var el = dateStr.split("/");
+    if(type == "begin"){
+        return el[2]+"-"+el[1]+"-"+el[0] + " 00:00:00";
+    }
+    if(type == "end"){
+        return el[2]+"-"+el[1]+"-"+el[0] + " 23:59:59";
+    }
+    return "";
 }

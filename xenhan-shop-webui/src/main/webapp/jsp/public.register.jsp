@@ -3,6 +3,7 @@
 <%@ page pageEncoding="UTF-8"%>
 
 <script src='https://www.google.com/recaptcha/api.js?hl=vi'></script>
+<div class="col-md-6 col-md-offset-3  mobile-padding">
 
 <div class="container" style=" margin-top: -30px;">
 	<div class="card" style=" padding: 20px 0px 20px 0px;">
@@ -59,4 +60,6 @@
 			</div>
 		</div>
 	</div>
+</div>
+
 </div>

@@ -39,9 +39,9 @@
 		<div class="row">
 			<tiles:insertAttribute name="menu" />
 			
-			<div class="col-sm-4 col-sm-offset-3 col-md-6 col-md-offset-3  mobile-padding">
+			<%--<div class="col-sm-4 col-sm-offset-3 col-md-6 col-md-offset-3  mobile-padding">--%>
 				<tiles:insertAttribute name="body" />
-			</div>
+			<%--</div>--%>
 			
 			<tiles:insertAttribute name="footer" />
 		</div>
