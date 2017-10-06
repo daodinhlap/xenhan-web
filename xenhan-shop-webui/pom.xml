@@ -162,7 +162,7 @@
 		<dependency>
 			<groupId>com.homedirect.user</groupId>
 			<artifactId>user-model</artifactId>
-			<version>1.2.5</version>
+			<version>1.2.8</version>
 		</dependency>
 
 		<dependency>
@@ -180,7 +180,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.homedirect.user</groupId>
+            <artifactId>user-model</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<finalName>xenhan-shop-webui</finalName>
