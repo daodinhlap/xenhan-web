@@ -24,11 +24,11 @@
 	</div>
 
 	<div class="form-group" style="display: none">
-		<label>Tỉnh/TP <span style="color: red">*</span></label> <select
+		<label>Tỉnh/TP <span style="color: red">*</span></label>  <select
 			class="form-control" id="province">
-			<option ${province == 'Hà Nội'? 'selected': ''} value="1">Hà
+			<option ${province == 'Hà Nội' ? 'selected': ''} value="1">Hà
 				Nội</option>
-			<option ${province == 'Hồ Chí Minh'? 'selected': ''} value="2">Hồ
+			<option ${province == 'Hồ Chí Minh' ? 'selected': ''} value="2">Hồ
 				Chí Minh</option>
 		</select>
 	</div>
@@ -143,3 +143,4 @@
 			Đặt lại&nbsp;<i class="fa fa-refresh"></i>
 		</button>
 	</div>
+</div>
