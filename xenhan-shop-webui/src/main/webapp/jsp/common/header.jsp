@@ -27,7 +27,7 @@
 			
 			<ul class="nav navbar-nav navbar-right profile" style="margin-bottom:2px">
 				<li style=" height: 80px; margin-top: -10px;">
-					<a href="/tai-khoan/truy-van-tai-khoan">
+					<a href="#">
 							<div class="col-xs-3 col-sm-3 col-md-4 padding-0 ">
 								<img class="avatar" src="/resources/images/icon-user.png">
 							</div>
@@ -44,10 +44,26 @@
 							</div>
 					</a>
 				</li>
-				<li><a class="li-header" href="/">
-					<img width="30px" src=""><span>Dịch vụ</span></a></li>
 
+				<li><a href="/">
+					<img src="/resources/images/"><span>Trang chủ</span></a></li>
+				<li><a href="/shop/tao-don">
+					<img src="/resources/images/"><span>Tạo đơn hàng</span></a>
+				</li>
+				<li><a href="/shop/tao-don-excel">
+					<img src="/resources/images/"><span>Tạo đơn hàng từ Excel</span></a>
+				</li>
+				<li><a href="/shop/lich-su">
+					<img src="/resources/images/"><span>Lịch sử đơn hàng</span></a></li>
+				<li><a href="/user/thong-tin-nguoi-dung">
+					<img src="/resources/images/"><span>Thông Tin Tài Khoản</span></a></li>
+				<li><a href="/shop/thong-tin-shop">
+					<img src="/resources/images/"><span>Thông Tin Shop</span></a></li>
+				<li><a href="#"><img src="/resources/images/"><span>Đổi Mật Khẩu</span></a></li>
+				<li><a href="#"><img src="/resources/images/"><span>Liên Hệ</span></a></li>
+				<li><a href="/dang-xuat"><img src="/resources/images/"><span>Đăng Xuất</span></a></li>
 			</ul>
+
 		</div>
 	</div>
 </nav>

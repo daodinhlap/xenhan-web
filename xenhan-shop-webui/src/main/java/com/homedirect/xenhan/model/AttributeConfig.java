@@ -9,6 +9,7 @@ public class AttributeConfig {
     public final static String USERNAME = "USERNAME";
     public final static String IDENTITY = "IDENTITY";
     public final static String SHOPNAME = "SHOPNAME";
+    public static final String USER_PROFILE = "PROFILE";
     public static final String XN_DOMAIN = "XENHAN";
 //    public final static String MEMBERSHIPS = "MEMBERSHIPS";
     public static final String XN_SHOP_PREFIX = "XENHAN-SHOP";

@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.homedirect.repo.model.UserProfile;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.Order;
@@ -48,9 +49,11 @@ public class ShopController extends AbstractController {
 
   /* CREATE Order */
   @GetMapping(value = "/tao-don")
-  public ModelAndView create() {
+  public ModelAndView create(HttpServletRequest httpRequest) {
+    UserProfile profile = (UserProfile) httpRequest.getSession().getAttribute(AttributeConfig.USER_PROFILE);
     ModelAndView mv = new ModelAndView("order.create");
     mv.addObject("title","Xe Nhàn - Tạo đơn hàng");
+    mv.addObject("province", profile.getProvince());
     return mv;
   }
 
