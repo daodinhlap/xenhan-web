@@ -65,12 +65,18 @@
 		</put-list-attribute>
 	</definition>
 
+	<definition name="shop.print" template="/jsp/print/bill.jsp">
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/css/frame/bootstrap.min.css" />
+			<add-attribute value="/resources/css/app/style.css" />
+		</put-list-attribute>
+	</definition>
+
     <definition name="shop.history" extends="layout.basic">
         <put-attribute name="body" value="/jsp/shop/history.jsp" />
         <put-list-attribute name="scripts" inherit="true">
             <add-attribute value="/resources/js/model/page.js" />
             <add-attribute value="/resources/js/shop/history.js" />
-			<add-attribute value="/resources/js/print/bill.js" />
 			<add-attribute value="/resources/plugins/barCode/JsBarcode.min.js" />
 			<add-attribute value="/resources/plugins/datePicker/moment-with-locales.js" />
 			<add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.js" />

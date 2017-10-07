@@ -4,14 +4,17 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.homedirect.common.model.Page;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
+import com.homedirect.xenhan.model.Order;
 import com.homedirect.xenhan.user.model.OrderEntity;
 import com.homedirect.xenhan.user.model.request.PageOrderRequest;
 import com.homedirect.xenhan.util.JsonUtil;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * author: hieunv - hieu.nguyen2@homedirect.com.vn
@@ -54,4 +57,16 @@ public class HistoryController extends AbstractController{
         ResponseEntity<RepositoryResponse<Object>> ordersResponse =  apiExchangeService.post(httpRequest, url, request);
         return ordersResponse.getBody().getData();
     }
+
+    @PostMapping(value = "/print")
+    public ModelAndView print(@RequestBody List<Order> orders) {
+        if(CollectionUtils.isEmpty(orders)) return null;
+
+        ModelAndView mv = new ModelAndView("shop.print");
+        mv.addObject("title","Xe Nhàn - In");
+        mv.addObject("orders",orders);
+        return mv;
+    }
+
+
 }

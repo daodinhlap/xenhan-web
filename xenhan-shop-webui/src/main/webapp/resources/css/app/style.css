@@ -1033,3 +1033,44 @@ input::placeholder{
 	margin-bottom: -2px !important;
 	color: #9d9d9d !important;
 }
+/*bill*/
+.bill-header-label-content{
+    float: left;
+    width: 45%;
+    text-align: center;
+}
+.bill-header-data-content{
+    display: table;
+    height: 83px;
+    font-size: 11px;
+    width: 55% !important;
+    float: left;
+    text-align: center;
+}
+.order-bill-logo{
+    width: 80px;
+    height: auto;
+    font-size: 0.85714286rem;
+    display: block;
+    margin: auto;
+}
+.order-bill-slogan {
+    margin-top: 5px;
+    font-weight: bold;
+}
+.label-content{
+    width: 30%;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.content-left{
+    width: 40%;
+    float: left;
+}
+.content-right{
+    font-weight: bold;
+}
+.table.small>tbody>tr>td{
+    padding: 1px 8px;
+}

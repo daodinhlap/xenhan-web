@@ -5,6 +5,7 @@ var ordersSelected = [];
 
 var URL_HISTORY = BASE_URL + "/shop/history";
 var URL_HISTORY_TOTAL = BASE_URL + "/shop/total";
+var URL_HISTORY_PRINT = BASE_URL + "/shop/print";
 
 //================================================================
 //ON LOADED
@@ -142,8 +143,20 @@ function Form() {
 }
 
 function print(){
-    console.log(ordersSelected.length);
-    printHorizontal(ordersSelected);
+    // printHorizontal(ordersSelected);
+    $.ajax({
+        type : 'POST',
+        contentType : 'application/json',
+        url : URL_HISTORY_PRINT,
+        data : JSON.stringify(ordersSelected)
+    }).done(function(content) {
+        var popupWin = window.open('', '', '');
+        popupWin.document.write(content);
+        popupWin.document.close();
+    }).fail(function(data) {
+        console.log(data);
+    }).always(function () {
+    });
 }
 
 function check(check, orderId) {
