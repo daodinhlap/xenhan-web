@@ -142,11 +142,7 @@ public class ShopController extends AbstractController {
       return e.getMessage().getBytes();
     }
 
-
-
-
-
-    System.out.println("=-------> "+ goodAmount);
+//    System.out.println("=-------> "+ goodAmount);
 
     return "done".getBytes();
   }
