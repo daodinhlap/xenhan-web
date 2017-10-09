@@ -36,6 +36,9 @@
 				<li><a href="/shop/tao-don">
 					<img src="/resources/images/"><span>Tạo đơn hàng</span></a>
 				</li>
+				<li><a href="/shop/tao-don-tu-excel">
+					<img src="/resources/images/"><span>Tạo Đơn Từ Excel</span></a>
+				</li>
 				<li><a href="/shop/lich-su">
 					<img src="/resources/images/icon-nganhang-menu.png"><span>Lịch sử đơn hàng</span></a>
 				</li>

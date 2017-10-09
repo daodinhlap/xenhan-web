@@ -68,6 +68,16 @@ public class ShopController extends AbstractController {
     String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "create-order");
     return apiExchangeService.post(httpRequest, url ,order);
   }
+  
+  @GetMapping(value = "/tao-don-tu-excel")
+  public ModelAndView createOrderFromExcel(HttpServletRequest httpRequest, HttpSession session) {
+    ModelAndView mv = new ModelAndView("order.create.excel");
+    mv.addObject("title","Xe Nhàn - Tạo Đơn Từ Excel");
+    List<OrderEntity> orders = (List<OrderEntity>)session.getAttribute(IMPORT_DATA);
+    if(!CollectionUtils.isEmpty(orders)) mv.addObject("orders", orders);
+    //      session.setAttribute(IMPORT_DATA, resp.getBody().getData());
+    return mv;
+  }
 
   @RequestMapping(value = "/nhap-don-tu-excel", method = RequestMethod.POST)
   public byte[] createByExcel(@RequestParam(value = "qqfile", required = true) MultipartFile partFile,
@@ -103,25 +113,20 @@ public class ShopController extends AbstractController {
   }
 
   @SuppressWarnings("unchecked")
-  @GetMapping(value = "/danh-sach-don-tu-excel")
-  public ModelAndView listByExcel(HttpServletRequest httpRequest, HttpSession session) {
-    ModelAndView mv = new ModelAndView("order.list.excel.data");
-    mv.addObject("title","Xe Nhàn - Đăng ký Shop");
-    List<OrderEntity> orders = (List<OrderEntity>)session.getAttribute(IMPORT_DATA);
-    mv.addObject("orders", orders);
-    //      session.setAttribute(IMPORT_DATA, resp.getBody().getData());
-    return mv;
-  }
-
-  @SuppressWarnings("unchecked")
   @PostMapping(value = "/sua-don-tu-excel")
   public byte[] editFromExcel(@RequestParam(value = "pk", required = true) Integer pk,
                               @RequestParam(value = "name", required = false) String name,
                               @RequestParam(value = "value", required = false) String value,
-                              HttpServletRequest httpRequest, HttpSession session) {
+                              HttpSession session) {
     List<OrderEntity> orders = (List<OrderEntity>)session.getAttribute(IMPORT_DATA);
+    
     if(CollectionUtils.isEmpty(orders)) return "no_data".getBytes();
     if(pk < 0 || pk >= orders.size()) return "index".getBytes();
+    
+    if(StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "no_data".getBytes();
+    
+    name = name.trim();
+    value = value.trim();
 
     logger.info("----> edit ---> "+ pk + "- name "+ name + " - value " + value);
     OrderEntity entity = orders.get(pk);
@@ -131,22 +136,40 @@ public class ShopController extends AbstractController {
         entity.setCOD(StringUtils.isEmpty(value) || Integer.parseInt(value) == 1);
         break;
       case "good-amount":
-        if(StringUtils.isEmpty(value)) entity.setGoodAmount(Double.parseDouble(value));
+        if(!StringUtils.isEmpty(value)) entity.setGoodAmount(Double.parseDouble(value));
+        break;
+      case "coupon":
+        if(!StringUtils.isEmpty(value)) entity.setCoupon(value);
+        break;
+      case "address":
+        if(!StringUtils.isEmpty(value)) entity.getDropoff().setAddress(value);
+        break;
+      case "province":
+        if(!StringUtils.isEmpty(value)) entity.getDropoff().getTown().setId(Long.parseLong(value));
+        break;
+      case "district":
+        if(!StringUtils.isEmpty(value)) entity.getDropoff().getTown().getDistrict().setId(Long.parseLong(value));
+        break;
+      case "name":
+        if(!StringUtils.isEmpty(value)) entity.getDropoff().getContact().setName(value);
+        break;
+      case "phone":
+        if(!StringUtils.isEmpty(value)) entity.getDropoff().getContact().setPhone(value);
         break;
 
       default:
         break;
       }
+      
+      orders.set(pk, entity);
     } catch (Exception e) {
-      logger.error(e.getMessage(), e);
+      logger.error(e.getMessage());
       return e.getMessage().getBytes();
     }
 
 
 
 
-
-    System.out.println("=-------> "+ goodAmount);
 
     return "done".getBytes();
   }

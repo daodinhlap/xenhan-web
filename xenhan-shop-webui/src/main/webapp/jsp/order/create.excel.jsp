@@ -1,9 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-	<script type="text/template" id="qq-template-excel">
+<script type="text/template" id="qq-template-excel">
         <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop files here">
             <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
                 <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
@@ -79,25 +80,152 @@
             </dialog>
         </div>
     </script>
-<div id="info-receiver" class="container card">
-	<div class="center">
-		<h2>Tạo Đơn Bằng Excel</h2>
-	</div>
-	<div class="center container"
-		style="margin-bottom: 20px; margin-top: 30px">
-		<div class="row">
-			<div class="col-md-8">
-				<div id="fine-uploader-gallery"></div>
+<div class="col-md-8 col-md-offset-3  mobile-padding">
+	<div id="info-receiver" class="container card">
+		<div class="center">
+			<h2>Tạo Đơn Bằng Excel</h2>
+		</div>
+		<div class="center container"
+			style="margin-bottom: 20px; margin-top: 30px">
+			<div class="row">
+				<div class="col-md-8">
+					<div id="fine-uploader-gallery"></div>
 
-			</div>
-			<div class="col-md-4">
-				<a target="_blank"
-					href="/resources/file/DanhSachDonHang_ShopXeNhan.xlsx"> <i
-					class="glyphicon glyphicon-download-alt"></i>Tải Tệp Mẫu
-				</a>
+				</div>
+				<div class="col-md-4">
+					<a target="_blank"
+						href="/resources/file/DanhSachDonHang_ShopXeNhan.xlsx"> <i
+						class="glyphicon glyphicon-download-alt"></i>Tải Tệp Mẫu
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
+
+	<c:if test="${not empty orders}">
+		<div class="container card" style="padding: 15px; margin-top: 20px">
+			<div id="accordion" role="tablist">
+			    <input id="number-of-order" type="hidden" value="${orders.size()}" style="display:none"></span>
+				<c:forEach items="${orders}" var="order" varStatus="loop">
+					<div class="card">
+						<div class="card-header" role="tab" id="headingOne"
+							style="margin-top: 10px; margin-left: 10px">
+							<h3 class="mb-0" style="display: inline">
+								<a data-toggle="collapse" href="#order-${loop.index + 1}"
+									aria-expanded="true" aria-controls="order-${loop.index}">
+									Đơn Hàng ${loop.index + 1}</a>
+							</h3>
+							- Tiền Hàng:
+							<fmt:formatNumber type="number" maxFractionDigits="3"
+								value="${order.goodAmount}" />
+							- Phí Ship:
+							<fmt:formatNumber type="number" maxFractionDigits="3"
+								value="${order.shipAmount}" />
+							- ${order.dropoff.contact.phone} - Giao: ${order.dropoff.address}
+						</div>
+					</div>
+
+					<div id="order-${loop.index + 1}" class="collapse" role="tabpanel"
+						aria-labelledby="headingOne" data-parent="#accordion">
+						<div class="card-body">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<td width="40%">Loại đơn *:</td>
+										<td><a href="#" id="type-${loop.index}" data-type="select"
+											data-url="/shop/sua-don-tu-excel" data-name="type"
+											data-pk="${loop.index}" data-original-title="Chọn Loại Đơn"
+											class="editable editable-empty">${order.COD ? 'COD' : 'Ứ.T'}</a></td>
+									</tr>
+									<tr>
+										<td>Gói Cước *:</td>
+										<td>Toc Do</td>
+									</tr>
+
+									<tr>
+										<td>Tiền Hàng *:</td>
+										<td><a href="#" data-url="/shop/sua-don-tu-excel"
+											data-name="good-amount"
+											id="good-amount-${loop.index}" data-type="text" data-pk="${loop.index}">
+												<fmt:formatNumber type="number" maxFractionDigits="3" value="${order.goodAmount}"/>
+										</a></td>
+									</tr>
+									<tr>
+										<td>Mã Giảm Giá*:</td>
+										<td><a href="#" data-url="/shop/sua-don-tu-excel"
+											data-name="coupon"
+											id="coupon-${loop.index}" data-type="text" data-pk="${loop.index}">${order.coupon}</a></td>
+									</tr>
+									<tr>
+										<td>Tiền Giảm Giá*:</td>
+										<td><fmt:formatNumber type="number" maxFractionDigits="3"
+												value="${order.refund}" /></td>
+									</tr>
+									<tr>
+										<td>Phí Ship Trước Khi Giảm *</td>
+										<td><fmt:formatNumber type="number" maxFractionDigits="3"
+												value="${order.originalShipAmount}" /></td>
+									</tr>
+									<tr>
+										<td>Phí Ship</td>
+										<td><fmt:formatNumber type="number" maxFractionDigits="3"
+												value="${order.shipAmount}" /></td>
+									</tr>
+									<tr>
+										<td>Địa Chỉ Giao* :</td>
+										<td><a href="#" data-url="/shop/sua-don-tu-excel"
+											data-name="address"
+											id="address-${loop.index}" data-type="text" data-pk="${loop.index}">${order.dropoff.address}</a></td>
+									</tr>
+									<tr>
+										<td>Tỉnh/TP* :</td>
+										<td><a href="#" id="province-${loop.index}" data-type="select"
+											data-url="/shop/sua-don-tu-excel" data-name="province"
+											data-pk="${loop.index}" data-original-title="Chọn Tỉnh/Thành Phố"
+											data-value="${order.dropoff.town.id}"
+											class="editable editable-empty">${order.dropoff.town.name}</a></td>
+									</tr>
+									<tr>
+										<td>Quận/Huyện* :</td>
+										<td><a href="#" id="district-${loop.index}" data-type="select"
+											data-url="/shop/sua-don-tu-excel" data-name="district"
+											data-pk="${loop.index}" data-original-title="Chọn Quận/Huyện"
+											data-value="${order.dropoff.town.district.id}"
+											class="editable editable-empty">${order.dropoff.town.district.name}</a></td>
+									</tr>
+									<tr>
+										<td>Khách Nhận Hàng</td>
+										<td><a href="#" data-url="/shop/sua-don-tu-excel"
+											data-name="name"
+											id="name-${loop.index}" data-type="text" data-pk="${loop.index}">${order.dropoff.contact.name}</a></td>
+									</tr>
+									<tr>
+										<td>Điện Thoại Khách Nhận</td>
+										<td><a href="#" data-url="/shop/sua-don-tu-excel"
+											data-name="phone"
+											id="phone-${loop.index}" data-type="text" data-pk="${loop.index}">${order.dropoff.contact.phone}</a></td>
+									</tr>
+									<tr>
+										<td>Thông Tin Thêm</td>
+										<td>${order.orderMessage}</td>
+									</tr>
+
+									<tr>
+										<td colspan="2" align="center">
+											<div class="row">
+												<div class="col-md-6">Nhập Đơn</div>
+												<div class="col-md-6">Xóa Đơn</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+			</div>
+			</c:forEach>
+		</div>
+	</c:if>
+</div>
 <link href="/resources/css/app/fine-uploader.min.css" rel="stylesheet">

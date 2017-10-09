@@ -22,25 +22,7 @@ $(document).ready(function() {
 
 });
 
-$('#fine-uploader-gallery').fineUploader({
-    template: 'qq-template-excel',
-    request: {
-        endpoint: '/shop/nhap-don-tu-excel'
-    },
-    validation: {
-        allowedExtensions: ['xlsx', 'xls']
-    },
-    callbacks: {
-        onComplete: function(id, name, response) {
-           if(response['success'] != true) return;
-           setInterval(window.location.replace('/shop/danh-sach-don-tu-excel'), 1*1000);
-        }
-     }
-});
-
 function create() {
-    //TODO: validate
-
     var order = makeModel();
     $.ajax({
         type : 'POST',

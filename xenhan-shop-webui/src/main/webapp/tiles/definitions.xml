@@ -55,9 +55,9 @@
             <add-attribute value="/resources/js/user/{1}.js" />
         </put-list-attribute>
 	</definition>
-
-	<definition name="order.*" extends="layout.basic">
-		<put-attribute name="body" value="/jsp/order/{1}.jsp" />
+	
+	<definition name="order.create.excel" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/order/create.excel.jsp" />
 		<put-list-attribute name="stylesheets" inherit="true">
 			<add-attribute value="/resources/css/app/bootstrap-editable.css" />
 		</put-list-attribute>
@@ -65,7 +65,16 @@
             <add-attribute value="/resources/js/model/order.js" />
 			<add-attribute value="/resources/js/upload/jquery.fine-uploader.min.js" />
 			<add-attribute value="/resources/js/app/bootstrap-editable.js" />
-			<add-attribute value="/resources/js/order/{1}.js" />
+			<add-attribute value="/resources/js/order/create.excel.js" />
+		</put-list-attribute>
+	</definition>
+	
+
+	<definition name="order.create" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/order/create.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+            <add-attribute value="/resources/js/model/order.js" />
+			<add-attribute value="/resources/js/order/create.js" />
 		</put-list-attribute>
 	</definition>
 
