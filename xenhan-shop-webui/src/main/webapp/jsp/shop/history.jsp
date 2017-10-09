@@ -81,30 +81,45 @@
         </div>
 
         <div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Tổng</th>
-                        <th style="text-align: right" colspan="6" id="totalGoodAmount"></th>
-                        <th style="text-align: right" id="totalShipAmount"></th>
-                    </tr>
-                    <tr>
-                        <th>STT</th>
-                        <th>
-                            <a href="#" onclick="print()" data-toggle="tooltip" title="In phiếu">
-                                <i class="fa fa-print"></i></a>
-                        </th>
-                        <th style="text-align: left">Mã đơn</th>
-                        <th style="text-align: left">Ngày tạo</th>
-                        <th style="text-align: left">Ngày kết thúc</th>
-                        <th style="text-align: left">Địa chỉ giao hàng</th>
-                        <th style="text-align: right">Tiền hàng</th>
-                        <th style="text-align: right">Phí ship</th>
-                    </tr>
-                </thead>
-                <tbody id="table-history">
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover click">
+                    <thead>
+                        <tr>
+                            <th>Tổng</th>
+                            <th style="text-align: right" colspan="6" id="totalGoodAmount"></th>
+                            <th style="text-align: right" colspan="2" id="totalShipAmount"></th>
+                        </tr>
+                        <tr>
+                            <th style="color: #92c78a;">#</th>
+                            <th>
+                                <a href="#" onclick="print()" data-toggle="tooltip" title="Click để In phiếu">
+                                    <i style="color: #92c78a;" class="fa fa-print"></i></a>
+                            </th>
+                            <th style="text-align: left">
+                                <i style="color: #92c78a;" class="fa fa-barcode" data-toggle="tooltip" title="Mã vận đơn"></i>
+                            </th>
+                            <th style="text-align: left">
+                                <i style="color: #92c78a;" class="fa fa-calendar-check-o" data-toggle="tooltip" title="Ngày tạo đơn"></i>
+                            </th>
+                            <th style="text-align: left">
+                                <i style="color: #92c78a;" class="fa fa-calendar-times-o" data-toggle="tooltip" title="Ngày kết thúc"></i>
+                            </th>
+                            <th style="text-align: left">
+                                <img class="img-icon" src="/resources/images/icon_location_1.png" data-toggle="tooltip" title="Địa chỉ giao hàng">
+                            </th>
+                            <th style="text-align: right">
+                                <img class="img-icon" src="/resources/images/icon_green_amount.png" data-toggle="tooltip" title="Tiền hàng">
+                            </th>
+                            <th style="text-align: left"></th>
+                            <th style="text-align: right">
+                                <img class="img-icon" src="/resources/images/icon_green_ship_amount.png" data-toggle="tooltip" title="Phí ship">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-history">
+                    </tbody>
+                </table>
+            </div>
 
             <div style="text-align: right">
                 <ul class="pagination" id="pagination">
