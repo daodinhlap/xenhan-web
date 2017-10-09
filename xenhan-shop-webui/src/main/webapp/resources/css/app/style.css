@@ -1098,8 +1098,6 @@ input::placeholder{
     background: #85019d;
     color: white;
 }
-
-
 .status-cancel {
     background: black;
     color: white;
@@ -1108,4 +1106,24 @@ input::placeholder{
     width: 20px;
     height: 22px;
     margin-right: 5px;
+}
+.order-status-find-ship{
+    color: #77ba20;
+}
+.order-status-waiting{
+    color: #ffb80f;
+}
+.order-status-delivering{
+    color: #16559f;
+}
+
+.order-status-return {
+    color: red;
+}
+
+.order-status-dropoff {
+    color: #85019d;
+}
+.order-status-cancel {
+    color: black;
 }

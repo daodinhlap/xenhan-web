@@ -86,11 +86,12 @@
                     <thead>
                         <tr>
                             <th>Tổng</th>
-                            <th style="text-align: right" colspan="6" id="totalGoodAmount"></th>
-                            <th style="text-align: right" colspan="2" id="totalShipAmount"></th>
+                            <th style="text-align: right" colspan="6"><span id="totalGoodAmount"></span>&nbsp;đ</th>
+                            <th style="text-align: right"><span id="totalShipAmount"></span>&nbsp;đ</th>
+                            <th style="width: 10px;"></th>
                         </tr>
                         <tr>
-                            <th style="color: #92c78a;">#</th>
+                            <th style="width: 10px;" style="color: #92c78a;">#</th>
                             <th>
                                 <a href="#" onclick="print()" data-toggle="tooltip" title="Click để In phiếu">
                                     <i style="color: #92c78a;" class="fa fa-print"></i></a>
@@ -110,10 +111,10 @@
                             <th style="text-align: right">
                                 <img class="img-icon" src="/resources/images/icon_green_amount.png" data-toggle="tooltip" title="Tiền hàng">
                             </th>
-                            <th style="text-align: left"></th>
                             <th style="text-align: right">
                                 <img class="img-icon" src="/resources/images/icon_green_ship_amount.png" data-toggle="tooltip" title="Phí ship">
                             </th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="table-history">

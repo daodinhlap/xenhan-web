@@ -16,9 +16,8 @@
 			type="text" class="form-control" id="userName">
 	</div>
 	<div class="form-group">
-		<label>Số điện thoại <span style="color: red">*</span></label> <input
-			placeholder="SĐT người nhận" type="text" class="form-control"
-			id="phone">
+		<label>Số điện thoại <span style="color: red">*</span></label>
+		<input placeholder="SĐT người nhận" type="text" class="form-control" id="phone">
 	</div>
 	<div class="form-group">
 		<label>Địa chỉ <span style="color: red">*</span></label> <input

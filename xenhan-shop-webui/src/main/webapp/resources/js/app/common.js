@@ -330,6 +330,23 @@ function Notify(){
 		});
 		return noti;
 	};
+    this.confirmWithBtn = function(message, btn_yes, btn_no, callback){
+        var noti = bootbox.confirm({
+            message: message,
+            callback: callback,
+            buttons: {
+                confirm: {
+                    label: btn_yes,
+                    className: 'mainbtnpaydee'
+                },
+                cancel: {
+                    label: btn_no,
+                    className: 'subbtnpaydee'
+                }
+            }
+        });
+        return noti;
+    };
 	this.dialog = function(message,time){
 		var noti = bootbox.dialog({message: message, closeButton:false});
 		setTimeout(function(){
