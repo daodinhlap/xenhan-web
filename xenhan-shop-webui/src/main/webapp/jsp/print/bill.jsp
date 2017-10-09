@@ -19,8 +19,16 @@
     <link rel="shortcut icon" href="/resources/images/icon_logo.png" type="image/x-icon">
     <tilesx:useAttribute id="listCss" name="stylesheets" classname="java.util.List" />
 
+    <!-- ./stylesheet -->
     <c:forEach var="item" items="${listCss}">
         <link rel="stylesheet" href="${pageContext.request.contextPath}${item}" />
+    </c:forEach>
+
+    <!-- ./scripts -->
+    <tilesx:useAttribute id="listJs" name="scripts" classname="java.util.List" />
+    <c:forEach var="item" items="${listJs}">
+        <script
+                src="${pageContext.request.contextPath }${item}"></script>
     </c:forEach>
 </head>
 <body>
@@ -45,56 +53,48 @@
                 </div>
                 <%--table--%>
                 <div style="border: 1px solid; clear: both;">
-                    <div  style="border: 1px solid;">
-                        <div class="label-content">${order.id}</div>
-                        <div style="width: 70%"></div>
+                    <div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 label-content">${order.id}</div>
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <img id="${order.id}"></img>
+                        </div>
                     </div>
+                    <script>$("#${order.id}").JsBarcode(${order.id},{displayValue: false,width:4,height:40});
+                    </script>
 
-                    <div  style="border: 1px solid; padding: 10px">
+                    <div  class="bill-container">
                         <p><strong>THÔNG TIN SHOP</strong></p>
                         <%--shop name--%>
-                        <div>
-                            <div class="content-left"> Tên Shop </div>
-                            <div class="content-right"> ${order.shop.fullName}</div>
-                        </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4"> Tên Shop </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.shop.fullName}</div>
                         <%--phone--%>
-                        <div>
-                            <div class="content-left"> SĐT Shop </div>
-                            <div class="content-right"> ${order.shop.phone} </div>
-                        </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4"> SĐT Shop </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.shop.phone} </div>
                         <%--address--%>
-                        <div>
-                            <div class="content-left"> Địa chỉ Shop </div>
-                            <div class="content-right"> ${order.shop.address}, ${order.shop.town.name} </div>
-                        </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4"> Địa chỉ </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.shop.address}, ${order.shop.town.name} </div>
                     </div>
 
-                    <div  style="border: 1px solid; padding: 10px">
+                    <div  class="bill-container">
                         <p><strong>THÔNG TIN KHÁCH HÀNG</strong></p>
                             <%--contact--%>
-                        <div>
-                            <div class="content-left"> Tên khách hàng </div>
-                            <div class="content-right"> ${order.dropoff.contact.name}</div>
-                        </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">Tên khách</div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.dropoff.contact.name}</div>
                             <%--phone--%>
-                        <div>
-                            <div class="content-left"> SĐT nhận hàng </div>
-                            <div class="content-right"> ${order.dropoff.contact.phone} </div>
-                        </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">SĐT nhận</div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.dropoff.contact.phone} </div>
                             <%--dropoff--%>
-                        <div>
-                            <div class="content-left"> Địa chỉ giao hàng </div>
-                            <div class="content-right"> ${order.dropoff.address},
+                            <div class="col-xs-4 col-sm-4 col-md-4">Địa chỉ giao</div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.dropoff.address},
                                 ${order.dropoff.town.district.name}, ${order.dropoff.town.name}</div>
-                        </div>
                     </div>
 
-                    <div  style="border: 1px solid; padding: 10px">
+                    <div  style="border-top: 1px solid; padding: 10px">
                         <p><strong>MÔ TẢ ĐƠN HÀNG</strong></p>
                         <div>${order.orderMessage}</div>
                     </div>
 
-                    <div  style="border: 1px solid">
+                    <div  style="border-top: 1px solid">
                         <table class="table small table-bordered" style=" margin: 0px">
                             <tbody>
                                 <jsp:useBean id="createdDate" class="java.util.Date" />
