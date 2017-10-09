@@ -58,9 +58,13 @@
 
 	<definition name="order.*" extends="layout.basic">
 		<put-attribute name="body" value="/jsp/order/{1}.jsp" />
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/css/app/bootstrap-editable.css" />
+		</put-list-attribute>
 		<put-list-attribute name="scripts" inherit="true">
             <add-attribute value="/resources/js/model/order.js" />
 			<add-attribute value="/resources/js/upload/jquery.fine-uploader.min.js" />
+			<add-attribute value="/resources/js/app/bootstrap-editable.js" />
 			<add-attribute value="/resources/js/order/{1}.js" />
 		</put-list-attribute>
 	</definition>

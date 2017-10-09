@@ -4,7 +4,7 @@ var URL_CREATE_ORDER = BASE_URL + "/shop/create-order";
 // ============================================
 
 // ON LOAD
-$(document).ready(function($) {
+$(document).ready(function() {
     // on change coupon
     $('#coupon').change(() => {
         console.log('check coupon: ' + form.coupon());
@@ -33,7 +33,7 @@ $('#fine-uploader-gallery').fineUploader({
     callbacks: {
         onComplete: function(id, name, response) {
            if(response['success'] != true) return;
-           setInterval(window.location.replace('/shop/lich-su-don-hang'), 5*1000);
+           setInterval(window.location.replace('/shop/danh-sach-don-tu-excel'), 1*1000);
         }
      }
 });
