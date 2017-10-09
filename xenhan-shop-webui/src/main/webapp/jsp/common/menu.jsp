@@ -14,7 +14,7 @@
 		
 			<a href="#" style="color: #555;">
 				<div class="col-xs-3 col-sm-3 col-md-4 padding-0 ">
-					<img class="avatar" src="/resources/images/icon-user.png">
+					<img class="avatar" src="/resources/images/">
 				</div>
 				<div class="col-xs-8 col-sm-8 col-md-7 " style=" padding: 15px 0px 15px 0px; color:white">
 						<c:if test="${not empty fullName}">
@@ -40,10 +40,10 @@
 					<img src="/resources/images/"><span>Tạo Đơn Từ Excel</span></a>
 				</li>
 				<li><a href="/shop/lich-su">
-					<img src="/resources/images/icon-nganhang-menu.png"><span>Lịch sử đơn hàng</span></a>
+					<img src="/resources/images/"><span>Lịch sử đơn hàng</span></a>
 				</li>
-				<li><a href="/user/thong-tin-nguoi-dung"><img src="/resources/images/icon-nganhang-menu.png"><span>Thông Tin Tài Khoản</span></a></li>
-				<li><a href="/shop/thong-tin-shop"><img src="/resources/images/icon-nganhang-menu.png"><span>Thông Tin Shop</span></a></li>
+				<li><a href="/user/thong-tin-nguoi-dung"><img src="/resources/images/"><span>Thông Tin Tài Khoản</span></a></li>
+				<li><a href="/shop/thong-tin-shop"><img src="/resources/images/"><span>Thông Tin Shop</span></a></li>
 			</c:if>
 			<li><a href="#"><img src="/resources/images/"><span>Đổi Mật Khẩu</span></a></li>
 			<li><a href="#"><img src="/resources/images/"><span>Liên Hệ</span></a></li>

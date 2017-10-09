@@ -11,13 +11,20 @@
     </div>
 
     <div class="form-group">
-        <label>Tên shop</label>
+		<label>Tên shop</label>
         <input placeholder="Tên Shop" type="text" class="form-control" id="name" value="Shop A">
     </div>
 
+	<div class="form-group">
+		<label>Số điện thoại <span style="color: red">*</span></label>
+		<span style="float: right; font-size: 12px;"><i>SĐT Xe Nhàn liên hệ lấy hàng</i></span>
+		<input  type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại">
+	</div>
+
     <div class="form-group">
         <label>Địa chỉ <span style="color: red">*</span></label>
-        <input placeholder="Số nhà.../ngách ..."  type="text" class="form-control" id="address" value="19 TRuc khe">
+		<span style="float: right; font-size: 12px;"><i>Địa chỉ Xe Nhàn lấy hàng</i></span>
+        <input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực ..."  type="text" class="form-control" id="address">
     </div>
     
     <div>
@@ -92,11 +99,6 @@
 		        </select></div>
 		  </div>
 	</div>
-
-    <div class="form-group" style="margin-top: 20px">
-        <label>Số điện thoại <span style="color: red">*</span></label>
-        <input  type="text" class="form-control" id="phone" value="0989654990">
-    </div>
 
     <div class="form-group">
         <label>Email</label>

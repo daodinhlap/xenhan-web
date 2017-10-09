@@ -82,6 +82,8 @@ function configDatePicker(ids){
 }
 function buildTable(orderPage) {
     var table = $('#table-history');
+    var bottom_table = $('.table.table-hover');
+
 
     if(!orderPage){
         table.empty();
@@ -93,16 +95,73 @@ function buildTable(orderPage) {
 
 
     orders.forEach((order, i) =>{
+        var trigger = "data-toggle='modal' data-target='#modal-"+ order.id +"'";
         table.append(
             $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
-                    .append($("<td align=\"left\">").append($("<input type='checkbox' onclick='check($(this),"+ order.id+")'>")))
-                    .append($("<td align=\"left\">"+order.id+"</td>"))
-                    .append($("<td align=\"left\">"+ddMMyyyy(order.createdDate)+"</td>"))
-                    .append($("<td align=\"left\">"+ddMMyyyy(order.closedDate)+"</td>"))
-                    .append($("<td align=\"left\">"+order.dropoff.address+"</td>"))
-                    .append($("<td align=\"right\">"+currencyFormat(order.goodAmount)+"</td>"))
-                    .append($("<td align=\"right\">"+currencyFormat(order.shipAmount)+"</td>"))
+                .append($("<td align=\"left\">").append($("<input type='checkbox' onclick='check($(this),"+ order.id+")'>")))
+                .append($("<td "+trigger+" align=\"left\">"+order.id+"</td>"))
+                .append($("<td "+trigger+" align=\"left\">"+ddMM(order.createdDate)+"</td>"))
+                .append($("<td "+trigger+" align=\"left\">"+ddMM(order.closedDate)+"</td>"))
+                .append($("<td "+trigger+" align=\"left\">"+order.dropoff.address+"</td>"))
+                .append($("<td "+trigger+" align=\"right\">"+currencyFormat(order.goodAmount)+"</td>"))
+                .append($("<td "+trigger+" align=\"left\">"+(order.cod? 'COD':'Ư.T')+"</td>"))
+                .append($("<td "+trigger+" align=\"right\">"+currencyFormat(order.shipAmount)+"</td>"))
         );
+        bottom_table.append(
+            "<div id='modal-"+order.id+"' class=\"modal fade\" role=\"dialog\">" +
+                "<div class=\"modal-dialog modal-lg\">"+
+                    "<div class=\"modal-content\">"+
+                        "<div class=\"modal-header\">\n" +
+                            "<button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>" +
+                                "<h4 class=\"modal-title\">Chi tiết đơn hàng: "+order.id+"</h4>" +
+                        "</div>"+
+
+                        "<div class=\"modal-body\">"+
+                            "<div class='row'>"+
+                                "<div class='col-md-2'><i>Đơn hàng:</i></div>"+
+                                "<div class='col-md-3 content-right'>"+
+                                    "<p  title=\"Ngày tạo đơn\">" +
+                                        "<img src=\"/resources/images/icon_ngaytao_donhang.png\" class='img-icon'>"+ddMM(order.createdDate)+"</p>"+
+                                    "<p  title=\"Ngày kết thúc\">" +
+                                        "<img src=\"/resources/images/icon_ngayketthuc_donhang.png\" class='img-icon'>"+ddMM(order.closedDate)+"</p>"+
+                                    "<p><img src=\"/resources/images/icon_loai_donhang.png\" class='img-icon'>"+(order.cod? 'COD':'Ư.T')+"</p>"+
+                                    "<p  title=\"Mã coupon khuyến mại\">" +
+                                        "<i class=\"fa fa-gift\" style='color: #eb7a25;'></i>"+(order.coupon? order.coupon:'')+"</p>"+
+                                "</div>"+
+
+                                "<div class='col-md-2'><i>Giao hàng:</i></div>"+
+                                "<div class='col-md-3 content-right'>" +
+                                    "<p  title=\"Địa chỉ giao hàng\">" +
+                                         "<img src=\"/resources/images/icon_location.png\" class='img-icon'>"+order.dropoff.town.district.name + ", " + order.dropoff.town.name+"</p>"+
+                                    "<p   title=\"Tên khách hàng\">" +
+                                        "<img src=\"/resources/images/icon_taikhoan.png\" class='img-icon'>"+order.dropoff.contact.name+"</p>"+
+                                    "<p   title=\"SĐT khách hàng\">" +
+                                        "<img src=\"/resources/images/icon_phone.png\" class='img-icon'>"+order.dropoff.contact.phone+"</p>"+
+                                "</div>"+
+
+                                "<div class='col-md-2'  title=\"Trạng thái đơn hàng\">" +
+                                    "<p style='text-align: center;' class='"+corlorStatus(order.status)+"'>"+orderStatus(order.status)+"</p>"+
+                                "</div>"+
+
+                            "</div>"+
+
+                            "<div class='row'>"+
+                                "<div class='col-md-2'><i>Thông tin tài xế:</i></div>"+
+                                "<div class='col-md-3 content-right'>"+
+                                    "<p   title=\"Tên tài xế\">" +
+                                         "<img src=\"/resources/images/icon_logo.png\" class='img-icon'>"+(order.shipper? order.shipper.fullName:'')+"</p>"+
+                                    "<p   title=\"SĐT tài xế\">" +
+                                        "<img src=\"/resources/images/icon_phone.png\" class='img-icon'>"+(order.shipper? order.shipper.phone:'')+"</p>"+
+                                "</div>"+
+                            "</div>"+
+                        "</div>"+
+
+                        "<div class=\"modal-footer\">"+
+                        "</div>"+
+                    "</div>"+
+                "</div>"+
+            "</div>"
+        )
     });
 
     buildPagination(page);
@@ -193,6 +252,25 @@ function ddMMyyyy(long){
     return dd+'/'+mm+'/'+yyyy;
 }
 
+function ddMM(long){
+    if(long <= 0) return "";
+
+    date = new Date(long);
+    var dd = date.getDate();
+    var mm = date.getMonth()+1;
+    var h = date.getHours();
+    var m = date.getMinutes();
+
+    var yyyy = date.getFullYear();
+    if(dd<10){
+        dd='0'+dd;
+    }
+    if(mm<10){
+        mm='0'+mm;
+    }
+    return dd+'/'+mm+ ' ' + h+':'+m;
+}
+
 function yyyy_mm_dd(dateStr, type){
     var el = dateStr.split("/");
     if(type == "begin"){
@@ -214,5 +292,58 @@ function buildPagination(page){
         )
 
     }
+
+}
+
+function orderStatus(status){
+        if (status < 100) return 'Tìm Ship';
+        if (status >= 100 && status < 200)
+            return 'Chờ lấy hàng';
+        if (status == 200)
+            return 'Đã giao';
+        if (status > 200 && status < 400) {
+            // return 'Đang giao';
+            if (status == 201)
+                return 'Đang về kho';
+            if (status % 2 == 0)
+                return 'Lưu kho';
+            if (status % 2 != 0)
+                return 'Đang giao';
+        }
+
+        if (status == 400)
+            return 'Đã trả lại';
+        if (status > 400 && status < 500) {
+            if (status == 401)
+                return 'Đang về kho';
+            if (status % 2 == 0)
+                return 'Lưu kho';
+            if (status % 2 != 0)
+                return 'Đang trả lại';
+        }
+        // return 'Trả lại';
+        if (status == 500)
+            return 'Đã hủy';
+        if (status > 500 && status < 600) {
+            if (status == 501)
+                return 'Đang về kho';
+            if (status % 2 == 0)
+                return 'Lưu kho';
+            if (status % 2 != 0)
+                return 'Đang trả lại';
+        }
+        return '';
+}
+function corlorStatus(status) {
+        if (status < 100) return 'status-find-ship';
+        if (status >= 100 && status < 200) return 'status-waiting';
+        if (status == 200) return 'status-dropoff';
+        if (status > 200 && status < 400) return 'status-delivering';
+        if (status >= 400 && status < 500) return 'status-return';
+        if (status >= 500 && status < 600) return 'status-cancel';
+        return '';
+}
+
+function buildOrderDetail(order){
 
 }

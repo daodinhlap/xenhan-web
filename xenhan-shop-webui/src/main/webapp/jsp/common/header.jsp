@@ -29,7 +29,7 @@
 				<li style=" height: 80px; margin-top: -10px;">
 					<a href="#">
 							<div class="col-xs-3 col-sm-3 col-md-4 padding-0 ">
-								<img class="avatar" src="/resources/images/icon-user.png">
+								<img class="avatar" src="/resources/images/">
 							</div>
 							<div class="col-xs-8 col-sm-8 col-md-7 " style=" padding: 15px 0px 15px 0px;">
 									<c:if test="${not empty fullName}">

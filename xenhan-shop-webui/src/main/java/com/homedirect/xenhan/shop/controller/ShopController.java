@@ -167,10 +167,6 @@ public class ShopController extends AbstractController {
       return e.getMessage().getBytes();
     }
 
-
-
-
-
     return "done".getBytes();
   }
 
