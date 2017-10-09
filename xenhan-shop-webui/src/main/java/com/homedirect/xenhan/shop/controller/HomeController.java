@@ -53,9 +53,10 @@ public class HomeController extends AbstractController {
     String shopName = (String)session.getAttribute(AttributeConfig.SHOPNAME);
     if(StringUtils.isEmpty(shopName))  return new ModelAndView("redirect:/shop/tao-shop");
     
-    ModelAndView mv = new ModelAndView("home");
-    mv.addObject("title", "Xe Nhàn - Shop");
-    return mv;
+//    ModelAndView mv = new ModelAndView("home");
+//    mv.addObject("title", "Xe Nhàn - Shop");
+//    return mv;
+    return new ModelAndView("redirect:/shop/lich-su");
   }
 
   @GetMapping(value = "/dang-ky")

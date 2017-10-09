@@ -8,7 +8,7 @@
 <div class="col-md-8 col-md-offset-2 mobile-padding">
     <div class="container card" style=" padding: 15px;">
         <!-- FROM -->
-        <div class="col-md-4 col-xs-6 date-input">
+        <div class="col-md-3 col-xs-6 date-input">
             <div class="form-group">
                 <div class="input-group date">
                     <span style="padding: 4px" class="input-group-addon">Từ</span>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <!-- TO -->
-        <div class="col-md-4 col-xs-6 date-input">
+        <div class="col-md-3 col-xs-6 date-input">
             <div class="form-group">
                 <div class="input-group date">
                     <span style="padding: 4px" class="input-group-addon">Đến</span>
@@ -31,7 +31,7 @@
         </div>
 
         <!-- type view -->
-        <div class="col-md-4 col-xs-6 date-input">
+        <div class="col-md-2 col-xs-6 date-input">
             <div class="form-group date">
                 <select id="typeOfView" class="form-control">
                     <option value="0">Ngày tạo</option>
@@ -40,8 +40,8 @@
             </div>
         </div>
 
-        <%--KEY WORD    --%>
-        <div class="col-md-4 col-xs-6 date-input">
+        <%--KEY WORD --%>
+        <div class="col-md-2 col-xs-6 date-input">
             <div class="form-group">
                 <input class="form-control" type="text"
                     placeholder="Số vận đơn, địa chỉ giao hàng, mã giảm giá, sđt nhận hàng, ghi chú"
@@ -51,7 +51,7 @@
         </div>
 
         <!-- STATUS -->
-        <div class="col-md-4 col-xs-6 date-input">
+        <div class="col-md-2 col-xs-6 date-input">
             <div class="form-group date">
                 <select id="status" class="form-control">
                     <option value="">Trạng thái</option>
@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-12 col-xs-12">
             <div class="button-container center">
                 <button class="btn btn-primary" onclick="getHistory()">
                     <span>Tìm kiếm</span>

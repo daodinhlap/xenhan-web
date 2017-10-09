@@ -1,6 +1,7 @@
 var noti = new Notify();
 var form = new Form();
-var URL_CREATE_ORDER = BASE_URL + "/shop/create-order";
+var URL_CREATE_ORDER = BASE_URL + "/order/create-order";
+var URL_EDIT_ORDER = BASE_URL + "/order/edit";
 // ============================================
 
 // ON LOAD
@@ -24,10 +25,14 @@ $(document).ready(function() {
 
 function create() {
     var order = makeModel();
+    var url = URL_CREATE_ORDER;
+    if(form.type() == 1){
+        url = URL_EDIT_ORDER;
+    }
     $.ajax({
         type : 'POST',
         contentType : 'application/json',
-        url : URL_CREATE_ORDER,
+        url : url,
         data : JSON.stringify(order),
     }).done(function(data) {
         console.log(data);
@@ -107,6 +112,7 @@ function move(){
 
 // MODEL
 function Form(){
+    this.id = function(){ return $('#order-id').val()};
     this.userName = function(){ return $('#userName').val()};
 	this.phone = function(){ return $('#phone').val()};
 	this.address = function(){ return $('#address').val()};
@@ -116,6 +122,7 @@ function Form(){
     this.province = function(){ return $('#province option:selected').text()};
     this.district = function(){ return $('#district option:selected').text()};
 	this.note = function(){ return $('#note').val()};
+    this.type = function(){ return $('#type').val()};
 
 	this.cod = function(){ return $('#cod').val()};
     this.amount = function(){ return $('#amount').val()};
@@ -127,6 +134,7 @@ function Form(){
 
 function makeModel(){
     var order = new Order();
+    order.id = form.id();
     order.cod = form.cod();
 
     var dropoff = new Dropoff();

@@ -348,10 +348,10 @@ function corlorStatus(status) {
 function buildOrderAction(order){
     var action = "";
     if(order.status < 200){
-        action += "<li><a href=\"#\">Sửa đơn</a></li>\n";
+        action += "<li><a href='/shop/tao-don?type=1&order-id="+order.id+"'>Sửa đơn</a></li>\n";
         action += "<li><a href=\"#\" onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
     }
-    action += "<li><a href=\"#\">Đăng lại đơn</a></li>\n";
+    action += "<li><a href='/shop/tao-don?type=2&order-id="+order.id+"'>Đăng lại đơn</a></li>\n";
     var result ;
     result = "  <div class=\"dropdown\">\n" +
                 "    <button class=\"btn btn-link dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">" +
