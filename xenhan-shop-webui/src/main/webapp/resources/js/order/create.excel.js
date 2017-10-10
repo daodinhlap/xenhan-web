@@ -85,6 +85,10 @@ $(function() {
 			    return params;
 			 }
 		});
+		
+		$('#message-' + i).editable({
+			title: 'Thông Tin Thêm'
+		});
 	}
 });
 

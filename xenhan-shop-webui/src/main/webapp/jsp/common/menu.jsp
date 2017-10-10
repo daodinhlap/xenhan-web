@@ -39,8 +39,8 @@
 				<li><a href="/order-excel/tao-don-tu-excel">
 					<img src="/resources/images/"><span>Tạo Đơn Từ Excel</span></a>
 				</li>
-				<li><a href="/shop/lich-su">
-					<img src="/resources/images/"><span>Lịch sử đơn hàng</span></a>
+				<li><a href="/order/lich-su">
+					<img src="/resources/images/"><span>Lịch sử Đơn Hàng</span></a>
 				</li>
 				<li><a href="/user/thong-tin-nguoi-dung"><img src="/resources/images/"><span>Thông Tin Tài Khoản</span></a></li>
 				<li><a href="/shop/thong-tin-shop"><img src="/resources/images/"><span>Thông Tin Shop</span></a></li>

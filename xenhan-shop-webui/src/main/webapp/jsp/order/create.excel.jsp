@@ -230,7 +230,7 @@
 									<tr>
 										<td>Thông Tin Thêm</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
-											data-name="message" id="phone-${loop.index}" data-type="text"
+											data-name="message" id="message-${loop.index}" data-type="text"
 											data-pk="${loop.index}">${order.orderMessage}</a></td>
 									</tr>
 

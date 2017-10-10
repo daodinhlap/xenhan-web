@@ -55,8 +55,7 @@ public class OrderExcelController extends AbstractController {
 
   @SuppressWarnings("unchecked")
   @GetMapping(value = "/tao-don-tu-excel")
-  public ModelAndView createOrderFromExcel(@RequestParam(value = "error", required = false) String error,
-                                           HttpServletRequest httpRequest, HttpSession session) {
+  public ModelAndView createOrderFromExcel(@RequestParam(value = "error", required = false) String error, HttpSession session) {
     ModelAndView mv = new ModelAndView("order.create.excel");
     mv.addObject("title","Xe Nhàn - Tạo Đơn Từ Excel");
     mv.addObject("error", error);

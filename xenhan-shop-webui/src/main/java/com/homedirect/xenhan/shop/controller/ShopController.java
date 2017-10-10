@@ -10,16 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
-import com.homedirect.xenhan.model.OrderStatus;
 import com.homedirect.xenhan.model.Shop;
-import com.homedirect.xenhan.user.model.OrderEntity;
-import com.homedirect.xenhan.util.JsonUtil;
 
 /**
  * author: hieunv - hieu.nguyen2@homedirect.com.vn
@@ -28,7 +23,7 @@ import com.homedirect.xenhan.util.JsonUtil;
 @RequestMapping("/shop")
 public class ShopController extends AbstractController {
 
-  protected final static Logger logger = LoggerFactory.getLogger(ShopController.class);
+  private final static Logger logger = LoggerFactory.getLogger(ShopController.class);
 
   /* CREATE Shop */
   @GetMapping(value = "/tao-shop")
@@ -57,12 +52,11 @@ public class ShopController extends AbstractController {
   }
 
   @GetMapping(value = "/thong-tin-shop")
-  public ModelAndView showShop(HttpServletRequest httpRequest, HttpSession session) {
+  public ModelAndView showShop(HttpServletRequest httpRequest) {
     ModelAndView mv = new ModelAndView("shop.detail");
     mv.addObject("title","Xe Nhàn - Thông Tin Shop");
     try {
-      Shop shop = getShopInfo(httpRequest);
-      mv.addObject("shop", shop);
+      mv.addObject("shop", getShopInfo(httpRequest));
     } catch (Exception e) {
       logger.error(e.getMessage(), e);
       mv.addObject("error", e.getMessage());

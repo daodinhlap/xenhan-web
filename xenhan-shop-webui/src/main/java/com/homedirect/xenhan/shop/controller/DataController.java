@@ -23,6 +23,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/")
 public class DataController extends AbstractController {
+  
     private final static Logger logger = LoggerFactory.getLogger(DataController.class);
 
     @GetMapping(value = "/get-fee")

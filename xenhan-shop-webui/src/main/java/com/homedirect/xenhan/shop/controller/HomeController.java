@@ -52,7 +52,7 @@ public class HomeController extends AbstractController {
 //    ModelAndView mv = new ModelAndView("home");
 //    mv.addObject("title", "Xe Nhàn - Shop");
 //    return mv;
-    return new ModelAndView("redirect:/shop/lich-su");
+    return new ModelAndView("redirect:/order/lich-su");
   }
 
   @GetMapping(value = "/dang-ky")
@@ -92,9 +92,9 @@ public class HomeController extends AbstractController {
   }
   
   @GetMapping(value="khong-tim-thay-trang")
-  public ModelAndView notFoundPage(HttpServletRequest request, HttpServletResponse response) {
+  public ModelAndView notFoundPage() {
     ModelAndView mv = new ModelAndView("public.error");
-    mv.addObject("title","Xe Nhàn - Trang Không Tìm Thấy");
+    mv.addObject("title", "Xe Nhàn - Trang Không Tìm Thấy");
     return mv;
   }
   
