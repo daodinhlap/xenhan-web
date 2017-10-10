@@ -6,10 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.homedirect.repo.model.response.RepositoryResponse;
@@ -20,6 +17,7 @@ import com.homedirect.xenhan.model.Shop;
  * author: hieunv - hieu.nguyen2@homedirect.com.vn
  * on:    10/4/17
  */
+@RestController
 @RequestMapping("/shop")
 public class ShopController extends AbstractController {
 
