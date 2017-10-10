@@ -1,7 +1,7 @@
 $('#fine-uploader-gallery').fineUploader({
 	template: 'qq-template-excel',
 	request: {
-		endpoint: '/shop/nhap-don-tu-excel'
+		endpoint: '/order-excel/nhap-don-tu-excel'
 	},
 	validation: {
 		allowedExtensions: ['xlsx', 'xls']
@@ -20,10 +20,16 @@ $(function() {
 	var numberOfOrder = $('#number-of-order').prop('value');
 	for (i = 0; i < numberOfOrder; ++i) {
 		$('#type-' + i).editable({
-			value: 1,    
 			source: [
 				{value: 1, text: 'COD'},
 				{value: 2, text: 'Ứng Tiền'}
+				]
+		});
+		$('#package-' + i).editable({
+			source: [
+				{value: 1, text: 'Hỏa Tốc'},
+				{value: 2, text: 'Tốc Độ'},
+				{value: 3, text: 'Tiết Kiệm'}
 				]
 		});
 		$('#good-amount-' + i).editable({
@@ -78,6 +84,10 @@ $(function() {
 				});
 			    return params;
 			 }
+		});
+		
+		$('#message-' + i).editable({
+			title: 'Thông Tin Thêm'
 		});
 	}
 });

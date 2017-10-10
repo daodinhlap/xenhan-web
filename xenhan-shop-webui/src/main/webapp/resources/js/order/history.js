@@ -3,9 +3,9 @@ var noti = new Notify();
 var orders = [];
 var ordersSelected = [];
 
-var URL_HISTORY = BASE_URL + "/shop/history";
-var URL_HISTORY_TOTAL = BASE_URL + "/shop/total";
-var URL_HISTORY_PRINT = BASE_URL + "/shop/print";
+var URL_HISTORY = BASE_URL + "/order/history";
+var URL_HISTORY_TOTAL = BASE_URL + "/order/total";
+var URL_HISTORY_PRINT = BASE_URL + "/order/print";
 var URL_CANCEL_ORDER = BASE_URL + "/order/cancel?order-id=";
 
 //================================================================
@@ -368,10 +368,10 @@ function corlorStatus(status) {
 function buildOrderAction(order){
     var action = "";
     if(order.status < 200){
-        action += "<li><a href='/shop/tao-don?type=1&order-id="+order.id+"'>Sửa đơn</a></li>\n";
+        action += "<li><a href='/order/tao-don?type=1&order-id="+order.id+"'>Sửa đơn</a></li>\n";
         action += "<li><a href=\"#\" onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
     }
-    action += "<li><a href='/shop/tao-don?type=2&order-id="+order.id+"'>Đăng lại đơn</a></li>\n";
+    action += "<li><a href='/order/tao-don?type=2&order-id="+order.id+"'>Đăng lại đơn</a></li>\n";
     var result ;
     result = "  <div class=\"dropdown\">\n" +
                 "    <button class=\"btn btn-link dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">" +

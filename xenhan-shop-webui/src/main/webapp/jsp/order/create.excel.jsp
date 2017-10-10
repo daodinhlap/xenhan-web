@@ -99,6 +99,11 @@
 					</a>
 				</div>
 			</div>
+			<c:if test="${not empty error}">
+				<div class="row" style="margin-top: 20px">
+					<div class="alert alert-success" role="alert">${error}</div>
+				</div>
+			</c:if>
 		</div>
 	</div>
 
@@ -106,7 +111,8 @@
 	<c:if test="${not empty orders}">
 		<div class="container card" style="padding: 15px; margin-top: 20px">
 			<div id="accordion" role="tablist">
-			    <input id="number-of-order" type="hidden" value="${orders.size()}" style="display:none"></span>
+				<input id="number-of-order" type="hidden" value="${orders.size()}"
+					style="display: none">
 				<c:forEach items="${orders}" var="order" varStatus="loop">
 					<div class="card">
 						<div class="card-header" role="tab" id="headingOne"
@@ -133,29 +139,42 @@
 								<tbody>
 									<tr>
 										<td width="40%">Loại đơn *:</td>
-										<td><a href="#" id="type-${loop.index}" data-type="select"
-											data-url="/shop/sua-don-tu-excel" data-name="type"
-											data-pk="${loop.index}" data-original-title="Chọn Loại Đơn"
-											class="editable editable-empty">${order.COD ? 'COD' : 'Ứ.T'}</a></td>
+										<td><a href="#" id="type-${loop.index}"
+											data-type="select" data-url="/order-excel/sua-don-tu-excel"
+											data-value="${order.COD ? '1' : '2'}"
+											data-name="type" data-pk="${loop.index}"
+											data-original-title="Chọn Loại Đơn"
+											class="editable editable-empty">${order.COD ? 'COD' : 'Ứng Tiền'}</a></td>
 									</tr>
 									<tr>
 										<td>Gói Cước *:</td>
-										<td>Toc Do</td>
+										<td><a href="#" id="package-${loop.index}"
+											data-type="select" data-url="/order-excel/sua-don-tu-excel"
+											data-name="package" data-pk="${loop.index}"
+											data-value="${order.packageId}"
+											data-original-title="Chọn Gói Cước"
+											class="editable editable-empty"> <c:choose>
+													<c:when test="${order.packageId == 1}">Hỏa Tốc</c:when>
+													<c:when test="${order.packageId == 2}">Tốc Độ</c:when>
+													<c:otherwise>Tiết Kiệm</c:otherwise>
+												</c:choose>
+										</a></td>
 									</tr>
 
 									<tr>
 										<td>Tiền Hàng *:</td>
-										<td><a href="#" data-url="/shop/sua-don-tu-excel"
-											data-name="good-amount"
-											id="good-amount-${loop.index}" data-type="text" data-pk="${loop.index}">
-												<fmt:formatNumber type="number" maxFractionDigits="3" value="${order.goodAmount}"/>
+										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
+											data-name="good-amount" id="good-amount-${loop.index}"
+											data-type="text" data-pk="${loop.index}"> <fmt:formatNumber
+													type="number" maxFractionDigits="3"
+													value="${order.goodAmount}" />
 										</a></td>
 									</tr>
 									<tr>
 										<td>Mã Giảm Giá*:</td>
-										<td><a href="#" data-url="/shop/sua-don-tu-excel"
-											data-name="coupon"
-											id="coupon-${loop.index}" data-type="text" data-pk="${loop.index}">${order.coupon}</a></td>
+										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
+											data-name="coupon" id="coupon-${loop.index}" data-type="text"
+											data-pk="${loop.index}">${order.coupon}</a></td>
 									</tr>
 									<tr>
 										<td>Tiền Giảm Giá*:</td>
@@ -174,48 +193,58 @@
 									</tr>
 									<tr>
 										<td>Địa Chỉ Giao* :</td>
-										<td><a href="#" data-url="/shop/sua-don-tu-excel"
-											data-name="address"
-											id="address-${loop.index}" data-type="text" data-pk="${loop.index}">${order.dropoff.address}</a></td>
+										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
+											data-name="address" id="address-${loop.index}"
+											data-type="text" data-pk="${loop.index}">${order.dropoff.address}</a></td>
 									</tr>
 									<tr>
 										<td>Tỉnh/TP* :</td>
-										<td><a href="#" id="province-${loop.index}" data-type="select"
-											data-url="/shop/sua-don-tu-excel" data-name="province"
-											data-pk="${loop.index}" data-original-title="Chọn Tỉnh/Thành Phố"
+										<td><a href="#" id="province-${loop.index}"
+											data-type="select" data-url="/order-excel/sua-don-tu-excel"
+											data-name="province" data-pk="${loop.index}"
+											data-original-title="Chọn Tỉnh/Thành Phố"
 											data-value="${order.dropoff.town.id}"
 											class="editable editable-empty">${order.dropoff.town.name}</a></td>
 									</tr>
 									<tr>
 										<td>Quận/Huyện* :</td>
-										<td><a href="#" id="district-${loop.index}" data-type="select"
-											data-url="/shop/sua-don-tu-excel" data-name="district"
-											data-pk="${loop.index}" data-original-title="Chọn Quận/Huyện"
+										<td><a href="#" id="district-${loop.index}"
+											data-type="select" data-url="/order-excel/sua-don-tu-excel"
+											data-name="district" data-pk="${loop.index}"
+											data-original-title="Chọn Quận/Huyện"
 											data-value="${order.dropoff.town.district.id}"
 											class="editable editable-empty">${order.dropoff.town.district.name}</a></td>
 									</tr>
 									<tr>
 										<td>Khách Nhận Hàng</td>
-										<td><a href="#" data-url="/shop/sua-don-tu-excel"
-											data-name="name"
-											id="name-${loop.index}" data-type="text" data-pk="${loop.index}">${order.dropoff.contact.name}</a></td>
+										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
+											data-name="name" id="name-${loop.index}" data-type="text"
+											data-pk="${loop.index}">${order.dropoff.contact.name}</a></td>
 									</tr>
 									<tr>
 										<td>Điện Thoại Khách Nhận</td>
-										<td><a href="#" data-url="/shop/sua-don-tu-excel"
-											data-name="phone"
-											id="phone-${loop.index}" data-type="text" data-pk="${loop.index}">${order.dropoff.contact.phone}</a></td>
+										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
+											data-name="phone" id="phone-${loop.index}" data-type="text"
+											data-pk="${loop.index}">${order.dropoff.contact.phone}</a></td>
 									</tr>
 									<tr>
 										<td>Thông Tin Thêm</td>
-										<td>${order.orderMessage}</td>
+										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
+											data-name="message" id="message-${loop.index}" data-type="text"
+											data-pk="${loop.index}">${order.orderMessage}</a></td>
 									</tr>
 
 									<tr>
 										<td colspan="2" align="center">
 											<div class="row">
-												<div class="col-md-6">Nhập Đơn</div>
-												<div class="col-md-6">Xóa Đơn</div>
+												<div class="col-md-6">
+													<a href="/order-excel/luu-don-tu-excel?index=${loop.index}">Nhập
+														Đơn</a>
+												</div>
+												<div class="col-md-6">
+													<a href="/order-excel/xoa-don-tu-excel?index=${loop.index}">Xóa
+														Đơn</a>
+												</div>
 											</div>
 										</td>
 									</tr>
@@ -223,8 +252,11 @@
 							</table>
 						</div>
 					</div>
+				</c:forEach>
 			</div>
-			</c:forEach>
+			<div style="margin-top: 20px; vertical-align: center" align="center">
+				<a href="/order-excel/luu-het" class="btn btn-primary">Tạo Đơn</a>
+			</div>
 		</div>
 	</c:if>
 </div>
