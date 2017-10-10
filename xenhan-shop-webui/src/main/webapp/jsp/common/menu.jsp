@@ -33,10 +33,10 @@
 			<c:if test="${not empty shopName && !shopName.equals('null') }">
 				<li><a href="/">
 					<img src="/resources/images/"><span>Trang chủ</span></a></li>
-				<li><a href="/shop/tao-don?type=0">
+				<li><a href="/order/tao-don?type=0">
 					<img src="/resources/images/"><span>Tạo đơn hàng</span></a>
 				</li>
-				<li><a href="/shop/tao-don-tu-excel">
+				<li><a href="/order-excel/tao-don-tu-excel">
 					<img src="/resources/images/"><span>Tạo Đơn Từ Excel</span></a>
 				</li>
 				<li><a href="/shop/lich-su">
