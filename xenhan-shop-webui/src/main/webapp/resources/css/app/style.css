@@ -183,7 +183,7 @@ body {
   z-index: 1;
   border-left: 5px solid #f3931f;
   margin: 0 0 15px;
-  padding: 5px 0 5px 30px;
+  padding: 5px 0 5px 10px;
   color: #f3931f;
   /*font-size: 25px;*/
   font-weight: 600;
@@ -717,12 +717,6 @@ body {
 	
 	#btn-filter-cheque {display:block !important}
 	#btn-filter-cheque:FOCUS {color: orange;}
-	.logo-center {
-		position: absolute;
-		margin: auto;
-		left: 0;
-		right: 0;
-	}
 	.right{float: right !important; text-align: right}
 	.width-50{ width: 50% !important}
 	.width-60{ width: 60% !important}
@@ -1126,4 +1120,10 @@ input::placeholder{
 }
 .order-status-cancel {
     color: black;
+}
+.logo-center {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
 }

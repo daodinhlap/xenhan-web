@@ -1,7 +1,5 @@
 var form = new FormRegister();
 var noti = new Notify();
-var onlyRegisterAccount = false;
-var countDownOTP = 0;
 //URL
 var url_login = BASE_URL + "/login";
 var url_register = BASE_URL + "/tao-tai-khoan-nguoi-dung";
@@ -14,8 +12,6 @@ function registerXenhan() {
 		return;
 	}
 
-	//alert(JSON.stringify(form.requestRegister()));
-
 	$.ajax({
 		type : 'POST',
 		contentType : 'application/json',
@@ -24,14 +20,35 @@ function registerXenhan() {
 		dataType : 'text'
 	}).done(function(data) {
 		if (data != 'done') {
+            if(handlerError(data)) return;
 			error.push({message: data, id: "alert"});
+            noti.error(error);
 			return;
 		} 
-		window.location.replace('/dang-nhap');
+		window.location.replace('/thanh-cong?phone=' + form.phone());
 	}).fail(function(data) {
 		console.log(data);
 		noti.fail("Thông báo!","Đăng ký không thành công. Vui lòng thử lại sau", function() { reload() });
 	});
+}
+
+function handlerError(data){
+    if(!data.includes("Đã tồn tại user:")) return;
+
+    var message = "Bạn đã có tài khoản HomeDirect tại dịch vụ: <br>";
+    var DOMAIN_XENHAN = "XENHAN";
+    var DOMAIN_PAYDEE = "PayDee";
+
+    if(data.includes(DOMAIN_XENHAN)) message += "<strong>Xe Nhàn</strong><br>";
+    if(data.includes(DOMAIN_PAYDEE)) message += "<strong>Mtop</strong><br>";
+
+    message += "Xin vui lòng đăng nhập bằng tài khoản đã có!<br>"
+	message += "<div class='center '><a href='/dang-nhap'><button class='btn btn-success btn-xenhan'>Đăng nhập</button></a></div>";
+
+	noti.fail("Thông báo", message, function () {
+        window.location.replace('/dang-nhap');
+    })
+	return true;
 }
 
 
@@ -68,7 +85,7 @@ function cancleRegister(){
 	});
 }
 
-function validate(name, phone, password, confirmPass, gRecaptchaResponse) {
+function validate(name, email, phone, password, confirmPass) {
 	if (!phone && !password && !name && !confirmPass) {
 		error.push({message: Error_message.EMPTY_INPUT, id: "alert"});
 		return error;
@@ -76,6 +93,12 @@ function validate(name, phone, password, confirmPass, gRecaptchaResponse) {
 	if (name.length < 6 || name.length > 50) {
 		error.push({message:"Họ tên hợp lệ có độ dài từ 6 đến 50 ký tự", id: "name"});
 	}
+    if (!email) {
+        error.push({message:"Xin vui lòng nhập Email", id: "email"});
+    }
+    if (email && !validateEmail(email)) {
+        error.push({message:"Email không đúng định dạng", id: "email"});
+    }
 	if (!phone) {
 		error.push({message:"Xin vui lòng nhập số điện thoại", id: "phone"});
 	}
@@ -91,9 +114,6 @@ function validate(name, phone, password, confirmPass, gRecaptchaResponse) {
 	if (strcmp(password, confirmPass) != 0 && confirmPass.length >= 6) {
 		error.push({message:"Mật khẩu không đúng. Nhập lại mật khẩu", id: "confirmPassword"});
 	}
-	//if(!gRecaptchaResponse){
-	//	error.push({message:"Xin vui lòng xác thực!", id: "g-recaptcha-response"});
-	//}
 	return error;
 }
 
@@ -104,7 +124,6 @@ function FormRegister() {
 	this.gender = function() { return $('input[name=gender]:checked').val() };
 	this.password = function() {return $('#password').val()};
 	this.confirmPass = function() {return $('#confirmPassword').val()};
-	this.gRecaptchaResponse = function() {return $('#g-recaptcha-response').val()};
 	this.otp = function() {return $('#otp').val()};
 
 	this.setPhone = function(value){ $('#phone').val(value) };
@@ -117,8 +136,7 @@ function FormRegister() {
 			email : this.email(),
 			gender : this.gender(),
 			name : this.name(),
-			password : this.password(),
-			gRecaptchaResponse : this.gRecaptchaResponse()
+			password : this.password()
 		}
 	}
 	this.requestLogin = function() {
@@ -128,7 +146,7 @@ function FormRegister() {
 		}
 	}
 	this.validate = function() {
-		return validate(this.name(), this.phone(), this.password(), this.confirmPass(), this.gRecaptchaResponse());
+		return validate(this.name(),this.email(), this.phone(), this.password(), this.confirmPass());
 	}
 }
 //ON LOAD

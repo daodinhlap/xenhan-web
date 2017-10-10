@@ -15,36 +15,36 @@
 		<div id="form-register" class="container">
 			<form>
 				<div class="form-group">
-					<label>Họ và tên <span style="color: red">*</span>:</label>
-					<input type="text" class="form-control" id="name" name="name" value="Nguyen Van A">
+					<label>Họ và tên <span style="color: red">*</span></label>
+					<input type="text" class="form-control" id="name" name="name">
 				</div>
 
 				<div class="form-group">
 						<label class="radio-inline">
-							<input type="radio" name="gender" value="1">Nam
+							<input type="radio" name="gender" value="1" checked="checked">Nam
 						</label>
 						<label class="radio-inline">
-							<input type="radio" name="gender" value="2" checked="checked">Nữ
+							<input type="radio" name="gender" value="2">Nữ
 						</label>
 				</div>
 
 				<div class="form-group">
-					<label>Số điện thoại đăng nhập <span style="color: red">*</span>:</label>
+					<label>Số điện thoại đăng nhập <span style="color: red">*</span></label>
 					<input type="text" class="form-control" id="phone" name="phone">
 				</div>
 
 				<div class="form-group">
-					<label>Email <span style="color: red">*</span>:</label>
+					<label>Email <span style="color: red">*</span></label>
 					<input type="text" class="form-control" id="email" name="email">
 				</div>
 
 				<div class="form-group">
-					<label>Mật khẩu <span style="color: red">*</span>:</label>
+					<label>Mật khẩu <span style="color: red">*</span></label>
 					<input type="password" class="form-control" id="password" name="password">
 				</div>
 
 				<div class="form-group">
-					<label>Nhập lại mật khẩu  <span style="color: red">*</span>:</label>
+					<label>Nhập lại mật khẩu  <span style="color: red">*</span></label>
 					<input type="password" class="form-control" id="confirmPassword">
 				</div>
 			</form>
