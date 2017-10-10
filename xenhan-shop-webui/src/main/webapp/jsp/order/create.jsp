@@ -150,6 +150,7 @@
 	</div>
 	<input type="hidden" id="order-id" value="${order.id}">
 	<input type="hidden" id="type" value="${type}">
+	<input type="hidden" id="type-des" value="${action}">
 </div>
 
 </div>

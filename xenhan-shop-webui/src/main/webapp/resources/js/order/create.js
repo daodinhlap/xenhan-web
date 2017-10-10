@@ -42,7 +42,7 @@ function create() {
             noti.error([{id:"alert", message: data.message}]);
             return;
         }
-        noti.confirm("Tạo đơn hàng thành công. Bạn muốn tạo thêm đơn?", function(result) {
+        noti.confirm(form.typeDes() + " thành công. Bạn muốn tạo thêm đơn?", function(result) {
             if (!result) {
                 goHome();
             };
@@ -102,11 +102,11 @@ function buildText(){
 
     if(form.cod() == 'true'){
         goodAmountText = "Tiền thu hộ";
-        actionText = total >= 0 ? "Xe Nhàn nợ Shop" : "Shop nợ Xe nhàn";
+        actionText = total > 0 ? "Xe Nhàn nợ Shop" : "Shop nợ Xe nhàn";
     }
     if(form.cod() == 'false'){
         goodAmountText = "Tiền hàng";
-        actionText = total >= 0 ? "Xe Nhàn trả Shop" : "Shop trả Xe nhàn";
+        actionText = total > 0 ? "Xe Nhàn trả Shop" : "Shop trả Xe nhàn";
     }
     $('#amount-text').text(goodAmountText);
     $('#action').text(actionText);
@@ -140,6 +140,8 @@ function Form(){
 
     this.setAmount = function(value){ return $('#amount').val(value)};
     this.setCoupon = function(value){ return $('#couponAmount').text(value)};
+
+    this.typeDes = function(){ return $('#type-des').val()};
 
     this.validate = function (){
         if(!this.phone()){
