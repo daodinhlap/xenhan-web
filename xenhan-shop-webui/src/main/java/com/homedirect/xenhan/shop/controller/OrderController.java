@@ -2,7 +2,7 @@ package com.homedirect.xenhan.shop.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.homedirect.repo.model.response.RepositoryResponse;
-import com.homedirect.xenhan.model.Order;
+import com.homedirect.xenhan.user.model.request.OrderRequest;
 import com.homedirect.xenhan.user.model.response.JobHistoryEntity;
 import com.homedirect.xenhan.util.JsonUtil;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 public class OrderController extends AbstractController{
 
     @PostMapping(value = "/create-order")
-    public ResponseEntity<?> createOrder(@RequestBody Order order, HttpServletRequest httpRequest) {
-        logger.info("\n CREATE ORDER: {}\n", JsonUtil.toJson(order));
+    public ResponseEntity<?> createOrder(@RequestBody OrderRequest orderRequest, HttpServletRequest httpRequest) {
+        logger.info("\n CREATE ORDER: {}\n", JsonUtil.toJson(orderRequest));
 
-        order.setPackageId(DEFAULT_PACKAGE_ID);
+        orderRequest.setPackageId(DEFAULT_PACKAGE_ID);
         String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "create-order");
-        return apiExchangeService.post(httpRequest, url ,order);
+        return apiExchangeService.post(httpRequest, url ,orderRequest);
     }
 
     @GetMapping(value = "/cancel")
@@ -34,12 +34,12 @@ public class OrderController extends AbstractController{
     }
 
     @PostMapping(value = "/edit")
-    public ResponseEntity<?> edit(@RequestBody Order order, HttpServletRequest httpRequest) {
-        logger.info("\n EDIT ORDER: {}\n", JsonUtil.toJson(order));
+    public ResponseEntity<?> edit(@RequestBody OrderRequest orderRequest, HttpServletRequest httpRequest) {
+        logger.info("\n EDIT ORDER: {}\n", JsonUtil.toJson(orderRequest));
 
-        order.setPackageId(DEFAULT_PACKAGE_ID);
+        orderRequest.setPackageId(DEFAULT_PACKAGE_ID);
         String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "update-order");
-        return apiExchangeService.post(httpRequest, url ,order);
+        return apiExchangeService.post(httpRequest, url ,orderRequest);
     }
 
 }

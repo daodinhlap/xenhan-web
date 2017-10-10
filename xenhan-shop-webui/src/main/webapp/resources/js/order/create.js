@@ -24,7 +24,7 @@ $(document).ready(function() {
 });
 
 function create() {
-    var order = makeModel();
+    var orderRequest = makeModel();
     var url = URL_CREATE_ORDER;
     if(form.type() == 1){
         url = URL_EDIT_ORDER;
@@ -33,7 +33,7 @@ function create() {
         type : 'POST',
         contentType : 'application/json',
         url : url,
-        data : JSON.stringify(order),
+        data : JSON.stringify(orderRequest),
     }).done(function(data) {
         console.log(data);
         if(data.code != ErrorCode.SUCCESS){
@@ -133,9 +133,10 @@ function Form(){
 }
 
 function makeModel(){
-    var order = new Order();
-    order.id = form.id();
+    var order = new OrderRequest();
+    order.orderId = form.id();
     order.cod = form.cod();
+    order.orderMessage = form.note();
 
     var dropoff = new Dropoff();
     dropoff.address = form.address();
