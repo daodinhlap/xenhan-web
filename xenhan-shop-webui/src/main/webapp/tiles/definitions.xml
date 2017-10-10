@@ -39,6 +39,13 @@
 		</put-list-attribute>
 	</definition>
 
+	<definition name="public.change.password" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/public.change.password.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/user/change.password.js" />
+		</put-list-attribute>
+	</definition>
+
 	<definition name="public.*" extends="layout.basic">
 		<put-attribute name="header" value="" />
 		<put-attribute name="body" value="/jsp/public.{1}.jsp" />
