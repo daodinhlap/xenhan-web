@@ -217,7 +217,10 @@ function Form() {
 }
 
 function print(){
-    // printHorizontal(ordersSelected);
+    if(ordersSelected.length == 0){
+        noti.dialog("Chọn ít nhất 1 đơn để in", 2);
+        return;
+    }
     $.ajax({
         type : 'POST',
         contentType : 'application/json',

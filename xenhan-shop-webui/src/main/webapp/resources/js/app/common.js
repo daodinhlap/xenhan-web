@@ -104,6 +104,10 @@ function validatePhone(phone) {
 	var re = /^[0-9]{8,15}$/;
 	return re.test(phone);
 }
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
 function validateDigit(digit) {
 	var re = /^\d+$/;
 	return re.test(digit);
@@ -273,7 +277,7 @@ function Notify(){
 			if(el_message == undefined) {el_message = "Không kết nối được Server. Xin thử lại"}
 			if(el_id == "alert") {
 				font = "15px";
-				$('#' + el_id).after("<div class='box-info' id='error" + i + "' style=' padding:5px; font-size:" + font + "'>"
+				$('#' + el_id).after("<div class='box-info' id='error" + i + "' style='border: 1px solid red; padding:5px; font-size:" + font + "'>"
 						+ "<div class='col-xs-2 col-sm-2 col-md-2 padding-0 icon-error' style='text-align:center'>" +icon_error +"</div>"
 						+ "<div class='col-xs-10 col-sm-10 col-md-10 padding-0'>"
 						+ "<p style='float:none'><span style='color:#c9031c'>Thông báo</span><br>"+ el_message +"</p></div>" 

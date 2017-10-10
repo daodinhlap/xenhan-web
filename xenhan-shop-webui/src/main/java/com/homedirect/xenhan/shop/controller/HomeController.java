@@ -14,11 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.homedirect.common.util.StringUtils;
@@ -63,6 +59,14 @@ public class HomeController extends AbstractController {
   public ModelAndView registry() {
     ModelAndView mv = new ModelAndView("public.register");
     mv.addObject("title","Xe Nhàn - Đăng ký");
+    return mv;
+  }
+
+  @GetMapping(value = "/thanh-cong")
+  public ModelAndView success(@RequestParam(value = "phone") String phone) {
+    ModelAndView mv = new ModelAndView("public.success");
+    mv.addObject("title","Xe Nhàn - Đăng ký thành công");
+    mv.addObject("phone",phone);
     return mv;
   }
 
