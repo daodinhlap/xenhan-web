@@ -9,8 +9,7 @@
 
 	<div class="container card" id="account-view">
 		<div class="center">
-            <h2><span>THÔNG TIN NGƯỜI DÙNG</span>
-                <a href="/user/cap-nhat-thong-tin"><span style="color: #f3931f;"><i class="fa fa-pencil-square-o"></i></span></a>
+            <h2><span>CẬP NHẬT THÔNG TIN NGƯỜI DÙNG</span>
             </h2>
 		</div>
 			<c:choose>
