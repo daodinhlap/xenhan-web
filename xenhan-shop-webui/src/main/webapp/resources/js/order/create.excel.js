@@ -35,20 +35,25 @@ $(function() {
 		$('#address-' + i).editable({
 			title: 'Địa Chỉ Giao Hàng'
 		});
+		
 		$('#name-' + i).editable({
-			title: 'Địa Chỉ Giao Hàng'
+			title: 'Tên Khách Cần Giao Hàng'
 		});
+		
 		$('#phone-' + i).editable({
-			title: 'Địa Chỉ Giao Hàng'
+			title: 'Số Điện Thoại Giao Hàng'
 		});
 
 
 		$('#province-' + i).editable({
-			source: [
-				{value: 1, text: 'Hà Nội'},
-				{value: 2, text: 'Hồ Chí Minh'}
-				],
-				success: function(response, newValue) {
+			source: provinces,
+			params: function(params) {
+				provinces.forEach(function(entry) {
+					if(params.value == entry.value) params.label = entry.text;
+				});
+			    return params;
+			 },
+			success: function(response, newValue) {
 					var id = this.id;
 					var idx = id.indexOf('-');
 					id = id.substring(idx+1);
@@ -59,10 +64,26 @@ $(function() {
 
 
 		$('#district-' + i).editable({
-			source: districts[$('#province-' + i).attr('data-value')]
+			source: districts[$('#province-' + i).attr('data-value')],
+			params: function(params) {
+				var id = this.id;
+				districts[1].forEach(function(entry) {
+					if(params.value == entry.value) params.label = entry.text;
+					console.log(entry.value + ' : '+ entry.text);
+				});
+				if(params.label != null) return params;
+				districts[2].forEach(function(entry) {
+					if(params.value == entry.value) params.label = entry.text;
+					console.log(entry.value + ' : '+ entry.text);
+				});
+			    return params;
+			 }
 		});
 	}
 });
+
+var provinces = new Array({value: 1, text: 'Hà Nội'},
+		{value: 2, text: 'Hồ Chí Minh'});
 
 var districts = {
 		1: [{value:3, text: 'Ba Đình'}, 

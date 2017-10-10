@@ -35,6 +35,7 @@ import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.Order;
 import com.homedirect.xenhan.model.Shop;
+import com.homedirect.xenhan.user.model.District;
 import com.homedirect.xenhan.user.model.OrderEntity;
 import com.homedirect.xenhan.util.JsonUtil;
 
@@ -117,6 +118,7 @@ public class ShopController extends AbstractController {
   public byte[] editFromExcel(@RequestParam(value = "pk", required = true) Integer pk,
                               @RequestParam(value = "name", required = false) String name,
                               @RequestParam(value = "value", required = false) String value,
+                              @RequestParam(value = "label", required = false) String label,
                               HttpSession session) {
     List<OrderEntity> orders = (List<OrderEntity>)session.getAttribute(IMPORT_DATA);
     
@@ -128,7 +130,6 @@ public class ShopController extends AbstractController {
     name = name.trim();
     value = value.trim();
 
-    logger.info("----> edit ---> "+ pk + "- name "+ name + " - value " + value);
     OrderEntity entity = orders.get(pk);
     try {
       switch (name) {
@@ -145,10 +146,20 @@ public class ShopController extends AbstractController {
         if(!StringUtils.isEmpty(value)) entity.getDropoff().setAddress(value);
         break;
       case "province":
-        if(!StringUtils.isEmpty(value)) entity.getDropoff().getTown().setId(Long.parseLong(value));
+        if(!StringUtils.isEmpty(value)) {
+          entity.getDropoff().getTown().setDistrict(null);
+          entity.getDropoff().getTown().setId(Long.parseLong(value));
+        }
+        if(!StringUtils.isEmpty(label)) entity.getDropoff().getTown().setName(label);
         break;
       case "district":
+        District district = entity.getDropoff().getTown().getDistrict();
+        if(district == null) {
+          district = new District();
+          entity.getDropoff().getTown().setDistrict(district);
+        }
         if(!StringUtils.isEmpty(value)) entity.getDropoff().getTown().getDistrict().setId(Long.parseLong(value));
+        if(!StringUtils.isEmpty(label)) entity.getDropoff().getTown().getDistrict().setName(label);
         break;
       case "name":
         if(!StringUtils.isEmpty(value)) entity.getDropoff().getContact().setName(value);
