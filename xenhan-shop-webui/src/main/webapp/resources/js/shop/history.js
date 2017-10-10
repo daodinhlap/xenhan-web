@@ -6,6 +6,7 @@ var ordersSelected = [];
 var URL_HISTORY = BASE_URL + "/shop/history";
 var URL_HISTORY_TOTAL = BASE_URL + "/shop/total";
 var URL_HISTORY_PRINT = BASE_URL + "/shop/print";
+var URL_CANCEL_ORDER = BASE_URL + "/order/cancel?order-id=";
 
 //================================================================
 //ON LOADED
@@ -65,7 +66,19 @@ function getTotal(request) {
         console.log(data);
     }).always(function () {
     });
+}
 
+function buildCounting(page){
+    var size = 20;
+    form.setCounting("");
+    var counting = "";
+    counting += ((page.pageNumber-1) * size) + 1;
+    counting += " - ";
+    counting += ((page.pageNumber-1) * size) + page.pageItems.length;
+    counting += " / " + page.totalItems;
+    counting += " đơn ";
+
+    form.setCounting(counting);
 }
 
 function configDatePicker(ids){
@@ -93,19 +106,20 @@ function buildTable(orderPage) {
     var index = page.pageNumber;
     var orders = page.pageItems;
 
+    buildCounting(orderPage);
 
     orders.forEach((order, i) =>{
         var trigger = "data-toggle='modal' data-target='#modal-"+ order.id +"'";
         table.append(
             $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
                 .append($("<td align=\"left\">").append($("<input type='checkbox' onclick='check($(this),"+ order.id+")'>")))
-                .append($("<td "+trigger+" align=\"left\">"+order.id+"</td>"))
+                .append($("<td "+trigger+" align=\"left\" class='order-"+corlorStatus(order.status)+"'>"+order.id+"</td>"))
                 .append($("<td "+trigger+" align=\"left\">"+ddMM(order.createdDate)+"</td>"))
                 .append($("<td "+trigger+" align=\"left\">"+ddMM(order.closedDate)+"</td>"))
                 .append($("<td "+trigger+" align=\"left\">"+order.dropoff.address+"</td>"))
                 .append($("<td "+trigger+" align=\"right\">"+currencyFormat(order.goodAmount)+"</td>"))
-                .append($("<td "+trigger+" align=\"left\">"+(order.cod? 'COD':'Ư.T')+"</td>"))
                 .append($("<td "+trigger+" align=\"right\">"+currencyFormat(order.shipAmount)+"</td>"))
+                .append($("<td align=\"left\">"+buildOrderAction(order)+"</td>"))
         );
         bottom_table.append(
             "<div id='modal-"+order.id+"' class=\"modal fade\" role=\"dialog\">" +
@@ -186,6 +200,7 @@ function Form() {
     this.typeOfView = function() {return $('#typeOfView').val()};
     this.index = function() {return $('#index').val()};
 
+    this.setCounting = function(value) {return $('#counting').text(value)};
     this.setTotalGoodAmount = function(value) {return $('#totalGoodAmount').text(value)};
     this.setTotalShipAmount = function(value) {return $('#totalShipAmount').text(value)};
 
@@ -288,7 +303,10 @@ function buildPagination(page){
 
     for(i = 0; i < page.pagesAvailable; i++){
         el.append(
-            $("<li>").append($("<a href='#'>").text(""+(i+1)).attr("onclick","getHistory("+ (i+1) +")"))
+            $("<li  class='"+(page.pageNumber == (i+1) ? 'active':'')+"'>")
+                .append($("<a href='#'>")
+                .text(""+(i+1))
+                .attr("onclick","getHistory("+ (i+1) +")"))
         )
 
     }
@@ -344,6 +362,40 @@ function corlorStatus(status) {
         return '';
 }
 
-function buildOrderDetail(order){
+function buildOrderAction(order){
+    var action = "";
+    if(order.status < 200){
+        action += "<li><a href='/shop/tao-don?type=1&order-id="+order.id+"'>Sửa đơn</a></li>\n";
+        action += "<li><a href=\"#\" onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
+    }
+    action += "<li><a href='/shop/tao-don?type=2&order-id="+order.id+"'>Đăng lại đơn</a></li>\n";
+    var result ;
+    result = "  <div class=\"dropdown\">\n" +
+                "    <button class=\"btn btn-link dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">" +
+                        "<i class=\"fa fa-pencil-square-o\"></i></button>\n" +
+                "    <ul class=\"dropdown-menu\">\n" +
+                        action+
+                "    </ul>\n" +
+                "  </div>";
+    return result;
+}
 
+function cancelOrder(orderId){
+    if(!orderId){ alert('Có lỗi xảy ra. Xin thử lại'); return;}
+
+    noti.confirmWithBtn("<strong>Bạn muốn hủy đơn hàng?</strong>","Đồng ý", "Không đồng ý",
+        function(result) {
+            if (result) {
+                $.ajax({
+                    type : 'GET',
+                    url : URL_CANCEL_ORDER + orderId,
+                }).done(function(data) {
+                    console.log(data);
+                    getHistory();
+                }).fail(function(data) {
+                    console.log(data);
+                    alert('Có lỗi xảy ra. Xin thử lại');
+                })
+            };
+        });
 }

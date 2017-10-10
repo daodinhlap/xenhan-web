@@ -67,3 +67,19 @@ class CouponResponse{
         this.transRef = "";
     }
 }
+
+
+class OrderRequest {
+    constructor() {
+        this.orderId;
+        this.orderMessage;
+        this.dropoff;
+        this.goodAmount;
+        this.cod;
+        this.shopName;
+        this.shipAmount ;
+
+        this.packageId ;
+        this.couponCode;
+    }
+}

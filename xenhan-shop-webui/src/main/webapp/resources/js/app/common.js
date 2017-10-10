@@ -69,7 +69,6 @@ $( document ).ready(function() {
     if(path.indexOf("/giao-dich/nap-tai-khoan-game") != -1){
     	setHighlight(menu,".naptkgame",images.topupGame);
     }
-
 	// handler tooltip
 	$('[data-toggle="tooltip"]').tooltip(); 
 });
@@ -80,39 +79,12 @@ function setHighlight(li,className,image){
 		.find("img").attr("src", pathImage + image + "-active.png");
 }
 
-function imagesLink(issuerCode) {
-	switch (issuerCode) {
-	case "VTT":
-		return pathImage + images.viettel + ext; break;
-	case "VNP":
-		return pathImage + images.vinaphone + ext; break;
-	case "VMS":
-		return pathImage + images.mobifone + ext; break;
-	case "VNM":
-		return pathImage + images.vnm + ext; break;
-	case "GMB":
-		return pathImage + images.gmobile + ext; break;
-	case "VCOIN":
-		return pathImage + images.vcoin + ext; break;;
-	case "GATE":
-	case "GATE_TOPUP":
-		return pathImage + images.gate + ext; break;
-	case "ZING":
-		return pathImage + images.zingxu + ext; break;
-	case "BIT":
-		return pathImage + images.bit + ext; break;
-	case "GARENA":
-		return pathImage + images.garena + ext; break;
-	case "ONCASH":
-		return pathImage + images.oncash + ext; break;
-	case "MEGACARD":
-		return pathImage + images.megacard + ext; break;
-	case "VMSDATA":
-		return pathImage + images.vmsdata + ext; break;
-	case "VCARD":
-		return pathImage + images.vcard + ext; break;
-	}
-}
+// function imagesLink(issuerCode) {
+// 	switch (issuerCode) {
+// 	case "VTT":
+// 		return pathImage + images.viettel + ext; break;
+// 	}
+// }
 
 function setCookie(name,value,days) {
 	if (days) {
@@ -153,7 +125,7 @@ function getFee(provinceId, districtId){
 		url : url
 	}).done(function(data) {
 		console.log(data);
-		$("#shipAmount").text(data);
+		$("#shipAmount").text(currencyFormat(data));
 	}).fail(function(data) {
 		console.log("ERROR: " + JSON.stringify(data));
 	}).always(function(){
@@ -190,7 +162,8 @@ function back() {
 }
 
 function currencyFormat(number) {
-	if(isNaN(number)) return;
+	if(isNaN(number)) return 0;
+    if(!number) return 0;
 	var decimalplaces = 2;
 	var decimalcharacter = ",";
 	var thousandseparater = ".";
@@ -330,6 +303,23 @@ function Notify(){
 		});
 		return noti;
 	};
+    this.confirmWithBtn = function(message, btn_yes, btn_no, callback){
+        var noti = bootbox.confirm({
+            message: message,
+            callback: callback,
+            buttons: {
+                confirm: {
+                    label: btn_yes,
+                    className: 'mainbtnpaydee'
+                },
+                cancel: {
+                    label: btn_no,
+                    className: 'subbtnpaydee'
+                }
+            }
+        });
+        return noti;
+    };
 	this.dialog = function(message,time){
 		var noti = bootbox.dialog({message: message, closeButton:false});
 		setTimeout(function(){

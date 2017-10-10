@@ -8,6 +8,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.homedirect.xenhan.model.OrderStatus;
+import com.homedirect.xenhan.model.data.request.OrderDataRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
@@ -53,23 +55,24 @@ public class ShopController extends AbstractController {
 
   /* CREATE Order */
   @GetMapping(value = "/tao-don")
-  public ModelAndView create(HttpServletRequest httpRequest) {
+  public ModelAndView create(@RequestParam(value = "type", required = true) Integer type,
+                             @RequestParam(value = "order-id", required = false) Long orderId,
+                             HttpServletRequest httpRequest) {
     Shop shop = getShopInfo(httpRequest);
+
     ModelAndView mv = new ModelAndView("order.create");
-    mv.addObject("title","Xe Nhàn - Tạo đơn hàng");
+    mv.addObject("title","Xe Nhàn - " + OrderStatus.toAction(type));
     mv.addObject("province", shop.getTown().getName());
+    mv.addObject("type", type);
+    mv.addObject("action", OrderStatus.toAction(type));
+
+    if(orderId != null){
+      OrderEntity order = getOrder(httpRequest, orderId);
+      mv.addObject("order", order);
+    }
     return mv;
   }
 
-  @PostMapping(value = "/create-order")
-  public ResponseEntity<?> createOrder(@RequestBody Order order, HttpServletRequest httpRequest) {
-    logger.info("\n CREATE ORDER: {}\n", JsonUtil.toJson(order));
-
-    order.setPackageId(DEFAULT_PACKAGE_ID);
-    String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "create-order");
-    return apiExchangeService.post(httpRequest, url ,order);
-  }
-  
   @GetMapping(value = "/tao-don-tu-excel")
   public ModelAndView createOrderFromExcel(HttpServletRequest httpRequest, HttpSession session) {
     ModelAndView mv = new ModelAndView("order.create.excel");
@@ -242,5 +245,14 @@ public class ShopController extends AbstractController {
       logger.info("\n GET SHOP INFO: {}", JsonUtil.toJson(shopResponse.getData()));
     }
     return shop;
+  }
+
+  private OrderEntity getOrder(HttpServletRequest httpRequest, Long orderId){
+      String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "get-order?order-id="+orderId);
+      RepositoryResponse<OrderEntity> orderResponse = apiExchangeService.get(httpRequest, url,
+              new TypeReference<RepositoryResponse<OrderEntity>>(){});
+
+      logger.info("\n GET ORDER INFO: {}", JsonUtil.toJson(orderResponse.getData()));
+    return orderResponse.getData();
   }
 }

@@ -8,7 +8,7 @@
 <div class="col-md-8 col-md-offset-2 mobile-padding">
     <div class="container card" style=" padding: 15px;">
         <!-- FROM -->
-        <div class="col-md-4 col-xs-6 date-input">
+        <div class="col-md-3 col-xs-6 date-input">
             <div class="form-group">
                 <div class="input-group date">
                     <span style="padding: 4px" class="input-group-addon">Từ</span>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <!-- TO -->
-        <div class="col-md-4 col-xs-6 date-input">
+        <div class="col-md-3 col-xs-6 date-input">
             <div class="form-group">
                 <div class="input-group date">
                     <span style="padding: 4px" class="input-group-addon">Đến</span>
@@ -31,7 +31,7 @@
         </div>
 
         <!-- type view -->
-        <div class="col-md-4 col-xs-6 date-input">
+        <div class="col-md-2 col-xs-6 date-input">
             <div class="form-group date">
                 <select id="typeOfView" class="form-control">
                     <option value="0">Ngày tạo</option>
@@ -40,8 +40,8 @@
             </div>
         </div>
 
-        <%--KEY WORD    --%>
-        <div class="col-md-4 col-xs-6 date-input">
+        <%--KEY WORD --%>
+        <div class="col-md-2 col-xs-6 date-input">
             <div class="form-group">
                 <input class="form-control" type="text"
                     placeholder="Số vận đơn, địa chỉ giao hàng, mã giảm giá, sđt nhận hàng, ghi chú"
@@ -51,7 +51,7 @@
         </div>
 
         <!-- STATUS -->
-        <div class="col-md-4 col-xs-6 date-input">
+        <div class="col-md-2 col-xs-6 date-input">
             <div class="form-group date">
                 <select id="status" class="form-control">
                     <option value="">Trạng thái</option>
@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-12 col-xs-12">
             <div class="button-container center">
                 <button class="btn btn-primary" onclick="getHistory()">
                     <span>Tìm kiếm</span>
@@ -85,12 +85,13 @@
                 <table class="table table-hover click">
                     <thead>
                         <tr>
-                            <th>Tổng</th>
-                            <th style="text-align: right" colspan="6" id="totalGoodAmount"></th>
-                            <th style="text-align: right" colspan="2" id="totalShipAmount"></th>
+                            <th colspan="4" id="counting"></th>
+                            <th style="text-align: right" colspan="3"><span id="totalGoodAmount"></span>&nbsp;đ</th>
+                            <th style="text-align: right"><span id="totalShipAmount"></span>&nbsp;đ</th>
+                            <th style="width: 10px;"></th>
                         </tr>
                         <tr>
-                            <th style="color: #92c78a;">#</th>
+                            <th style="width: 10px;" style="color: #92c78a;">#</th>
                             <th>
                                 <a href="#" onclick="print()" data-toggle="tooltip" title="Click để In phiếu">
                                     <i style="color: #92c78a;" class="fa fa-print"></i></a>
@@ -110,10 +111,10 @@
                             <th style="text-align: right">
                                 <img class="img-icon" src="/resources/images/icon_green_amount.png" data-toggle="tooltip" title="Tiền hàng">
                             </th>
-                            <th style="text-align: left"></th>
                             <th style="text-align: right">
                                 <img class="img-icon" src="/resources/images/icon_green_ship_amount.png" data-toggle="tooltip" title="Phí ship">
                             </th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="table-history">

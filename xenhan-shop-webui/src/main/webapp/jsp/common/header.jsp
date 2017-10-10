@@ -47,7 +47,7 @@
 
 				<li><a href="/">
 					<img src="/resources/images/"><span>Trang chủ</span></a></li>
-				<li><a href="/shop/tao-don">
+				<li><a href="/shop/tao-don?type=0">
 					<img src="/resources/images/"><span>Tạo đơn hàng</span></a>
 				</li>
 				<li><a href="/shop/tao-don-excel">
