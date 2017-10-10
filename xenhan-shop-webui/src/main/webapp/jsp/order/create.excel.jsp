@@ -88,14 +88,13 @@
 		<div class="center container"
 			style="margin-bottom: 20px; margin-top: 30px">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-xs-12 col-sm-6 col-lg-8">
 					<div id="fine-uploader-gallery"></div>
-
 				</div>
-				<div class="col-md-4">
+				<div class="col-xs-6 col-lg-4" style="margin-top: 30px">
 					<a target="_blank"
 						href="/resources/file/DanhSachDonHang_ShopXeNhan.xlsx"> <i
-						class="glyphicon glyphicon-download-alt"></i>Tải Tệp Mẫu
+						class="glyphicon glyphicon-download-alt"></i>Tải Mẫu
 					</a>
 				</div>
 			</div>
@@ -237,12 +236,12 @@
 									<tr>
 										<td colspan="2" align="center">
 											<div class="row">
-												<div class="col-md-6">
-													<a href="/order-excel/luu-don-tu-excel?index=${loop.index}">Nhập
+												<div class="col-xs-6">
+													<a class="btn btn-primary" href="/order-excel/luu-don-tu-excel?index=${loop.index}">Nhập
 														Đơn</a>
 												</div>
-												<div class="col-md-6">
-													<a href="/order-excel/xoa-don-tu-excel?index=${loop.index}">Xóa
+												<div class="col-xs-6">
+													<a class="btn btn-warning" href="/order-excel/xoa-don-tu-excel?index=${loop.index}">Xóa
 														Đơn</a>
 												</div>
 											</div>
