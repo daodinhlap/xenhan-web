@@ -3,10 +3,9 @@ var ErrorCode = {
 		SUCCESS:"1",
 		NOT_MATCH:"07",
 		NOT_MATCH_OLD_PIN:"04",
-		EXISTED_PAYD_ACCOUNT:"17",
-		EXISTED_ACCOUNT_NOT_IN_PAYD:"18",
 		INVALID_CAPTCHA:"19",
-		FORBIDDEN : "403"
+		FORBIDDEN : "403",
+    	NOT_MATCH_OLD_PASS:"18",
 }
 
 var Error_message = {
@@ -14,6 +13,7 @@ var Error_message = {
 		EMPTY_AMOUNT : "Xin vui lòng nhập số tiền",
 		EMPTY_OTP: "Vui lòng nhập mã xác thực",
 		EMPTY_ADDRESS: "Vui lòng nhập địa chỉ",
+    	EMPTY_PASSWORD: "Vui lòng nhập mật khẩu",
 		NOT_MATCH_OTP: "Mã xác thực không đúng! Xin vui lòng nhập lại",
 		NOT_MATCH_OLD_PASSWORD: "Mật khẩu cũ không đúng",
 		NOT_MATCH_OLD_PIN: "PIN cũ không đúng",
@@ -31,5 +31,6 @@ var Error_message = {
 		CHANGE_PASSWORD_SUCCESS: "Thay đổi mật khẩu đăng nhập thành công",
 		CHANGE_PIN_SUCCESS: "Cài đặt mật khẩu giao dịch thành công",
 		INVALID_FORMAT_PIN: "Mã PIN hợp lệ gồm 6 kí tự số",
-		CONFIRM_PIN_NOT_MATCH: "Nhập lại PIN không đúng"
+		CONFIRM_PIN_NOT_MATCH: "Nhập lại PIN không đúng",
+    	CONFIRM_PASS_NOT_MATCH: "Nhập lại mật khẩu không đúng"
 }
