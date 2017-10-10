@@ -39,6 +39,9 @@ $(function() {
 			title: 'Mã Giảm Giá'
 		});
 		$('#address-' + i).editable({
+			validate:function(value){
+				if((!value || 0 === value.length)) return 'Xin hãy nhập địa chỉ giao hàng';
+			},
 			title: 'Địa Chỉ Giao Hàng'
 		});
 		
@@ -47,6 +50,9 @@ $(function() {
 		});
 		
 		$('#phone-' + i).editable({
+			validate:function(value){
+				if((!value || 0 === value.length)) return 'Xin hãy nhập số điện thoại';
+			},
 			title: 'Số Điện Thoại Giao Hàng'
 		});
 
