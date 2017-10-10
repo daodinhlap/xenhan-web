@@ -66,7 +66,19 @@ function getTotal(request) {
         console.log(data);
     }).always(function () {
     });
+}
 
+function buildCounting(page){
+    var size = 20;
+    form.setCounting("");
+    var counting = "";
+    counting += ((page.pageNumber-1) * size) + 1;
+    counting += " -> ";
+    counting += ((page.pageNumber-1) * size) + page.pageItems.length;
+    counting += " / " + page.totalItems;
+    counting += " đơn ";
+
+    form.setCounting(counting);
 }
 
 function configDatePicker(ids){
@@ -94,6 +106,7 @@ function buildTable(orderPage) {
     var index = page.pageNumber;
     var orders = page.pageItems;
 
+    buildCounting(orderPage);
 
     orders.forEach((order, i) =>{
         var trigger = "data-toggle='modal' data-target='#modal-"+ order.id +"'";
@@ -187,6 +200,7 @@ function Form() {
     this.typeOfView = function() {return $('#typeOfView').val()};
     this.index = function() {return $('#index').val()};
 
+    this.setCounting = function(value) {return $('#counting').text(value)};
     this.setTotalGoodAmount = function(value) {return $('#totalGoodAmount').text(value)};
     this.setTotalShipAmount = function(value) {return $('#totalShipAmount').text(value)};
 
@@ -289,7 +303,10 @@ function buildPagination(page){
 
     for(i = 0; i < page.pagesAvailable; i++){
         el.append(
-            $("<li>").append($("<a href='#'>").text(""+(i+1)).attr("onclick","getHistory("+ (i+1) +")"))
+            $("<li  class='"+(page.pageNumber == (i+1) ? 'active':'')+"'>")
+                .append($("<a href='#'>")
+                .text(""+(i+1))
+                .attr("onclick","getHistory("+ (i+1) +")"))
         )
 
     }

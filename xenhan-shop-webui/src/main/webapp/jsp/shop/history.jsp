@@ -85,8 +85,8 @@
                 <table class="table table-hover click">
                     <thead>
                         <tr>
-                            <th>Tổng</th>
-                            <th style="text-align: right" colspan="6"><span id="totalGoodAmount"></span>&nbsp;đ</th>
+                            <th colspan="4" id="counting"></th>
+                            <th style="text-align: right" colspan="3"><span id="totalGoodAmount"></span>&nbsp;đ</th>
                             <th style="text-align: right"><span id="totalShipAmount"></span>&nbsp;đ</th>
                             <th style="width: 10px;"></th>
                         </tr>
