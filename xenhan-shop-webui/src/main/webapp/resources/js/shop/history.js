@@ -73,7 +73,7 @@ function buildCounting(page){
     form.setCounting("");
     var counting = "";
     counting += ((page.pageNumber-1) * size) + 1;
-    counting += " -> ";
+    counting += " - ";
     counting += ((page.pageNumber-1) * size) + page.pageItems.length;
     counting += " / " + page.totalItems;
     counting += " đơn ";

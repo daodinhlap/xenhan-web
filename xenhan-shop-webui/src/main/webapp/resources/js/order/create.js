@@ -17,8 +17,10 @@ $(document).ready(function() {
         buildText();
     });
     // on change amount
-    $('#amount').change(() => {
+    buildText();
+    $('#amount').keyup(() => {
         buildText();
+        form.setAmount(currencyFormat(form.amount()));
     });
 
 });
@@ -53,6 +55,12 @@ function create() {
 
 }
 function next() {
+    if(form.validate().length != 0){
+        noti.error(error);
+        return;
+    }
+    noti.cleanError();
+
     getFee(form.provinceId(), form.districtId());
     move();
 }
@@ -102,7 +110,7 @@ function buildText(){
     }
     $('#amount-text').text(goodAmountText);
     $('#action').text(actionText);
-    $('#totalAmount').text(Math.abs(total));
+    $('#totalAmount').text(currencyFormat(Math.abs(total)));
 }
 
 function move(){
@@ -125,12 +133,26 @@ function Form(){
     this.type = function(){ return $('#type').val()};
 
 	this.cod = function(){ return $('#cod').val()};
-    this.amount = function(){ return $('#amount').val()};
+    this.amount = function(){ return numberFormat($('#amount').val())};
     this.coupon = function(){ return $('#coupon').val()};
-    this.couponAmount = function(){ return $('#couponAmount').text()};
+    this.couponAmount = function(){ return numberFormat($('#couponAmount').text())};
+    this.shipAmount = function(){ return numberFormat($('#shipAmount').text())};
+
+    this.setAmount = function(value){ return $('#amount').val(value)};
     this.setCoupon = function(value){ return $('#couponAmount').text(value)};
-    this.shipAmount = function(){ return $('#shipAmount').text()};
+
+    this.validate = function (){
+        if(!this.phone()){
+            error.push({message: Error_message.EMPTY_PHONE, id: "phone"});
+        }
+        if(!this.address()){
+            error.push({message: Error_message.EMPTY_ADDRESS, id: "address"});
+        }
+        return error;
+    }
 }
+
+
 
 function makeModel(){
     var order = new OrderRequest();

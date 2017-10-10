@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
@@ -116,7 +117,8 @@
 
 	<div class="form-group">
 		<label id="amount-text">Tiền hàng<span style="color: red">*</span></label>
-		<input type="text" class="form-control" id="amount" value="${order.goodAmount}">
+		<input type="text" class="form-control" id="amount"
+			   value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${order.goodAmount}"/>">
 	</div>
 	<div class="form-group">
 		<label>Mã giảm giá</label>
