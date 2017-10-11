@@ -82,8 +82,8 @@
     </script>
 <div class="col-md-8 col-md-offset-3  mobile-padding">
 	<div id="info-receiver" class="container card">
-		<div class="center">
-			<h2>Tạo Đơn Bằng Excel</h2>
+		<div class="center" style="margin-top: 20px">
+            <h2 class="page-header">TẠO ĐƠN BẰNG EXCEL</h2>
 		</div>
 		<div class="center container"
 			style="margin-bottom: 20px; margin-top: 30px">

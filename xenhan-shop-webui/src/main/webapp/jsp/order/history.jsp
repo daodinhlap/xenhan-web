@@ -6,7 +6,10 @@
 <%@ page import="java.util.*" %>
 
 <div class="col-md-8 col-md-offset-2 mobile-padding">
-    <div class="container card" style=" padding: 15px;">
+    <div class="container card" style="padding: 15px;">
+    	<div class="center" style="margin-bottom: 20px">
+            <h2 class="page-header">DANH SÁCH ĐƠN HÀNG</h2>
+		</div>
         <!-- FROM -->
         <div class="col-md-3 col-xs-6 date-input">
             <div class="form-group">

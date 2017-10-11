@@ -6,7 +6,9 @@
 <div class="col-md-6 col-md-offset-3  mobile-padding">
 	<div class="row">
 		<div class="col-xs-9">
-			<h2>Liên hệ</h2>
+			<div class="center" style="margin-bottom: 30px">
+				<h2>LIÊN HỆ</h2>
+			</div>
 		</div>
 		<div class="col-xs-6">
 			<address>

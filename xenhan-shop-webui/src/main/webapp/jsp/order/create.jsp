@@ -6,12 +6,11 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 
 <div class="col-md-6 col-md-offset-3  mobile-padding">
-
     <div id="info-receiver" class="container card">
-	<p id="alert"></p>
 	<div class="center">
-		<h2>NGƯỜI NHẬN HÀNG</h2>
+		<h2>TẠO ĐƠN HÀNG</h2>
 	</div>
+	<p id="alert"></p>
 
 	<div class="form-group">
 		<label>Họ tên</label>

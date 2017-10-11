@@ -10,9 +10,9 @@
 <div class="col-md-6 col-md-offset-3  mobile-padding">
 
 <div id="info-receiver" class="container card">
-    <div class="center">
-        <h2>Thông tin đăng ký Shop</h2>
-    </div>
+    <div class="center" style="margin-bottom: 20px">
+            <h2 class="page-header">THÔNG TIN ĐĂNG KÝ SHOP</h2>
+	</div>
 
     <div class="form-group">
 		<label>Tên shop</label>
