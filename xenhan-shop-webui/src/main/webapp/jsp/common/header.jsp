@@ -57,10 +57,8 @@
 					</li>
 					<li><a href="/order/lich-su"> <img src="/resources/images/"><span>Lịch
 								sử đơn hàng</span></a></li>
-					<li><a href="/user/thong-tin-nguoi-dung"> <img
+					<li><a href="/shop/thong-tin-tai-khoan"> <img
 							src="/resources/images/"><span>Thông Tin Tài Khoản</span></a></li>
-					<li><a href="/shop/thong-tin-shop"> <img
-							src="/resources/images/"><span>Thông Tin Shop</span></a></li>
 				</c:if>
 				<li><a href="#"><img src="/resources/images/"><span>Đổi
 							Mật Khẩu</span></a></li>
