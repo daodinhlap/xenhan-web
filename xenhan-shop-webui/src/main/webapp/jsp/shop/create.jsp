@@ -116,7 +116,7 @@
 	<p id="alert"></p>
     <%--BUTTON--%>
     <div class="form-group center">
-        <button class="btn btn-danger" onclick="cancleRegisterShop()">Hủy</button>
+        <button class="btn btn-danger" onclick="cancelRegisterShop()">Hủy</button>
         <button class="btn btn-success" onclick="registerShop()"> Đăng ký</button>
     </div>
 </div>
