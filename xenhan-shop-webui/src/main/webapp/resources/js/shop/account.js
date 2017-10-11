@@ -63,95 +63,104 @@ function Form(){
 }
 
 
-$('.editable').editable();
+// $('.editable').editable();
 // $('#enable').click(function() {
 //        $('.editable').editable('toggleDisabled');
 // });
 $(function() {
-		// $('#name').editable();
-		$('#name').editable({
-			title: 'Họ Tên', 
-	        validate: function(value) {
-	            if(value == '') return 'Xin Hãy Nhập Tên!'; 
-	        },
-	        error: function(response, newValue) {
-	        	if(response.status === 500) {
-	                return 'Service unavailable. Please try later.';
-	            } else {
-	               alert(response.responseText);
-	            }
-			},
-			success: function(response, newValue) {
-				alert(reponse + ' : ' + newValue);
-			}
-		});
-
-    	$('#email').editable();
-    	$('#gender').editable({
-			source:[{value: 1, text: 'Nam'}, {value: 2, text: 'Nữ'}]
-		});
-    	$('#address').editable();
-		$('#province').editable({
-			source: provinces,
-			params: function(params) {
-				provinces.forEach(function(entry) {
-					if(params.value == entry.value) params.label = entry.text;
-				});
-				return params;
-			},
-			// success: function(response, newValue) {
-			// 	var id = this.id;
-			// 	var idx = id.indexOf('-');
-			// 	id = id.substring(idx+1);
-			// 	$('#district-' + id).editable('option', 'source', districts[newValue]);
-			// 	$('#district-' + id).editable('setValue', null);
-			// }
-		});
-
-		$('#district').editable({
-			source: districts[$('#province').attr('data-value')],
-            // source: [{value:1,text:"John"},{value:2,text:"Sam"},{value:3,text:"Joe"}],
-			params: function(params) {
-				districts[1].forEach(function(entry) {
-					if(params.value == entry.value) params.label = entry.text;
-					console.log(entry.value + ' : '+ entry.text);
-				});
-				if(params.label != null) return params;
-				districts[2].forEach(function(entry) {
-					if(params.value == entry.value) params.label = entry.text;
-					console.log(entry.value + ' : '+ entry.text);
-				});
-				return params;
-			}
-		});
-    	$('#placeOfBirth').editable();
-    	$('#dateOfBirth').editable({
-            format: 'dd-mm-yyyy',
-            viewformat: 'dd/mm/yyyy',
-            datepicker: {
-                autoclose:true,
-                clearBtn:true,
-                language:'vi',
-                maxDate: new Date()
+    // $('#name').editable();
+    $('#name').editable({
+        mode:"inline",
+        validate: function(value) {
+            if(value == '') return 'Xin Hãy Nhập Tên!';
+        },
+        error: function(response, newValue) {
+            if(response.status === 500) {
+                return 'Service unavailable. Please try later.';
+            } else {
+               alert(response.responseText);
             }
-        });
-    	$('#identityCard').editable();
-        $('#dateOfIdentity').editable({
-            format: 'dd-mm-yyyy',
-            viewformat: 'dd/mm/yyyy',
-            datepicker: {
-                autoclose:true,
-                clearBtn:true,
-                locale:'vi',
-                maxDate: new Date()
-            }
-        });
-    	$('#facebook').editable();
+        }
+    });
+
+    $('#email').editable({mode:"inline",});
+    $('#gender').editable({
+        mode:"inline",
+        source:[{value: 1, text: 'Nam'}, {value: 2, text: 'Nữ'}]
+    });
+    $('#address').editable({mode:"inline",});
+    // $('#province').editable({
+    // 	source: provinces,
+    // 	params: function(params) {
+    // 		provinces.forEach(function(entry) {
+    // 			if(params.value == entry.value) params.value = entry.text;
+    // 		});
+    // 		return params;
+    // 	},
+    // 	success: function(response, newValue) {
+    // 	    alert(newValue);
+    // 		$('#district').editable('option', 'source', districts[newValue]);
+    // 		$('#district').editable('setValue', null);
+    // 	}
+    // });
+
+    var province = $('#province').attr("data-value");
+    $('#district').editable({
+        mode:"inline",
+        source: districts[province],
+        params: function(params) {
+            districts[province].forEach(function(entry) {
+                if(params.value == entry.value) params.value = entry.text;
+            });
+            return params;
+        }
+    });
+    $('#placeOfBirth').editable({mode:"inline",});
+    $('#birthDay').editable({
+        format:"dd/mm/yyyy",
+        viewformat:"dd/mm/yyyy"
+    });
+    $('#identityCard').editable({mode:"inline",});
+    $('#dateOfIdentity').editable({
+        format:"dd/mm/yyyy",
+        viewformat:"dd/mm/yyyy"
+    });
+    $('#facebook').editable({mode:"inline",});
+
+    // SHOP PROFILE
+    $('#shopName').editable({
+        mode:"inline",
+        validate: function(value) {
+            if(!value) return 'Xin hãy nhập Tên Shop';
+        }
+    }); // require
+    $('#shopAddress').editable({
+        mode:"inline",
+        validate: function(value) {
+            if(!value) return 'Xin hãy nhập địa chỉ Shop';
+        }
+    });// require
+    var shopProvince = $('#shopProvince').attr("data-value");
+    $('#shopDistrict').editable({
+        mode:"inline",
+        source: districts[shopProvince],
+        validate: function(value) {
+            if(!value) return 'Xin hãy nhập quận/huyện';
+        }
+    });// require
+    $('#shopPhone').editable({
+        mode:"inline",
+        validate: function(value) {
+            if(!value) return 'Xin hãy nhập SĐT shop';
+        }
+    });// require
+    $('#shopEmail').editable({mode:"inline",});
+    $('#shopWebsite').editable({mode:"inline",});
+
 
 });
 
-var provinces = new Array({value: 1, text: 'Hà Nội'},
-    {value: 2, text: 'Hồ Chí Minh'});
+var provinces = [{value: 1, text: 'Hà Nội'},{value: 2, text: 'Hồ Chí Minh'}];
 
 var districts = {
     1: [{value:3, text: 'Ba Đình'},
@@ -198,7 +207,6 @@ var districts = {
         {value: 40, text: 'Quận 10'},
         {value: 41, text: 'Quận 11'},
         {value: 42, text: 'Quận 12'},
-
         {value: 51, text: 'Bình Chánh'},
         {value: 44, text: 'Bình Thạnh'},
         {value: 48, text: 'Bình Tân'},

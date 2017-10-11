@@ -115,13 +115,10 @@ public class ShopController extends AbstractController {
 //                            @RequestParam(value = "label", required = false) String label,
                             HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
     if(StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "Không có dữ liệu".getBytes("utf8");
-
+    logger.info(" name: {} - value:{}",name,value);
     name = name.trim();
     value = value.trim();
-//    UsernamePasswordAuthenticationToken  authen = (UsernamePasswordAuthenticationToken)httpRequest.getUserPrincipal();
-//    UserSession userSession = (UserSession) authen.getPrincipal();
-//    logger.info("----> "+ pk + " name: " + name + " value:" + value + " : "+ userSession.getUser());
-//    XnUserRequest user = toUserRequest(userSession.getUser());
+
     UserRecord userRecord = getUserRecord(httpRequest);
     User user = userRecord.getUser();
     UserProfile userProfile = userRecord.getUserProfile();
@@ -150,7 +147,7 @@ public class ShopController extends AbstractController {
     case "placeOfBirth":
         userProfile.setPlaceOfBirth(value);
         return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
-    case "dateOfBirth":
+    case "birthDay":
         userProfile.setBirthday(DateUtil.ddMMyyyy2Date(value));
         return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "identityCard":
@@ -173,7 +170,7 @@ public class ShopController extends AbstractController {
                           @RequestParam(value = "value", required = false) String value,
                           HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
       if (StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "Không có dữ liệu".getBytes("utf8");
-
+      logger.info(" name: {} - value:{}",name,value);
       name = name.trim();
       value = value.trim();
 
@@ -198,7 +195,7 @@ public class ShopController extends AbstractController {
               shop.setEmail(value);
               return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
           case "shopWebsite":
-              shop.setEmail(value);
+              shop.setWebsite(value);
               return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
           default:
               return "error".getBytes();

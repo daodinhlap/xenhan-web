@@ -70,11 +70,10 @@
 			<div class="col-xs-4 col-md-4">Tỉnh/Thành phố<span style="color: red">*</span></div>
 				<%--<div class="col-xs-8 col-md-8"><label>${user.userProfile.province}</label></div>--%>
 			<div class="col-xs-8 col-md-8"><a href="#" id="province"
-											  data-source="[{value: 'Hà Nội', text: 'Hà Nội'},{value: 'Hồ Chí Minh', text: 'Hồ Chí Minh'}]"
 											  data-type="select" data-url="/shop/sua-thong-tin-nguoi-dung"
 											  data-name="province" data-pk="${user.user.phone}"
 											  data-original-title="Tỉnh/TP"
-											  data-value="${user.userProfile.province}"
+											  data-value="${user.userProfile.province == 'Hà Nội'? 1: 2}"
 											  class="editable editable-empty">${user.userProfile.province}</a></div>
 		</div>
 
@@ -85,8 +84,7 @@
 											  data-type="select" data-url="/shop/sua-thong-tin-nguoi-dung"
 											  data-name="district" data-pk="${user.user.phone}"
 											  data-original-title="Quận/Huyện"
-											  data-value="{1,'John'}"
-											  class="editable editable-empty"></a></div>
+											  class="editable editable-empty">${user.userProfile.district}</a></div>
 		</div>
 
 		<div class="form-group">
@@ -104,9 +102,9 @@
 			<div class="col-xs-4 col-md-4">Ngày Sinh</div>
 				<%--<div class="col-xs-8 col-md-8"><label>--%>
 				<%--<fmt:formatDate value="${user.userProfile.birthday}" pattern="dd-MM-yy"/></label></div>--%>
-			<div class="col-xs-8 col-md-8"><a href="#" id="dateOfBirth"
+			<div class="col-xs-8 col-md-8"><a href="#" id="birthDay"
 											  data-type="date" data-url="/shop/sua-thong-tin-nguoi-dung"
-											  data-name="dateOfBirth" data-pk="${user.user.phone}"
+											  data-name="birthDay" data-pk="${user.user.phone}"
 											  data-original-title="Ngày sinh"
 											  data-value="<fmt:formatDate value="${user.userProfile.birthday}" pattern="dd/MM/yyyy"/>"
 											  class="editable editable-empty">

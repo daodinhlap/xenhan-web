@@ -59,7 +59,7 @@
 						   data-type="select" data-url="/shop/sua-thong-tin-shop"
 						   data-name="shopProvince" data-pk="${shop.shopName}"
 						   data-original-title="Tỉnh/TP"
-						   data-value="${shop.town.name == 'Hà Nội'? 1: 2}"
+						   data-value="${shop.town.id}"
 						   class="editable editable-empty">${shop.town.name}</a>
 				</div>
 			</div>
@@ -73,7 +73,7 @@
 						   data-type="select" data-url="/shop/sua-thong-tin-shop"
 						   data-name="shopDistrict" data-pk="${shop.shopName}"
 						   data-original-title="Quận/Huyện"
-						   data-value="${shop.town.district.name}"
+						   data-value="${shop.town.district.id}"
 						   class="editable editable-empty">${shop.town.district.name}</a>
 				</div>
 			</div>
