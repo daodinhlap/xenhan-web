@@ -83,7 +83,7 @@
 <div class="col-md-8 col-md-offset-3  mobile-padding">
 	<div id="info-receiver" class="container card">
 		<div class="center" style="margin-top: 20px">
-            <h2 class="page-header">TẠO ĐƠN BẰNG EXCEL</h2>
+			<h2 class="page-header">TẠO ĐƠN BẰNG EXCEL</h2>
 		</div>
 		<div class="center container"
 			style="margin-bottom: 20px; margin-top: 30px">
@@ -110,75 +110,69 @@
 	<c:if test="${not empty orders}">
 		<div class="container card" style="padding: 15px; margin-top: 20px">
 			<div id="accordion" role="tablist">
-				<input id="number-of-order" type="hidden" value="${orders.size()}" style="display: none">
-					<div class="container" >
-								<div class="row">
-											<div class="col-xs-6 col-sm-3">
-												<b>Đơn Hàng</b> 
-											</div>
-											<div class="col-xs-6 col-sm-3" >
-												<b>Tiền Hàng</b>
-											</div>
-											<div class="col-xs-6 col-sm-3">
-												<b>Phí Ship</b>
-											</div>
-											<div class="col-xs-6 col-sm-3">
-												<b>Giao Hàng</b></div>
-								</div>
-								
-							</div>
+				<input id="number-of-order" type="hidden" value="${orders.size()}"
+					style="display: none">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-6 col-sm-3">
+							<b>Đơn Hàng</b>
+						</div>
+						<div class="col-xs-6 col-sm-3">
+							<b>Tiền Hàng</b>
+						</div>
+						<div class="col-xs-6 col-sm-3">
+							<b>Phí Ship</b>
+						</div>
+						<div class="col-xs-6 col-sm-3">
+							<b>Giao Hàng</b>
+						</div>
+					</div>
+
+				</div>
 				<c:forEach items="${orders}" var="order" varStatus="loop">
 					<div class="card">
-						<div class="card-header" role="tab" id="headingOne"
-							style="margin-top: 10px; margin-left: 10px">
+						<div class="card-header" role="tab" id="heading-${loop.index + 1}" style="margin-top: 10px; margin-left: 10px">
 
-							<div class="container" >
+							<div class="container">
 								<div class="row">
-											<div class="col-xs-6 col-sm-3">
-													<a data-toggle="collapse" href="#order-${loop.index + 1}"
-														id="order-entity-${loop.index}"
-														aria-expanded="true" aria-controls="order-${loop.index}">
-													Đơn ${loop.index + 1}</a>
-													
-											</div>
-											<div class="col-xs-6 col-sm-3" >
-												<fmt:formatNumber type="number" maxFractionDigits="3"
-													value="${order.goodAmount}" />
-											</div>
-											<div class="col-xs-6 col-sm-3">
-												<fmt:formatNumber type="number" maxFractionDigits="3"
-													value="${order.shipAmount}" />
-											</div>
-											<div class="col-xs-6 col-sm-3">
-												${order.dropoff.address}</div>
+									<div class="col-xs-6 col-sm-3">
+										<a class="collapsed"  data-toggle="collapse" href="#order-${loop.index + 1}"
+											id="order-entity-${loop.index}" aria-expanded="false"
+											aria-controls="order-${loop.index}"> Đơn ${loop.index + 1}</a>
+
+									</div>
+									<div class="col-xs-6 col-sm-3">
+										<fmt:formatNumber type="number" maxFractionDigits="3"
+											value="${order.goodAmount}" />
+									</div>
+									<div class="col-xs-6 col-sm-3">
+										<fmt:formatNumber type="number" maxFractionDigits="3"
+											value="${order.shipAmount}" />
+									</div>
+									<div class="col-xs-6 col-sm-3">${order.dropoff.address}</div>
 								</div>
-								<p id="alert-order-${loop.index}" style="color:red"></p>
+								<p id="alert-order-${loop.index}" style="color: red"></p>
 							</div>
 
 						</div>
 					</div>
 
 					<div id="order-${loop.index + 1}" class="collapse" role="tabpanel"
-						aria-labelledby="headingOne" data-parent="#accordion">
+						aria-labelledby="heading-${loop.index + 1}" data-parent="#accordion">
 						<div class="card-body">
 							<table class="table borderless" style="margin-top: 20px">
 								<tbody>
 									<tr>
 										<td colspan="2" align="left"><b>Người Nhận Hàng</b></td>
 									</tr>
-									<tr>
-										<td>Họ Tên: </td>
-										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
-											data-name="name" id="name-${loop.index}" data-type="text"
-											data-pk="${loop.index}">${order.dropoff.contact.name}</a></td>
-									</tr>
-									<tr>
+									<tr><tr>
 										<td>Điện Thoại:</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
 											data-name="phone" id="phone-${loop.index}" data-type="text"
 											data-pk="${loop.index}">${order.dropoff.contact.phone}</a></td>
 									</tr>
-									<tr>
+					
+													<tr>
 										<td>Địa Chỉ* :</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
 											data-name="address" id="address-${loop.index}"

@@ -141,6 +141,14 @@ function validate(i) {
 	}});
 }
 
+$('.panel-collapse').on('show.bs.collapse', function () {
+    $(this).siblings('.panel-heading').addClass('active');
+  });
+
+  $('.panel-collapse').on('hide.bs.collapse', function () {
+    $(this).siblings('.panel-heading').removeClass('active');
+  });
+
 var provinces = new Array({value: 1, text: 'Hà Nội'},
 		{value: 2, text: 'Hồ Chí Minh'});
 
