@@ -39,13 +39,7 @@
 					<!-- PHONE -->
 					<div class="form-group">
                         <div class="col-xs-4 col-md-4">Số điện thoại</div>
-                        <%--<div class="col-xs-8 col-md-8"><label>${user.user.phone}</label></div>--%>
-						<div class="col-xs-8 col-md-8"><a href="#" id="phone"
-														  data-type="text" data-url="/user/sua-thong-tin-nguoi-dung"
-														  data-name="phone" data-pk="${user.user.phone}"
-														  data-original-title="Số Điện Thoại Giao Hàng"
-														  data-value="${user.user.phone}"
-														  class="editable editable-empty">${user.user.phone}</a></div>
+                        <div class="col-xs-8 col-md-8"><label>${user.user.phone}</label></div>
 					</div>
 					<!-- EMAIL -->
 					<div class="form-group">

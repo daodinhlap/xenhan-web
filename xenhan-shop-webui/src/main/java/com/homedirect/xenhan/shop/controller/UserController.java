@@ -119,6 +119,7 @@ public class UserController extends AbstractController {
   private String updateProfile(HttpServletRequest httpRequest, HttpServletResponse httpResponse, XnUserProfileRequest profile ) {
     String url = apiExchangeService.createUrlWithToken(httpRequest, "user", "update-profile");
     ResponseEntity<RepositoryResponse<Object>> resp = apiExchangeService.post(httpRequest, url, profile);
+
     logger.info("--- response " + resp.getStatusCodeValue() + " : "+ resp.getBody().getMessage());
     if(apiExchangeService.isUnSuccessResponse(resp.getBody())) {
       httpResponse.setStatus(HttpStatus.SERVICE_UNAVAILABLE.ordinal());
@@ -140,7 +141,10 @@ public class UserController extends AbstractController {
     
     request.setAddress(detail.getUserProfile().getAddress());
     request.setDateOfBirth(detail.getUserProfile().getBirthday());
-//    request.setDistrictId(detail.getUserProfile().get);
+
+//    request.setDistrictId(detail.getUserProfile().getDistrict());
+//    request.setProvinceId(detail.getUserProfile().getProvince());
+
     request.setFacebookId(detail.getUserProfile().getFacebookId());
     request.setGender(detail.getUserProfile().getGender());
     request.setGoogleId(detail.getUserProfile().getGoogleId());
