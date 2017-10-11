@@ -10,7 +10,7 @@
 	<div class="container card" id="account-view">
 		<div class="center">
             <h2><span>THÔNG TIN NGƯỜI DÙNG</span>
-                <a href="/user/cap-nhat-thong-tin"><span style="color: #f3931f;"><i class="fa fa-pencil-square-o"></i></span></a>
+                <span style="color: #f3931f; cursor: pointer;"><i id="enable" class="fa fa-pencil-square-o"></i></span>
             </h2>
 		</div>
 			<c:choose>
@@ -26,9 +26,14 @@
 				</c:when>
 
 				<c:otherwise>
-					<div class="form-group">
+					<div class="form-group" id="user">
                         <div class="col-xs-4 col-md-4">Họ Tên</div>
-                        <div class="col-xs-8 col-md-8"><label>${user.userProfile.fullName}</label></div>
+                        <div class="col-xs-8 col-md-8"><a href="#" id="name" 
+											data-type="text" data-url="/user/sua-thong-tin-nguoi-dung"
+											data-name="name" data-pk="${user.user.phone}"
+											data-original-title="Họ Tên"
+											data-value="${user.userProfile.fullName}"
+											class="editable editable-empty">${user.userProfile.fullName}</a></div>
 					</div>
 					<!-- PHONE -->
 					<div class="form-group">

@@ -27,7 +27,7 @@ public class ShopController extends AbstractController {
   @GetMapping(value = "/tao-shop")
   public ModelAndView createShop() {
     ModelAndView mv = new ModelAndView("shop.create");
-    mv.addObject("title","Xe Nhàn - Đăng ký Shop");
+    mv.addObject("title", "Xe Nhàn - Đăng ký Shop");
     return mv;
   }
 
@@ -51,8 +51,9 @@ public class ShopController extends AbstractController {
 
   @GetMapping(value = "/thong-tin-shop")
   public ModelAndView showShop(HttpServletRequest httpRequest) {
+    logger.info(" ------->asdasdasd" );
     ModelAndView mv = new ModelAndView("shop.detail");
-    mv.addObject("title","Xe Nhàn - Thông Tin Shop");
+    mv.addObject("title", "Xe Nhàn - Thông Tin Shop");
     try {
       mv.addObject("shop", getShopInfo(httpRequest));
     } catch (Exception e) {
