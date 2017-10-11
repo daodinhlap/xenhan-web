@@ -110,39 +110,62 @@
 	<c:if test="${not empty orders}">
 		<div class="container card" style="padding: 15px; margin-top: 20px">
 			<div id="accordion" role="tablist">
-				<input id="number-of-order" type="hidden" value="${orders.size()}"
-					style="display: none">
+				<input id="number-of-order" type="hidden" value="${orders.size()}" style="display: none">
+					<div class="container" >
+								<div class="row">
+											<div class="col-xs-6 col-sm-3">
+														Đơn Hàng 
+											</div>
+											<div class="col-xs-6 col-sm-3" >
+												Tiền Hàng
+											</div>
+											<div class="col-xs-6 col-sm-3">
+												Phí Ship
+											</div>
+											<div class="col-xs-6 col-sm-3">
+												Giao Hàng</div>
+								</div>
+								
+							</div>
 				<c:forEach items="${orders}" var="order" varStatus="loop">
 					<div class="card">
 						<div class="card-header" role="tab" id="headingOne"
 							style="margin-top: 10px; margin-left: 10px">
-							<h3 class="mb-0" style="display: inline">
-								<a data-toggle="collapse" href="#order-${loop.index + 1}"
-									aria-expanded="true" aria-controls="order-${loop.index}">
-									Đơn Hàng ${loop.index + 1}</a>
-							</h3>
-							- Tiền Hàng:
-							<fmt:formatNumber type="number" maxFractionDigits="3"
-								value="${order.goodAmount}" />
-							- Phí Ship:
-							<fmt:formatNumber type="number" maxFractionDigits="3"
-								value="${order.shipAmount}" />
-							- ${order.dropoff.contact.phone} - Giao: ${order.dropoff.address}
+
+							<div class="container" >
+								<div class="row">
+											<div class="col-xs-6 col-sm-3">
+													<a data-toggle="collapse" href="#order-${loop.index + 1}"
+														aria-expanded="true" aria-controls="order-${loop.index}">
+													 ${loop.index + 1}</a>
+											</div>
+											<div class="col-xs-6 col-sm-3" >
+												<fmt:formatNumber type="number" maxFractionDigits="3"
+													value="${order.goodAmount}" />
+											</div>
+											<div class="col-xs-6 col-sm-3">
+												<fmt:formatNumber type="number" maxFractionDigits="3"
+													value="${order.shipAmount}" />
+											</div>
+											<div class="col-xs-6 col-sm-3">
+												${order.dropoff.address}</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 
 					<div id="order-${loop.index + 1}" class="collapse" role="tabpanel"
 						aria-labelledby="headingOne" data-parent="#accordion">
 						<div class="card-body">
-							<table class="table table-bordered">
+							<table class="table borderless" style="margin-top: 20px">
 								<tbody>
 									<tr>
 										<td width="40%">Loại đơn *:</td>
 										<td><a href="#" id="type-${loop.index}"
 											data-type="select" data-url="/order-excel/sua-don-tu-excel"
-											data-value="${order.COD ? '1' : '2'}"
-											data-name="type" data-pk="${loop.index}"
-											data-original-title="Chọn Loại Đơn"
+											data-value="${order.COD ? '1' : '2'}" data-name="type"
+											data-pk="${loop.index}" data-original-title="Chọn Loại Đơn"
 											class="editable editable-empty">${order.COD ? 'COD' : 'Ứng Tiền'}</a></td>
 									</tr>
 									<tr>
@@ -229,19 +252,21 @@
 									<tr>
 										<td>Thông Tin Thêm</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
-											data-name="message" id="message-${loop.index}" data-type="text"
-											data-pk="${loop.index}">${order.orderMessage}</a></td>
+											data-name="message" id="message-${loop.index}"
+											data-type="text" data-pk="${loop.index}">${order.orderMessage}</a></td>
 									</tr>
 
 									<tr>
 										<td colspan="2" align="center">
 											<div class="row">
 												<div class="col-xs-6">
-													<a class="btn btn-primary" href="/order-excel/luu-don-tu-excel?index=${loop.index}">Nhập
+													<a class="btn btn-primary"
+														href="/order-excel/luu-don-tu-excel?index=${loop.index}">Nhập
 														Đơn</a>
 												</div>
 												<div class="col-xs-6">
-													<a class="btn btn-warning" href="/order-excel/xoa-don-tu-excel?index=${loop.index}">Xóa
+													<a class="btn btn-warning"
+														href="/order-excel/xoa-don-tu-excel?index=${loop.index}">Xóa
 														Đơn</a>
 												</div>
 											</div>
@@ -260,3 +285,8 @@
 	</c:if>
 </div>
 <link href="/resources/css/app/fine-uploader.min.css" rel="stylesheet">
+<style>
+.borderless td, .borderless th {
+	border: none;
+}
+</style>
