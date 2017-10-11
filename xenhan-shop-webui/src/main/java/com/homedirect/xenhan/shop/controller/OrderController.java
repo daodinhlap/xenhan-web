@@ -67,7 +67,7 @@ public class OrderController extends AbstractController {
   @PostMapping(value = "/print")
   public ModelAndView print(@RequestBody List<Order> orders) {
     if(CollectionUtils.isEmpty(orders)) return null;
-    ModelAndView mv = new ModelAndView("shop.print");
+    ModelAndView mv = new ModelAndView("order.print");
     mv.addObject("title","Xe Nhàn - In");
     mv.addObject("orders",orders);
     return mv;

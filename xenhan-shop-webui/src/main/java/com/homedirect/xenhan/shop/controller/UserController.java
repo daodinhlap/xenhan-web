@@ -27,7 +27,7 @@ public class UserController extends AbstractController {
   protected final static Logger logger = LoggerFactory.getLogger(UserController.class);
   
   @GetMapping(value = "/thong-tin-nguoi-dung")
-  public ModelAndView showUser(HttpServletRequest httpRequest, HttpSession session) {
+  public ModelAndView showUser(HttpServletRequest httpRequest) {
       ModelAndView mv = new ModelAndView("user.detail");
       mv.addObject("title", "Xe Nhàn - Thông Tin Người Dùng");
       String url = apiExchangeService.createUrlWithToken(httpRequest, "user", "get-user-profile");
@@ -44,6 +44,13 @@ public class UserController extends AbstractController {
       }
       return mv;
   }
+
+  @GetMapping(value = "/cap-nhat-thong-tin")
+    public ModelAndView editProfile(){
+        ModelAndView mv = new ModelAndView("user.update");
+        mv.addObject("title","Xe Nhàn - Cập nhật thông tin người dùng");
+        return mv;
+    }
 
   @GetMapping(value = "/doi-mat-khau")
   public ModelAndView changePassword(){
