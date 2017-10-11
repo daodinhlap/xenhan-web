@@ -26,7 +26,7 @@
 					<%--<p>${shop.fullName}</p>--%>
 						<a href="#" id="shopName"
 						  data-type="text" data-url="/shop/sua-thong-tin-shop"
-						  data-name="name" data-pk="${shop.shopName}"
+						  data-name="shopName" data-pk="${shop.shopName}"
 						  data-original-title="Tên Shop"
 						  data-value="${shop.fullName}"
 						  class="editable editable-empty">${shop.fullName}</a>

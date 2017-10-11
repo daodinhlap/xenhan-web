@@ -19,11 +19,17 @@ $(document).ready(function() {
     // on change amount
     buildText();
     $('#amount').keyup(() => {
-        buildText();
-        form.setAmount(currencyFormat(form.amount()));
+        onChangeAmount();
+    });
+    $('#amount').change(() => {
+        onChangeAmount();
     });
 
 });
+function onChangeAmount() {
+    buildText();
+    form.setAmount(currencyFormat(form.amount()));
+}
 
 function create() {
     var orderRequest = makeModel();

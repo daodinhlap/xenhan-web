@@ -48,6 +48,7 @@
 			<div class="col-xs-4 col-md-4">Giới Tính</div>
 				<%--<div class="col-xs-8 col-md-8"><label${user.userProfile.gender == 1 ? 'Nam' : 'Nữ'}></label></div>--%>
 			<div class="col-xs-8 col-md-8"><a href="#" id="gender"
+											  data-source="[{value: 1, text: 'Nam'}, {value: 2, text: 'Nữ'}]"
 											  data-type="select" data-url="/shop/sua-thong-tin-nguoi-dung"
 											  data-name="gender" data-pk="${user.user.phone}"
 											  data-original-title="Email"
