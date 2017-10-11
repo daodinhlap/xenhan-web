@@ -1,6 +1,6 @@
 var noti = new Notify();
 var form = new Form();
-var URL_CHANGE_PASS = BASE_URL + "/user/change-password";
+var URL_CHANGE_PASS = BASE_URL + "/shop/change-password";
 // =====================================================
 function changePassword() {
 
@@ -63,11 +63,10 @@ function Form(){
 }
 
 
-$('.editable').editable('toggleDisabled');
-$('#enable').click(function() {
-       $('.editable').editable('toggleDisabled');
-});
-
+$('.editable').editable();
+// $('#enable').click(function() {
+//        $('.editable').editable('toggleDisabled');
+// });
 $(function() {
 		// $('#name').editable();
 		$('#name').editable({

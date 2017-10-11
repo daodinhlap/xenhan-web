@@ -23,7 +23,13 @@
 					<label>Tên Shop: </label>
 				</div>
 				<div class="col-xs-8 col-md-8">
-					<p>${shop.fullName}</p>
+					<%--<p>${shop.fullName}</p>--%>
+						<a href="#" id="shopName"
+						  data-type="text" data-url="/shop/sua-thong-tin-shop"
+						  data-name="name" data-pk="${shop.shopName}"
+						  data-original-title="Tên Shop"
+						  data-value="${shop.fullName}"
+						  class="editable editable-empty">${shop.fullName}</a>
 				</div>
 			</div>
 			<!-- ADDRESS -->
@@ -31,7 +37,15 @@
 				<div class="col-xs-4 col-md-4">
 					<label>Địa chỉ:</label>
 				</div>
-				<div class="col-xs-8 col-md-8">${shop.address}</div>
+				<div class="col-xs-8 col-md-8">
+						<%--${shop.address}--%>
+						<a href="#" id="shopAddress"
+						   data-type="text" data-url="/shop/sua-thong-tin-shop"
+						   data-name="shopAddress" data-pk="${shop.shopName}"
+						   data-original-title="Địa chỉ"
+						   data-value="${shop.address}"
+						   class="editable editable-empty">${shop.address}</a>
+				</div>
 			</div>
 
 			<div class="form-group">
@@ -39,7 +53,14 @@
 					<label>Tỉnh/Thành phố:</label>
 				</div>
 				<div class="col-xs-8 col-md-8">
-					<p>${shop.town.name}</p>
+					<%--<p>${shop.town.name}</p>--%>
+						<a href="#" id="shopProvince"
+						   data-source="[{value: 1, text: 'Hà Nội'},{value: 2, text: 'Hồ Chí Minh'}]"
+						   data-type="select" data-url="/shop/sua-thong-tin-shop"
+						   data-name="shopProvince" data-pk="${shop.shopName}"
+						   data-original-title="Tỉnh/TP"
+						   data-value="${shop.town.name == 'Hà Nội'? 1: 2}"
+						   class="editable editable-empty">${shop.town.name}</a>
 				</div>
 			</div>
 			<div class="form-group">
@@ -47,16 +68,28 @@
 					<label>Quận/Huyện:</label>
 				</div>
 				<div class="col-xs-8 col-md-8">
-					<p>${shop.town.district.name}</p>
+					<%--<p>${shop.town.district.name}</p>--%>
+						<a href="#" id="shopDistrict"
+						   data-type="select" data-url="/shop/sua-thong-tin-shop"
+						   data-name="shopDistrict" data-pk="${shop.shopName}"
+						   data-original-title="Quận/Huyện"
+						   data-value="${shop.town.district.name}"
+						   class="editable editable-empty">${shop.town.district.name}</a>
 				</div>
 			</div>
-			<!-- BIRTHDAY -->
+
 			<div class="form-group">
 				<div class="col-xs-4 col-md-4">
 					<label>Số điện thoại:</label>
 				</div>
 				<div class="col-xs-8 col-md-8">
-					<p>${shop.phone}</p>
+					<%--<p>${shop.phone}</p>--%>
+						<a href="#" id="shopPhone"
+						   data-type="text" data-url="/shop/sua-thong-tin-shop"
+						   data-name="shopPhone" data-pk="${shop.shopName}"
+						   data-original-title="Số điện thoại"
+						   data-value="${shop.phone}"
+						   class="editable editable-empty">${shop.phone}</a>
 				</div>
 			</div>
 			<!-- EMAIL -->
@@ -65,7 +98,13 @@
 					<label class="label-inline-88">Email:</label>
 				</div>
 				<div class="col-xs-8 col-md-8">
-					<p>${shop.email}</p>
+					<%--<p>${shop.email}</p>--%>
+						<a href="#" id="shopEmail"
+						   data-type="text" data-url="/shop/sua-thong-tin-shop"
+						   data-name="shopEmail" data-pk="${shop.shopName}"
+						   data-original-title="Số điện thoại"
+						   data-value="${shop.email}"
+						   class="editable editable-empty">${shop.email}</a>
 				</div>
 			</div>
 			<!-- Website -->
@@ -74,7 +113,13 @@
 					<label class="label-inline-88">Website:</label>
 				</div>
 				<div class="col-xs-8 col-md-8">
-					<p>${shop.website}</p>
+					<%--<p>${shop.website}</p>--%>
+						<a href="#" id="shopWebsite"
+						   data-type="text" data-url="/shop/sua-thong-tin-shop"
+						   data-name="shopWebsite" data-pk="${shop.shopName}"
+						   data-original-title="Số điện thoại"
+						   data-value="${shop.website}"
+						   class="editable editable-empty">${shop.website}</a>
 				</div>
 			</div>
 
