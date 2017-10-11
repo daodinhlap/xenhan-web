@@ -62,17 +62,6 @@
 		</put-list-attribute>
 	</definition>
 	
-	<definition name="user.*" extends="layout.basic">
-		<put-attribute name="body" value="/jsp/user/{1}.jsp" />
-		<put-list-attribute name="stylesheets" inherit="true">
-			<add-attribute value="/resources/css/app/bootstrap-editable.css" />
-		</put-list-attribute>
-        <put-list-attribute name="scripts" inherit="true">
-       		<add-attribute value="/resources/js/app/bootstrap-editable.js" />
-            <add-attribute value="/resources/js/user/{1}.js" />
-        </put-list-attribute>
-	</definition>
-	
 	<definition name="order.create.excel" extends="layout.basic">
 		<put-attribute name="body" value="/jsp/order/create.excel.jsp" />
 		<put-list-attribute name="stylesheets" inherit="true">
@@ -117,6 +106,17 @@
 			<add-attribute value="/resources/plugins/jquery-2.2.3.min.js" />
 			<add-attribute value="/resources/plugins/barCode/JsBarcode.min.js" />
 		</put-list-attribute>
+	</definition>
+	
+	<definition name="shop.account" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/shop/account.jsp" />
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/css/app/bootstrap-editable.css" />
+		</put-list-attribute>
+        <put-list-attribute name="scripts" inherit="true">
+       		<add-attribute value="/resources/js/app/bootstrap-editable.js" />
+            <add-attribute value="/resources/js/shop/account.js" />
+        </put-list-attribute>
 	</definition>
 
 	<definition name="shop.*" extends="layout.basic">

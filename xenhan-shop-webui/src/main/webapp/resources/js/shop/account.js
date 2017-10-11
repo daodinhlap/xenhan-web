@@ -63,7 +63,7 @@ function Form(){
 }
 
 
-$('.editable').editable('toggleDisabled');
+$('.enable').editable('toggleDisabled');
 $('#enable').click(function() {
        $('.editable').editable('toggleDisabled');
 });
