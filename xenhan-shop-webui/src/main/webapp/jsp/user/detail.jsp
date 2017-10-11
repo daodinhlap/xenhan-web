@@ -116,11 +116,13 @@
                         <%--<div class="col-xs-8 col-md-8"><label>--%>
                             <%--<fmt:formatDate value="${user.userProfile.birthday}" pattern="dd-MM-yy"/></label></div>--%>
 						<div class="col-xs-8 col-md-8"><a href="#" id="dateOfBirth"
-														  data-type="datepicker" data-url="/user/sua-thong-tin-nguoi-dung"
+														  data-type="date" data-url="/user/sua-thong-tin-nguoi-dung"
 														  data-name="dateOfBirth" data-pk="${user.user.phone}"
 														  data-original-title="Ngày sinh"
-														  data-value="${user.userProfile.birthday}"
-														  class="editable editable-empty">${user.userProfile.birthday}</a></div>
+														  data-value="<fmt:formatDate value="${user.userProfile.birthday}" pattern="dd/MM/yyyy"/>"
+														  class="editable editable-empty">
+							<fmt:formatDate value="${user.userProfile.birthday}" pattern="dd/MM/yyyy"/></a>
+						</div>
 					</div>
 
 					<div class="form-group">
@@ -136,8 +138,16 @@
 
 					<div class="form-group">
                             <div class="col-xs-4 col-md-4">Ngày Cấp</div>
-                            <div class="col-xs-8 col-md-8"><label>
-                                <fmt:formatDate value="${user.userProfile.dateOfIdentity}" pattern="dd-MM-yy"/></label></div>
+                            <%--<div class="col-xs-8 col-md-8"><label>--%>
+                                <%--<fmt:formatDate value="${user.userProfile.dateOfIdentity}" pattern="dd-MM-yy"/></label></div>--%>
+						<div class="col-xs-8 col-md-8"><a href="#" id="dateOfIdentity"
+														  data-type="date" data-url="/user/sua-thong-tin-nguoi-dung"
+														  data-name="dateOfIdentity" data-pk="${user.user.phone}"
+														  data-original-title="Ngày cấp"
+														  data-value="<fmt:formatDate value="${user.userProfile.dateOfIdentity}" pattern="dd/MM/yyyy"/>"
+														  class="editable editable-empty">
+							<fmt:formatDate value="${user.userProfile.dateOfIdentity}" pattern="dd/MM/yyyy"/></a>
+						</div>
 					</div>
 
 					<div class="form-group">

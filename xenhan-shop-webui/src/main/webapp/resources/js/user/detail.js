@@ -66,7 +66,14 @@ $(function() {
 			}
 		});
     	$('#placeOfBirth').editable();
-    	$('#dateOfBirth').editable();
+    	$('#dateOfBirth').editable({
+            format: 'dd/MM/yyyy',
+            viewformat: 'dd/MM/yyyy',
+            datepicker: {
+                autoclose:true,
+                clearBtn:true,
+            }
+        });
     	$('#identityCard').editable();
     	$('#facebook').editable();
 
