@@ -108,9 +108,9 @@ $(function() {
 			// }
 		});
 
-
 		$('#district').editable({
 			source: districts[$('#province').attr('data-value')],
+            // source: [{value:1,text:"John"},{value:2,text:"Sam"},{value:3,text:"Joe"}],
 			params: function(params) {
 				districts[1].forEach(function(entry) {
 					if(params.value == entry.value) params.label = entry.text;
@@ -212,3 +212,4 @@ var districts = {
         {value: 45, text: 'Tân Bình'},
         {value: 46, text: 'Tân Phú'}]
 };
+
