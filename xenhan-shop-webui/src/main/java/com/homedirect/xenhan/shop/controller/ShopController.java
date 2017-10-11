@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.Shop;
@@ -35,10 +36,12 @@ public class ShopController extends AbstractController {
   public byte[] saveShop(@RequestBody Shop request, HttpServletRequest httpRequest, HttpSession session) {
     logger.info(request.toString());
     String url = apiExchangeService.createUrlWithToken(httpRequest, "shop", "create-shop");
-    logger.info("url " + url);
-    ResponseEntity<RepositoryResponse<Object>> entity = apiExchangeService.post(httpRequest, url, request);
+//    logger.info("url " + url);
+    ResponseEntity<RepositoryResponse<Object>> entity = apiExchangeService.post(httpRequest, url, 
+                                                request, new TypeReference<RepositoryResponse<Shop>>(){});
     if(apiExchangeService.isSuccessResponse(entity.getBody())) {
       session.setAttribute(AttributeConfig.SHOPNAME, request.getShopName());
+      session.setAttribute(AttributeConfig.SHOP, entity.getBody().getData());
       return "done".getBytes();
     }
 

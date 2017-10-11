@@ -261,7 +261,7 @@
 											<div class="row">
 												<div class="col-xs-6">
 													<a class="btn btn-primary"
-														href="/order-excel/luu-don-tu-excel?index=${loop.index}">Nhập
+														href="/order-excel/luu-don-tu-excel?index=${loop.index}">Tạo 
 														Đơn</a>
 												</div>
 												<div class="col-xs-6">
@@ -279,7 +279,7 @@
 				</c:forEach>
 			</div>
 			<div style="margin-top: 20px; vertical-align: center" align="center">
-				<a href="/order-excel/luu-het" class="btn btn-primary">Tạo Đơn</a>
+				<a href="/order-excel/luu-het" class="btn btn-primary">Tạo Toàn Bộ Đơn</a>
 			</div>
 		</div>
 	</c:if>
