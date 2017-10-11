@@ -6,7 +6,20 @@ $('#enable').click(function() {
 
 $(function() {
 		$('#name').editable({
-			title: 'Họ Tên'
+			title: 'Họ Tên', 
+	        validate: function(value) {
+	            if(value == '') return 'Xin Hãy Nhập Tên!'; 
+	        },
+	        error: function(response, newValue) {
+	        	if(response.status === 500) {
+	                return 'Service unavailable. Please try later.';
+	            } else {
+	               alert(response.responseText);
+	            }
+			},
+			success: function(response, newValue) {
+				alert(reponse + ' : ' + newValue);
+			}
 		});
 		
 		$('#phone').editable({
