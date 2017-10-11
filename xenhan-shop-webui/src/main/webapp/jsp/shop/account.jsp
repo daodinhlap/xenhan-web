@@ -7,11 +7,12 @@
 	<div class="container card" id="account-view">
 		<div class="center">
 			<h2>
-				THÔNG TIN TÀI KHOẢN
+				THÔNG TIN TÀI KHOẢN <span style="color: #f3931f; cursor: pointer;"><i id="enable" class="fa fa-pencil-square-o"></i></span>
 			</h2>
 		</div>
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#home">Thông tin người dùng</a></li>
+			<li class="active"><a data-toggle="tab" href="#home">Thông tin người dùng
+			</a></li>
 			<li><a data-toggle="tab" href="#menu1">Đổi mật khẩu</a></li>
 			<li><a data-toggle="tab" href="#menu2">Thông tin shop</a></li>
 		</ul>
@@ -27,5 +28,6 @@
 				<jsp:include page="detail.jsp"></jsp:include>
 			</div>
 		</div>
+		
 	</div>
 </div>
