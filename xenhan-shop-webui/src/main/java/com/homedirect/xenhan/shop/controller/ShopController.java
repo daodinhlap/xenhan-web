@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.Shop;
+import com.homedirect.xenhan.model.common.response.UserDetailEntity;
 
 /**
  * author: hieunv - hieu.nguyen2@homedirect.com.vn
@@ -50,6 +51,32 @@ public class ShopController extends AbstractController {
     } catch (Exception e) {
       return entity.getBody().getMessage().getBytes();
     }
+  }
+  
+  /* CREATE Shop */
+  @GetMapping(value = "/thong-tin-tai-khoan")
+  public ModelAndView account(HttpServletRequest httpRequest) {
+    ModelAndView mv = new ModelAndView("shop.account");
+    try {
+      mv.addObject("shop", getShopInfo(httpRequest));
+    } catch (Exception e) {
+      logger.error(e.getMessage(), e);
+      mv.addObject("error", e.getMessage());
+    }
+    
+    String url = apiExchangeService.createUrlWithToken(httpRequest, "user", "get-user-profile");
+    try {
+      RepositoryResponse<UserDetailEntity> entity = apiExchangeService.get(httpRequest, url,
+          new TypeReference<RepositoryResponse<UserDetailEntity>>() {});
+      logger.info("\n User  Info: {}", entity);
+      mv.addObject("user", entity.getData());
+    } catch (Exception e) {
+      e.printStackTrace();
+      logger.error(e.getMessage(), e);
+      mv.addObject("error", e.getMessage());
+    }
+    mv.addObject("title", "Xe Nhàn - Thông Tin Tài Khoản");
+    return mv;
   }
 
   @GetMapping(value = "/thong-tin-shop")

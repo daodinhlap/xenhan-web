@@ -4,78 +4,82 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
-<div class="col-md-6 col-md-offset-3  mobile-padding">
-	<div id="account-view"  class="container card" >
-		<!-- Shop -->
-		<div class="center" style="margin-top: 20px">
-            <h2 class="page-header">THÔNG TIN SHOP
-            <span style="color: #f3931f; cursor: pointer;"><i id="enable" class="fa fa-pencil-square-o"></i></span></h2>
-		</div>
-		
-		<div style="margin: 5px 0px 10px 0px" class="box-info">
-			<c:choose>
-				<c:when test="${empty shop}">
-					<div class="form-group">
-						<div class="error">
-							<label>Lỗi xảy ra:</label>
-							<div class="controls">
-								<p>${error}</p>
-							</div>
-						</div>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<div class="form-group">
-						<div class="col-xs-4 col-md-4"><label>Tên Shop: </label></div>
-						<div class="col-xs-8 col-md-8">
-							<p>${shop.fullName}</p>
-						</div>
-					</div>
-					<!-- ADDRESS -->
-					<div class="form-group">
-						<div class="col-xs-4 col-md-4"><label>Địa chỉ:</label></div>
-						<div class="col-xs-8 col-md-8">${shop.address}</div>
-					</div>
 
-					<div class="form-group">
-						<div class="col-xs-4 col-md-4"><label>Tỉnh/Thành phố:</label></div>
-						<div class="col-xs-8 col-md-8">
-							<p>${shop.town.name}</p>
-						</div>
+<div class="box-info">
+	<c:choose>
+		<c:when test="${empty shop}">
+			<div class="form-group">
+				<div class="error">
+					<label>Lỗi xảy ra:</label>
+					<div class="controls">
+						<p>${error}</p>
 					</div>
-					<div class="form-group">
-						<div class="col-xs-4 col-md-4"><label>Quận/Huyện:</label></div>
-						<div class="col-xs-8 col-md-8">
-							<p>${shop.town.district.name}</p>
-						</div>
-					</div>
-					<!-- BIRTHDAY -->
-					<div class="form-group">
-						<div class="col-xs-4 col-md-4"><label>Số điện thoại:</label></div>
-						<div class="col-xs-8 col-md-8">
-							<p>${shop.phone}</p>
-						</div>
-					</div>
-					<!-- EMAIL -->
-					<div class="form-group">
-						<div class="col-xs-4 col-md-4"><label class="label-inline-88">Email:</label></div>
-						<div class="col-xs-8 col-md-8">
-							<p>${shop.email}</p>
-						</div>
-					</div>
-					<!-- Website -->
-					<div class="form-group">
-						<div class="col-xs-4 col-md-4"><label class="label-inline-88">Website:</label></div>
-						<div class="col-xs-8 col-md-8">
-							<p>${shop.website}</p>
-						</div>
-					</div>
+				</div>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="form-group">
+				<div class="col-xs-4 col-md-4">
+					<label>Tên Shop: </label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<p>${shop.fullName}</p>
+				</div>
+			</div>
+			<!-- ADDRESS -->
+			<div class="form-group">
+				<div class="col-xs-4 col-md-4">
+					<label>Địa chỉ:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">${shop.address}</div>
+			</div>
 
-				</c:otherwise>
-			</c:choose>
-		</div>
-	</div>
+			<div class="form-group">
+				<div class="col-xs-4 col-md-4">
+					<label>Tỉnh/Thành phố:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<p>${shop.town.name}</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-4 col-md-4">
+					<label>Quận/Huyện:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<p>${shop.town.district.name}</p>
+				</div>
+			</div>
+			<!-- BIRTHDAY -->
+			<div class="form-group">
+				<div class="col-xs-4 col-md-4">
+					<label>Số điện thoại:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<p>${shop.phone}</p>
+				</div>
+			</div>
+			<!-- EMAIL -->
+			<div class="form-group">
+				<div class="col-xs-4 col-md-4">
+					<label class="label-inline-88">Email:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<p>${shop.email}</p>
+				</div>
+			</div>
+			<!-- Website -->
+			<div class="form-group">
+				<div class="col-xs-4 col-md-4">
+					<label class="label-inline-88">Website:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<p>${shop.website}</p>
+				</div>
+			</div>
 
+		</c:otherwise>
+	</c:choose>
 </div>
 
 
