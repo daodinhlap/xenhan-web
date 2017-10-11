@@ -77,7 +77,7 @@
                 <%--<button class="btn btn-primary" onclick="reset()">--%>
                     <%--<span>Đặt lại</span>--%>
                 <%--</button>--%>
-                <button class="btn btn-primary" >
+                <button class="btn btn-primary" onclick="exportHistory()">
                     <span>Xuất Excel</span>
                 </button>
             </div>
