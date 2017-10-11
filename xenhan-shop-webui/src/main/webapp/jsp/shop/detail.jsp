@@ -20,7 +20,7 @@
 		<c:otherwise>
 			<div class="form-group">
 				<div class="col-xs-4 col-md-4">
-					<label>Tên Shop: </label>
+					<label>Tên Shop<span style="color: red">*</span>: </label>
 				</div>
 				<div class="col-xs-8 col-md-8">
 					<%--<p>${shop.fullName}</p>--%>
@@ -35,7 +35,7 @@
 			<!-- ADDRESS -->
 			<div class="form-group">
 				<div class="col-xs-4 col-md-4">
-					<label>Địa chỉ:</label>
+					<label>Địa chỉ<span style="color: red">*</span>:</label>
 				</div>
 				<div class="col-xs-8 col-md-8">
 						<%--${shop.address}--%>
@@ -50,7 +50,7 @@
 
 			<div class="form-group">
 				<div class="col-xs-4 col-md-4">
-					<label>Tỉnh/Thành phố:</label>
+					<label>Tỉnh/Thành phố<span style="color: red">*</span>:</label>
 				</div>
 				<div class="col-xs-8 col-md-8">
 					<%--<p>${shop.town.name}</p>--%>
@@ -65,7 +65,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-xs-4 col-md-4">
-					<label>Quận/Huyện:</label>
+					<label>Quận/Huyện<span style="color: red">*</span>:</label>
 				</div>
 				<div class="col-xs-8 col-md-8">
 					<%--<p>${shop.town.district.name}</p>--%>
@@ -80,7 +80,7 @@
 
 			<div class="form-group">
 				<div class="col-xs-4 col-md-4">
-					<label>Số điện thoại:</label>
+					<label>Số điện thoại<span style="color: red">*</span>:</label>
 				</div>
 				<div class="col-xs-8 col-md-8">
 					<%--<p>${shop.phone}</p>--%>

@@ -373,7 +373,7 @@ function buildOrderAction(order){
     }
     action += "<li><a href='/order/tao-don?type=2&order-id="+order.id+"'>Đăng lại đơn</a></li>\n";
     var result ;
-    result = "  <div class=\"dropdown\">\n" +
+    result = "  <div class=\"dropup\">\n" +
                 "    <button style='padding: 0px' class=\"btn btn-link dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">" +
                         "<i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>\n" +
                 "    <ul class=\"dropdown-menu\">\n" +
