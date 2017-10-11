@@ -1,6 +1,6 @@
 var noti = new Notify();
 var form = new Form();
-var URL_CHANGE_PASS = BASE_URL + "/user/change-password";
+var URL_CHANGE_PASS = BASE_URL + "/shop/change-password";
 // =====================================================
 function changePassword() {
 
@@ -63,11 +63,10 @@ function Form(){
 }
 
 
-$('.enable').editable('toggleDisabled');
-$('#enable').click(function() {
-       $('.editable').editable('toggleDisabled');
-});
-
+$('.editable').editable();
+// $('#enable').click(function() {
+//        $('.editable').editable('toggleDisabled');
+// });
 $(function() {
 		// $('#name').editable();
 		$('#name').editable({
@@ -87,11 +86,6 @@ $(function() {
 			}
 		});
 
-		$('#phone').editable({
-			validate:function(value){
-				if((!value || 0 === value.length)) return 'Xin hãy nhập số điện thoại';
-			}
-		});
     	$('#email').editable();
     	$('#gender').editable({
 			source:[{value: 1, text: 'Nam'}, {value: 2, text: 'Nữ'}]
@@ -132,14 +126,26 @@ $(function() {
 		});
     	$('#placeOfBirth').editable();
     	$('#dateOfBirth').editable({
-            format: 'dd/MM/yyyy',
-            viewformat: 'dd/MM/yyyy',
+            format: 'dd-mm-yyyy',
+            viewformat: 'dd/mm/yyyy',
             datepicker: {
                 autoclose:true,
                 clearBtn:true,
+                language:'vi',
+                maxDate: new Date()
             }
         });
     	$('#identityCard').editable();
+        $('#dateOfIdentity').editable({
+            format: 'dd-mm-yyyy',
+            viewformat: 'dd/mm/yyyy',
+            datepicker: {
+                autoclose:true,
+                clearBtn:true,
+                locale:'vi',
+                maxDate: new Date()
+            }
+        });
     	$('#facebook').editable();
 
 });

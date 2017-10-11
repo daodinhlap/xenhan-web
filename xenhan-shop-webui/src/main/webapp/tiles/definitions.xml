@@ -121,7 +121,11 @@
 
 	<definition name="shop.*" extends="layout.basic">
 		<put-attribute name="body" value="/jsp/shop/{1}.jsp" />
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/css/app/bootstrap-editable.css" />
+		</put-list-attribute>
 		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/app/bootstrap-editable.js" />
 			<add-attribute value="/resources/js/shop/{1}.js" />
 		</put-list-attribute>
 	</definition>
