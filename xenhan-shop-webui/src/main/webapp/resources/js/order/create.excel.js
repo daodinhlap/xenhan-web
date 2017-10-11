@@ -65,13 +65,13 @@ $(function() {
 				});
 			    return params;
 			 },
-			success: function(response, newValue) {
-					var id = this.id;
-					var idx = id.indexOf('-');
-					id = id.substring(idx+1);
-					$('#district-' + id).editable('option', 'source', districts[newValue]); 
-					$('#district-' + id).editable('setValue', null);
-				}
+			// success: function(response, newValue) {
+			// 		var id = this.id;
+			// 		var idx = id.indexOf('-');
+			// 		id = id.substring(idx+1);
+			// 		$('#district-' + id).editable('option', 'source', districts[newValue]);
+			// 		$('#district-' + id).editable('setValue', null);
+			// 	}
 		});
 
 

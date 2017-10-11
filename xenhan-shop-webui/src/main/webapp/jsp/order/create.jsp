@@ -87,8 +87,8 @@
 
 	<div class="form-group">
 		<label>Ghi chú</label>
-		<textarea class="form-control" rows="3" id="note" value=""
-			placeholder="Mô tả đơn hàng/Lời nhắn"></textarea>
+		<textarea class="form-control" rows="3" id="note"
+			placeholder="Mô tả đơn hàng/Lời nhắn">${order.orderMessage}</textarea>
 	</div>
 
 	<div class="form-group center">
