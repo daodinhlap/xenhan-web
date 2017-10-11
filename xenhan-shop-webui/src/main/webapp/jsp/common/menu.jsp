@@ -32,9 +32,9 @@
 		<ul class="nav nav-sidebar" style=" font-size: 14px;">
 			<c:if test="${not empty shopName && !shopName.equals('null') }">
 				<li><a href="/">
-					<img src="/resources/images/"><span>Trang chủ</span></a></li>
+					<img src="/resources/images/"><span>Trang Chủ</span></a></li>
 				<li><a href="/order/tao-don?type=0">
-					<img src="/resources/images/"><span>Tạo đơn hàng</span></a>
+					<img src="/resources/images/"><span>Tạo Đơn Hàng</span></a>
 				</li>
 				<li><a href="/order-excel/tao-don-tu-excel">
 					<img src="/resources/images/"><span>Tạo Đơn Từ Excel</span></a>
@@ -48,7 +48,7 @@
 			<li><a href="/user/doi-mat-khau">
 				<img src="/resources/images/"><span>Đổi Mật Khẩu</span></a>
 			</li>
-			<li><a href="#"><img src="/resources/images/"><span>Liên Hệ</span></a></li>
+			<li><a href="/lien-he"><img src="/resources/images/"><span>Liên Hệ</span></a></li>
 			<li><a href="/dang-xuat"><img src="/resources/images/"><span>Đăng Xuất</span></a></li>
 		</ul>
 	</div>

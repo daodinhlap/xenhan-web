@@ -82,8 +82,8 @@
     </script>
 <div class="col-md-8 col-md-offset-3  mobile-padding">
 	<div id="info-receiver" class="container card">
-		<div class="center">
-			<h2>Tạo Đơn Bằng Excel</h2>
+		<div class="center" style="margin-top: 20px">
+            <h2 class="page-header">TẠO ĐƠN BẰNG EXCEL</h2>
 		</div>
 		<div class="center container"
 			style="margin-bottom: 20px; margin-top: 30px">
@@ -261,7 +261,7 @@
 											<div class="row">
 												<div class="col-xs-6">
 													<a class="btn btn-primary"
-														href="/order-excel/luu-don-tu-excel?index=${loop.index}">Nhập
+														href="/order-excel/luu-don-tu-excel?index=${loop.index}">Tạo 
 														Đơn</a>
 												</div>
 												<div class="col-xs-6">
@@ -279,7 +279,7 @@
 				</c:forEach>
 			</div>
 			<div style="margin-top: 20px; vertical-align: center" align="center">
-				<a href="/order-excel/luu-het" class="btn btn-primary">Tạo Đơn</a>
+				<a href="/order-excel/luu-het" class="btn btn-primary">Tạo Toàn Bộ Đơn</a>
 			</div>
 		</div>
 	</c:if>

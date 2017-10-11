@@ -38,6 +38,12 @@
 		<put-list-attribute name="scripts" inherit="true">
 		</put-list-attribute>
 	</definition>
+	
+	<definition name="contact" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/common/contact.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+		</put-list-attribute>
+	</definition>
 
 	<definition name="public.change.password" extends="layout.basic">
 		<put-attribute name="body" value="/jsp/public.change.password.jsp" />

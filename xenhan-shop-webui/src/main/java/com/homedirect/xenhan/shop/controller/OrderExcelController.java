@@ -168,7 +168,7 @@ public class OrderExcelController extends AbstractController {
     if(CollectionUtils.isEmpty(orders) 
         || pk == null || pk < 0 || pk >= orders.size()) return "Không có dữ liệu".getBytes("utf8");
 
-    if(StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "Không có dữ liệu".getBytes("utf8");
+    if(StringUtils.isEmpty(name)) return "Không có dữ liệu".getBytes("utf8");
 
     name = name.trim();
     value = value.trim();
@@ -183,14 +183,14 @@ public class OrderExcelController extends AbstractController {
         break;
       case "package":
         if(StringUtils.isEmpty(value)) value = "3";
-        entity.setPackageId(Long.parseLong(value));
+        try {
+          entity.setPackageId(Long.parseLong(value));
+        } catch (Exception e) {
+          entity.setPackageId(3);
+        }
         break;
       case "good-amount":
-        if(!StringUtils.isEmpty(value)) {
-          entity.setGoodAmount(Double.parseDouble(value));
-        } else {
-          entity.setGoodAmount(0d);
-        }
+        entity.setGoodAmount(toDouble(value));
         break;
       case "coupon":
         entity.setCoupon(value);
@@ -235,6 +235,16 @@ public class OrderExcelController extends AbstractController {
     }
 
     return "done".getBytes();
+  }
+  
+  private double toDouble(String value) {
+    if(StringUtils.isEmpty(value)) return 0d;
+    StringBuilder builder = new StringBuilder();
+    for(int i = 0 ; i < value.length(); i++) {
+      char c = value.charAt(i);
+      if(Character.isDigit(c)) builder.append(c);
+    }
+    return Double.parseDouble(builder.toString());
   }
 
   private File createTempFile(MultipartFile partFile) throws IllegalStateException, IOException {

@@ -69,7 +69,7 @@ public class HomeController extends AbstractController {
     mv.addObject("phone",phone);
     return mv;
   }
-
+  
   @PostMapping(value = "/tao-tai-khoan-nguoi-dung")
   public byte[] createUser(@RequestBody XnUserInforRequest request, HttpServletRequest httpRequest) {
     logger.info(request.toString());
@@ -95,6 +95,13 @@ public class HomeController extends AbstractController {
   public ModelAndView notFoundPage() {
     ModelAndView mv = new ModelAndView("public.error");
     mv.addObject("title", "Xe Nhàn - Trang Không Tìm Thấy");
+    return mv;
+  }
+  
+  @GetMapping(value = "/lien-he")
+  public ModelAndView contact() {
+    ModelAndView mv = new ModelAndView("contact");
+    mv.addObject("title", "Xe Nhàn - Liên hệ");
     return mv;
   }
   

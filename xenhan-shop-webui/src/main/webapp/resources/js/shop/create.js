@@ -29,7 +29,7 @@ function registerShop() {
 	});
 }
 
-function cancleRegisterShop(){
+function cancelRegisterShop(){
 	noti.confirm("<strong>Bạn muốn hủy việc đăng ký Shop?</strong>", function(result) { if (result) { goHome(); }; });
 }
 
