@@ -135,6 +135,9 @@ public class ShopController extends AbstractController {
     case "email":
       user.setEmail(value);
       return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
+    case "gender":
+        userProfile.setGender(Integer.valueOf(value));
+        return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "address":
         userProfile.setAddress(value);
         return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");

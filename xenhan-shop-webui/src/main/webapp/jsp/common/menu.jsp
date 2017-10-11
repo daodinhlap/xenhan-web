@@ -13,10 +13,10 @@
 			<c:set var = "phone"><%= session.getAttribute("USERNAME") %></c:set>
 		
 			<a href="#" style="color: #555;">
-				<div class="col-xs-3 col-sm-3 col-md-4 padding-0 ">
-					<img class="avatar" src="/resources/images/">
-				</div>
-				<div class="col-xs-8 col-sm-8 col-md-7 " style=" padding: 15px 0px 15px 0px; color:white">
+				<%--<div class="col-xs-3 col-sm-3 col-md-4 padding-0 ">--%>
+					<%--<img class="avatar" src="/resources/images/">--%>
+				<%--</div>--%>
+				<div class="col-md-12 center" style=" padding: 15px 0px 15px 0px; color:white">
 						<c:if test="${not empty fullName}">
 							${fullName }<br>
 						</c:if> 
@@ -32,20 +32,23 @@
 		<ul class="nav nav-sidebar" style=" font-size: 14px;">
 			<c:if test="${not empty shopName && !shopName.equals('null') }">
 				<li><a href="/">
-					<img src="/resources/images/"><span>Trang Chủ</span></a></li>
+					<img src="/resources/images/icon-home.png"><span>Trang chủ</span></a>
+				</li>
 				<li><a href="/order/tao-don?type=0">
-					<img src="/resources/images/"><span>Tạo Đơn Hàng</span></a>
+					<img src="/resources/images/icon-order.png"><span>Tạo đơn hàng</span></a>
 				</li>
 				<li><a href="/order-excel/tao-don-tu-excel">
-					<img src="/resources/images/"><span>Tạo Đơn Từ Excel</span></a>
+					<img src="/resources/images/icon-order-excel.png"><span>Tạo đơn từ Excel</span></a>
 				</li>
 				<li><a href="/order/lich-su">
-					<img src="/resources/images/"><span>Lịch sử Đơn Hàng</span></a>
+					<img src="/resources/images/icon-history.png"><span>Lịch sử đơn hàng</span></a>
 				</li>
-				<li><a href="/shop/thong-tin-tai-khoan"><img src="/resources/images/"><span>Thông Tin Tài Khoản</span></a></li>
+				<li><a href="/shop/thong-tin-tai-khoan">
+					<img src="/resources/images/icon-profile.png">
+					<span>Thông tin tài khoản</span></a></li>
 			</c:if>
-			<li><a href="/lien-he"><img src="/resources/images/"><span>Liên Hệ</span></a></li>
-			<li><a href="/dang-xuat"><img src="/resources/images/"><span>Đăng Xuất</span></a></li>
+			<li><a href="/lien-he"><img src="/resources/images/icon-support.png"><span>Liên hệ</span></a></li>
+			<li><a href="/dang-xuat"><img src="/resources/images/icon-exit.png"><span>Đăng xuất</span></a></li>
 		</ul>
 	</div>
 </sec:authorize>
