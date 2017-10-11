@@ -4,8 +4,7 @@ var url_register = BASE_URL + "/shop/luu-shop";
 //===================================================================================
 //Register Shop
 function registerShop() {
-	var hasError = form.validate();
-	if(hasError ==  undefined || hasError.length != 0){
+	if(form.validate().length != 0){
 		noti.error(error);
 		return;
 	}
@@ -34,28 +33,19 @@ function cancleRegisterShop(){
 	noti.confirm("<strong>Bạn muốn hủy việc đăng ký Shop?</strong>", function(result) { if (result) { goHome(); }; });
 }
 
-function validate(address, phone) {
-	if (!address && !phone) {
-		error.push({message: Error_message.EMPTY_INPUT, id: "alert"});
-		return error;
-	}
-	if (!phone) {
-		error.push({message:"Xin vui lòng nhập số điện thoại", id: "phone"});
-	}
-	return error;
-}
 
 function FormRegisterShop() {
-	this.name = function() {return $('#name').val()};
-	this.address = function() { return $('#address').val().trim() };
-	this.province = function() {
+    this.name = function() {return $('#name').val()};
+    this.phone = function() {return $('#phone').val().trim()};
+    this.address = function() { return $('#address').val().trim() };
+
+    this.province = function() {
 		return $('#hochiminh:visible').length == 0 ? 1 : 2;
 	};
-	this.district = function() {
+    this.district = function() {
 		return $('#hochiminh:visible').length == 0 ? $('#district-hn').val() : $('#district-hcm').val();
 	};
-	this.email = function() { return $('#email').val().trim() };
-	this.phone = function() {return $('#phone').val()};
+    this.email = function() { return $('#email').val().trim() };
 	this.website = function() {return $('#website').val()};
 
 	this.requestRegisterShop = function() {
@@ -76,7 +66,19 @@ function FormRegisterShop() {
 	}
 
 	this.validate = function() {
-		return validate(this.address(), this.phone());
+        if (!this.phone()) {
+            error.push({message:"Xin vui lòng nhập số điện thoại", id: "phone"});
+        }
+        if (!this.address()) {
+            error.push({message:"Xin vui lòng nhập địa chỉ", id: "address"});
+        }
+        if (!this.province()) {
+            error.push({message:"Xin vui lòng nhập Tỉnh/TP", id: "alert"});
+        }
+        if (!this.district()) {
+            error.push({message:"Xin vui lòng nhập Quận/Huyện", id: "alert"});
+        }
+        return error;
 	}
 }
 

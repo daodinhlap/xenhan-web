@@ -4,7 +4,11 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
-<div class="col-sm-4 col-sm-offset-3 col-md-6 col-md-offset-3  mobile-padding">
+<c:set var = "fullName"><%= session.getAttribute("FULLNAME") %></c:set>
+<c:set var = "phone"><%= session.getAttribute("USERNAME") %></c:set>
+
+<div class="col-md-6 col-md-offset-3  mobile-padding">
+
 <div id="info-receiver" class="container card">
     <div class="center">
         <h2>Thông tin đăng ký Shop</h2>
@@ -12,13 +16,13 @@
 
     <div class="form-group">
 		<label>Tên shop</label>
-        <input placeholder="Tên Shop" type="text" class="form-control" id="name" value="Shop A">
+        <input placeholder="Tên Shop" type="text" class="form-control" id="name" value="${fullName}">
     </div>
 
 	<div class="form-group">
 		<label>Số điện thoại <span style="color: red">*</span></label>
 		<span style="float: right; font-size: 12px;"><i>SĐT Xe Nhàn liên hệ lấy hàng</i></span>
-		<input  type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại">
+		<input  type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại" value="${phone}">
 	</div>
 
     <div class="form-group">

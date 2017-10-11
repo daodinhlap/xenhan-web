@@ -166,6 +166,6 @@ $(document).ready(function() {
 
 	//forgot pass
 	$("#forgotPassword").click(function(){
-		noti.fail("Thông báo","Xin vui lòng liên hệ tổng đài 028 71099710 để được hỗ trợ", function(){});
+		noti.fail("Thông báo","Xin vui lòng liên hệ<br> Hà Nội: <b>02471099710</b> (nhánh 2)<br>Hồ Chí Minh: <b>02871099710</b> (nhánh 3)<br> để được hỗ trợ", function(){});
 	});
 });
