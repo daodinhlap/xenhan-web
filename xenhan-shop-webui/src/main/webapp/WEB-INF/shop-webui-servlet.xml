@@ -20,6 +20,8 @@
 	
 	<context:component-scan base-package="com.homedirect.xenhan.shop.controller" />
 	<context:component-scan base-package="com.homedirect.xenhan.web.connection" />
+	<context:component-scan base-package="com.homedirect.xenhan.web.validator" />
+	<context:component-scan base-package="com.homedirect.xenhan.web.util" />
 
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

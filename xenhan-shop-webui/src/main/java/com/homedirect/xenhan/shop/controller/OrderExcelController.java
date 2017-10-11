@@ -10,12 +10,15 @@ import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
@@ -30,15 +33,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.homedirect.common.util.StringUtils;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
+import com.homedirect.xenhan.model.OrderValidateEntity;
+import com.homedirect.xenhan.model.Shop;
 import com.homedirect.xenhan.user.model.District;
 import com.homedirect.xenhan.user.model.OrderEntity;
+import com.homedirect.xenhan.voucher.Response;
+import com.homedirect.xenhan.web.util.OrderExcelUtil;
 
 /**
  *  Author : Nhu Dinh Thuan
@@ -52,6 +61,9 @@ public class OrderExcelController extends AbstractController {
   private final static String IMPORT_DATA = "import_data";
 
   protected final static Logger logger = LoggerFactory.getLogger(OrderExcelController.class);
+  
+  @Autowired
+  private OrderExcelUtil util;
 
   @SuppressWarnings("unchecked")
   @GetMapping(value = "/tao-don-tu-excel")
@@ -60,7 +72,7 @@ public class OrderExcelController extends AbstractController {
     mv.addObject("title","Xe Nhàn - Tạo Đơn Từ Excel");
     mv.addObject("error", error);
     List<OrderEntity> orders = (List<OrderEntity>)session.getAttribute(IMPORT_DATA);
-    if(!CollectionUtils.isEmpty(orders)) mv.addObject("orders", orders);
+    if(!CollectionUtils.isEmpty(orders))  mv.addObject("orders", orders);
     //      session.setAttribute(IMPORT_DATA, resp.getBody().getData());
     return mv;
   }
@@ -70,7 +82,7 @@ public class OrderExcelController extends AbstractController {
                               HttpServletRequest httpRequest, HttpSession session) {
     File file = null;
     try {
-      file = createTempFile(partFile);
+      file = util.createTempFile(partFile);
 
       LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
       map.add("file", new FileSystemResource(file));
@@ -151,7 +163,7 @@ public class OrderExcelController extends AbstractController {
 
     if(CollectionUtils.isEmpty(orders) 
         || index == null || index.intValue() < 0 || index.intValue() >= orders.size()) return redirectWithNoData() ;
-    
+
     orders.remove(index.intValue());
     return new ModelAndView("redirect:/order-excel/tao-don-tu-excel");
   }
@@ -175,59 +187,9 @@ public class OrderExcelController extends AbstractController {
 
     logger.info("----> "+ pk + " name: " + name + " value:" + value);
 
-    OrderEntity entity = orders.get(pk);
     try {
-      switch (name) {
-      case "type":
-        entity.setCOD(StringUtils.isEmpty(value) || Integer.parseInt(value) == 1);
-        break;
-      case "package":
-        if(StringUtils.isEmpty(value)) value = "3";
-        try {
-          entity.setPackageId(Long.parseLong(value));
-        } catch (Exception e) {
-          entity.setPackageId(3);
-        }
-        break;
-      case "good-amount":
-        entity.setGoodAmount(toDouble(value));
-        break;
-      case "coupon":
-        entity.setCoupon(value);
-        break;
-      case "address":
-        entity.getDropoff().setAddress(value);
-        break;
-      case "province":
-        if(!StringUtils.isEmpty(value)) {
-          entity.getDropoff().getTown().setDistrict(null);
-          entity.getDropoff().getTown().setId(Long.parseLong(value));
-        }
-        if(!StringUtils.isEmpty(label)) entity.getDropoff().getTown().setName(label);
-        break;
-      case "district":
-        District district = entity.getDropoff().getTown().getDistrict();
-        if(district == null) {
-          district = new District();
-          entity.getDropoff().getTown().setDistrict(district);
-        }
-        if(!StringUtils.isEmpty(value)) entity.getDropoff().getTown().getDistrict().setId(Long.parseLong(value));
-        if(!StringUtils.isEmpty(label)) entity.getDropoff().getTown().getDistrict().setName(label);
-        break;
-      case "name":
-        entity.getDropoff().getContact().setName(value);
-        break;
-      case "phone":
-        entity.getDropoff().getContact().setPhone(value);
-        break;
-      case "message":
-        entity.setOrderMessage(value);;
-        break;
-
-      default:
-        break;
-      }
-
+      OrderEntity entity = orders.get(pk);
+      util.setUpdateData(entity, name, value, label);
       orders.set(pk, entity);
     } catch (Exception e) {
       logger.error(e.getMessage());
@@ -236,26 +198,31 @@ public class OrderExcelController extends AbstractController {
 
     return "done".getBytes();
   }
-  
-  private double toDouble(String value) {
-    if(StringUtils.isEmpty(value)) return 0d;
-    StringBuilder builder = new StringBuilder();
-    for(int i = 0 ; i < value.length(); i++) {
-      char c = value.charAt(i);
-      if(Character.isDigit(c)) builder.append(c);
-    }
-    return Double.parseDouble(builder.toString());
+
+  @SuppressWarnings("unchecked")
+  @GetMapping(value = "/kiem-tra-du-lieu")
+  public @ResponseBody OrderValidateEntity editFromExcel(@RequestParam(value = "index", required = true) Integer index,
+                                                         HttpServletRequest request,  HttpSession session)  {
+    if(index == null) index = -1;
+    OrderValidateEntity  validated = new OrderValidateEntity(new Long(index));
+    List<OrderEntity> orders = (List<OrderEntity>)session.getAttribute(IMPORT_DATA);
+    if(CollectionUtils.isEmpty(orders) 
+        || index == null || index.intValue() < 0 || index.intValue() >= orders.size()) return validated;
+    
+
+    Shop shop = getShopInfo(request);
+    OrderEntity order = orders.get(index.intValue());
+    
+    util.validateProvince(shop, order, validated);
+    if(validated.getError()) return validated;
+    
+    util.validateCoupon(request, order, validated);;
+    if(validated.getError()) return validated;
+
+    return validated;
   }
 
-  private File createTempFile(MultipartFile partFile) throws IllegalStateException, IOException {
-    File newFile = new File("temp" + File.separatorChar + partFile.getOriginalFilename());
-    if(newFile.exists()) newFile.delete();
-    newFile.getParentFile().mkdirs();
-    newFile.createNewFile();
-    partFile.transferTo(newFile);
-    return newFile;
-  }
-  
+
   private ModelAndView redirectWithNoData() {
     return redirectWithError("Không có dữ liệu");
   }
@@ -268,7 +235,7 @@ public class OrderExcelController extends AbstractController {
     }
     return new ModelAndView("redirect:/order-excel/tao-don-tu-excel?error=" + message);
   }
-  
+
   private ModelAndView redirectWithError(int index, String message) {
     return redirectWithError("Đơn "+ index + ": " + message);
   }

@@ -36,7 +36,12 @@ $(function() {
 			title: 'Tổng Tiền Hàng'
 		});
 		$('#coupon-' + i).editable({
-			title: 'Mã Giảm Giá'
+			title: 'Mã Giảm Giá',
+			success: function(response, newValue) {
+				var index = getIndex(this.id);
+				$('#coupon-' + index).css({ 'color': 'black'});
+				validate(index);
+			}
 		});
 		$('#address-' + i).editable({
 			validate:function(value){
@@ -44,11 +49,11 @@ $(function() {
 			},
 			title: 'Địa Chỉ Giao Hàng'
 		});
-		
+
 		$('#name-' + i).editable({
 			title: 'Tên Khách Cần Giao Hàng'
 		});
-		
+
 		$('#phone-' + i).editable({
 			validate:function(value){
 				if((!value || 0 === value.length)) return 'Xin hãy nhập số điện thoại';
@@ -63,15 +68,15 @@ $(function() {
 				provinces.forEach(function(entry) {
 					if(params.value == entry.value) params.label = entry.text;
 				});
-			    return params;
-			 },
-			// success: function(response, newValue) {
-			// 		var id = this.id;
-			// 		var idx = id.indexOf('-');
-			// 		id = id.substring(idx+1);
-			// 		$('#district-' + id).editable('option', 'source', districts[newValue]);
-			// 		$('#district-' + id).editable('setValue', null);
-			// 	}
+				return params;
+			},
+			success: function(response, newValue) {
+				var index = getIndex(this.id);
+				$('#district-' + index).editable('option', 'source', districts[newValue]);
+				$('#district-' + index).editable('setValue', null);
+				$('#province-' + index).css({ 'color': 'black'});
+				validate(index);
+			}
 		});
 
 
@@ -81,22 +86,60 @@ $(function() {
 				var id = this.id;
 				districts[1].forEach(function(entry) {
 					if(params.value == entry.value) params.label = entry.text;
-					console.log(entry.value + ' : '+ entry.text);
+					//console.log(entry.value + ' : '+ entry.text);
 				});
 				if(params.label != null) return params;
 				districts[2].forEach(function(entry) {
 					if(params.value == entry.value) params.label = entry.text;
-					console.log(entry.value + ' : '+ entry.text);
+					//console.log(entry.value + ' : '+ entry.text);
 				});
-			    return params;
-			 }
+				return params;
+			}
 		});
-		
+
 		$('#message-' + i).editable({
 			title: 'Thông Tin Thêm'
 		});
+		validate(i);
+
 	}
 });
+
+function getIndex(text) {
+	var idx = text.indexOf('-');
+	return text.substring(idx+1);
+}
+
+function validate(i) {
+	$.ajax({url: "/order-excel/kiem-tra-du-lieu?index=" + i, success: function(result) {
+		if(result == null) return;
+		
+		if(!result.error) {
+			$('#save-' + result.id).attr('disabled', false);
+			$('#order-entity-' + result.id).css({ 'color': 'black'});
+			$('#alert-order-' + result.id).text('');
+			$('#save-' + result.id).attr('href', '/order-excel/luu-don-tu-excel?result.id=' + result.id);
+			
+			$('#save-all').attr('disabled', false);
+			$('#save-all').attr('href', '/order-excel/luu-het');
+			return;
+		}
+		
+		$('#' + result.field + '-' + result.id).css({ 'color': 'red'});
+		$('#' + result.field + '-' + result.id).tooltipText = result.message;
+
+		$('#order-entity-' + result.id).css({ 'color': 'red'});
+
+		$('#save-' + result.id).attr('disabled', true);
+		$('#save-' + result.id).attr('href', '#');
+		
+		$('#alert-order-' + result.id).text(result.message);
+
+		$('#save-all').attr('disabled', true);
+		$('#save-all').attr('href', '#');
+		
+	}});
+}
 
 var provinces = new Array({value: 1, text: 'Hà Nội'},
 		{value: 2, text: 'Hồ Chí Minh'});
@@ -133,7 +176,7 @@ var districts = {
 			{value: 27, text: 'Thạch Thất'},
 			{value: 22, text: 'Đan Phượng'},
 			{value: 19, text: 'Ứng Hòa'}], 
-			
+
 			2: [{value: 31, text: 'Quận 1'}, 
 				{value: 32, text: 'Quận 2'},
 				{value: 33, text: 'Quận 3'},
@@ -160,6 +203,5 @@ var districts = {
 				{value: 45, text: 'Tân Bình'},
 				{value: 46, text: 'Tân Phú'}] 
 };
-
 
 
