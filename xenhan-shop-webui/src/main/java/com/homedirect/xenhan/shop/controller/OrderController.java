@@ -88,6 +88,7 @@ public class OrderController extends AbstractController {
 
     if(orderId != null){
       OrderEntity order = getOrder(httpRequest, orderId);
+      logger.info("\n ORDER => : {}", JsonUtil.toJson(order));
       mv.addObject("order", order);
     }
     return mv;

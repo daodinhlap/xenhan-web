@@ -112,7 +112,7 @@ function validate(name, email, phone, password, confirmPass) {
 		error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "confirmPassword"});
 	}
 	if (strcmp(password, confirmPass) != 0 && confirmPass.length >= 6) {
-		error.push({message:"Mật khẩu không đúng. Nhập lại mật khẩu", id: "confirmPassword"});
+		error.push({message:"Mật khẩu không khớp. Nhập lại mật khẩu", id: "confirmPassword"});
 	}
 	return error;
 }

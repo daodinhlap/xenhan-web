@@ -66,6 +66,7 @@ $(function() {
 			}
 		});
     	$('#placeOfBirth').editable();
+    	$('#dateOfBirth').editable();
     	$('#identityCard').editable();
     	$('#facebook').editable();
 
