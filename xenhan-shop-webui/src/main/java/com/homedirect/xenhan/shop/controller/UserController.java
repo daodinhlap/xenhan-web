@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +22,10 @@ import com.homedirect.common.util.StringUtils;
 import com.homedirect.repo.model.User;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.session.model.SimpleUser;
+import com.homedirect.session.model.UserSession;
 import com.homedirect.xenhan.model.common.request.XnUserProfileRequest;
 import com.homedirect.xenhan.model.common.request.XnUserRequest;
 import com.homedirect.xenhan.model.common.response.UserDetailEntity;
-import com.homedirect.xenhan.web.auth.UserAuthentication;
 
 /**
  * author: hieunv - hieu.nguyen2@homedirect.com.vn
@@ -60,16 +61,19 @@ public class UserController extends AbstractController {
                             @RequestParam(value = "name", required = false) String name,
                             @RequestParam(value = "value", required = false) String value,
 //                            @RequestParam(value = "label", required = false) String label,
-                            HttpServletRequest httpRequest, HttpServletResponse httpResponse,
-                            UserAuthentication authentication) throws UnsupportedEncodingException {
+                            HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
     if(StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "Không có dữ liệu".getBytes("utf8");
     
     name = name.trim();
     value = value.trim();
     
-    logger.info("----> "+ pk + " name: " + name + " value:" + value);
+    UsernamePasswordAuthenticationToken  authen = (UsernamePasswordAuthenticationToken)httpRequest.getUserPrincipal();
     
-    XnUserRequest user = toUserRequest(authentication);
+    UserSession userSession = (UserSession) authen.getPrincipal();
+    logger.info("----> "+ pk + " name: " + name + " value:" + value + " : "+ userSession.getUser());
+    
+    
+    XnUserRequest user = toUserRequest(userSession.getUser());
     switch (name) {
     case "phone":
       user.setPhone(value);
@@ -104,9 +108,8 @@ public class UserController extends AbstractController {
     return "done";
   }
   
-  private XnUserRequest toUserRequest(UserAuthentication authentication) {
+  private XnUserRequest toUserRequest(SimpleUser user) {
     XnUserRequest request = new XnUserRequest();
-    SimpleUser user = authentication.getUser().getUser();
     request.setEmail(user.getEmail());
     request.setPhone(user.getPhone());
     request.setUsername(user.getUserName());

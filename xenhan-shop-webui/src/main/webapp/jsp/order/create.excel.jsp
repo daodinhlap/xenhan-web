@@ -134,7 +134,7 @@
 					<div id="order-${loop.index + 1}" class="collapse" role="tabpanel"
 						aria-labelledby="headingOne" data-parent="#accordion">
 						<div class="card-body">
-							<table class="table table-bordered">
+							<table class="table borderless" style="margin-top: 20px">
 								<tbody>
 									<tr>
 										<td width="40%">Loại đơn *:</td>
@@ -260,3 +260,8 @@
 	</c:if>
 </div>
 <link href="/resources/css/app/fine-uploader.min.css" rel="stylesheet">
+<style>
+.borderless td, .borderless th {
+    border: none;
+}
+</style>
