@@ -1053,9 +1053,10 @@ input::placeholder{
     font-weight: bold;
 }
 .label-content{
-    padding: 20px;
+    padding: 16px;
     font-size: 20px;
     font-weight: bold;
+    text-align: center;
 }
 
 .content-right{

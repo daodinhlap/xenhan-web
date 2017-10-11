@@ -34,7 +34,7 @@
 <body>
     <div class="container card">
         <c:forEach items="${orders}" var="order" varStatus="loopItem">
-            <div class="col-xs-4 col-sm-4 col-md-4" style="font-size: 13px;">
+            <div class="col-xs-4 col-sm-4 col-md-4" style="font-size: 13px; padding: 30px 5px">
                 <%--HEADER--%>
                 <div>
                     <div class="bill-header-label-content">
@@ -79,7 +79,9 @@
                         <p><strong>THÔNG TIN KHÁCH HÀNG</strong></p>
                             <%--contact--%>
                             <div class="col-xs-4 col-sm-4 col-md-4">Tên khách</div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.dropoff.contact.name}</div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 content-right">
+                                    ${order.dropoff.contact.name? order.dropoff.contact.name:"..."}
+                            </div>
                             <%--phone--%>
                             <div class="col-xs-4 col-sm-4 col-md-4">SĐT nhận</div>
                             <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.dropoff.contact.phone} </div>
