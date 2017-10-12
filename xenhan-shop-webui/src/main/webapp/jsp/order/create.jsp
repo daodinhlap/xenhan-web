@@ -118,7 +118,7 @@
 	<div class="form-group">
 		<label id="amount-text">Tiền hàng<span style="color: red">*</span></label>
 		<input type="text" class="form-control" id="amount" style="text-align: right;"
-			   value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${order.goodAmount}"/>">
+			   value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${empty order.goodAmount? 0: order.goodAmount}"/>">
 	</div>
 	<div class="form-group">
 		<label>Mã giảm giá</label>

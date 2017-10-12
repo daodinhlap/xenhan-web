@@ -48,7 +48,8 @@ function create() {
     }).done(function(data) {
         console.log(data);
         if(data.code != ErrorCode.SUCCESS){
-            noti.error([{id:"alert", message: data.message}]);
+            // noti.error([{id:"alert", message: data.message}]);
+            noti.fail("Tạo đơn không thành công", data.message, function(){reload()});
             return;
         }
         noti.confirm(form.typeDes() + " thành công. Bạn muốn tạo thêm đơn?", function(result) {
@@ -72,8 +73,26 @@ function next() {
     }
     noti.cleanError();
 
-    getFee(form.provinceId(), form.districtId(), buildText());
+    getFee(form.provinceId(), form.districtId());
     move();
+}
+
+
+function getFee(provinceId, districtId){
+    var url = BASE_URL + "/get-fee?provinceId="+provinceId+"&districtId="+districtId;
+    $.ajax({
+        type : 'GET',
+        url : url
+    }).done(function(data) {
+        console.log(data);
+
+        originalShipAmount = data;
+        $("#shipAmount").text(currencyFormat(data));
+        buildText();
+    }).fail(function(data) {
+        console.log("ERROR: " + JSON.stringify(data));
+    }).always(function(){
+    });
 }
 
 function checkCoupon(){
@@ -196,6 +215,7 @@ function makeModel(){
     order.dropoff = dropoff;
     order.goodAmount = form.amount();
     order.shipAmount = form.shipAmount();
+    order.couponCode = form.coupon();
 
     return order;
 }
