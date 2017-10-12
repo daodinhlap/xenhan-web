@@ -20,7 +20,7 @@
 		<c:otherwise>
 			<div class="form-group" style="margin-top: -20px">
 				<div class="col-xs-4 col-md-4">
-					Tên Shop<span style="color: red">*</span>:
+					Tên shop<span style="color: red">*</span>:
 				</div>
 				<div class="col-xs-8 col-md-8">
 					<%--<p>${shop.fullName}</p>--%>

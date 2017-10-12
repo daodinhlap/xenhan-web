@@ -19,7 +19,7 @@
 
 	<c:otherwise>
 		<div class="form-group" id="user">
-			<div class="col-xs-4 col-md-4">Họ Tên</div>
+			<div class="col-xs-4 col-md-4">Họ tên</div>
 			<div class="col-xs-8 col-md-8"><a href="#" id="name"
 											  data-type="text" data-url="/shop/sua-thong-tin-nguoi-dung"
 											  data-name="name" data-pk="${user.user.phone}"
@@ -45,7 +45,7 @@
 											  class="editable editable-empty">${user.user.email}</a></div>
 		</div>
 		<div class="form-group">
-			<div class="col-xs-4 col-md-4">Giới Tính</div>
+			<div class="col-xs-4 col-md-4">Giới tính</div>
 				<%--<div class="col-xs-8 col-md-8"><label${user.userProfile.gender == 1 ? 'Nam' : 'Nữ'}></label></div>--%>
 			<div class="col-xs-8 col-md-8"><a href="#" id="gender"
 											  data-source="[{value: 1, text: 'Nam'}, {value: 2, text: 'Nữ'}]"
@@ -88,7 +88,7 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-xs-4 col-md-4">Nơi Sinh</div>
+			<div class="col-xs-4 col-md-4">Nơi sinh</div>
 				<%--<div class="col-xs-8 col-md-8"><label>${user.userProfile.placeOfBirth}</label></div>--%>
 			<div class="col-xs-8 col-md-8"><a href="#" id="placeOfBirth"
 											  data-type="text" data-url="/shop/sua-thong-tin-nguoi-dung"
@@ -99,7 +99,7 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-xs-4 col-md-4">Ngày Sinh</div>
+			<div class="col-xs-4 col-md-4">Ngày sinh</div>
 				<%--<div class="col-xs-8 col-md-8"><label>--%>
 				<%--<fmt:formatDate value="${user.userProfile.birthday}" pattern="dd-MM-yy"/></label></div>--%>
 			<div class="col-xs-8 col-md-8"><a href="#" id="birthDay"
@@ -124,7 +124,7 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-xs-4 col-md-4">Ngày Cấp</div>
+			<div class="col-xs-4 col-md-4">Ngày cấp</div>
 				<%--<div class="col-xs-8 col-md-8"><label>--%>
 				<%--<fmt:formatDate value="${user.userProfile.dateOfIdentity}" pattern="dd-MM-yy"/></label></div>--%>
 			<div class="col-xs-8 col-md-8"><a href="#" id="dateOfIdentity"

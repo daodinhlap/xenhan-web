@@ -13,7 +13,7 @@
                 <span class="qq-upload-drop-area-text-selector"></span>
             </div>
             <div class="qq-upload-button-selector qq-upload-button">
-                <div>Chọn Tập Excel</div>
+                <div>Chọn tập Excel</div>
             </div>
             <span class="qq-drop-processing-selector qq-drop-processing">
                 <span>Tiến trình hủy bỏ files...</span>
@@ -31,14 +31,14 @@
                     </div>
                     <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
                     <button type="button" class="qq-upload-retry-selector qq-upload-retry">
-                        <span class="qq-btn qq-retry-icon" aria-label="Thử Lại"></span>
+                        <span class="qq-btn qq-retry-icon" aria-label="Thử lại"></span>
                        Thử Lại
                     </button>
 
                     <div class="qq-file-info">
                         <div class="qq-file-name">
                             <span class="qq-upload-file-selector qq-upload-file"></span>
-                            <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Sửa Tên File"></span>
+                            <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Sửa tên file"></span>
                         </div>
                         <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
                         <span class="qq-upload-size-selector qq-upload-size"></span>
@@ -49,7 +49,7 @@
                             <span class="qq-btn qq-pause-icon" aria-label="Dừng"></span>
                         </button>
                         <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
-                            <span class="qq-btn qq-continue-icon" aria-label="Tiếp Tục"></span>
+                            <span class="qq-btn qq-continue-icon" aria-label="Tiếp tục"></span>
                         </button>
                     </div>
                 </li>
@@ -74,7 +74,7 @@
                 <div class="qq-dialog-message-selector"></div>
                 <input type="text">
                 <div class="qq-dialog-buttons">
-                    <button type="button" class="qq-cancel-button-selector">Thay Đổi</button>
+                    <button type="button" class="qq-cancel-button-selector">Thay đổi</button>
                     <button type="button" class="qq-ok-button-selector">Ok</button>
                 </div>
             </dialog>
@@ -94,7 +94,7 @@
 				<div class="col-xs-6 col-lg-4" style="margin-top: 30px">
 					<a target="_blank"
 						href="/resources/file/DanhSachDonHang_ShopXeNhan.xlsx"> <i
-						class="glyphicon glyphicon-download-alt"></i>Tải Mẫu
+						class="glyphicon glyphicon-download-alt"></i>Tải mẫu
 					</a>
 				</div>
 			</div>
@@ -117,19 +117,19 @@
 						<div class="col-xs-6">
 							<div class="row desktop">
 								<div class="col-xs-6 col-sm-3">
-									<b>Đơn Hàng</b>
+									<b>Đơn hàng</b>
 								</div>
 								<div class="col-xs-6 col-sm-3">
-									<b>Thu Hộ</b>
+									<b>Thu hộ</b>
 								</div>
 								<div class="col-xs-6 col-sm-3">
-									<b>Phí Ship</b>
+									<b>Phí ship</b>
 								</div>
 							</div>
-							<b class="mobile">Đơn Hàng</b>
+							<b class="mobile">Đơn hàng</b>
 						</div>
 						<div class="col-xs-6">
-							<b>Giao Hàng</b>
+							<b>Giao hàng</b>
 						</div>
 					</div>
 
@@ -180,11 +180,11 @@
 							<table class="table borderless" style="margin-top: 20px">
 								<tbody>
 									<tr>
-										<td colspan="2" align="left"><b>Người Nhận Hàng</b></td>
+										<td colspan="2" align="left"><b>Người nhận hàng</b></td>
 									</tr>
 									
 									<tr>
-										<td>Điện Thoại:</td>
+										<td>Điện thoại:</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
 											data-name="phone" id="phone-${loop.index}" data-type="text"
 											data-pk="${loop.index}">${order.dropoff.contact.phone}</a></td>
@@ -211,31 +211,31 @@
 									</tr>
 									
 									<tr>
-										<td>Địa Chỉ* :</td>
+										<td>Địa chỉ* :</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
 											data-name="address" id="address-${loop.index}"
 											data-type="text" data-pk="${loop.index}">${order.dropoff.address}</a></td>
 									</tr>
 
 									<tr>
-										<td>Ghi Chú:</td>
+										<td>Ghi chú:</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
 											data-name="message" id="message-${loop.index}"
 											data-type="text" data-pk="${loop.index}">${order.orderMessage}</a></td>
 									</tr>
 									<tr>
-										<td colspan="2" align="left"><b>Tiền Hàng</b></td>
+										<td colspan="2" align="left"><b>Tiền hàng</b></td>
 									</tr>
 									<tr>
-										<td width="40%">Loại Đơn *:</td>
+										<td width="40%">Loại đơn *:</td>
 										<td><a href="#" id="type-${loop.index}"
 											data-type="select" data-url="/order-excel/sua-don-tu-excel"
 											data-value="${order.COD ? '1' : '2'}" data-name="type"
 											data-pk="${loop.index}" data-original-title="Chọn Loại Đơn"
-											class="editable editable-empty">${order.COD ? 'COD' : 'Ứng Tiền'}</a></td>
+											class="editable editable-empty">${order.COD ? 'COD' : 'Ứng tiền'}</a></td>
 									</tr>
 									<tr>
-										<td>Tiền Thu Hộ*:</td>
+										<td>Tiền thu hộ*:</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
 											data-name="good-amount" id="good-amount-${loop.index}"
 											data-type="text" data-pk="${loop.index}"> <fmt:formatNumber
@@ -244,18 +244,18 @@
 										</a></td>
 									</tr>
 									<tr>
-										<td>Mã Giảm Giá:</td>
+										<td>Mã giảm giá:</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
 											data-name="coupon" id="coupon-${loop.index}" data-type="text"
 											data-pk="${loop.index}">${order.coupon}</a></td>
 									</tr>
 									<tr>
-										<td>Tiền Giảm Giá*:</td>
+										<td>Tiền giảm giá*:</td>
 										<td><fmt:formatNumber type="number" maxFractionDigits="3"
 												value="${order.refund}" /></td>
 									</tr>
 									<tr>
-										<td>Phí Ship:</td>
+										<td>Phí ship:</td>
 										<td><fmt:formatNumber type="number" maxFractionDigits="3"
 												value="${order.shipAmount}" /></td>
 									</tr>
@@ -266,12 +266,12 @@
 												<div class="col-xs-6">
 													<a class="btn btn-primary" id="save-${loop.index}"
 														href="/order-excel/luu-don-tu-excel?index=${loop.index}">Tạo
-														Đơn</a>
+														đơn</a>
 												</div>
 												<div class="col-xs-6">
 													<a class="btn btn-warning"
 														href="/order-excel/xoa-don-tu-excel?index=${loop.index}">Xóa
-														Đơn</a>
+														đơn</a>
 												</div>
 											</div>
 										</td>
@@ -284,7 +284,7 @@
 			</div>
 			<div style="margin-top: 20px; vertical-align: center" align="center">
 				<a href="/order-excel/luu-het" id="save-all" class="btn btn-primary">Tạo
-					Toàn Bộ Đơn</a>
+					toàn bộ đơn</a>
 			</div>
 		</div>
 	</c:if>
