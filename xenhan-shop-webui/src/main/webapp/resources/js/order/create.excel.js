@@ -20,7 +20,7 @@ $(function() {
 	var numberOfOrder = $('#number-of-order').prop('value');
 	for (i = 0; i < numberOfOrder; ++i) {
 		$('#type-' + i).editable({
-			emptytext: '#',
+			emptytext: '...',
 			mode: "inline",
 			source: [
 				{value: 1, text: 'COD'},
@@ -28,7 +28,7 @@ $(function() {
 				]
 		});
 		$('#package-' + i).editable({
-			emptytext: '#',
+			emptytext: '...',
 			mode: "inline",
 			source: [
 				{value: 1, text: 'Hỏa Tốc'},
@@ -39,12 +39,12 @@ $(function() {
 		$('#good-amount-' + i).editable({
 			title: 'Tổng Tiền Hàng',
 			mode: "inline",
-			emptytext: '#'
+			emptytext: '...'
 		});
 		$('#coupon-' + i).editable({
 			title: 'Mã Giảm Giá',
 			mode: "inline",
-			emptytext: '#',
+			emptytext: '...',
 			success: function(response, newValue) {
 				var index = getIndex(this.id);
 				$('#coupon-' + index).css({ 'color': 'black'});
@@ -56,21 +56,21 @@ $(function() {
 				if((!value || 0 === value.length)) return 'Xin hãy nhập địa chỉ giao hàng';
 			},
 			mode: "inline",
-			emptytext: '#',
+			emptytext: '...',
 			title: 'Địa Chỉ Giao Hàng'
 		});
 
 		$('#name-' + i).editable({
 			title: 'Tên Khách Cần Giao Hàng',
 			mode: "inline",
-			emptytext: '#'
+			emptytext: '...'
 		});
 
 		$('#phone-' + i).editable({
 			validate:function(value){
 				if((!value || 0 === value.length)) return 'Xin hãy nhập số điện thoại';
 			},
-			emptytext: '#',
+			emptytext: '...',
 			mode: "inline",
 			title: 'Số Điện Thoại Giao Hàng'
 		});
@@ -97,7 +97,7 @@ $(function() {
 
 		$('#district-' + i).editable({
 			source: districts[$('#province-' + i).attr('data-value')],
-			emptytext: '#',
+			emptytext: '...',
 			mode: "inline",
 			params: function(params) {
 				var id = this.id;
@@ -117,7 +117,7 @@ $(function() {
 		$('#message-' + i).editable({
 			title: 'Thông Tin Thêm',
 			mode: "inline",
-			emptytext: '#'
+			emptytext: '...'
 		});
 		
 		validate(i);

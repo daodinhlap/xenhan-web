@@ -62,7 +62,7 @@ function Form(){
 
 $(function() {
     $('#name').editable({
-        emptytext: "#",
+        emptytext: "...",
         mode: "inline",
         validate: function(value) {
             if(value == '') return 'Xin Hãy Nhập Tên!';
@@ -78,7 +78,7 @@ $(function() {
 
     $('#email').editable({
         mode: "inline",
-        emptytext : "#",
+        emptytext : "...",
         validate: function(value) {
             if(!value) return 'Xin hãy nhập email';
         }
@@ -86,16 +86,16 @@ $(function() {
     
     $('#gender').editable({
         mode:"inline",
-        emptytext: '#',
+        emptytext: '...',
         source:[{value: 1, text: 'Nam'}, {value: 2, text: 'Nữ'}]
     });
 
-    $('#address').editable({mode: "inline",  emptytext: '#'});
+    $('#address').editable({mode: "inline",  emptytext: '...'});
     
     $('#province').editable({
     	source: provinces,
         savenochange: true,
-        emptytext : "#",
+        emptytext : "...",
     	params: function(params) {
     		provinces.forEach(function(entry) {
     			if(params.value == entry.value) params.value = entry.text;
@@ -108,7 +108,7 @@ $(function() {
             $('#district').editable("destroy");
             $('#district').editable({
                 mode: "inline",
-                emptytext: '#',
+                emptytext: '...',
                 source: districts[newValue],
                 params: function(params) {
                     districts[newValue].forEach(function(entry) {
@@ -124,7 +124,7 @@ $(function() {
     var province = $('#province').attr("data-value");
     $('#district').editable({
         mode: "inline",
-        emptytext: '#',
+        emptytext: '...',
         source: districts[province],
         params: function(params) {
             districts[province].forEach(function(entry) {
@@ -134,27 +134,27 @@ $(function() {
         }
     });
 
-    $('#placeOfBirth').editable({ mode: "inline", emptytext: "#"});
+    $('#placeOfBirth').editable({ mode: "inline", emptytext: "..."});
     
     $('#birthDay').editable({
-        emptytext: "#",
+        emptytext: "...",
         format: "dd/mm/yyyy",
         viewformat: "dd/mm/yyyy"
     });
     
-    $('#identityCard').editable({ mode: "inline", emptytext: "#"});
+    $('#identityCard').editable({ mode: "inline", emptytext: "..."});
     
     $('#dateOfIdentity').editable({
-        emptytext: "#",
+        emptytext: "...",
         format: "dd/mm/yyyy",
         viewformat: "dd/mm/yyyy"
     });
-    $('#facebook').editable({mode:"inline", emptytext:"#"});
+    $('#facebook').editable({mode:"inline", emptytext:"..."});
 
     // SHOP PROFILE
     $('#shopName').editable({
         mode: "inline",
-        emptytext: '#',
+        emptytext: '...',
         validate: function(value) {
             if(!value) return 'Xin hãy nhập Tên Shop';
         }
@@ -162,7 +162,7 @@ $(function() {
     
     $('#shopAddress').editable({
         mode: "inline",
-        emptytext: '#',
+        emptytext: '...',
         validate: function(value) {
             if(!value) return 'Xin hãy nhập địa chỉ Shop';
         }
@@ -171,7 +171,7 @@ $(function() {
     var shopProvince = $('#shopProvince').attr("data-value");
     $('#shopDistrict').editable({
         mode: "inline",
-        emptytext: '#',
+        emptytext: '...',
         source: districts[shopProvince],
         validate: function(value) {
             if(!value) return 'Xin hãy nhập quận/huyện';
@@ -180,14 +180,14 @@ $(function() {
     
     $('#shopPhone').editable({
         mode: "inline",
-        emptytext: '#',
+        emptytext: '...',
         validate: function(value) {
             if(!value) return 'Xin hãy nhập SĐT shop';
         }
     });// require
     
-    $('#shopEmail').editable({ mode:"inline", emptytext:"#",});
-    $('#shopWebsite').editable({ mode:"inline", emptytext:"#",});
+    $('#shopEmail').editable({ mode:"inline", emptytext:"...",});
+    $('#shopWebsite').editable({ mode:"inline", emptytext:"...",});
 });
 
 $('#enable').click(function() {
