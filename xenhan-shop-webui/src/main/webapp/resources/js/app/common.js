@@ -185,7 +185,8 @@ function strcmp(a, b) {
 	return (a < b ? -1 : (a > b ? 1 : 0));
 }
 
-function getFee(provinceId, districtId){
+var originalShipAmount = 0;
+function getFee(provinceId, districtId, callback){
 	var url = BASE_URL + "/get-fee?provinceId="+provinceId+"&districtId="+districtId;
 	$.ajax({
 		type : 'GET',
@@ -193,6 +194,8 @@ function getFee(provinceId, districtId){
 	}).done(function(data) {
 		console.log(data);
 		$("#shipAmount").text(currencyFormat(data));
+        originalShipAmount = data;
+        callback;
 	}).fail(function(data) {
 		console.log("ERROR: " + JSON.stringify(data));
 	}).always(function(){

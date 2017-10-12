@@ -1,5 +1,8 @@
 var noti = new Notify();
 var form = new Form();
+var originalShipAmount = 0;
+
+var URL_CREATE_ORDER_VIEW = BASE_URL + "/order/tao-don?type=0";
 var URL_CREATE_ORDER = BASE_URL + "/order/create-order";
 var URL_EDIT_ORDER = BASE_URL + "/order/edit";
 // ============================================
@@ -51,6 +54,8 @@ function create() {
         noti.confirm(form.typeDes() + " thành công. Bạn muốn tạo thêm đơn?", function(result) {
             if (!result) {
                 goHome();
+            } else {
+              window.location.href = URL_CREATE_ORDER_VIEW;
             };
         });
     }).fail(function(data) {
@@ -67,12 +72,19 @@ function next() {
     }
     noti.cleanError();
 
-    getFee(form.provinceId(), form.districtId());
+    getFee(form.provinceId(), form.districtId(), buildText());
     move();
 }
 
 function checkCoupon(){
     noti.cleanError();
+    if(!form.coupon()){
+        form.setCoupon(0);
+        form.setShipAmount(currencyFormat(originalShipAmount));
+        buildText();
+        return;
+    }
+
     var url = BASE_URL + "/check-coupon?coupon=" + form.coupon();
     $.ajax({
         type : 'GET',
@@ -81,12 +93,14 @@ function checkCoupon(){
         console.log(data);
         if(!data.data){
             form.setCoupon(0);
+            form.setShipAmount(currencyFormat(originalShipAmount));
+            buildText();
             noti.error([{id:"coupon", message: data.message}]);
             return;
         }
         var couponResponse = new CouponResponse();
         couponResponse = data.data;
-        form.setCoupon(couponResponse.amount);
+        form.setCoupon(currencyFormat(couponResponse.amount));
 
         buildText();
 
@@ -114,6 +128,7 @@ function buildText(){
         goodAmountText = "Tiền hàng";
         actionText = total > 0 ? "Xe Nhàn trả Shop" : "Shop trả Xe nhàn";
     }
+    form.setShipAmount(currencyFormat(shipAmount - coupon));
     $('#amount-text').text(goodAmountText);
     $('#action').text(actionText);
     $('#totalAmount').text(currencyFormat(Math.abs(total)));
@@ -146,12 +161,16 @@ function Form(){
 
     this.setAmount = function(value){ return $('#amount').val(value)};
     this.setCoupon = function(value){ return $('#couponAmount').text(value)};
+    this.setShipAmount = function(value){ return $('#shipAmount').text(value)};
 
     this.typeDes = function(){ return $('#type-des').val()};
 
     this.validate = function (){
         if(!this.phone()){
             error.push({message: Error_message.EMPTY_PHONE, id: "phone"});
+        }
+        if(this.phone() && !validatePhone(this.phone())){
+            error.push({message: Error_message.PHONE_INVALID_FORMAT, id: "phone"});
         }
         if(!this.address()){
             error.push({message: Error_message.EMPTY_ADDRESS, id: "address"});
