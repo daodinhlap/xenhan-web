@@ -15,7 +15,7 @@
 
 			<div class="col-md-12 center">
 				<a href="/shop/thong-tin-tai-khoan" style="color: #555;">
-				<img class="avatar" src="/resources/images/app_logo_white.png">
+					<img class="avatar" src="/resources/images/app_logo_white.png">
 				</a>
 				<div style="margin-top: 10px;">
 					<a href="/shop/thong-tin-tai-khoan" style=" color: white"> <c:if
@@ -46,8 +46,7 @@
 						src="/resources/images/icon-history.png"><span>Lịch
 							sử đơn hàng</span></a></li>
 				<li><a href="/shop/thong-tin-tai-khoan"> <img
-						src="/resources/images/icon-profile.png"> <span>Thông
-							tin tài khoản</span></a></li>
+						src="/resources/images/icon-profile.png"> <span>Tài khoản</span></a></li>
 			</c:if>
 			<li><a href="/lien-he"><img
 					src="/resources/images/icon-support.png"><span>Liên hệ</span></a></li>
