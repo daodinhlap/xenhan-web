@@ -7,7 +7,6 @@ var icon_check = "<img width='30px' src='/resources/images/icon-check.png'>&nbsp
 var icon_error = "<img width='42px' src='/resources/images/icon-error.png'>";
 
 var provinces = new Array({value: 1, text: 'Hà Nội'},  {value: 2, text: 'Hồ Chí Minh'});
-
 var districts = {
 	    1: [{value:3, text: 'Ba Đình'},
 	        {value:10, text: 'Bắc Từ Liêm'},
