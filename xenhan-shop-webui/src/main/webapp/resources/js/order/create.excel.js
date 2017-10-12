@@ -21,6 +21,7 @@ $(function() {
 	for (i = 0; i < numberOfOrder; ++i) {
 		$('#type-' + i).editable({
 			emptytext: '#',
+			mode: "inline",
 			source: [
 				{value: 1, text: 'COD'},
 				{value: 2, text: 'Ứng Tiền'}
@@ -28,6 +29,7 @@ $(function() {
 		});
 		$('#package-' + i).editable({
 			emptytext: '#',
+			mode: "inline",
 			source: [
 				{value: 1, text: 'Hỏa Tốc'},
 				{value: 2, text: 'Tốc Độ'},
@@ -36,10 +38,12 @@ $(function() {
 		});
 		$('#good-amount-' + i).editable({
 			title: 'Tổng Tiền Hàng',
+			mode: "inline",
 			emptytext: '#'
 		});
 		$('#coupon-' + i).editable({
 			title: 'Mã Giảm Giá',
+			mode: "inline",
 			emptytext: '#',
 			success: function(response, newValue) {
 				var index = getIndex(this.id);
@@ -48,15 +52,17 @@ $(function() {
 			}
 		});
 		$('#address-' + i).editable({
-			validate:function(value){
+			validate:function(value) {
 				if((!value || 0 === value.length)) return 'Xin hãy nhập địa chỉ giao hàng';
 			},
+			mode: "inline",
 			emptytext: '#',
 			title: 'Địa Chỉ Giao Hàng'
 		});
 
 		$('#name-' + i).editable({
 			title: 'Tên Khách Cần Giao Hàng',
+			mode: "inline",
 			emptytext: '#'
 		});
 
@@ -65,12 +71,14 @@ $(function() {
 				if((!value || 0 === value.length)) return 'Xin hãy nhập số điện thoại';
 			},
 			emptytext: '#',
+			mode: "inline",
 			title: 'Số Điện Thoại Giao Hàng'
 		});
 
 
 		$('#province-' + i).editable({
 			source: provinces,
+			mode: "inline",
 			params: function(params) {
 				provinces.forEach(function(entry) {
 					if(params.value == entry.value) params.label = entry.text;
@@ -90,6 +98,7 @@ $(function() {
 		$('#district-' + i).editable({
 			source: districts[$('#province-' + i).attr('data-value')],
 			emptytext: '#',
+			mode: "inline",
 			params: function(params) {
 				var id = this.id;
 				districts[1].forEach(function(entry) {
@@ -107,6 +116,7 @@ $(function() {
 
 		$('#message-' + i).editable({
 			title: 'Thông Tin Thêm',
+			mode: "inline",
 			emptytext: '#'
 		});
 		

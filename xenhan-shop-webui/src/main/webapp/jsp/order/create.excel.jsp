@@ -178,20 +178,24 @@
 									<tr>
 										<td colspan="2" align="left"><b>Người Nhận Hàng</b></td>
 									</tr>
-									<tr>
+									
 									<tr>
 										<td>Điện Thoại:</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
 											data-name="phone" id="phone-${loop.index}" data-type="text"
 											data-pk="${loop.index}">${order.dropoff.contact.phone}</a></td>
 									</tr>
-
+									
 									<tr>
-										<td>Địa Chỉ* :</td>
-										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
-											data-name="address" id="address-${loop.index}"
-											data-type="text" data-pk="${loop.index}">${order.dropoff.address}</a></td>
+										<td>Tỉnh/TP*:</td>
+										<td><a href="#" id="province-${loop.index}"
+											data-type="select" data-url="/order-excel/sua-don-tu-excel"
+											data-name="province" data-pk="${loop.index}"
+											data-original-title="Chọn Tỉnh/Thành Phố"
+											data-value="${order.dropoff.town.id}"
+											class="editable editable-empty">${order.dropoff.town.name}</a></td>
 									</tr>
+
 									<tr>
 										<td>Quận/Huyện* :</td>
 										<td><a href="#" id="district-${loop.index}"
@@ -201,14 +205,12 @@
 											data-value="${order.dropoff.town.district.id}"
 											class="editable editable-empty">${order.dropoff.town.district.name}</a></td>
 									</tr>
+									
 									<tr>
-										<td>Tỉnh/TP*:</td>
-										<td><a href="#" id="province-${loop.index}"
-											data-type="select" data-url="/order-excel/sua-don-tu-excel"
-											data-name="province" data-pk="${loop.index}"
-											data-original-title="Chọn Tỉnh/Thành Phố"
-											data-value="${order.dropoff.town.id}"
-											class="editable editable-empty">${order.dropoff.town.name}</a></td>
+										<td>Địa Chỉ* :</td>
+										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
+											data-name="address" id="address-${loop.index}"
+											data-type="text" data-pk="${loop.index}">${order.dropoff.address}</a></td>
 									</tr>
 
 									<tr>
