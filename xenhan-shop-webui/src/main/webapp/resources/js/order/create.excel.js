@@ -124,7 +124,7 @@ $(function() {
 		
 		$('#order-' + (i+1)).on('show.bs.collapse', function () {
 			var id = getIndex(this.id);
-			$('#card-' + id).css({ 'background-color': '#f6f7e1'});
+			$('#card-' + id).css({ 'background-color': '#ddd8c1'});
 			collapse(this.id);
 			//$(this).siblings('.panel-heading').addClass('active');
 		});
