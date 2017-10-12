@@ -20,12 +20,14 @@ $(function() {
 	var numberOfOrder = $('#number-of-order').prop('value');
 	for (i = 0; i < numberOfOrder; ++i) {
 		$('#type-' + i).editable({
+			emptytext: '#',
 			source: [
 				{value: 1, text: 'COD'},
 				{value: 2, text: 'Ứng Tiền'}
 				]
 		});
 		$('#package-' + i).editable({
+			emptytext: '#',
 			source: [
 				{value: 1, text: 'Hỏa Tốc'},
 				{value: 2, text: 'Tốc Độ'},
@@ -33,10 +35,12 @@ $(function() {
 				]
 		});
 		$('#good-amount-' + i).editable({
-			title: 'Tổng Tiền Hàng'
+			title: 'Tổng Tiền Hàng',
+			emptytext: '#'
 		});
 		$('#coupon-' + i).editable({
 			title: 'Mã Giảm Giá',
+			emptytext: '#',
 			success: function(response, newValue) {
 				var index = getIndex(this.id);
 				$('#coupon-' + index).css({ 'color': 'black'});
@@ -47,17 +51,20 @@ $(function() {
 			validate:function(value){
 				if((!value || 0 === value.length)) return 'Xin hãy nhập địa chỉ giao hàng';
 			},
+			emptytext: '#',
 			title: 'Địa Chỉ Giao Hàng'
 		});
 
 		$('#name-' + i).editable({
-			title: 'Tên Khách Cần Giao Hàng'
+			title: 'Tên Khách Cần Giao Hàng',
+			emptytext: '#'
 		});
 
 		$('#phone-' + i).editable({
 			validate:function(value){
 				if((!value || 0 === value.length)) return 'Xin hãy nhập số điện thoại';
 			},
+			emptytext: '#',
 			title: 'Số Điện Thoại Giao Hàng'
 		});
 
@@ -82,6 +89,7 @@ $(function() {
 
 		$('#district-' + i).editable({
 			source: districts[$('#province-' + i).attr('data-value')],
+			emptytext: '#',
 			params: function(params) {
 				var id = this.id;
 				districts[1].forEach(function(entry) {
@@ -98,12 +106,34 @@ $(function() {
 		});
 
 		$('#message-' + i).editable({
-			title: 'Thông Tin Thêm'
+			title: 'Thông Tin Thêm',
+			emptytext: '#'
 		});
+		
 		validate(i);
+		
+		$('#order-' + (i+1)).on('show.bs.collapse', function () {
+			var id = getIndex(this.id);
+			$('#card-' + id).css({ 'background-color': '#f6f7e1'});
+			collapse(this.id);
+			//$(this).siblings('.panel-heading').addClass('active');
+		});
 
+		$('#order-' + (i+1)).on('hide.bs.collapse', function () {
+			var id = getIndex(this.id);
+			$('#card-' + id).css({ 'background-color': 'white'});
+			//$(this).siblings('.panel-heading').removeClass('active');
+		});
 	}
 });
+
+function collapse(id) {
+	var numberOfOrder = $('#number-of-order').prop('value');
+	for (i = 0; i < numberOfOrder; ++i) {
+		if(id == 'order-' + (i+1)) continue;
+		$('#order-' + (i+1)).collapse('hide');
+	}
+}
 
 function getIndex(text) {
 	var idx = text.indexOf('-');
@@ -113,18 +143,18 @@ function getIndex(text) {
 function validate(i) {
 	$.ajax({url: "/order-excel/kiem-tra-du-lieu?index=" + i, success: function(result) {
 		if(result == null) return;
-		
+
 		if(!result.error) {
 			$('#save-' + result.id).attr('disabled', false);
 			$('#order-entity-' + result.id).css({ 'color': 'black'});
 			$('#alert-order-' + result.id).text('');
 			$('#save-' + result.id).attr('href', '/order-excel/luu-don-tu-excel?result.id=' + result.id);
-			
+
 			$('#save-all').attr('disabled', false);
 			$('#save-all').attr('href', '/order-excel/luu-het');
 			return;
 		}
-		
+
 		$('#' + result.field + '-' + result.id).css({ 'color': 'red'});
 		$('#' + result.field + '-' + result.id).tooltipText = result.message;
 
@@ -132,84 +162,16 @@ function validate(i) {
 
 		$('#save-' + result.id).attr('disabled', true);
 		$('#save-' + result.id).attr('href', '#');
-		
+
 		$('#alert-order-' + result.id).text(result.message);
 
 		$('#save-all').attr('disabled', true);
 		$('#save-all').attr('href', '#');
-		
+
 	}});
 }
 
-$('.panel-collapse').on('show.bs.collapse', function () {
-    $(this).siblings('.panel-heading').addClass('active');
-  });
 
-  $('.panel-collapse').on('hide.bs.collapse', function () {
-    $(this).siblings('.panel-heading').removeClass('active');
-  });
 
-var provinces = new Array({value: 1, text: 'Hà Nội'},
-		{value: 2, text: 'Hồ Chí Minh'});
-
-var districts = {
-		1: [{value:3, text: 'Ba Đình'}, 
-			{value:10, text: 'Bắc Từ Liêm'},
-			{value: 6, text: 'Cầu Giấy'},
-			{value: 4, text: 'Đống Đa'},
-			{value: 2, text: 'Hai Bà Trưng'},
-			{value: 1, text: 'Hoàn Kiếm'},
-			{value: 9, text: 'Hoàng Mai'},
-			{value: 29, text: 'Hà Đông'},
-			{value: 12, text: 'Gia Lâm'},
-			{value: 8, text: 'Long Biên'},
-			{value: 11, text: 'Nam Từ Liêm'},
-			{value: 7, text: 'Tây Hồ'},
-			{value: 5, text: 'Thanh Xuân'},
-			{value: 15, text: 'Thanh Trì'},
-
-			{value: 25, text: 'Ba Vì'},
-			{value: 13, text: 'Đông Anh'},
-			{value: 28, text: 'Mê Linh'},
-			{value: 20, text: 'Mỹ Đức'},
-			{value: 23, text: 'Hoài Đức'},
-			{value: 21, text: 'Chương Mỹ'},
-			{value: 18, text: 'Phú Xuyên'},
-			{value: 26, text: 'Phúc Thọ'},
-			{value: 16, text: 'Quốc Oai'},
-			{value: 14, text: 'Sóc Sơn'},
-			{value: 30, text: 'Sơn Tây'},
-			{value: 24, text: 'Thanh Oai'},
-			{value: 17, text: 'Thường Tín'},
-			{value: 27, text: 'Thạch Thất'},
-			{value: 22, text: 'Đan Phượng'},
-			{value: 19, text: 'Ứng Hòa'}], 
-
-			2: [{value: 31, text: 'Quận 1'}, 
-				{value: 32, text: 'Quận 2'},
-				{value: 33, text: 'Quận 3'},
-				{value: 34, text: 'Quận 4'},
-				{value: 35, text: 'Quận 5'},
-				{value: 36, text: 'Quận 6'},
-				{value: 37, text: 'Quận 7'},
-				{value: 38, text: 'Quận 8'},
-				{value: 39, text: 'Quận 9'},
-				{value: 40, text: 'Quận 10'},
-				{value: 41, text: 'Quận 11'},
-				{value: 42, text: 'Quận 12'},
-
-				{value: 51, text: 'Bình Chánh'},
-				{value: 44, text: 'Bình Thạnh'},
-				{value: 48, text: 'Bình Tân'},
-				{value: 53, text: 'Cần Giờ'},
-				{value: 49, text: 'Củ Chi'},
-				{value: 43, text: 'Gò Vấp'},
-				{value: 50, text: 'Hóc Môn'},
-				{value: 52, text: 'Nhà Bè'},
-				{value: 47, text: 'Phú Nhuận'},
-				{value: 54, text: 'Thủ Đức'},
-				{value: 45, text: 'Tân Bình'},
-				{value: 46, text: 'Tân Phú'}] 
-};
 
 

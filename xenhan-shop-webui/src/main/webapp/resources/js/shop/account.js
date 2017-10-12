@@ -61,16 +61,11 @@ function Form(){
 }
 
 
-
-$('.editable').editable('toggleDisabled');
-$('#enable').click(function() {
-       $('.editable').editable('toggleDisabled');
-});
- 
 $(function() {
     // $('#name').editable();
     $('#name').editable({
         mode:"inline",
+        emptytext: '#',
         validate: function(value) {
             if(value == '') return 'Xin Hãy Nhập Tên!';
         },
@@ -83,12 +78,15 @@ $(function() {
         }
     });
 
-    $('#email').editable({mode:"inline",});
+    $('#email').editable({ mode:"inline", emptytext: '#'});
+    
     $('#gender').editable({
         mode:"inline",
+        emptytext: '#',
         source:[{value: 1, text: 'Nam'}, {value: 2, text: 'Nữ'}]
     });
-    $('#address').editable({mode:"inline",});
+    
+    $('#address').editable({ mode:"inline", emptytext: '#'});
     // $('#province').editable({
     // 	source: provinces,
     // 	params: function(params) {
@@ -107,6 +105,7 @@ $(function() {
     var province = $('#province').attr("data-value");
     $('#district').editable({
         mode:"inline",
+        emptytext: '#',
         source: districts[province],
         params: function(params) {
             districts[province].forEach(function(entry) {
@@ -115,45 +114,68 @@ $(function() {
             return params;
         }
     });
-    $('#placeOfBirth').editable({mode:"inline",});
+    
+    $('#placeOfBirth').editable({mode:"inline", emptytext: '#'});
+    
     $('#birthDay').editable({
+    	emptytext: '#',
         format:"dd/mm/yyyy",
         viewformat:"dd/mm/yyyy"
     });
-    $('#identityCard').editable({mode:"inline",});
+    
+    $('#identityCard').editable({mode:"inline", emptytext: '#'});
+    
     $('#dateOfIdentity').editable({
+    	emptytext: '#',
         format:"dd/mm/yyyy",
         viewformat:"dd/mm/yyyy"
     });
-    $('#facebook').editable({mode:"inline",});
+    $('#facebook').editable({mode:"inline", emptytext: '#'});
 
     // SHOP PROFILE
     $('#shopName').editable({
         mode:"inline",
+        emptytext: '#',
         validate: function(value) {
             if(!value) return 'Xin hãy nhập Tên Shop';
         }
     }); // require
     $('#shopAddress').editable({
         mode:"inline",
+        emptytext: '#',
         validate: function(value) {
             if(!value) return 'Xin hãy nhập địa chỉ Shop';
         }
     });// require
+    
     var shopProvince = $('#shopProvince').attr("data-value");
     $('#shopDistrict').editable({
         mode:"inline",
+        emptytext: '#',
         source: districts[shopProvince],
         validate: function(value) {
             if(!value) return 'Xin hãy nhập quận/huyện';
         }
     });// require
+    
     $('#shopPhone').editable({
         mode:"inline",
+        emptytext: '#',
         validate: function(value) {
             if(!value) return 'Xin hãy nhập SĐT shop';
         }
     });// require
-    $('#shopEmail').editable({mode:"inline",});
-    $('#shopWebsite').editable({mode:"inline",});
+    
+    $('#shopEmail').editable({mode:"inline", emptytext: '#'});
+    
+    $('#shopWebsite').editable({mode:"inline", emptytext: '#'});
 });
+
+$('#enable').click(function() {
+   $('.editable').editable('toggleDisabled');
+});
+
+$(document).ready(function() {
+	$('.editable').editable('toggleDisabled');
+});
+

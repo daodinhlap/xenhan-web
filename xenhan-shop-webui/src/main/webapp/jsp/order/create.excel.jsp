@@ -114,65 +114,79 @@
 					style="display: none">
 				<div class="container">
 					<div class="row">
-						<div class="col-xs-6 col-sm-3">
-							<b>Đơn Hàng</b>
+						<div class="col-xs-6">
+							<div class="row">
+								<div class="col-xs-6 col-sm-3">
+									<b>Đơn Hàng</b>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<b>Thu Hộ</b>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<b>Phí Ship</b>
+								</div>
+							</div>
 						</div>
-						<div class="col-xs-6 col-sm-3">
-							<b>Tiền Hàng</b>
-						</div>
-						<div class="col-xs-6 col-sm-3">
-							<b>Phí Ship</b>
-						</div>
-						<div class="col-xs-6 col-sm-3">
+						<div class="col-xs-6">
 							<b>Giao Hàng</b>
 						</div>
 					</div>
 
 				</div>
 				<c:forEach items="${orders}" var="order" varStatus="loop">
-					<div class="card">
-						<div class="card-header" role="tab" id="heading-${loop.index + 1}" style="margin-top: 10px; margin-left: 10px">
+					<div id="card-${loop.index + 1}">
+						<div class="card-header" role="tab" id="heading-${loop.index + 1}"
+							style="margin-top: 10px; margin-left: 10px">
 
 							<div class="container">
 								<div class="row">
-									<div class="col-xs-6 col-sm-3">
-										<a class="collapsed"  data-toggle="collapse" href="#order-${loop.index + 1}"
-											id="order-entity-${loop.index}" aria-expanded="false"
-											aria-controls="order-${loop.index}"> Đơn ${loop.index + 1}</a>
+									<div class="col-xs-6">
+										<div class="row">
+											<div class="col-xs-6 col-sm-3">
+												<a class="collapsed" data-toggle="collapse"
+													href="#order-${loop.index + 1}"
+													id="order-entity-${loop.index}" aria-expanded="false"
+													aria-controls="order-${loop.index}"> Đơn ${loop.index + 1}</a>
 
+											</div>
+											<div class="col-xs-6 col-sm-3">
+												<fmt:formatNumber type="number" maxFractionDigits="3"
+													value="${order.goodAmount}" />
+											</div>
+											<div class="col-xs-6 col-sm-3">
+												<fmt:formatNumber type="number" maxFractionDigits="3"
+													value="${order.shipAmount}" />
+											</div>
+										</div>
 									</div>
-									<div class="col-xs-6 col-sm-3">
-										<fmt:formatNumber type="number" maxFractionDigits="3"
-											value="${order.goodAmount}" />
+									<div class="col-xs-6">${order.dropoff.address}
+									<p id="alert-order-${loop.index}" style="color: red"></p>	
 									</div>
-									<div class="col-xs-6 col-sm-3">
-										<fmt:formatNumber type="number" maxFractionDigits="3"
-											value="${order.shipAmount}" />
-									</div>
-									<div class="col-xs-6 col-sm-3">${order.dropoff.address}</div>
 								</div>
-								<p id="alert-order-${loop.index}" style="color: red"></p>
+								
 							</div>
 
 						</div>
 					</div>
 
 					<div id="order-${loop.index + 1}" class="collapse" role="tabpanel"
-						aria-labelledby="heading-${loop.index + 1}" data-parent="#accordion">
+						aria-labelledby="heading-${loop.index + 1}"
+						data-parent="#accordion">
 						<div class="card-body">
 							<table class="table borderless" style="margin-top: 20px">
 								<tbody>
 									<tr>
 										<td colspan="2" align="left"><b>Người Nhận Hàng</b></td>
 									</tr>
-									<tr><tr>
+									<tr>
+									<tr>
 										<td>Điện Thoại:</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
 											data-name="phone" id="phone-${loop.index}" data-type="text"
 											data-pk="${loop.index}">${order.dropoff.contact.phone}</a></td>
 									</tr>
-					
-													<tr>
+
+									<tr>
 										<td>Địa Chỉ* :</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
 											data-name="address" id="address-${loop.index}"
@@ -196,7 +210,7 @@
 											data-value="${order.dropoff.town.id}"
 											class="editable editable-empty">${order.dropoff.town.name}</a></td>
 									</tr>
-									
+
 									<tr>
 										<td>Ghi Chú:</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
@@ -245,7 +259,7 @@
 											<div class="row">
 												<div class="col-xs-6">
 													<a class="btn btn-primary" id="save-${loop.index}"
-														href="/order-excel/luu-don-tu-excel?index=${loop.index}">Tạo 
+														href="/order-excel/luu-don-tu-excel?index=${loop.index}">Tạo
 														Đơn</a>
 												</div>
 												<div class="col-xs-6">
@@ -263,7 +277,8 @@
 				</c:forEach>
 			</div>
 			<div style="margin-top: 20px; vertical-align: center" align="center">
-				<a href="/order-excel/luu-het" id="save-all" class="btn btn-primary">Tạo Toàn Bộ Đơn</a>
+				<a href="/order-excel/luu-het" id="save-all" class="btn btn-primary">Tạo
+					Toàn Bộ Đơn</a>
 			</div>
 		</div>
 	</c:if>
