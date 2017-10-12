@@ -46,7 +46,7 @@ public class OrderController extends AbstractController {
   public Object history(@RequestBody PageOrderRequest request,
                          HttpServletRequest httpRequest) {
     logger.info("\n GET HISTORY: {}", JsonUtil.toJson(request));
-    request.setSize(20);
+    request.setSize(2   0);
     request.setPackageId(DEFAULT_PACKAGE_ID);
     request.setShopName((String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME));
     return getOrderHistory(httpRequest, request);
@@ -132,25 +132,28 @@ public class OrderController extends AbstractController {
     return apiExchangeService.post(httpRequest, url ,orderRequest);
   }
 
-  @PostMapping(value = "/export")
-  public void export(@RequestBody PageOrderRequest request, HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws Exception {
+  @GetMapping(value = "/export")
+  public void export(@RequestParam(value = "query") String query,
+                      HttpServletRequest httpRequest,
+                      HttpServletResponse httpResponse) throws Exception {
+    PageOrderRequest request = JsonUtil.toObject(query, PageOrderRequest.class);
     request.setSize(100);
     request.setIndex(1);
     request.setPackageId(DEFAULT_PACKAGE_ID);
     request.setShopName((String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME));
+    logger.info("\n EXPORT ORDER: {}\n", JsonUtil.toJson(request));
+
     OrderExcelExport excelExport = new OrderExcelExport(getOrderHistory(httpRequest, request).getPageItems());
 
-    // application/octet-stream
     String headerKey = "Content-Disposition";
     String headerValue = "attachment; filename=\"" + "lich-su-don-hang.xls" +"\"";
     httpResponse.setContentType("application/vnd.ms-excel");
     httpResponse.setHeader(headerKey, headerValue);
-    excelExport.export(request, httpResponse);
+    excelExport.export(httpResponse);
     httpResponse.getOutputStream().flush();
   }
 
   private Page<OrderEntity> getOrderHistory(HttpServletRequest httpRequest, PageOrderRequest request){
-    logger.info("\n EXPORT ORDER: {}\n", JsonUtil.toJson(request));
     String url = apiExchangeService.createUrlWithToken(httpRequest,"shop",  "list-orders");
     TypeReference<RepositoryResponse<Page<OrderEntity>>> reference = new TypeReference<RepositoryResponse<Page<OrderEntity>>>() {};
     ResponseEntity<RepositoryResponse<Page<OrderEntity>>> ordersResponse =  apiExchangeService.post(httpRequest, url, request, reference);

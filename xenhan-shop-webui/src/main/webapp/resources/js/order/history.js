@@ -59,21 +59,7 @@ function exportHistory(){
     request.fromDate = yyyy_mm_dd(request.fromDate, "begin");
     request.toDate = yyyy_mm_dd(request.toDate, "end");
 
-    $.ajax({
-        type : 'POST',
-        contentType : 'application/json',
-        url : URL_EXPORT,
-        data : JSON.stringify(request)
-    }).done(function(data) {
-        if (!data) {
-            noti.error([{message: data, id: "alert"}]);
-            return;
-        }
-    }).fail(function(data) {
-        console.log(data);
-        noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() { reload() });
-    }).always(function () {
-    });
+    window.location.href = URL_EXPORT+ "?query=" + JSON.stringify(request);
 }
 
 function getTotal(request) {

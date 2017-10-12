@@ -33,8 +33,7 @@ public class OrderExcelExport {
     dateFormat = new SimpleDateFormat("dd/MM HH:mm");
   }
 
-  public void export(PageOrderRequest pageOrderRequest, HttpServletResponse response) throws Exception {
-    logger.info("Received request: {}", pageOrderRequest);
+  public void export(HttpServletResponse response) throws Exception {
     try {
       logger.info("orders size = {}", orders.size());
       if (CollectionUtils.isEmpty(orders)) {
@@ -78,7 +77,7 @@ public class OrderExcelExport {
     CellStyle thStyle = thTableStyle(workbook);
     Row headerRow = sheet.createRow(startRow);
     for (int i = 0; i < HEADER.length; i++) {
-      createCell(headerRow, 0, HEADER[i], thStyle);
+      createCell(headerRow, i, HEADER[i], thStyle);
     }
   }
 
