@@ -45,9 +45,9 @@ public class ShopController extends AbstractController {
   public byte[] saveShop(@RequestBody Shop request, HttpServletRequest httpRequest, HttpSession session) {
     logger.info(request.toString());
     String url = apiExchangeService.createUrlWithToken(httpRequest, "shop", "create-shop");
-//    logger.info("url " + url);
+    //    logger.info("url " + url);
     ResponseEntity<RepositoryResponse<Object>> entity = apiExchangeService.post(httpRequest, url, 
-                                                request, new TypeReference<RepositoryResponse<Shop>>(){});
+        request, new TypeReference<RepositoryResponse<Shop>>(){});
     if(apiExchangeService.isSuccessResponse(entity.getBody())) {
       session.setAttribute(AttributeConfig.SHOPNAME, request.getShopName());
       session.setAttribute(AttributeConfig.SHOP, entity.getBody().getData());
@@ -60,7 +60,7 @@ public class ShopController extends AbstractController {
       return entity.getBody().getMessage().getBytes();
     }
   }
-  
+
   /* CREATE Shop */
   @GetMapping(value = "/thong-tin-tai-khoan")
   public ModelAndView account(HttpServletRequest httpRequest) {
@@ -71,7 +71,7 @@ public class ShopController extends AbstractController {
       logger.error(e.getMessage(), e);
       mv.addObject("error", e.getMessage());
     }
-    
+
     String url = apiExchangeService.createUrlWithToken(httpRequest, "user", "get-user-profile");
     try {
       RepositoryResponse<UserDetailEntity> entity = apiExchangeService.get(httpRequest, url,
@@ -100,11 +100,11 @@ public class ShopController extends AbstractController {
     }
     return mv;
   }
-  
+
   @PostMapping(value = "/sua-thong-tin-nguoi-dung")
   public byte[] editProfile(@RequestParam(value = "name", required = false) String name,
                             @RequestParam(value = "value", required = false) String value,
-//                            @RequestParam(value = "label", required = false) String label,
+                            //                            @RequestParam(value = "label", required = false) String label,
                             HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
     if(StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "Không có dữ liệu".getBytes("utf8");
     logger.info(" name: {} - value:{}",name,value);
@@ -116,8 +116,8 @@ public class ShopController extends AbstractController {
     UserProfile userProfile = userRecord.getUserProfile();
     switch (name) {
     case "name":
-        userProfile.setFullName(value);
-        return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
+      userProfile.setFullName(value);
+      return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "phone":
       user.setPhone(value);
       return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
@@ -125,33 +125,33 @@ public class ShopController extends AbstractController {
       user.setEmail(value);
       return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "gender":
-        userProfile.setGender(Integer.valueOf(value));
-        return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
+      userProfile.setGender(Integer.valueOf(value));
+      return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "address":
-        userProfile.setAddress(value);
-        return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
+      userProfile.setAddress(value);
+      return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "province":
-        userProfile.setProvince(value);
-        userProfile.setDistrict(null);
-        return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
+      userProfile.setProvince(value);
+      userProfile.setDistrict(null);
+      return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "district":
-        userProfile.setDistrict(value);
-        return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
+      userProfile.setDistrict(value);
+      return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "placeOfBirth":
-        userProfile.setPlaceOfBirth(value);
-        return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
+      userProfile.setPlaceOfBirth(value);
+      return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "birthDay":
-        userProfile.setBirthday(DateUtil.ddMMyyyy2Date(value));
-        return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
+      userProfile.setBirthday(DateUtil.ddMMyyyy2Date(value));
+      return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "identityCard":
-        userProfile.setIdentityCard(value);
-        return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
+      userProfile.setIdentityCard(value);
+      return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "dateOfIdentity":
-        userProfile.setDateOfIdentity(DateUtil.ddMMyyyy2Date(value));
-        return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
+      userProfile.setDateOfIdentity(DateUtil.ddMMyyyy2Date(value));
+      return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "facebook":
-        userProfile.setFacebookId(value);
-        return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
+      userProfile.setFacebookId(value);
+      return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     default:
       return "error".getBytes();
     }
@@ -159,130 +159,72 @@ public class ShopController extends AbstractController {
 
   @PostMapping(value = "/sua-thong-tin-shop")
   public byte[] editShop(@RequestParam(value = "name", required = false) String name,
-                          @RequestParam(value = "value", required = false) String value,
-                          HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
-      if (StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "Không có dữ liệu".getBytes("utf8");
-      logger.info(" name: {} - value:{}",name,value);
-      name = name.trim();
-      value = value.trim();
+                         @RequestParam(value = "value", required = false) String value,
+                         HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
+    if (StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "Không có dữ liệu".getBytes("utf8");
+    logger.info(" name: {} - value:{}",name,value);
+    name = name.trim();
+    value = value.trim();
 
-      Shop shop = getShopInfo(httpRequest);
-      switch (name) {
-          case "shopName":
-              shop.setFullName(value);
-              return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
-          case "shopAddress":
-              shop.setAddress(value);
-              return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
-          case "shopProvince":
-              shop.getTown().setId(Long.valueOf(value));
-              return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
-          case "shopDistrict":
-              shop.getTown().getDistrict().setId(Long.valueOf(value));
-              return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
-          case "shopPhone":
-              shop.setPhone(value);
-              return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
-          case "shopEmail":
-              shop.setEmail(value);
-              return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
-          case "shopWebsite":
-              shop.setWebsite(value);
-              return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
-          default:
-              return "error".getBytes();
-      }
+    Shop shop = getShopInfo(httpRequest);
+    switch (name) {
+    case "shopName":
+      shop.setFullName(value);
+      return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
+    case "shopAddress":
+      shop.setAddress(value);
+      return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
+    case "shopProvince":
+      shop.getTown().setId(Long.valueOf(value));
+      return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
+    case "shopDistrict":
+      shop.getTown().getDistrict().setId(Long.valueOf(value));
+      return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
+    case "shopPhone":
+      shop.setPhone(value);
+      return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
+    case "shopEmail":
+      shop.setEmail(value);
+      return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
+    case "shopWebsite":
+      shop.setWebsite(value);
+      return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
+    default:
+      return "error".getBytes();
+    }
   }
 
-  
-//  private String updateUser(HttpServletRequest httpRequest, HttpServletResponse httpResponse, XnUserRequest user) {
-//    String url = apiExchangeService.createUrlWithToken(httpRequest, "user", "update-user");
-//    ResponseEntity<RepositoryResponse<Object>> resp = apiExchangeService.post(httpRequest, url, user);
-//    logger.info("--- response " + resp.getStatusCodeValue() + " : "+ resp.getBody().getMessage());
-//    if(apiExchangeService.isUnSuccessResponse(resp.getBody())) {
-//      httpResponse.setStatus(HttpStatus.SERVICE_UNAVAILABLE.ordinal());
-//      return resp.getBody().getMessage();
-//    }
-//    return "done";
-//  }
-    private String updateUser(HttpServletRequest httpRequest, HttpServletResponse httpResponse, UserRecord userRecord) {
-        String url = apiExchangeService.createUrlWithToken(httpRequest, "user", "update-user-record");
-        ResponseEntity<RepositoryResponse<Object>> resp = apiExchangeService.post(httpRequest, url, userRecord);
+  private String updateUser(HttpServletRequest httpRequest, HttpServletResponse httpResponse, UserRecord userRecord) {
+    String url = apiExchangeService.createUrlWithToken(httpRequest, "user", "update-user-record");
+    ResponseEntity<RepositoryResponse<Object>> resp = apiExchangeService.post(httpRequest, url, userRecord);
 
-        logger.info("--- response " + resp.getStatusCodeValue() + " : "+ resp.getBody().getMessage());
-        if(apiExchangeService.isUnSuccessResponse(resp.getBody())) {
-            httpResponse.setStatus(HttpStatus.SERVICE_UNAVAILABLE.ordinal());
-            return resp.getBody().getMessage();
-        }
-        return "done";
+    logger.info("--- response " + resp.getStatusCodeValue() + " : "+ resp.getBody().getMessage());
+    if(apiExchangeService.isUnSuccessResponse(resp.getBody())) {
+      httpResponse.setStatus(HttpStatus.SERVICE_UNAVAILABLE.ordinal());
+      return resp.getBody().getMessage();
     }
+    return "done";
+  }
 
-    private String updateShop(HttpServletRequest httpRequest, HttpServletResponse httpResponse, Shop shop) {
-        String url = apiExchangeService.createUrlWithToken(httpRequest, "shop", "update-shop-profile");
-        ResponseEntity<RepositoryResponse<Object>> resp = apiExchangeService.post(httpRequest, url, shop);
+  private String updateShop(HttpServletRequest httpRequest, HttpServletResponse httpResponse, Shop shop) {
+    String url = apiExchangeService.createUrlWithToken(httpRequest, "shop", "update-shop-profile");
+    ResponseEntity<RepositoryResponse<Object>> resp = apiExchangeService.post(httpRequest, url, shop);
 
-        logger.info("--- response " + resp.getStatusCodeValue() + " : "+ resp.getBody().getMessage());
-        if(apiExchangeService.isUnSuccessResponse(resp.getBody())) {
-            httpResponse.setStatus(HttpStatus.SERVICE_UNAVAILABLE.ordinal());
-            return resp.getBody().getMessage();
-        }
-        return "done";
+    logger.info("--- response " + resp.getStatusCodeValue() + " : "+ resp.getBody().getMessage());
+    if(apiExchangeService.isUnSuccessResponse(resp.getBody())) {
+      httpResponse.setStatus(HttpStatus.SERVICE_UNAVAILABLE.ordinal());
+      return resp.getBody().getMessage();
     }
+    return "done";
+  }
 
-    private UserRecord getUserRecord(HttpServletRequest httpRequest) {
-        String url = apiExchangeService.createUrlWithToken(httpRequest, "user", "get-user-record");
-        RepositoryResponse<UserRecord> entity = apiExchangeService.get(httpRequest, url,
-                new TypeReference<RepositoryResponse<UserRecord>>() {});
-        logger.info("\n GET USER RECORD: {}", JsonUtil.toJson(entity.getData()));
-        return entity.getData();
-    }
-
-  
-//  private XnUserRequest toUserRequest(SimpleUser user) {
-//    XnUserRequest request = new XnUserRequest();
-//    request.setEmail(user.getEmail());
-//    request.setPhone(user.getPhone());
-//    request.setUsername(user.getUserName());
-//    return request;
-//  }
-  
-//  private String updateProfile(HttpServletRequest httpRequest, HttpServletResponse httpResponse, XnUserProfileRequest profile ) {
-//    String url = apiExchangeService.createUrlWithToken(httpRequest, "user", "update-profile");
-//    ResponseEntity<RepositoryResponse<Object>> resp = apiExchangeService.post(httpRequest, url, profile);
-//
-//    logger.info("--- response " + resp.getStatusCodeValue() + " : "+ resp.getBody().getMessage());
-//    if(apiExchangeService.isUnSuccessResponse(resp.getBody())) {
-//      httpResponse.setStatus(HttpStatus.SERVICE_UNAVAILABLE.ordinal());
-//      return resp.getBody().getMessage();
-//    }
-//    return "done";
-//  }
-
-//  private XnUserProfileRequest loadProfile(HttpServletRequest httpRequest) {
-//    String url = apiExchangeService.createUrlWithToken(httpRequest, "user", "get-user-profile");
-//
-//    RepositoryResponse<UserDetailEntity> entity = apiExchangeService.get(httpRequest, url,
-//        new TypeReference<RepositoryResponse<UserDetailEntity>>() {});
-//    UserDetailEntity detail = entity.getData();
-//
-//    XnUserProfileRequest request = new XnUserProfileRequest();
-//    request.setUserId(detail.getUser().getId());
-//    request.setUsername(detail.getUser().getUserName());
-//
-//    request.setAddress(detail.getUserProfile().getAddress());
-//    request.setDateOfBirth(detail.getUserProfile().getBirthday());
-////        request.setDistrictId(detail.getUserProfile().get);
-////        request.setDistrictId(detail.getUserProfile().get);
-//    request.setFacebookId(detail.getUserProfile().getFacebookId());
-//    request.setGender(detail.getUserProfile().getGender());
-//    request.setGoogleId(detail.getUserProfile().getGoogleId());
-//    request.setIdDate(detail.getUserProfile().getDateOfIdentity());
-//    request.setIdNbr(detail.getUserProfile().getIdentityCard());
-//    request.setName(detail.getUserProfile().getFullName());
-//
-//    return request;
-//  }
-
+  private UserRecord getUserRecord(HttpServletRequest httpRequest) {
+    String url = apiExchangeService.createUrlWithToken(httpRequest, "user", "get-user-record");
+    RepositoryResponse<UserRecord> entity = apiExchangeService.get(httpRequest, url,
+        new TypeReference<RepositoryResponse<UserRecord>>() {});
+    logger.info("\n GET USER RECORD: {}", JsonUtil.toJson(entity.getData()));
+    return entity.getData();
+  }
 
   @GetMapping(value = "/doi-mat-khau")
   public ModelAndView changePassword() {
