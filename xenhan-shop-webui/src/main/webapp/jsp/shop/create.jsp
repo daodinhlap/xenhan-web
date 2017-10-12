@@ -25,12 +25,6 @@
 		<input  type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại" value="${phone}">
 	</div>
 
-    <div class="form-group">
-        <label>Địa chỉ <span style="color: red">*</span></label>
-		<span style="float: right; font-size: 12px;"><i>Địa chỉ Xe Nhàn lấy hàng</i></span>
-        <input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực ..."  type="text" class="form-control" id="address">
-    </div>
-    
     <div>
 		  <label>Tỉnh/TP <span style="color: red">*</span></label>
 		  <ul class="nav nav-tabs" role="tablist" id="province-tab">
@@ -102,6 +96,12 @@
 				    <option value="19">Ứng Hòa</option>
 		        </select></div>
 		  </div>
+	</div>
+
+	<div class="form-group" style="margin-top: 15px">
+		<label>Địa chỉ <span style="color: red">*</span></label>
+		<span style="float: right; font-size: 12px;"><i>Địa chỉ Xe Nhàn lấy hàng</i></span>
+		<input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực ..."  type="text" class="form-control" id="address">
 	</div>
 
     <div class="form-group">
