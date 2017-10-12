@@ -13,16 +13,21 @@ import com.homedirect.xenhan.user.model.request.PageOrderRequest;
 import com.homedirect.xenhan.user.model.response.JobHistoryEntity;
 import com.homedirect.xenhan.util.JsonUtil;
 
+import com.homedirect.xenhan.web.util.OrderExcelExport;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.*;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/order")
@@ -44,11 +49,7 @@ public class OrderController extends AbstractController {
     request.setSize(20);
     request.setPackageId(DEFAULT_PACKAGE_ID);
     request.setShopName((String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME));
-
-    String url = apiExchangeService.createUrlWithToken(httpRequest,"shop",  "list-orders");
-    TypeReference<RepositoryResponse<Page<OrderEntity>>> reference = new TypeReference<RepositoryResponse<Page<OrderEntity>>>() {};
-    ResponseEntity<RepositoryResponse<Page<OrderEntity>>> ordersResponse =  apiExchangeService.post(httpRequest, url, request, reference);
-    return ordersResponse.getBody().getData();
+    return getOrderHistory(httpRequest, request);
   }
 
   @PostMapping(value = "/total")
@@ -129,6 +130,34 @@ public class OrderController extends AbstractController {
     orderRequest.setPackageId(DEFAULT_PACKAGE_ID);
     String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "update-order");
     return apiExchangeService.post(httpRequest, url ,orderRequest);
+  }
+
+  @GetMapping(value = "/export")
+  public void export(@RequestParam(value = "query") String query,
+                      HttpServletRequest httpRequest,
+                      HttpServletResponse httpResponse) throws Exception {
+    PageOrderRequest request = JsonUtil.toObject(query, PageOrderRequest.class);
+    request.setSize(100);
+    request.setIndex(1);
+    request.setPackageId(DEFAULT_PACKAGE_ID);
+    request.setShopName((String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME));
+    logger.info("\n EXPORT ORDER: {}\n", JsonUtil.toJson(request));
+
+    OrderExcelExport excelExport = new OrderExcelExport(getOrderHistory(httpRequest, request).getPageItems());
+
+    String headerKey = "Content-Disposition";
+    String headerValue = "attachment; filename=\"" + "lich-su-don-hang.xls" +"\"";
+    httpResponse.setContentType("application/vnd.ms-excel");
+    httpResponse.setHeader(headerKey, headerValue);
+    excelExport.export(httpResponse);
+    httpResponse.getOutputStream().flush();
+  }
+
+  private Page<OrderEntity> getOrderHistory(HttpServletRequest httpRequest, PageOrderRequest request){
+    String url = apiExchangeService.createUrlWithToken(httpRequest,"shop",  "list-orders");
+    TypeReference<RepositoryResponse<Page<OrderEntity>>> reference = new TypeReference<RepositoryResponse<Page<OrderEntity>>>() {};
+    ResponseEntity<RepositoryResponse<Page<OrderEntity>>> ordersResponse =  apiExchangeService.post(httpRequest, url, request, reference);
+    return ordersResponse.getBody().getData();
   }
 
 }

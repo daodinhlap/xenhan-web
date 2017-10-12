@@ -49,23 +49,19 @@
 				</a></li>
 
 				<c:if test="${not empty shopName && !shopName.equals('null') }">
-					<li><a href="/"> <img src="/resources/images/"><span>Trang chủ</span></a></li>
+					<li><a href="/"> <img src="/resources/images/icon-home.png"><span>Trang chủ</span></a></li>
 					<li><a href="/order/tao-don?type=0"> <img
-							src="/resources/images/"><span>Tạo đơn hàng</span></a></li>
+							src="/resources/images/icon-order.png"><span>Tạo đơn hàng</span></a></li>
 					<li><a href="/order-excel/tao-don-tu-excel"> <img
 							src="/resources/images/"><span>Tạo đơn từ Excel</span></a>
 					</li>
-					<li><a href="/order/lich-su"> <img src="/resources/images/"><span>Lịch
-								sử đơn hàng</span></a></li>
+					<li><a href="/order/lich-su"> <img src="/resources/images/"><span>Lịch sử đơn hàng</span></a></li>
 					<li><a href="/shop/thong-tin-tai-khoan"> <img
 							src="/resources/images/"><span>Thông tin tài khoản</span></a></li>
 				</c:if>
-				<li><a href="/lien-he"><img src="/resources/images/"><span>Liên
-							hệ</span></a></li>
-				<li><a href="/dang-xuat"><img src="/resources/images/"><span>Đăng
-							xuất</span></a></li>
+				<li><a href="#"><img src="/resources/images/"><span>Liên hệ</span></a></li>
+				<li><a href="/dang-xuat"><img src="/resources/images/"><span>Đăng xuất</span></a></li>
 			</ul>
-
 		</div>
 	</div>
 </nav>

@@ -1,34 +1,27 @@
 package com.homedirect.xenhan.shop.controller;
 
-import java.io.UnsupportedEncodingException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.homedirect.common.util.StringUtils;
 import com.homedirect.repo.batch.model.UserRecord;
+import com.homedirect.repo.model.User;
 import com.homedirect.repo.model.UserProfile;
+import com.homedirect.repo.model.response.RepositoryResponse;
+import com.homedirect.xenhan.model.AttributeConfig;
+import com.homedirect.xenhan.model.Shop;
+import com.homedirect.xenhan.model.common.response.UserDetailEntity;
 import com.homedirect.xenhan.util.DateUtil;
 import com.homedirect.xenhan.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.homedirect.common.util.StringUtils;
-import com.homedirect.repo.model.User;
-import com.homedirect.repo.model.response.RepositoryResponse;
-import com.homedirect.session.model.SimpleUser;
-import com.homedirect.session.model.UserSession;
-import com.homedirect.xenhan.model.AttributeConfig;
-import com.homedirect.xenhan.model.Shop;
-import com.homedirect.xenhan.model.common.request.XnUserProfileRequest;
-import com.homedirect.xenhan.model.common.request.XnUserRequest;
-import com.homedirect.xenhan.model.common.response.UserDetailEntity;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 
 /**
  * author: hieunv - hieu.nguyen2@homedirect.com.vn
@@ -115,13 +108,10 @@ public class ShopController extends AbstractController {
 //                            @RequestParam(value = "label", required = false) String label,
                             HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
     if(StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "Không có dữ liệu".getBytes("utf8");
-
+    logger.info(" name: {} - value:{}",name,value);
     name = name.trim();
     value = value.trim();
-//    UsernamePasswordAuthenticationToken  authen = (UsernamePasswordAuthenticationToken)httpRequest.getUserPrincipal();
-//    UserSession userSession = (UserSession) authen.getPrincipal();
-//    logger.info("----> "+ pk + " name: " + name + " value:" + value + " : "+ userSession.getUser());
-//    XnUserRequest user = toUserRequest(userSession.getUser());
+
     UserRecord userRecord = getUserRecord(httpRequest);
     User user = userRecord.getUser();
     UserProfile userProfile = userRecord.getUserProfile();
@@ -135,6 +125,9 @@ public class ShopController extends AbstractController {
     case "email":
       user.setEmail(value);
       return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
+    case "gender":
+        userProfile.setGender(Integer.valueOf(value));
+        return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "address":
         userProfile.setAddress(value);
         return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
@@ -147,7 +140,7 @@ public class ShopController extends AbstractController {
     case "placeOfBirth":
         userProfile.setPlaceOfBirth(value);
         return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
-    case "dateOfBirth":
+    case "birthDay":
         userProfile.setBirthday(DateUtil.ddMMyyyy2Date(value));
         return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "identityCard":
@@ -170,7 +163,7 @@ public class ShopController extends AbstractController {
                           @RequestParam(value = "value", required = false) String value,
                           HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
       if (StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "Không có dữ liệu".getBytes("utf8");
-
+      logger.info(" name: {} - value:{}",name,value);
       name = name.trim();
       value = value.trim();
 
@@ -195,7 +188,7 @@ public class ShopController extends AbstractController {
               shop.setEmail(value);
               return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
           case "shopWebsite":
-              shop.setEmail(value);
+              shop.setWebsite(value);
               return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
           default:
               return "error".getBytes();

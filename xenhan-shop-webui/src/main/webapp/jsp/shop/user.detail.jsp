@@ -35,7 +35,7 @@
 		</div>
 		<!-- EMAIL -->
 		<div class="form-group">
-			<div class="col-xs-4 col-md-4">Email</div>
+			<div class="col-xs-4 col-md-4">Email<span style="color: red">*</span></div>
 				<%--<div class="col-xs-8 col-md-8"><label>${user.user.email}</label></div>--%>
 			<div class="col-xs-8 col-md-8"><a href="#" id="email"
 											  data-type="text" data-url="/shop/sua-thong-tin-nguoi-dung"
@@ -57,7 +57,7 @@
 		</div>
 		<!-- ADDRESS -->
 		<div class="form-group">
-			<div class="col-xs-4 col-md-4">Địa chỉ</div>
+			<div class="col-xs-4 col-md-4">Địa chỉ<span style="color: red">*</span></div>
 				<%--<div class="col-xs-8 col-md-8"><label>${user.userProfile.address}</label></div>--%>
 			<div class="col-xs-8 col-md-8"><a href="#" id="address"
 											  data-type="text" data-url="/shop/sua-thong-tin-nguoi-dung"
@@ -67,24 +67,23 @@
 											  class="editable editable-empty">${user.userProfile.address}</a></div>
 		</div>
 		<div class="form-group">
-			<div class="col-xs-4 col-md-4">Tỉnh/Thành phố</div>
+			<div class="col-xs-4 col-md-4">Tỉnh/Thành phố<span style="color: red">*</span></div>
 				<%--<div class="col-xs-8 col-md-8"><label>${user.userProfile.province}</label></div>--%>
 			<div class="col-xs-8 col-md-8"><a href="#" id="province"
-											  data-source="[{value: 1, text: 'Hà Nội'},{value: 2, text: 'Hồ Chí Minh'}]"
 											  data-type="select" data-url="/shop/sua-thong-tin-nguoi-dung"
 											  data-name="province" data-pk="${user.user.phone}"
 											  data-original-title="Tỉnh/TP"
 											  data-value="${user.userProfile.province == 'Hà Nội'? 1: 2}"
 											  class="editable editable-empty">${user.userProfile.province}</a></div>
 		</div>
+
 		<div class="form-group">
-			<div class="col-xs-4 col-md-4">Quận/Huyện</div>
+			<div class="col-xs-4 col-md-4">Quận/Huyện<span style="color: red">*</span></div>
 				<%--<div class="col-xs-8 col-md-8"><label>${user.userProfile.district}</label></div>--%>
 			<div class="col-xs-8 col-md-8"><a href="#" id="district"
 											  data-type="select" data-url="/shop/sua-thong-tin-nguoi-dung"
 											  data-name="district" data-pk="${user.user.phone}"
 											  data-original-title="Quận/Huyện"
-											  data-value="${user.userProfile.district}"
 											  class="editable editable-empty">${user.userProfile.district}</a></div>
 		</div>
 
@@ -103,9 +102,9 @@
 			<div class="col-xs-4 col-md-4">Ngày Sinh</div>
 				<%--<div class="col-xs-8 col-md-8"><label>--%>
 				<%--<fmt:formatDate value="${user.userProfile.birthday}" pattern="dd-MM-yy"/></label></div>--%>
-			<div class="col-xs-8 col-md-8"><a href="#" id="dateOfBirth"
+			<div class="col-xs-8 col-md-8"><a href="#" id="birthDay"
 											  data-type="date" data-url="/shop/sua-thong-tin-nguoi-dung"
-											  data-name="dateOfBirth" data-pk="${user.user.phone}"
+											  data-name="birthDay" data-pk="${user.user.phone}"
 											  data-original-title="Ngày sinh"
 											  data-value="<fmt:formatDate value="${user.userProfile.birthday}" pattern="dd/MM/yyyy"/>"
 											  class="editable editable-empty">

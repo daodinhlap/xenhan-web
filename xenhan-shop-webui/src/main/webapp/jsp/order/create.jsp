@@ -23,7 +23,7 @@
 	</div>
 	<div class="form-group">
 		<label>Địa chỉ <span style="color: red">*</span></label>
-		<input placeholder="Số nhà.../ngách ..." type="text" value="${order.dropoff.address}"
+		<input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực...." type="text" value="${order.dropoff.address}"
 			   class="form-control" id="address">
 	</div>
 

@@ -4,6 +4,7 @@ var orders = [];
 var ordersSelected = [];
 
 var URL_HISTORY = BASE_URL + "/order/history";
+var URL_EXPORT = BASE_URL + "/order/export";
 var URL_HISTORY_TOTAL = BASE_URL + "/order/total";
 var URL_HISTORY_PRINT = BASE_URL + "/order/print";
 var URL_CANCEL_ORDER = BASE_URL + "/order/cancel?order-id=";
@@ -51,6 +52,14 @@ function getHistory(index){
         noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() { reload() });
     }).always(function () {
     });
+}
+
+function exportHistory(){
+    var request = form.getRequest();
+    request.fromDate = yyyy_mm_dd(request.fromDate, "begin");
+    request.toDate = yyyy_mm_dd(request.toDate, "end");
+
+    window.location.href = URL_EXPORT+ "?query=" + JSON.stringify(request);
 }
 
 function getTotal(request) {
@@ -373,7 +382,7 @@ function buildOrderAction(order){
     }
     action += "<li><a href='/order/tao-don?type=2&order-id="+order.id+"'>Đăng lại đơn</a></li>\n";
     var result ;
-    result = "  <div class=\"dropdown\">\n" +
+    result = "  <div class=\"dropup\">\n" +
                 "    <button style='padding: 0px' class=\"btn btn-link dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">" +
                         "<i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>\n" +
                 "    <ul class=\"dropdown-menu\">\n" +
