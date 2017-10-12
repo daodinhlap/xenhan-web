@@ -26,42 +26,46 @@
 
 			<c:set var="fullName"><%=session.getAttribute("FULLNAME")%></c:set>
 			<c:set var="phone"><%=session.getAttribute("USERNAME")%></c:set>
-			<c:set var = "shopName"><%= session.getAttribute("SHOPNAME") %></c:set>
+			<c:set var="shopName"><%=session.getAttribute("SHOPNAME")%></c:set>
 
 			<ul class="nav navbar-nav navbar-right profile"
 				style="margin-bottom: 2px">
-				<li style="height: 80px; margin-top: -10px;"><a href="#">
-						<div class="col-xs-3 col-sm-3 col-md-4 padding-0 ">
-							<img class="avatar" src="/resources/images/">
-						</div>
-						<div class="col-xs-8 col-sm-8 col-md-7 "
-							style="padding: 15px 0px 15px 0px;">
-							<c:if test="${not empty fullName}">
-										${fullName }<br>
-							</c:if>
-							<c:if test="${not empty phone }">
-								<span id="myPhone">${phone }</span>
-							</c:if>
-						</div>
-						<div class="col-xs-1 col-sm-1 col-md-1 padding-0">
-							<i class="fa fa-chevron-right arrow-right" aria-hidden="true"></i>
-						</div>
-				</a></li>
+				<li style="height: 50px; margin-top: 5px;">
+					<div class="col-xs-8 col-sm-8 col-md-7" style="color: white">
+						<img class="avatar" src="/resources/images/app_logo_white.png" style="max-width: 50px">
+						<c:choose>
+						 <c:when test="${not empty fullName}"><a href="/shop/thong-tin-tai-khoan" style="color: white">${fullName }</a></c:when>
+						 <c:when test="${not empty phone }"><a href="/shop/thong-tin-tai-khoan" style="color: white"><span id="myPhone">${phone }</span></a></c:when>
+						 <c:otherwise>
+						   <a href="/shop/thong-tin-tai-khoan" style="color: white">Không Tên </a>
+						 </c:otherwise>
+						</c:choose>
+					</div>
+				</li>
 
 				<c:if test="${not empty shopName && !shopName.equals('null') }">
-					<li><a href="/"> <img style="width: 30px" src="/resources/images/icon-home-w.png"><span>Trang chủ</span></a></li>
-					<li><a href="/order/tao-don?type=0"> <img  style="width: 30px"
-							src="/resources/images/icon-order-w.png"><span>Tạo đơn hàng</span></a></li>
-					<li><a href="/order-excel/tao-don-tu-excel"> <img  style="width: 30px"
-							src="/resources/images/icon-order-excel-w.png"><span>Tạo đơn từ Excel</span></a>
-					</li>
-					<li><a href="/order/lich-su">
-						<img src="/resources/images/icon-history-w.png"  style="width: 30px"><span>Lịch sử đơn hàng</span></a></li>
-					<li><a href="/shop/thong-tin-tai-khoan"> <img  style="width: 30px"
-							src="/resources/images/icon-profile-w.png"><span>Thông tin tài khoản</span></a></li>
+					<li><a href="/"> <img
+							src="/resources/images/m-icon-home.png"><span>Trang
+								chủ</span></a></li>
+					<li><a href="/order/tao-don?type=0"> <img
+							src="/resources/images/m-icon-order.png"><span>Tạo
+								đơn hàng</span></a></li>
+					<li><a href="/order-excel/tao-don-tu-excel"> <img
+							src="/resources/images/m-icon-order-excel.png"><span>Tạo
+								đơn từ Excel</span></a></li>
+					<li><a href="/order/lich-su"> <img
+							src="/resources/images/m-icon-history.png"><span>Lịch
+								sử đơn hàng</span></a></li>
+					<li><a href="/shop/thong-tin-tai-khoan"> <img
+							src="/resources/images/m-icon-profile.png"><span>Tài
+								khoản</span></a></li>
 				</c:if>
-				<li><a href="#"><img src="/resources/images/icon-support-w.png"  style="width: 30px"><span>Liên hệ</span></a></li>
-				<li><a href="/dang-xuat"><img src="/resources/images/icon-exit-w.png"  style="width: 30px"><span>Đăng xuất</span></a></li>
+				<li><a href="#"><img
+						src="/resources/images/m-icon-support.png"><span>Liên
+							hệ</span></a></li>
+				<li><a href="/dang-xuat"><img
+						src="/resources/images/m-icon-exit.png"><span>Đăng
+							xuất</span></a></li>
 			</ul>
 		</div>
 	</div>
