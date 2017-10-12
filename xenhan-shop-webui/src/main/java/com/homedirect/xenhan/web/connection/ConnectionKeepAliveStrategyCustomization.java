@@ -34,7 +34,7 @@ public class ConnectionKeepAliveStrategyCustomization implements ConnectionKeepA
       HeaderElement he = it.nextElement();
       String param = he.getName();
       String value = he.getValue();
-      logger.info("\n HeaderElementIterator param: {} - value: {} \n", param, value);
+//      logger.info("\n HeaderElementIterator param: {} - value: {} \n", param, value);
       if (value != null && param.equalsIgnoreCase("timeout")) {
         try {
           return Long.parseLong(value) * 1000;
@@ -43,7 +43,7 @@ public class ConnectionKeepAliveStrategyCustomization implements ConnectionKeepA
       }
     }
     HttpHost target = (HttpHost) context.getAttribute(HttpClientContext.HTTP_TARGET_HOST);
-    logger.info("\n Target HostName: {} \n", target.getHostName());
+//    logger.info("\n Target HostName: {} \n", target.getHostName());
     if (LOCALHOST.equalsIgnoreCase(target.getHostName())) {
       // Keep alive for 5 seconds only
       return 5 * 1000;

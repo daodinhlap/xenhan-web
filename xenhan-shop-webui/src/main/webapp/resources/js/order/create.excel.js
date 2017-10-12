@@ -159,7 +159,7 @@ function validate(i) {
 			$('#save-' + result.id).attr('disabled', false);
 			$('#order-entity-' + result.id).css({ 'color': 'black'});
 			$('#alert-order-' + result.id).text('');
-			$('#save-' + result.id).attr('href', '/order-excel/luu-don-tu-excel?result.id=' + result.id);
+			$('#save-' + result.id).attr('href', '/order-excel/luu-don-tu-excel?index=' + result.id);
 
 			$('#save-all').attr('disabled', false);
 			$('#save-all').attr('href', '/order-excel/luu-het');
