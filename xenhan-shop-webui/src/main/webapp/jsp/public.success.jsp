@@ -7,7 +7,7 @@
 		<div class="card" style="padding: 20px 0px;">
 			<p id="alert"></p>
 			<div class="ui centered small image" style="text-align: center">
-				<a target="_blank" href="https://xenhan.vn/">
+				<a href="/dang-nhap">
 					<img style="width: 150px;" src="/resources/images/app_logo_orange.png"></a>
 			</div>
 

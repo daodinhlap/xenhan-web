@@ -8,7 +8,7 @@
 <div class="col-md-6 col-md-offset-3  mobile-padding">
     <div id="info-receiver" class="container card">
 	<div class="center">
-		<h2>TẠO ĐƠN HÀNG</h2>
+		<h2>NGƯỜI NHẬN HÀNG</h2>
 	</div>
 	<p id="alert"></p>
 
@@ -20,11 +20,6 @@
 	<div class="form-group">
 		<label>Số điện thoại <span style="color: red">*</span></label>
 		<input placeholder="SĐT người nhận" type="text" class="form-control" id="phone" value="${order.dropoff.contact.phone}">
-	</div>
-	<div class="form-group">
-		<label>Địa chỉ <span style="color: red">*</span></label>
-		<input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực...." type="text" value="${order.dropoff.address}"
-			   class="form-control" id="address">
 	</div>
 
 	<div class="form-group" style="display: none">
@@ -86,15 +81,21 @@
 	</div>
 
 	<div class="form-group">
+		<label>Địa chỉ <span style="color: red">*</span></label>
+		<input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực...." type="text" value="${order.dropoff.address}"
+			   class="form-control" id="address">
+	</div>
+
+	<div class="form-group">
 		<label>Ghi chú</label>
 		<textarea class="form-control" rows="3" id="note"
 			placeholder="Mô tả đơn hàng/Lời nhắn">${order.orderMessage}</textarea>
 	</div>
 
 	<div class="form-group center">
-		<button class="btn btn-primary">
-			<i class="fa fa-refresh"></i>&nbsp;Đặt lại
-		</button>
+		<%--<button class="btn btn-primary">--%>
+			<%--<i class="fa fa-refresh"></i>&nbsp;Đặt lại--%>
+		<%--</button>--%>
 		<button class="btn btn-primary" onclick="next()">
 			Tiếp tục&nbsp;<i class="fa fa-arrow-right"></i>
 		</button>
@@ -116,26 +117,31 @@
 
 	<div class="form-group">
 		<label id="amount-text">Tiền hàng<span style="color: red">*</span></label>
-		<input type="text" class="form-control" id="amount"
+		<input type="text" class="form-control" id="amount" style="text-align: right;"
 			   value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${order.goodAmount}"/>">
 	</div>
 	<div class="form-group">
 		<label>Mã giảm giá</label>
-		<input type="text" class="form-control" id="coupon" value="${type == 1? order.coupon:''}">
+		<input type="text" class="form-control" id="coupon" value="${type == 1? order.coupon:''}"
+			${type == 1 && not empty order.coupon? 'disabled':''}>
 	</div>
 
 	<div class="form-group">
-		<label><i>Tiền giảm giá</i></label> <label id="couponAmount"
-			style="float: right"></label>
+		<label><i>Tiền giảm giá</i></label>
+		<span style="float: right"><i>&nbsp;đ</i></span>
+		<label id="couponAmount" style="float: right"></label>
 	</div>
 
 	<div class="form-group">
-		<label>Phí ship</label> <label id="shipAmount" style="float: right"></label>
+		<label>Phí ship</label>
+		<span style="float: right"><i>&nbsp;đ</i></span>
+		<label id="shipAmount" style="float: right"></label>
 	</div>
 
 	<div class="form-group">
-		<label id="action">Shop nợ Xe nhàn</label> <label id="totalAmount"
-			style="float: right"></label>
+		<label id="action">Shop nợ Xe nhàn</label>
+		<span style="float: right"><i>&nbsp;đ</i></span>
+		<label id="totalAmount" style="float: right"></label>
 	</div>
 
 	<div class="form-group center">
@@ -143,9 +149,9 @@
 			<i class="fa fa-arrow-left"></i>&nbsp;Quay lại
 		</button>
 		<button class="btn btn-success" onclick="create()">${action}</button>
-		<button class="btn btn-primary">
-			Đặt lại&nbsp;<i class="fa fa-refresh"></i>
-		</button>
+		<%--<button class="btn btn-primary">--%>
+			<%--Đặt lại&nbsp;<i class="fa fa-refresh"></i>--%>
+		<%--</button>--%>
 	</div>
 	<input type="hidden" id="order-id" value="${order.id}">
 	<input type="hidden" id="type" value="${type}">
