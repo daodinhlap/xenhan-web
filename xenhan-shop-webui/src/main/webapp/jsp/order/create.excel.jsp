@@ -115,7 +115,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-xs-6">
-							<div class="row">
+							<div class="row desktop">
 								<div class="col-xs-6 col-sm-3">
 									<b>Đơn Hàng</b>
 								</div>
@@ -126,6 +126,7 @@
 									<b>Phí Ship</b>
 								</div>
 							</div>
+							<b class="mobile">Đơn Hàng</b>
 						</div>
 						<div class="col-xs-6">
 							<b>Giao Hàng</b>
@@ -141,13 +142,12 @@
 							<div class="container">
 								<div class="row">
 									<div class="col-xs-6">
-										<div class="row">
+										<div class="row desktop">
 											<div class="col-xs-6 col-sm-3">
 												<a class="collapsed" data-toggle="collapse"
 													href="#order-${loop.index + 1}"
 													id="order-entity-${loop.index}" aria-expanded="false"
 													aria-controls="order-${loop.index}"> Đơn ${loop.index + 1}</a>
-
 											</div>
 											<div class="col-xs-6 col-sm-3">
 												<fmt:formatNumber type="number" maxFractionDigits="3"
@@ -158,9 +158,13 @@
 													value="${order.shipAmount}" />
 											</div>
 										</div>
+										<a class="collapsed mobile" data-toggle="collapse"
+													href="#order-${loop.index + 1}"
+													id="order-entity-${loop.index}" aria-expanded="false"
+													aria-controls="order-${loop.index}"> Đơn ${loop.index + 1}</a> </span>
 									</div>
 									<div class="col-xs-6">${order.dropoff.address}
-									<p id="alert-order-${loop.index}" style="color: red"></p>	
+										<p id="alert-order-${loop.index}" style="color: red"></p>	
 									</div>
 								</div>
 								
@@ -289,5 +293,22 @@
 <style>
 .borderless td, .borderless th {
 	border: none;
+}
+@media (min-width:771px) {
+    .desktop {
+         display:none;
+    }
+    .mobile {
+         display:block;
+    }
+}
+ 
+@media (min-width :770px)  {
+    .desktop {
+        display:block;
+    }
+    .mobile {
+        display:none;
+    }
 }
 </style>

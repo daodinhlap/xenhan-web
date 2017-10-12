@@ -135,6 +135,7 @@ $(function() {
 			//$(this).siblings('.panel-heading').removeClass('active');
 		});
 	}
+	
 });
 
 function collapse(id) {
@@ -180,8 +181,3 @@ function validate(i) {
 
 	}});
 }
-
-
-
-
-

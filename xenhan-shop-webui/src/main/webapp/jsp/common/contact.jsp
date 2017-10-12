@@ -13,7 +13,7 @@
 			</div>
 			<div class="col-xs-6">
 				<address>
-					<strong>Tại Hà Nội</strong><br> Số 19 Trúc Khê<br>Phường
+					<strong>Tại Hà Nội</strong><br>  Số 19 Trúc Khê<br>Phường
 					Láng Hạ, Quận Đống Đa<br> <abbr title="Phone">Hotline:</abbr>
 					0906.236.018 <br />
 					<abbr title="Phone">Điện Thoại:</abbr> 02471099710 <span

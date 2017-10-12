@@ -90,7 +90,7 @@ $(function() {
         source:[{value: 1, text: 'Nam'}, {value: 2, text: 'Nữ'}]
     });
 
-    $('#address').editable({mode:"inline",});
+    $('#address').editable({mode: "inline",  emptytext: '#'});
     
     $('#province').editable({
     	source: provinces,
