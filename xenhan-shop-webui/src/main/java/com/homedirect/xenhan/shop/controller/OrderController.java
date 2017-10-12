@@ -46,7 +46,7 @@ public class OrderController extends AbstractController {
   public Object history(@RequestBody PageOrderRequest request,
                          HttpServletRequest httpRequest) {
     logger.info("\n GET HISTORY: {}", JsonUtil.toJson(request));
-    request.setSize(2   0);
+    request.setSize(20);
     request.setPackageId(DEFAULT_PACKAGE_ID);
     request.setShopName((String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME));
     return getOrderHistory(httpRequest, request);
