@@ -60,12 +60,10 @@ function Form(){
     }
 }
 
-
 $(function() {
-    // $('#name').editable();
     $('#name').editable({
-        mode:"inline",
-        emptytext: '#',
+        emptytext: "#",
+        mode: "inline",
         validate: function(value) {
             if(value == '') return 'Xin Hãy Nhập Tên!';
         },
@@ -78,33 +76,41 @@ $(function() {
         }
     });
 
-    $('#email').editable({ mode:"inline", emptytext: '#'});
+    $('#email').editable({
+        mode: "inline",
+        emptytext : "#",
+        validate: function(value) {
+            if(!value) return 'Xin hãy nhập email';
+        }
+    });
     
     $('#gender').editable({
         mode:"inline",
         emptytext: '#',
         source:[{value: 1, text: 'Nam'}, {value: 2, text: 'Nữ'}]
     });
+
+    $('#address').editable({mode:"inline",});
     
-    $('#address').editable({ mode:"inline", emptytext: '#'});
-    // $('#province').editable({
-    // 	source: provinces,
-    // 	params: function(params) {
-    // 		provinces.forEach(function(entry) {
-    // 			if(params.value == entry.value) params.value = entry.text;
-    // 		});
-    // 		return params;
-    // 	},
-    // 	success: function(response, newValue) {
-    // 	    alert(newValue);
-    // 		$('#district').editable('option', 'source', districts[newValue]);
-    // 		$('#district').editable('setValue', null);
-    // 	}
-    // });
+    $('#province').editable({
+    	source: provinces,
+        savenochange: true,
+        emptytext : "#",
+    	params: function(params) {
+    		provinces.forEach(function(entry) {
+    			if(params.value == entry.value) params.value = entry.text;
+    		});
+    		return params;
+    	},
+    	success: function(response, newValue) {
+    		$('#district').editable('option', 'source', districts[newValue]);
+    		$('#district').editable('setValue', null);
+    	}
+    });
 
     var province = $('#province').attr("data-value");
     $('#district').editable({
-        mode:"inline",
+        mode: "inline",
         emptytext: '#',
         source: districts[province],
         params: function(params) {
@@ -114,34 +120,35 @@ $(function() {
             return params;
         }
     });
-    
-    $('#placeOfBirth').editable({mode:"inline", emptytext: '#'});
+
+    $('#placeOfBirth').editable({ mode: "inline", emptytext: "#"});
     
     $('#birthDay').editable({
-    	emptytext: '#',
-        format:"dd/mm/yyyy",
-        viewformat:"dd/mm/yyyy"
+        emptytext: "#",
+        format: "dd/mm/yyyy",
+        viewformat: "dd/mm/yyyy"
     });
     
-    $('#identityCard').editable({mode:"inline", emptytext: '#'});
+    $('#identityCard').editable({ mode: "inline", emptytext: "#"});
     
     $('#dateOfIdentity').editable({
-    	emptytext: '#',
-        format:"dd/mm/yyyy",
-        viewformat:"dd/mm/yyyy"
+        emptytext: "#",
+        format: "dd/mm/yyyy",
+        viewformat: "dd/mm/yyyy"
     });
-    $('#facebook').editable({mode:"inline", emptytext: '#'});
+    $('#facebook').editable({mode:"inline", emptytext:"#"});
 
     // SHOP PROFILE
     $('#shopName').editable({
-        mode:"inline",
+        mode: "inline",
         emptytext: '#',
         validate: function(value) {
             if(!value) return 'Xin hãy nhập Tên Shop';
         }
     }); // require
+    
     $('#shopAddress').editable({
-        mode:"inline",
+        mode: "inline",
         emptytext: '#',
         validate: function(value) {
             if(!value) return 'Xin hãy nhập địa chỉ Shop';
@@ -150,7 +157,7 @@ $(function() {
     
     var shopProvince = $('#shopProvince').attr("data-value");
     $('#shopDistrict').editable({
-        mode:"inline",
+        mode: "inline",
         emptytext: '#',
         source: districts[shopProvince],
         validate: function(value) {
@@ -159,16 +166,15 @@ $(function() {
     });// require
     
     $('#shopPhone').editable({
-        mode:"inline",
+        mode: "inline",
         emptytext: '#',
         validate: function(value) {
             if(!value) return 'Xin hãy nhập SĐT shop';
         }
     });// require
     
-    $('#shopEmail').editable({mode:"inline", emptytext: '#'});
-    
-    $('#shopWebsite').editable({mode:"inline", emptytext: '#'});
+    $('#shopEmail').editable({ mode:"inline", emptytext:"#",});
+    $('#shopWebsite').editable({ mode:"inline", emptytext:"#",});
 });
 
 $('#enable').click(function() {

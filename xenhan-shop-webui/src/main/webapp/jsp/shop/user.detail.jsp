@@ -95,7 +95,7 @@
 											  data-name="identity" data-pk="${user.user.phone}"
 											  data-original-title="Nơi Sinh"
 											  data-value="${user.userProfile.placeOfBirth}"
-											  class="editable editable-empty">${user.userProfile.placeOfBirth}</a></div>
+											  class="editable">${user.userProfile.placeOfBirth}</a></div>
 		</div>
 
 		<div class="form-group">

@@ -7,8 +7,8 @@
 		<div class="card" style="padding: 20px 0px;">
 			<p id="alert"></p>
 			<div class="ui centered small image" style="text-align: center">
-				<a target="_blank" href="https://xenhan.vn/"><img style="width: 150px;" src="/resources/images/app_logo_orange.png"></a>
-				<a target="_blank" href="https://mtop.vn/dang-nhap"><img style="width: 150px;" src="/resources/images/app_logo_mtop.png"></a>
+				<a target="_blank" href="https://xenhan.vn/">
+					<img style="width: 150px;" src="/resources/images/app_logo_orange.png"></a>
 			</div>
 
 			<h1 class="title center">CHÚC MỪNG BẠN ĐĂNG KÝ THÀNH CÔNG</h1>
