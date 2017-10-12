@@ -18,9 +18,9 @@
 			</div>
 		</c:when>
 		<c:otherwise>
-			<div class="form-group">
+			<div class="form-group" style="margin-top: -20px">
 				<div class="col-xs-4 col-md-4">
-					<label>Tên Shop: </label>
+					Tên Shop:
 				</div>
 				<div class="col-xs-8 col-md-8">
 					<%--<p>${shop.fullName}</p>--%>
@@ -35,7 +35,7 @@
 			<!-- ADDRESS -->
 			<div class="form-group">
 				<div class="col-xs-4 col-md-4">
-					<label>Địa chỉ:</label>
+					Địa chỉ:
 				</div>
 				<div class="col-xs-8 col-md-8">
 						<%--${shop.address}--%>
@@ -50,7 +50,7 @@
 
 			<div class="form-group">
 				<div class="col-xs-4 col-md-4">
-					<label>Tỉnh/Thành phố:</label>
+					Tỉnh/Thành phố:
 				</div>
 				<div class="col-xs-8 col-md-8">
 					<%--<p>${shop.town.name}</p>--%>
@@ -65,7 +65,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-xs-4 col-md-4">
-					<label>Quận/Huyện:</label>
+					Quận/Huyện:
 				</div>
 				<div class="col-xs-8 col-md-8">
 					<%--<p>${shop.town.district.name}</p>--%>
@@ -80,7 +80,7 @@
 
 			<div class="form-group">
 				<div class="col-xs-4 col-md-4">
-					<label>Số điện thoại:</label>
+					Số điện thoại:
 				</div>
 				<div class="col-xs-8 col-md-8">
 					<%--<p>${shop.phone}</p>--%>
@@ -95,7 +95,7 @@
 			<!-- EMAIL -->
 			<div class="form-group">
 				<div class="col-xs-4 col-md-4">
-					<label class="label-inline-88">Email:</label>
+					Email:
 				</div>
 				<div class="col-xs-8 col-md-8">
 					<%--<p>${shop.email}</p>--%>
@@ -110,7 +110,7 @@
 			<!-- Website -->
 			<div class="form-group">
 				<div class="col-xs-4 col-md-4">
-					<label class="label-inline-88">Website:</label>
+					Website:
 				</div>
 				<div class="col-xs-8 col-md-8">
 					<%--<p>${shop.website}</p>--%>

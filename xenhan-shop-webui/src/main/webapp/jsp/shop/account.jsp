@@ -17,7 +17,7 @@
 			<li><a data-toggle="tab" href="#menu2">Thông tin shop</a></li>
 		</ul>
 
-		<div class="tab-content">
+		<div class="tab-content" style="margin-top: 20px">
 			<div id="home" class="tab-pane fade in active">
 				<jsp:include page="user.detail.jsp"></jsp:include>
 			</div>
