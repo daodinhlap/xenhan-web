@@ -154,7 +154,7 @@ function buildTable(orderPage) {
                                         "<img src=\"/resources/images/icon_ngayketthuc_donhang.png\" class='img-icon'>"+ddMM(order.closedDate)+"</p>"+
                                     "<p><img src=\"/resources/images/icon_loai_donhang.png\" class='img-icon'>"+(order.cod? 'COD':'Ư.T')+"</p>"+
                                     "<p  title=\"Mã coupon khuyến mại\">" +
-                                        "<i class=\"fa fa-gift\" style='color: #eb7a25;'></i>"+(order.coupon? order.coupon:'')+"</p>"+
+                                        "<i class=\"fa fa-gift\" style='color: #eb7a25;'></i>&nbsp;&nbsp;"+(order.coupon? order.coupon:'')+" "+order.discount+"</p>"+
                                     "<p  title='Phí ship đã trừ mã giảm giá'>" +
                                          "<img src='/resources/images/icon_green_ship_amount.png' class='img-icon'>"+(currencyFormat(order.shipAmount))+"</p>"+
                                     "<p  title=\"Tiền hàng\">" +

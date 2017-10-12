@@ -129,7 +129,7 @@
 	<div class="form-group">
 		<label><i>Tiền giảm giá</i></label>
 		<span style="float: right"><i>&nbsp;đ</i></span>
-		<label id="couponAmount" style="float: right"></label>
+		<label id="couponAmount" style="float: right">${order.discount * -1}</label>
 	</div>
 
 	<div class="form-group">
@@ -156,6 +156,7 @@
 	<input type="hidden" id="order-id" value="${order.id}">
 	<input type="hidden" id="type" value="${type}">
 	<input type="hidden" id="type-des" value="${action}">
+	<input type="hidden" id="order-status" value="${order.status}">
 </div>
 
 </div>
