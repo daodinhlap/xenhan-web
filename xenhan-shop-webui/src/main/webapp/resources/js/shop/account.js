@@ -62,14 +62,14 @@ function Form(){
 
 
 
-$('.editable').editable('toggleDisabled');
-$('#enable').click(function() {
-       $('.editable').editable('toggleDisabled');
-});
- 
+// $('.editable').editable('toggleDisabled');
+// $('#enable-edit').click(function() {
+//        $('.editable').editable('toggleDisabled');
+// });
+//
 $(function() {
-    // $('#name').editable();
     $('#name').editable({
+        emptytext:"...",
         mode:"inline",
         validate: function(value) {
             if(value == '') return 'Xin Hãy Nhập Tên!';
@@ -83,26 +83,31 @@ $(function() {
         }
     });
 
-    $('#email').editable({mode:"inline",});
+    $('#email').editable({
+        mode:"inline",
+        validate: function(value) {
+            if(!value) return 'Xin hãy nhập email';
+        }
+    });
     $('#gender').editable({
         mode:"inline",
         source:[{value: 1, text: 'Nam'}, {value: 2, text: 'Nữ'}]
     });
     $('#address').editable({mode:"inline",});
-    // $('#province').editable({
-    // 	source: provinces,
-    // 	params: function(params) {
-    // 		provinces.forEach(function(entry) {
-    // 			if(params.value == entry.value) params.value = entry.text;
-    // 		});
-    // 		return params;
-    // 	},
-    // 	success: function(response, newValue) {
-    // 	    alert(newValue);
-    // 		$('#district').editable('option', 'source', districts[newValue]);
-    // 		$('#district').editable('setValue', null);
-    // 	}
-    // });
+    $('#province').editable({
+    	source: provinces,
+        savenochange: true,
+    	params: function(params) {
+    		provinces.forEach(function(entry) {
+    			if(params.value == entry.value) params.value = entry.text;
+    		});
+    		return params;
+    	},
+    	success: function(response, newValue) {
+    		$('#district').editable('option', 'source', districts[newValue]);
+    		$('#district').editable('setValue', null);
+    	}
+    });
 
     var province = $('#province').attr("data-value");
     $('#district').editable({
@@ -115,17 +120,19 @@ $(function() {
             return params;
         }
     });
-    $('#placeOfBirth').editable({mode:"inline",});
+    $('#placeOfBirth').editable({mode:"inline",emptytext:"...",});
     $('#birthDay').editable({
+        emptytext:"...",
         format:"dd/mm/yyyy",
         viewformat:"dd/mm/yyyy"
     });
-    $('#identityCard').editable({mode:"inline",});
+    $('#identityCard').editable({mode:"inline",emptytext:"...",});
     $('#dateOfIdentity').editable({
+        emptytext:"...",
         format:"dd/mm/yyyy",
         viewformat:"dd/mm/yyyy"
     });
-    $('#facebook').editable({mode:"inline",});
+    $('#facebook').editable({mode:"inline",emptytext:"...",});
 
     // SHOP PROFILE
     $('#shopName').editable({
@@ -154,6 +161,6 @@ $(function() {
             if(!value) return 'Xin hãy nhập SĐT shop';
         }
     });// require
-    $('#shopEmail').editable({mode:"inline",});
-    $('#shopWebsite').editable({mode:"inline",});
+    $('#shopEmail').editable({mode:"inline",emptytext:"...",});
+    $('#shopWebsite').editable({mode:"inline",emptytext:"...",});
 });

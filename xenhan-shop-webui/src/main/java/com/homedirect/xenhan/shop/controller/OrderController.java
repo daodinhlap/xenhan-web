@@ -137,18 +137,20 @@ public class OrderController extends AbstractController {
                       HttpServletRequest httpRequest,
                       HttpServletResponse httpResponse) throws Exception {
     PageOrderRequest request = JsonUtil.toObject(query, PageOrderRequest.class);
-    request.setSize(100);
+    request.setSize(50);
     request.setIndex(1);
     request.setPackageId(DEFAULT_PACKAGE_ID);
     request.setShopName((String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME));
     logger.info("\n EXPORT ORDER: {}\n", JsonUtil.toJson(request));
 
-    OrderExcelExport excelExport = new OrderExcelExport(getOrderHistory(httpRequest, request).getPageItems());
-
+    String fileName = "lich-su-don-hang";
+    fileName += "_tu_" + request.getFromDate();
+    fileName += "_den_" + request.getToDate();
     String headerKey = "Content-Disposition";
-    String headerValue = "attachment; filename=\"" + "lich-su-don-hang.xls" +"\"";
+    String headerValue = "attachment; filename=\"" + fileName + ".xls" +"\"";
     httpResponse.setContentType("application/vnd.ms-excel");
     httpResponse.setHeader(headerKey, headerValue);
+    OrderExcelExport excelExport = new OrderExcelExport(getOrderHistory(httpRequest, request).getPageItems());
     excelExport.export(httpResponse);
     httpResponse.getOutputStream().flush();
   }
