@@ -133,6 +133,7 @@ public class ShopController extends AbstractController {
         return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "province":
         userProfile.setProvince(value);
+        userProfile.setDistrict(null);
         return updateUser(httpRequest, httpResponse, userRecord).getBytes("utf8");
     case "district":
         userProfile.setDistrict(value);

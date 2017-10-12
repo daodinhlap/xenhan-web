@@ -66,6 +66,9 @@ function FormRegisterShop() {
 	}
 
 	this.validate = function() {
+        if (!this.name()) {
+            error.push({message:"Xin vui lòng nhập tên Shop", id: "name"});
+        }
         if (!this.phone()) {
             error.push({message:"Xin vui lòng nhập số điện thoại", id: "phone"});
         }

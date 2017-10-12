@@ -103,8 +103,21 @@ $(function() {
     		return params;
     	},
     	success: function(response, newValue) {
-    		$('#district').editable('option', 'source', districts[newValue]);
-    		$('#district').editable('setValue', null);
+    		// $('#district').editable('option', 'source', districts[newValue]);
+    		// $('#district').editable('setValue', null);
+            $('#district').editable("destroy");
+            $('#district').editable({
+                mode: "inline",
+                emptytext: '#',
+                source: districts[newValue],
+                params: function(params) {
+                    districts[newValue].forEach(function(entry) {
+                        if(params.value == entry.value) params.value = entry.text;
+                    });
+                    return params;
+                }
+            });
+            $('#district').editable('setValue', null);
     	}
     });
 

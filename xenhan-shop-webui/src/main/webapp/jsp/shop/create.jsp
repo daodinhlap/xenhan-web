@@ -15,7 +15,7 @@
 	</div>
 
     <div class="form-group">
-		<label>Tên shop</label>
+		<label>Tên shop<span style="color: red">*</span></label>
         <input placeholder="Tên Shop" type="text" class="form-control" id="name" value="${fullName}">
     </div>
 
