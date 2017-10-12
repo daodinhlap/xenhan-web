@@ -8,78 +8,87 @@
 <div class="col-md-8 col-md-offset-2 mobile-padding">
     <div class="container card" style="padding: 15px;">
     	<div class="center" style="margin-bottom: 20px">
-            <h2 class="page-header">DANH SÁCH ĐƠN HÀNG</h2><%--<i class="fa fa-filter" aria-hidden="true"></i>--%>
+            <h2 class="page-header">
+                <span>DANH SÁCH ĐƠN HÀNG</span>
+                <span><i id="btn-filter" class="fa fa-filter fa-lg" aria-hidden="true"
+                         data-toggle="tooltip" data-placement="bottom" title="Tìm kiếm đơn hàng"
+                         style=" color: #f3931f;cursor: pointer;"></i>
+                </span>
+            </h2>
 		</div>
-        <!-- FROM -->
-        <div class="col-md-3 col-xs-6 date-input">
-            <div class="form-group">
-                <div class="input-group date">
-                    <span style="padding: 4px" class="input-group-addon">Từ</span>
-                    <input placeholder="Ngày giờ bắt đầu" type="text" readonly="readonly"
-                        style="background-color:  #fff;" class="form-control pull-right"
-                        id="fromDate" name="fromDate">
+
+        <div id="filter-area" style="display: none">
+            <!-- FROM -->
+            <div class="col-md-3 col-xs-6 date-input">
+                <div class="form-group">
+                    <div class="input-group date">
+                        <span style="padding: 4px" class="input-group-addon">Từ</span>
+                        <input placeholder="Ngày giờ bắt đầu" type="text" readonly="readonly"
+                            style="background-color:  #fff;" class="form-control pull-right"
+                            id="fromDate" name="fromDate">
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- TO -->
-        <div class="col-md-3 col-xs-6 date-input">
-            <div class="form-group">
-                <div class="input-group date">
-                    <span style="padding: 4px" class="input-group-addon">Đến</span>
-                    <input placeholder="Ngày giờ kết thúc" type="text" readonly="readonly"
-                        style="background-color: #fff;" class="form-control pull-right"
-                       id="toDate" name="toDate">
+            <!-- TO -->
+            <div class="col-md-3 col-xs-6 date-input">
+                <div class="form-group">
+                    <div class="input-group date">
+                        <span style="padding: 4px" class="input-group-addon">Đến</span>
+                        <input placeholder="Ngày giờ kết thúc" type="text" readonly="readonly"
+                            style="background-color: #fff;" class="form-control pull-right"
+                           id="toDate" name="toDate">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- type view -->
-        <div class="col-md-2 col-xs-6 date-input">
-            <div class="form-group date">
-                <select id="typeOfView" class="form-control">
-                    <option value="0">Ngày tạo</option>
-                    <option value="1">Ngày kết thúc</option>
-                </select>
+            <!-- type view -->
+            <div class="col-md-2 col-xs-6 date-input">
+                <div class="form-group date">
+                    <select id="typeOfView" class="form-control">
+                        <option value="0">Ngày tạo</option>
+                        <option value="1">Ngày kết thúc</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <%--KEY WORD --%>
-        <div class="col-md-2 col-xs-6 date-input">
-            <div class="form-group">
-                <input class="form-control" type="text"
-                    placeholder="Số vận đơn, địa chỉ giao hàng, mã giảm giá, sđt nhận hàng, ghi chú"
-                    title="Số vận đơn, địa chỉ giao hàng, mã giảm giá, sđt nhận hàng, ghi chú"
-                   id="keyword">
+            <%--KEY WORD --%>
+            <div class="col-md-2 col-xs-6 date-input">
+                <div class="form-group">
+                    <input class="form-control" type="text"
+                        placeholder="Số vận đơn, địa chỉ giao hàng, mã giảm giá, sđt nhận hàng, ghi chú"
+                        title="Số vận đơn, địa chỉ giao hàng, mã giảm giá, sđt nhận hàng, ghi chú"
+                       id="keyword">
+                </div>
             </div>
-        </div>
 
-        <!-- STATUS -->
-        <div class="col-md-2 col-xs-6 date-input">
-            <div class="form-group date">
-                <select id="status" class="form-control">
-                    <option value="">Trạng thái</option>
-                    <option value="0">Tất cả</option>
-                    <option value="1">Chờ lấy hàng</option>
-                    <option value="2">Đang giao hàng</option>
-                    <option value="200">Đã giao hàng</option>
-                    <option value="4">Đang trả lại</option>
-                    <option value="400">Đã trả lại</option>
-                    <option value="5">Đã hủy</option>
-                </select>
+            <!-- STATUS -->
+            <div class="col-md-2 col-xs-6 date-input">
+                <div class="form-group date">
+                    <select id="status" class="form-control">
+                        <option value="">Trạng thái</option>
+                        <option value="0">Tất cả</option>
+                        <option value="1">Chờ lấy hàng</option>
+                        <option value="2">Đang giao hàng</option>
+                        <option value="200">Đã giao hàng</option>
+                        <option value="4">Đang trả lại</option>
+                        <option value="400">Đã trả lại</option>
+                        <option value="5">Đã hủy</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-12 col-xs-12">
-            <div class="button-container center">
-                <button class="btn btn-primary" onclick="getHistory()">
-                    <span>Tìm kiếm</span>
-                </button>
-                <%--<button class="btn btn-primary" onclick="reset()">--%>
-                    <%--<span>Đặt lại</span>--%>
-                <%--</button>--%>
-                <button class="btn btn-primary" onclick="exportHistory()">
-                    <span>Xuất Excel</span>
-                </button>
+            <div class="col-md-12 col-xs-12">
+                <div class="button-container center">
+                    <button class="btn btn-primary" onclick="getHistory()">
+                        <span>Tìm kiếm</span>
+                    </button>
+                    <%--<button class="btn btn-primary" onclick="reset()">--%>
+                        <%--<span>Đặt lại</span>--%>
+                    <%--</button>--%>
+                    <button class="btn btn-primary" onclick="exportHistory()">
+                        <span>Xuất Excel</span>
+                    </button>
+                </div>
             </div>
         </div>
 

@@ -21,6 +21,11 @@ $(document).ready(function($) {
 
     // get history
     getHistory();
+
+    //onclick btn filter
+    $('#btn-filter').click(() => {
+        $('#filter-area').toggle();
+    })
 });
 
 function getHistory(index){
@@ -150,12 +155,17 @@ function buildTable(orderPage) {
                                     "<p><img src=\"/resources/images/icon_loai_donhang.png\" class='img-icon'>"+(order.cod? 'COD':'Ư.T')+"</p>"+
                                     "<p  title=\"Mã coupon khuyến mại\">" +
                                         "<i class=\"fa fa-gift\" style='color: #eb7a25;'></i>"+(order.coupon? order.coupon:'')+"</p>"+
+                                    "<p  title='Phí ship đã trừ mã giảm giá'>" +
+                                         "<img src='/resources/images/icon_green_ship_amount.png' class='img-icon'>"+(currencyFormat(order.shipAmount))+"</p>"+
+                                    "<p  title=\"Tiền hàng\">" +
+                                           "<img src=\"/resources/images/icon_green_amount.png\" class='img-icon'>"+(currencyFormat(order.goodAmount))+"</p>"+
                                 "</div>"+
 
                                 "<div class='col-md-2'><i>Giao hàng:</i></div>"+
                                 "<div class='col-md-3 content-right'>" +
                                     "<p  title=\"Địa chỉ giao hàng\">" +
-                                         "<img src=\"/resources/images/icon_location.png\" class='img-icon'>"+order.dropoff.town.district.name + ", " + order.dropoff.town.name+"</p>"+
+                                         "<img src=\"/resources/images/icon_location.png\" class='img-icon'>"+
+                                            order.dropoff.address+ ", "+order.dropoff.town.district.name + ", " + order.dropoff.town.name+"</p>"+
                                     "<p   title=\"Tên khách hàng\">" +
                                         "<img src=\"/resources/images/icon_taikhoan.png\" class='img-icon'>"+order.dropoff.contact.name+"</p>"+
                                     "<p   title=\"SĐT khách hàng\">" +
@@ -168,15 +178,18 @@ function buildTable(orderPage) {
 
                             "</div>"+
 
-                            "<div class='row'>"+
-                                "<div class='col-md-2'><i>Thông tin tài xế:</i></div>"+
-                                "<div class='col-md-3 content-right'>"+
-                                    "<p   title=\"Tên tài xế\">" +
-                                         "<img src=\"/resources/images/icon_logo.png\" class='img-icon'>"+(order.shipper? order.shipper.fullName:'')+"</p>"+
-                                    "<p   title=\"SĐT tài xế\">" +
-                                        "<img src=\"/resources/images/icon_phone.png\" class='img-icon'>"+(order.shipper? order.shipper.phone:'')+"</p>"+
-                                "</div>"+
-                            "</div>"+
+                            (order.shipper ?
+                                "<div class='row'>" +
+                                    "<div class='col-md-2'><i>Thông tin tài xế:</i></div>" +
+                                    "<div class='col-md-3 content-right'>" +
+                                        "<p   title=\"Tên tài xế\">" +
+                                        "<img src=\"/resources/images/icon_logo.png\" class='img-icon'>" + ( order.shipper.fullName) + "</p>" +
+                                        "<p   title=\"SĐT tài xế\">" +
+                                        "<img src=\"/resources/images/icon_phone.png\" class='img-icon'>" + ( order.shipper.phone) + "</p>" +
+                                    "</div>" +
+                                "</div>" : ""
+                            ) +
+
                         "</div>"+
 
                         "<div class=\"modal-footer\">"+
@@ -186,7 +199,6 @@ function buildTable(orderPage) {
             "</div>"
         )
     });
-
     buildPagination(page);
 }
 
