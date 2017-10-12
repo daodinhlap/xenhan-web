@@ -102,8 +102,7 @@ public class ShopController extends AbstractController {
   }
   
   @PostMapping(value = "/sua-thong-tin-nguoi-dung")
-  public byte[] editProfile(@RequestParam(value = "pk", required = true) String pk,
-                            @RequestParam(value = "name", required = false) String name,
+  public byte[] editProfile(@RequestParam(value = "name", required = false) String name,
                             @RequestParam(value = "value", required = false) String value,
 //                            @RequestParam(value = "label", required = false) String label,
                             HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
@@ -159,8 +158,7 @@ public class ShopController extends AbstractController {
   }
 
   @PostMapping(value = "/sua-thong-tin-shop")
-  public byte[] editShop(@RequestParam(value = "pk", required = true) String pk,
-                          @RequestParam(value = "name", required = false) String name,
+  public byte[] editShop(@RequestParam(value = "name", required = false) String name,
                           @RequestParam(value = "value", required = false) String value,
                           HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
       if (StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "Không có dữ liệu".getBytes("utf8");

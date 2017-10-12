@@ -14,11 +14,14 @@ public class OrderValidateEntity {
   
   private String field;
   
-  private String value;
   
   private String message;
   
   private boolean error = false;
+  
+  private String fee = "0";
+  
+  private String couponValue = "0";
   
   public OrderValidateEntity() {
     
@@ -44,24 +47,16 @@ public class OrderValidateEntity {
     this.field = field;
   }
 
-  public String getValue() {
-    return value;
-  }
+  public String getFee() { return fee; }
+  public void setFee(String value) { this.fee = value; }
+  
+  public String getCouponValue() { return couponValue; }
+  public void setCouponValue(String couponValue) { this.couponValue = couponValue; }
 
-  public void setValue(String value) {
-    this.value = value;
-  }
-
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
-  }
+  public String getMessage() { return message; }
+  public void setMessage(String message) { this.message = message;  }
 
   public boolean getError() { return error;  }
   public void setError(boolean error) { this.error = error; }
-  
   
 }

@@ -52,7 +52,6 @@
 		<intercept-url pattern="/resources/*" access="permitAll" />
 
 		<intercept-url pattern="/shop/**" access="hasAnyRole('ROLE_USER')" />
-		<intercept-url pattern="/user/**" access="hasAnyRole('ROLE_USER')" />
 		<intercept-url pattern="/order/**" access="hasAnyRole('ROLE_USER')" />
 		<intercept-url pattern="/order-excel/**" access="hasAnyRole('ROLE_USER')" />
 		

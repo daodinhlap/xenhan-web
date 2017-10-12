@@ -4,17 +4,14 @@
 package com.homedirect.xenhan.shop.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,13 +35,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.homedirect.common.util.StringUtils;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.OrderValidateEntity;
 import com.homedirect.xenhan.model.Shop;
-import com.homedirect.xenhan.user.model.District;
 import com.homedirect.xenhan.user.model.OrderEntity;
 import com.homedirect.xenhan.voucher.Response;
 import com.homedirect.xenhan.web.util.OrderExcelUtil;
@@ -207,18 +202,24 @@ public class OrderExcelController extends AbstractController {
     OrderValidateEntity  validated = new OrderValidateEntity(new Long(index));
     List<OrderEntity> orders = (List<OrderEntity>)session.getAttribute(IMPORT_DATA);
     if(CollectionUtils.isEmpty(orders) 
-        || index == null || index.intValue() < 0 || index.intValue() >= orders.size()) return validated;
-    
+        || index == null || index.intValue() < 0 || index.intValue() >= orders.size())  return validated;
 
     Shop shop = getShopInfo(request);
     OrderEntity order = orders.get(index.intValue());
     
     util.validateProvince(shop, order, validated);
-    if(validated.getError()) return validated;
+    if(validated.getError()) {
+      util.calculateFree(request, order, validated, null);
+      return validated;
+    }
     
-    util.validateCoupon(request, order, validated);;
-    if(validated.getError()) return validated;
-
+    Response couponData = util.validateCoupon(request, order, validated);;
+    if(validated.getError()) {
+      util.calculateFree(request, order, validated, null);
+      return validated;
+    }
+    
+    util.calculateFree(request, order, validated, couponData);
     return validated;
   }
 

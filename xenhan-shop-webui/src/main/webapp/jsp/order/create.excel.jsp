@@ -251,12 +251,12 @@
 									</tr>
 									<tr>
 										<td>Tiền giảm giá*:</td>
-										<td><fmt:formatNumber type="number" maxFractionDigits="3"
+										<td id="coupon-value-${loop.index}"><fmt:formatNumber type="number" maxFractionDigits="3"
 												value="${order.refund}" /></td>
 									</tr>
 									<tr>
 										<td>Phí ship:</td>
-										<td><fmt:formatNumber type="number" maxFractionDigits="3"
+										<td id="fee-${loop.index}"><fmt:formatNumber type="number" maxFractionDigits="3"
 												value="${order.shipAmount}" /></td>
 									</tr>
 

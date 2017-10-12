@@ -29,28 +29,27 @@ public class AbstractController {
   @Autowired
   protected ApiExchangeService apiExchangeService;
 
-  private final static Logger logger = LoggerFactory.getLogger(AbstractController.class);
+//  private final static Logger logger = LoggerFactory.getLogger(AbstractController.class);
 
   public AbstractController() {
 
   }
-  
+
   protected Shop getShopInfo(HttpServletRequest httpRequest){
     Shop shop =(Shop) httpRequest.getSession().getAttribute(AttributeConfig.SHOP);
-    if(shop == null){
-      String shopName =(String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME);
-      String url = apiExchangeService.createUrlWithToken(httpRequest, "shop", "get-shop?shop-name=" + shopName);
-      RepositoryResponse<Shop> shopResponse = apiExchangeService.get(httpRequest, url, new TypeReference<RepositoryResponse<Shop>>(){});
+    if(shop != null) return shop;
+    String shopName =(String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME);
+    String url = apiExchangeService.createUrlWithToken(httpRequest, "shop", "get-shop?shop-name=" + shopName);
+    RepositoryResponse<Shop> shopResponse = apiExchangeService.get(httpRequest, url, new TypeReference<RepositoryResponse<Shop>>(){});
 
-      shop = shopResponse.getData();
-      httpRequest.getSession().setAttribute(AttributeConfig.SHOP, shopResponse.getData());
-      logger.info("\n GET SHOP INFO: {}", JsonUtil.toJson(shopResponse.getData()));
-    }
+    shop = shopResponse.getData();
+    httpRequest.getSession().setAttribute(AttributeConfig.SHOP, shopResponse.getData());
+    //      logger.info("\n GET SHOP INFO: {}", JsonUtil.toJson(shopResponse.getData()));
     return shop;
   }
 
 
-  
+
 
 
 }

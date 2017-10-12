@@ -5,6 +5,11 @@ package com.homedirect.xenhan.web.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +26,7 @@ import com.homedirect.xenhan.model.OrderValidateEntity;
 import com.homedirect.xenhan.model.Shop;
 import com.homedirect.xenhan.user.model.District;
 import com.homedirect.xenhan.user.model.OrderEntity;
+import com.homedirect.xenhan.user.model.Town;
 import com.homedirect.xenhan.voucher.Response;
 import com.homedirect.xenhan.web.connection.ApiExchangeService;
 
@@ -45,20 +51,68 @@ public class OrderExcelUtil {
     validated.setError(true);
   }
 
-  public void validateCoupon(HttpServletRequest request,
-                             OrderEntity order, OrderValidateEntity validated) {
-    if(StringUtils.isEmpty(order.getCoupon())) return;
+  public Response validateCoupon(HttpServletRequest request,
+                                 OrderEntity order, OrderValidateEntity validated) {
+    if(StringUtils.isEmpty(order.getCoupon())) return null;
+
     String url = apiExchangeService.createUrlWithToken(request, "coupon", "check-coupon-info?code=" + order.getCoupon());
     logger.info("url ---> "+ url);
     TypeReference<RepositoryResponse<Response>> reference = new TypeReference<RepositoryResponse<Response>>() {};
-    RepositoryResponse<Object> resp =  apiExchangeService.get(request, url, reference);
+    RepositoryResponse<Response> resp =  apiExchangeService.get(request, url, reference);
+
     if(resp.getData() == null) {
       validated.setField("coupon");
       validated.setMessage(resp.getMessage());
       validated.setError(true);
-      return;
+      return null;
     }
+
     logger.info("check coupon ----- > "+ resp.getData());
+    return resp.getData();
+  }
+
+  public void calculateFree(HttpServletRequest request,
+                            OrderEntity order, OrderValidateEntity validated, Response coupon) {
+    String url = createCalculateFeeURL(request, order);
+//    logger.info("url ---> "+ url);
+    TypeReference<RepositoryResponse<Double>> reference = new TypeReference<RepositoryResponse<Double>>() {};
+    Optional<Double> optional =  apiExchangeService.getForObject(request, url, reference);
+
+//    logger.info("---- > "+ apiExchangeService.get(request, url, reference));
+
+    double fee = optional.isPresent() ? optional.get().doubleValue() : 0d;
+    order.setShipAmount(fee);
+    DecimalFormat format = (DecimalFormat) NumberFormat.getNumberInstance(new Locale("vi", "vn"));
+    validated.setFee(format.format(fee));
+    if(coupon == null) return;
+
+    double couponValue =  0;
+    try {
+      couponValue = Double.parseDouble(coupon.getAmount().trim());
+    } catch (Exception e) {
+    }
+    if(couponValue > 0) fee -= couponValue;
+    fee = Math.max(0, fee);
+    order.setShipAmount(fee);
+    validated.setCouponValue(format.format(couponValue));
+    validated.setFee(format.format(fee));
+  }
+
+  private String createCalculateFeeURL(HttpServletRequest request, OrderEntity order) {
+    Town town = order.getDropoff().getTown();
+    String provinceName = town != null ? town.getName() : order.getShop().getTown().getName();
+    String districtName = town != null && town.getDistrict() != null ? town.getDistrict().getName() : order.getShop().getTown().getDistrict().getName();
+
+    StringBuilder builder = new StringBuilder("calculate-fee?province-name=");
+    builder.append(provinceName);
+    builder.append("&district-name=").append(districtName);
+    builder.append("&package-id=").append(order.getPackageId());
+    String url = apiExchangeService.createUrlWithToken(request, "order", builder.toString());
+    try {
+      return URLDecoder.decode(url, "utf8");
+    } catch (Exception e) {
+      return url;
+    }
   }
 
   public double toDouble(String value) {

@@ -168,6 +168,8 @@ function validate(i) {
 
 		$('#' + result.field + '-' + result.id).css({ 'color': 'red'});
 		$('#' + result.field + '-' + result.id).tooltipText = result.message;
+		$('#fee-' + result.id).text(result.fee);
+		$('#coupon-value-' + result.id).text(result.couponValue);
 
 		$('#order-entity-' + result.id).css({ 'color': 'red'});
 
