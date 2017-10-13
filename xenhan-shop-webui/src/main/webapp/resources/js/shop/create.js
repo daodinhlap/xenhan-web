@@ -21,8 +21,8 @@ function registerShop() {
 		if (data != 'done') {
 			error.push({message: data, id: "alert"});
 			return;
-		} 
-		window.location.replace('/');
+		}
+        noti.ok("Chúc mừng","Bạn đã đăng ký Shop thành công", function () { goHome(); })
 	}).fail(function(data) {
 		console.log(data);
 		noti.fail("Thông báo!","Đăng ký không thành công. Vui lòng thử lại sau", function() { reload() });
