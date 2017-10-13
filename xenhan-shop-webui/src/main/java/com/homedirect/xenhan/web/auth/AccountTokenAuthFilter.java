@@ -17,6 +17,7 @@ public class AccountTokenAuthFilter extends UsernamePasswordAuthenticationFilter
   protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                           FilterChain chain, Authentication authResult)
                                               throws IOException, ServletException {
+    request.getSession().removeAttribute("error");
     super.successfulAuthentication(request, response, chain, authResult);
   }
 
