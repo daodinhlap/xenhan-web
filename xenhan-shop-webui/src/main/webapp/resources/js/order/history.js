@@ -61,8 +61,8 @@ function getHistory(index){
 
 function exportHistory(){
     var request = "";
-    request += "?fromDate="+yyyy_mm_dd(request.fromDate, "begin");
-    request += "&toDate="+yyyy_mm_dd(request.toDate, "end");
+    request += "?fromDate="+yyyy_mm_dd(form.fromDate(), "begin");
+    request += "&toDate="+yyyy_mm_dd(form.toDate(), "end");
     request += "&keyword="+form.keyword();
     request += "&status="+form.status();
     request += "&typeOfView="+form.typeOfView();

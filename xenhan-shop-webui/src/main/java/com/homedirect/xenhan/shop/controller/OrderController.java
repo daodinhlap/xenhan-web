@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -138,7 +139,7 @@ public class OrderController extends AbstractController {
   public void export(@RequestParam(value = "fromDate") String fromDate,
                      @RequestParam(value = "toDate") String toDate,
                      @RequestParam(value = "keyword") String keyword,
-                     @RequestParam(value = "status") int status,
+                     @RequestParam(value = "status") String status,
                      @RequestParam(value = "typeOfView") int typeOfView,
                       HttpServletRequest httpRequest,
                       HttpServletResponse httpResponse) throws Exception {
@@ -146,7 +147,7 @@ public class OrderController extends AbstractController {
     request.setFromDate(fromDate);
     request.setToDate(toDate);
     request.setKeyword(keyword);
-    request.setSize(status);
+    request.setStatus(StringUtils.isEmpty(status)? 0: Integer.valueOf(status));
     request.setTypeOfView(typeOfView);
     request.setSize(50);
     request.setIndex(1);
