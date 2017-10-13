@@ -75,7 +75,7 @@ function create() {
         console.log(data);
         if(data.code != ErrorCode.SUCCESS){
             // noti.error([{id:"alert", message: data.message}]);
-            noti.fail("Tạo đơn không thành công", data.message, function(){reload()});
+            noti.fail("Tạo đơn không thành công", data.message, function(){});
             return;
         }
         noti.confirm(form.typeDes() + " thành công. Bạn muốn tạo thêm đơn?", function(result) {
