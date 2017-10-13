@@ -41,6 +41,7 @@ $(function() {
 			mode: "inline",
 			emptytext: '...'
 		});
+		
 		$('#coupon-' + i).editable({
 			title: 'Mã Giảm Giá',
 			mode: "inline",
@@ -111,6 +112,10 @@ $(function() {
 					//console.log(entry.value + ' : '+ entry.text);
 				});
 				return params;
+			},
+			success: function(response, newValue) {
+				var index = getIndex(this.id);
+				validate(index);
 			}
 		});
 
@@ -154,22 +159,24 @@ function getIndex(text) {
 function validate(i) {
 	$.ajax({url: "/order-excel/kiem-tra-du-lieu?index=" + i, success: function(result) {
 		if(result == null) return;
-
+		
+		$('#fee-' + result.id).text(result.fee);
+		$('#coupon-value-' + result.id).text(result.couponValue);
+		
 		if(!result.error) {
 			$('#save-' + result.id).attr('disabled', false);
 			$('#order-entity-' + result.id).css({ 'color': 'black'});
 			$('#alert-order-' + result.id).text('');
 			$('#save-' + result.id).attr('href', '/order-excel/luu-don-tu-excel?index=' + result.id);
+			
 
 			$('#save-all').attr('disabled', false);
 			$('#save-all').attr('href', '/order-excel/luu-het');
 			return;
 		}
-
+		
 		$('#' + result.field + '-' + result.id).css({ 'color': 'red'});
 		$('#' + result.field + '-' + result.id).tooltipText = result.message;
-		$('#fee-' + result.id).text(result.fee);
-		$('#coupon-value-' + result.id).text(result.couponValue);
 
 		$('#order-entity-' + result.id).css({ 'color': 'red'});
 

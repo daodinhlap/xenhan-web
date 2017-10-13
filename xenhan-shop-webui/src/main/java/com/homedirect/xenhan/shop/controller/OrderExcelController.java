@@ -88,6 +88,8 @@ public class OrderExcelController extends AbstractController {
       HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<LinkedMultiValueMap<String, Object>>(map, headers);
       ParameterizedTypeReference<RepositoryResponse<List<OrderEntity>>> reference = new ParameterizedTypeReference<RepositoryResponse<List<OrderEntity>>>() {};
       String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "read-order-excel");
+      
+      logger.info("Upload url ---> "+ url);
 
       ResponseEntity<RepositoryResponse<List<OrderEntity>>> resp = 
           apiExchangeService.getTemplate().exchange(url, HttpMethod.POST, requestEntity, reference);
