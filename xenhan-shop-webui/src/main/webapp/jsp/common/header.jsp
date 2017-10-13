@@ -60,7 +60,7 @@
 							src="/resources/images/m-icon-profile.png"><span>Tài
 								khoản</span></a></li>
 				</c:if>
-				<li><a href="#"><img
+				<li><a href="/lien-he"><img
 						src="/resources/images/m-icon-support.png"><span>Liên
 							hệ</span></a></li>
 				<li><a href="/dang-xuat"><img

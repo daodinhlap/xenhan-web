@@ -227,7 +227,7 @@
 										<td colspan="2" align="left"><b>Tiền hàng</b></td>
 									</tr>
 									<tr>
-										<td width="40%">Loại đơn *:</td>
+										<td width="40%">Loại đơn*:</td>
 										<td><a href="#" id="type-${loop.index}"
 											data-type="select" data-url="/order-excel/sua-don-tu-excel"
 											data-value="${order.COD ? '1' : '2'}" data-name="type"
@@ -250,7 +250,7 @@
 											data-pk="${loop.index}">${order.coupon}</a></td>
 									</tr>
 									<tr>
-										<td>Tiền giảm giá*:</td>
+										<td>Tiền giảm giá:</td>
 										<td id="coupon-value-${loop.index}"><fmt:formatNumber type="number" maxFractionDigits="3"
 												value="${order.refund}" /></td>
 									</tr>

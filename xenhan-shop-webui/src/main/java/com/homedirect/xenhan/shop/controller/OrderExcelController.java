@@ -182,7 +182,7 @@ public class OrderExcelController extends AbstractController {
     name = name.trim();
     value = value.trim();
 
-    logger.info("----> "+ pk + " name: " + name + " value:" + value);
+    //logger.info("----> "+ pk + " name: " + name + " value:" + value);
 
     try {
       OrderEntity entity = orders.get(pk);
