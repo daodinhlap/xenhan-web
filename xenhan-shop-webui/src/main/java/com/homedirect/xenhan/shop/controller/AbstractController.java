@@ -36,7 +36,7 @@ public class AbstractController {
   }
 
   protected Shop getShopInfo(HttpServletRequest httpRequest){
-    Shop shop =(Shop) httpRequest.getSession().getAttribute(AttributeConfig.SHOP);
+    Shop shop = (Shop) httpRequest.getSession().getAttribute(AttributeConfig.SHOP);
     if(shop != null) return shop;
     String shopName =(String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME);
     String url = apiExchangeService.createUrlWithToken(httpRequest, "shop", "get-shop?shop-name=" + shopName);

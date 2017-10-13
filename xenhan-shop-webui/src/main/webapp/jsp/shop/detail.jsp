@@ -51,11 +51,10 @@
 				<div class="col-xs-8 col-md-8">
 					<%--<p>${shop.town.name}</p>--%>
 					<a href="#" id="shopProvince"
-						data-source="[{value: 1, text: 'Hà Nội'},{value: 2, text: 'Hồ Chí Minh'}]"
 						data-type="select" data-url="/shop/sua-thong-tin-shop"
 						data-name="shopProvince" data-pk="${shop.shopName}"
 						data-original-title="Tỉnh/TP" data-value="${shop.town.id}"
-						class="editable editable-empty">${shop.town.name}</a>
+						class="editable editable-empty">${shop.town.id == 1? "Hà Nội":"Hồ Chí Minh"}</a>
 				</div>
 			</div>
 			<div class="form-group">

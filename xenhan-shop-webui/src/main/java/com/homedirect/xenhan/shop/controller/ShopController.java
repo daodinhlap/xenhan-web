@@ -1,6 +1,7 @@
 package com.homedirect.xenhan.shop.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.homedirect.common.model.Page;
 import com.homedirect.common.util.StringUtils;
 import com.homedirect.repo.batch.model.UserRecord;
 import com.homedirect.repo.model.User;
@@ -9,6 +10,7 @@ import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.Shop;
 import com.homedirect.xenhan.model.common.response.UserDetailEntity;
+import com.homedirect.xenhan.user.model.OrderEntity;
 import com.homedirect.xenhan.util.DateUtil;
 import com.homedirect.xenhan.util.JsonUtil;
 import org.slf4j.Logger;
@@ -32,6 +34,8 @@ import java.io.UnsupportedEncodingException;
 public class ShopController extends AbstractController {
 
   private final static Logger logger = LoggerFactory.getLogger(ShopController.class);
+  private final static int DEFAULT_DISTRICT_ID_HN = 1;
+  private final static int DEFAULT_DISTRICT_ID_HCM = 31;
 
   /* CREATE Shop */
   @GetMapping(value = "/tao-shop")
@@ -176,6 +180,8 @@ public class ShopController extends AbstractController {
       return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
     case "shopProvince":
       shop.getTown().setId(Long.valueOf(value));
+      int defaultId = Long.valueOf(value) == 1? DEFAULT_DISTRICT_ID_HN : DEFAULT_DISTRICT_ID_HCM;
+      shop.getTown().getDistrict().setId(defaultId);
       return updateShop(httpRequest, httpResponse, shop).getBytes("utf8");
     case "shopDistrict":
       shop.getTown().getDistrict().setId(Long.valueOf(value));
@@ -208,13 +214,15 @@ public class ShopController extends AbstractController {
 
   private String updateShop(HttpServletRequest httpRequest, HttpServletResponse httpResponse, Shop shop) {
     String url = apiExchangeService.createUrlWithToken(httpRequest, "shop", "update-shop-profile");
-    ResponseEntity<RepositoryResponse<Object>> resp = apiExchangeService.post(httpRequest, url, shop);
+      TypeReference<RepositoryResponse<Shop>> reference = new TypeReference<RepositoryResponse<Shop>>() {};
+    ResponseEntity<RepositoryResponse<Shop>> resp = apiExchangeService.post(httpRequest, url, shop, reference);
 
     logger.info("--- response " + resp.getStatusCodeValue() + " : "+ resp.getBody().getMessage());
     if(apiExchangeService.isUnSuccessResponse(resp.getBody())) {
       httpResponse.setStatus(HttpStatus.SERVICE_UNAVAILABLE.ordinal());
       return resp.getBody().getMessage();
     }
+    httpRequest.getSession().setAttribute(AttributeConfig.SHOP, resp.getBody().getData());
     return "done";
   }
 

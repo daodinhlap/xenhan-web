@@ -167,6 +167,17 @@ $(function() {
             if(!value) return 'Xin hãy nhập địa chỉ Shop';
         }
     });// require
+    $('#shopProvince').editable({
+        source: provinces,
+        emptytext : "...",
+        success: function(response, newValue) {
+            $('#shopDistrict').editable('option', 'source', districts[newValue]);
+            $('#shopDistrict').editable('setValue', null);
+        },
+        validate: function(value) {
+            if(!value) return 'Xin hãy nhập Tỉnh/TP';
+        }
+    });
     
     var shopProvince = $('#shopProvince').attr("data-value");
     $('#shopDistrict').editable({

@@ -28,6 +28,32 @@ $(document).ready(function() {
         onChangeAmount();
     });
 
+    // check condition
+    var orderStatus = $('#order-status').val();
+    var isCOD = form.cod();
+
+    if( orderStatus >= 200 && orderStatus < 300){
+        $('#cod').attr("disabled", 'disabled');
+    }
+    if(isCOD == "false" && ( orderStatus >= 200 && orderStatus < 300)){
+        $('#address').attr("disabled", 'disabled');
+        $('#province').attr("disabled", 'disabled');
+        $('#district').attr("disabled", 'disabled');
+        $('#amount').attr("disabled", 'disabled');
+        $('#coupon').attr("disabled", 'disabled');
+    }
+    if(orderStatus >= 400 && orderStatus < 600){
+        $('#address').attr("disabled", 'disabled');
+        $('#province').attr("disabled", 'disabled');
+        $('#district').attr("disabled", 'disabled');
+        $('#amount').attr("disabled", 'disabled');
+        $('#coupon').attr("disabled", 'disabled');
+
+        $('#userName').attr("disabled", 'disabled');
+        $('#phone').attr("disabled", 'disabled');
+        $('#note').attr("disabled", 'disabled');
+    }
+
 });
 function onChangeAmount() {
     buildText();
@@ -135,9 +161,8 @@ function buildText(){
     var actionText = '';
 
     var amount = form.amount() ? form.amount(): 0;
-    var shipAmount = form.shipAmount()? form.shipAmount(): 0;
     var coupon = form.couponAmount() ? form.couponAmount(): 0;
-    var total = amount - (shipAmount - coupon);
+    var total = amount - (originalShipAmount - coupon);
 
     if(form.cod() == 'true'){
         goodAmountText = "Tiền thu hộ";
@@ -147,7 +172,7 @@ function buildText(){
         goodAmountText = "Tiền hàng";
         actionText = total > 0 ? "Xe Nhàn trả Shop" : "Shop trả Xe nhàn";
     }
-    form.setShipAmount(currencyFormat(shipAmount - coupon));
+    form.setShipAmount(currencyFormat(originalShipAmount - coupon));
     $('#amount-text').text(goodAmountText);
     $('#action').text(actionText);
     $('#totalAmount').text(currencyFormat(Math.abs(total)));
