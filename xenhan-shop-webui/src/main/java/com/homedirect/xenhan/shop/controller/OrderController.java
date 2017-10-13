@@ -135,10 +135,19 @@ public class OrderController extends AbstractController {
   }
 
   @GetMapping(value = "/export")
-  public void export(@RequestParam(value = "query") String query,
+  public void export(@RequestParam(value = "fromDate") String fromDate,
+                     @RequestParam(value = "toDate") String toDate,
+                     @RequestParam(value = "keyword") String keyword,
+                     @RequestParam(value = "status") int status,
+                     @RequestParam(value = "typeOfView") int typeOfView,
                       HttpServletRequest httpRequest,
                       HttpServletResponse httpResponse) throws Exception {
-    PageOrderRequest request = JsonUtil.toObject(query, PageOrderRequest.class);
+    PageOrderRequest request = new PageOrderRequest();
+    request.setFromDate(fromDate);
+    request.setToDate(toDate);
+    request.setKeyword(keyword);
+    request.setSize(status);
+    request.setTypeOfView(typeOfView);
     request.setSize(50);
     request.setIndex(1);
     request.setPackageId(DEFAULT_PACKAGE_ID);

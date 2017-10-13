@@ -60,11 +60,13 @@ function getHistory(index){
 }
 
 function exportHistory(){
-    var request = form.getRequest();
-    request.fromDate = yyyy_mm_dd(request.fromDate, "begin");
-    request.toDate = yyyy_mm_dd(request.toDate, "end");
-
-    window.location.href = URL_EXPORT+ "?query=" + JSON.stringify(request);
+    var request = "";
+    request += "?fromDate="+yyyy_mm_dd(request.fromDate, "begin");
+    request += "&toDate="+yyyy_mm_dd(request.toDate, "end");
+    request += "&keyword="+form.keyword();
+    request += "&status="+form.status();
+    request += "&typeOfView="+form.typeOfView();
+    window.location.href = URL_EXPORT + request;
 }
 
 function getTotal(request) {
