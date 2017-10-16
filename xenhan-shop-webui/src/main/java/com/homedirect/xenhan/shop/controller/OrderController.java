@@ -1,36 +1,26 @@
 package com.homedirect.xenhan.shop.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.homedirect.common.model.Page;
 import com.homedirect.repo.model.response.RepositoryResponse;
-import com.homedirect.xenhan.model.AttributeConfig;
-import com.homedirect.xenhan.model.Order;
-import com.homedirect.xenhan.model.OrderStatus;
-import com.homedirect.xenhan.model.Shop;
+import com.homedirect.xenhan.model.*;
 import com.homedirect.xenhan.user.model.OrderEntity;
 import com.homedirect.xenhan.user.model.request.OrderRequest;
 import com.homedirect.xenhan.user.model.request.PageOrderRequest;
 import com.homedirect.xenhan.user.model.response.JobHistoryEntity;
 import com.homedirect.xenhan.util.JsonUtil;
 import com.homedirect.xenhan.web.util.OrderExcelExport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/order")
@@ -172,6 +162,16 @@ public class OrderController extends AbstractController {
     TypeReference<RepositoryResponse<Page<OrderEntity>>> reference = new TypeReference<RepositoryResponse<Page<OrderEntity>>>() {};
     ResponseEntity<RepositoryResponse<Page<OrderEntity>>> ordersResponse =  apiExchangeService.post(httpRequest, url, request, reference);
     return ordersResponse.getBody().getData();
+  }
+
+  @GetMapping(value = "/history")
+  public RepositoryResponse<?> getHistory (@RequestParam(name="order-id", required = true) long orderId,
+                                          @RequestParam(name="action", required = true) String action,
+                                       HttpServletRequest httpRequest) {
+
+    String url = apiExchangeService.createUrlWithToken(httpRequest,"order", "get-order-history");
+    url += "&order-id="+ orderId + "&action=" + action;
+    return apiExchangeService.get(httpRequest, url, new TypeReference<RepositoryResponse<OrderHistory>>(){});
   }
 
 }
