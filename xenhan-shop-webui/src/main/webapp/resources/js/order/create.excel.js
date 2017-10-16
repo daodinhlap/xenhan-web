@@ -41,6 +41,7 @@ $(function() {
 			mode: "inline",
 			emptytext: '...'
 		});
+		
 		$('#coupon-' + i).editable({
 			title: 'Mã Giảm Giá',
 			mode: "inline",
@@ -88,7 +89,8 @@ $(function() {
 			success: function(response, newValue) {
 				var index = getIndex(this.id);
 				$('#district-' + index).editable('option', 'source', districts[newValue]);
-				$('#district-' + index).editable('setValue', null);
+				var mapIter = districts[newValue].entries();
+				$('#district-' + index).editable('setValue', mapIter.next().value[1].value);
 				$('#province-' + index).css({ 'color': 'black'});
 				validate(index);
 			}
@@ -111,6 +113,10 @@ $(function() {
 					//console.log(entry.value + ' : '+ entry.text);
 				});
 				return params;
+			},
+			success: function(response, newValue) {
+				var index = getIndex(this.id);
+				validate(index);
 			}
 		});
 
@@ -154,22 +160,22 @@ function getIndex(text) {
 function validate(i) {
 	$.ajax({url: "/order-excel/kiem-tra-du-lieu?index=" + i, success: function(result) {
 		if(result == null) return;
-
+		
+		$('#fee-' + result.id).text(result.fee);
+		$('#coupon-value-' + result.id).text(result.couponValue);
+		
 		if(!result.error) {
 			$('#save-' + result.id).attr('disabled', false);
 			$('#order-entity-' + result.id).css({ 'color': 'black'});
 			$('#alert-order-' + result.id).text('');
 			$('#save-' + result.id).attr('href', '/order-excel/luu-don-tu-excel?index=' + result.id);
-
-			$('#save-all').attr('disabled', false);
-			$('#save-all').attr('href', '/order-excel/luu-het');
+			
+			disableSaveAll();
 			return;
 		}
-
+		
 		$('#' + result.field + '-' + result.id).css({ 'color': 'red'});
 		$('#' + result.field + '-' + result.id).tooltipText = result.message;
-		$('#fee-' + result.id).text(result.fee);
-		$('#coupon-value-' + result.id).text(result.couponValue);
 
 		$('#order-entity-' + result.id).css({ 'color': 'red'});
 
@@ -178,8 +184,20 @@ function validate(i) {
 
 		$('#alert-order-' + result.id).text(result.message);
 
-		$('#save-all').attr('disabled', true);
-		$('#save-all').attr('href', '#');
-
+		disableSaveAll();
 	}});
+}
+
+function disableSaveAll() {
+	var numberOfOrder = $('#number-of-order').prop('value');
+	var errorColor = 'rgb(255, 0, 0)';
+	for (i = 0; i < numberOfOrder; ++i) {
+		if($('#order-entity-' + i).css('color') != errorColor) continue;
+		$('#save-all').attr('disabled', true);
+		$('#save-all').attr('href', '#');	
+		return;
+	}
+
+	$('#save-all').attr('disabled', false);
+	$('#save-all').attr('href', '/order-excel/luu-het');
 }

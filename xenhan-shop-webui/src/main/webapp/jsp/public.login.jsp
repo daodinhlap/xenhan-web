@@ -13,7 +13,8 @@
 		<h4 class="title">Đăng Nhập</h4>
 		<c:choose>
 			<c:when test="${not empty error}">
-				<div class="input-container" style="color: red">
+				<div class="input-container" style="color: red;
+					 margin-left: 15px; margin-right: 10px; margin-bottom: 10px">
 					<c:out value="${error}" />
 				</div>
 			</c:when>

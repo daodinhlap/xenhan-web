@@ -52,6 +52,7 @@ public class HomeController extends AbstractController {
 //    ModelAndView mv = new ModelAndView("home");
 //    mv.addObject("title", "Xe Nhàn - Shop");
 //    return mv;
+    session.removeAttribute("error");
     return new ModelAndView("redirect:/order/lich-su");
   }
 
