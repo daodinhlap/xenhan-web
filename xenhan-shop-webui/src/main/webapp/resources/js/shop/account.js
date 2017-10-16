@@ -93,6 +93,7 @@ $(function() {
     $('#address').editable({mode: "inline",  emptytext: '...'});
     
     $('#province').editable({
+        mode:"inline",
     	source: provinces,
         savenochange: true,
         emptytext : "...",
@@ -168,6 +169,7 @@ $(function() {
         }
     });// require
     $('#shopProvince').editable({
+        mode:"inline",
         source: provinces,
         emptytext : "...",
         success: function(response, newValue) {
