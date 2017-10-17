@@ -12,6 +12,7 @@ import com.homedirect.xenhan.util.JsonUtil;
 import com.homedirect.xenhan.web.util.OrderExcelExport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -25,6 +26,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/order")
 public class OrderController extends AbstractController {
+
+private @Autowired OrderExcelExport orderExcelExport;
   
   private final static Logger logger = LoggerFactory.getLogger(OrderController.class);
   
@@ -152,8 +155,7 @@ public class OrderController extends AbstractController {
     String headerValue = "attachment; filename=\"" + fileName + ".xls" +"\"";
     httpResponse.setContentType("application/vnd.ms-excel");
     httpResponse.setHeader(headerKey, headerValue);
-    OrderExcelExport excelExport = new OrderExcelExport(getOrderHistory(httpRequest, request).getPageItems());
-    excelExport.export(httpResponse);
+    orderExcelExport.export(httpRequest, httpResponse, getOrderHistory(httpRequest, request).getPageItems());
     httpResponse.getOutputStream().flush();
   }
 

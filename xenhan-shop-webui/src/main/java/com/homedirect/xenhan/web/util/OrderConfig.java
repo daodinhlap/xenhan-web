@@ -53,6 +53,10 @@ public class OrderConfig {
   public static final int STATUS_501 = 501;
   public static final int STATUS_502 = 502;
 
+  // undefine
+  public static final int STATUS_600 = 600;
+  public static final int STATUS_1000 = 1000;
+
   public static String getOrderStatusDetailString(int status) {
     if (status < 100) return "Tìm Ship";
     if(status >= 100 && status < 200)
