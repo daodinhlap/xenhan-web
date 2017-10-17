@@ -69,33 +69,7 @@ var districts = {
 
 
 var images = {
-		account:"icon-taikhoan",
-		clearing:"icon-butru",
-		recharge:"icon-naptien",
-		transfer:"icon-chuyentien",
-		history:"icon-lichsu",
-		telcoCard:"icon-muathe",
-		topupTelco:"icon-napthe",
-		gameCard:"icon-muathegame",
-		topupGame:"icon-napgame",
-		deposit:"icon-naptienbank",
-		withRaw:"icon-ruttien",
-		
-		viettel:"viettel",
-		vinaphone:"vinaphone",
-		mobifone:"mobifone",
-		vnm:"vnm",
-		gmobile:"g-mobile",
-		vcoin:"vcoin",
-		gate:"gate",
-		zingxu:"zing-xu",
-		bit:"bit",
-		garena:"garena",
-		oncash:"oncash",
-		megacard:"megacard",
-		vmsdata:"vmsdata",
-		vcard:"vcard"
-	
+		account:"icon-taikhoan"
 }
 
 
@@ -110,27 +84,7 @@ $( document ).ready(function() {
     if(path.indexOf("/tai-khoan/sao-ke") != -1){
     	setHighlight(menu,".lichsu",images.history);
     }
-    if(path.indexOf("/giao-dich/chuyen-tien") != -1){
-    	setHighlight(menu,".chuyentien",images.transfer);
-    }
-    if(path.indexOf("/giao-dich/nap-tien-bang-the-cao") != -1){
-    	setHighlight(menu,".naptien",images.recharge);
-    }
-    if(path.indexOf("/giao-dich/mua-ma-the-dien-thoai") != -1){
-    	setHighlight(menu,".muathedt",images.telcoCard);
-    }
-    if(path.indexOf("/giao-dich/mua-ma-the-game") != -1){
-    	setHighlight(menu,".muathegame",images.gameCard);
-    }
-    if(path.indexOf("/giao-dich/rut-tien") != -1){
-    	setHighlight(menu,".ruttien",images.withRaw);
-    }
-    if(path.indexOf("/giao-dich/nap-dien-thoai") != -1){
-    	setHighlight(menu,".napdienthoai",images.topupTelco);
-    }
-    if(path.indexOf("/giao-dich/nap-tai-khoan-game") != -1){
-    	setHighlight(menu,".naptkgame",images.topupGame);
-    }
+
 	// handler tooltip
 	$('[data-toggle="tooltip"]').tooltip(); 
 });
@@ -147,20 +101,6 @@ function setHighlight(li,className,image){
 // 		return pathImage + images.viettel + ext; break;
 // 	}
 // }
-
-function setCookie(name,value,days) {
-	if (days) {
-		var date = new Date();
-		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-		var expires = "; expires=" + date.toGMTString();
-	} else
-		var expires = "";
-	document.cookie = name + "=" + value + expires + "; path=/";
-}
-
-function eraseCookie(name) {
-	setCookie(name, "", -1);
-}
 
 function validatePhone(phone) {
 	var re = /^[0-9]{8,15}$/;

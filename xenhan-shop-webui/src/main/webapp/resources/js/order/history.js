@@ -129,13 +129,17 @@ function buildTable(orderPage) {
         var trigger = "data-toggle='modal' data-target='#modal-"+ order.id +"'";
         table.append(
             $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
-                .append($("<td align=\"left\">").append($("<input type='checkbox' onclick='check($(this),"+ order.id+")'>")))
-                .append($("<td "+trigger+" align=\"left\" class='order-"+corlorStatus(order.status)+"'>"+order.id+"</td>"))
+                .append($("<td align=\"left\">").append($("<input type='checkbox' onclick='check($(this),"+ order.id +")'>")))
+                .append($("<td style='font-weight: bold;' "+trigger+" align=\"left\" class='order-"+corlorStatus(order.status)+"'>"+order.id+"</td>"))
                 .append($("<td "+trigger+" align=\"left\">"+ddMM(order.createdDate)+"</td>"))
                 .append($("<td "+trigger+" align=\"left\">"+ddMM(order.closedDate)+"</td>"))
                 .append($("<td "+trigger+" align=\"left\">"+order.dropoff.address+"</td>"))
                 .append($("<td "+trigger+" align=\"right\">"+currencyFormat(order.goodAmount)+"</td>"))
-                .append($("<td "+trigger+" align=\"right\">"+currencyFormat(order.shipAmount)+"</td>"))
+                .append(
+                    $("<td "+trigger+" align=\"right\">"+currencyFormat(order.shipAmount)+
+                        ((order.discount*(-1) <= 0)? '': "&nbsp;<i class='fa fa-gift' style='color: #eb7a25;'></i>")
+                        +"</td>")
+                )
                 .append($("<td align=\"left\">"+buildOrderAction(order)+"</td>"))
         );
         bottom_table.append(

@@ -17,7 +17,7 @@
             </h2>
 		</div>
 
-        <div id="filter-area" style="display: none">
+        <div id="filter-area">
             <!-- FROM -->
             <div class="col-md-3 col-xs-6 date-input">
                 <div class="form-group">
@@ -137,6 +137,15 @@
             <div style="text-align: right">
                 <ul class="pagination" id="pagination">
                 </ul>
+            </div>
+
+            <div style="font-size: 12px">
+                <p> <div class="note-color" style="background-color: #77ba20;"></div>Tìm ship</p>
+                <p> <div class="note-color" style="background-color: #ffb80f;"></div>Chờ lấy hàng</p>
+                <p> <div class="note-color" style="background-color: #16559f;"></div>Đang giao hàng</p>
+                <p> <div class="note-color" style="background-color: #85019d;"></div>Đã giao hàng</p>
+                <p> <div class="note-color" style="background-color: red;"></div>Trả lại hàng</p>
+                <p> <div class="note-color" style="background-color: black;"></div>Hủy đơn</p>
             </div>
 
         </div>

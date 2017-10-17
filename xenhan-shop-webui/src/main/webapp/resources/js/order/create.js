@@ -78,12 +78,13 @@ function create() {
             noti.fail("Tạo đơn không thành công", data.message, function(){});
             return;
         }
-        noti.confirm(form.typeDes() + " thành công. Bạn muốn tạo thêm đơn?", function(result) {
-            if (!result) {
-                goHome();
-            } else {
-              window.location.href = URL_CREATE_ORDER_VIEW;
-            };
+        noti.confirmWithBtn(form.typeDes() + " số <strong> "+ data.data.id+"</strong>" + " thành công. Bạn muốn tạo thêm đơn?","Có", "Không",
+            function(result) {
+                if (!result) {
+                    goHome();
+                } else {
+                  window.location.href = URL_CREATE_ORDER_VIEW;
+                };
         });
     }).fail(function(data) {
         console.log("ERROR: " + JSON.stringify(data));
