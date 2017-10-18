@@ -136,12 +136,14 @@ function buildTable(orderPage) {
                 .append($("<td "+trigger+" align=\"left\">"+order.dropoff.address+"</td>"))
                 .append($("<td "+trigger+" align=\"right\">"+currencyFormat(order.goodAmount)+"</td>"))
                 .append(
-                    $("<td "+trigger+" align=\"right\">"+currencyFormat(order.shipAmount)+
-                        ((order.discount*(-1) <= 0)? '': "&nbsp;<i class='fa fa-gift' style='color: #eb7a25;'></i>")
-                        +"</td>")
+                    $("<td "+trigger+" align=\"right\">"+
+                        ((order.discount*(-1) <= 0)? '': "<i class='fa fa-gift' style='color: #eb7a25;'></i>&nbsp;")+
+                        currencyFormat(order.shipAmount)+
+                        "</td>")
                 )
                 .append($("<td align=\"left\">"+buildOrderAction(order)+"</td>"))
         );
+        var trigger = "data-toggle='modal' data-target='#modal-"+ order.id +"'";
         bottom_table.append(
             buildOrderDetail(order)
         )

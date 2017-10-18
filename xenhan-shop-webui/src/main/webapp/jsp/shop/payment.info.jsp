@@ -6,7 +6,7 @@
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
 
 	<div class="alert alert-success">
-		Xin vui lòng liên hệ hotline để thay đổi thông tin thanh toán
+        Xin vui lòng <a href="/lien-he">liên hệ</a> để cập nhật thông tin thanh toán
 	</div>
 	<c:choose>
 		<c:when test="${shopPayment.method == 0}">
