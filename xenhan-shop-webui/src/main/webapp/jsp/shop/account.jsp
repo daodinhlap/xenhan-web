@@ -12,10 +12,11 @@
 			</h2>
 		</div>
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#home">Thông tin người dùng
-			</a></li>
+			<li class="active"><a data-toggle="tab" href="#home">Thông tin người dùng</a>
+			</li>
 			<li><a data-toggle="tab" href="#menu1">Đổi mật khẩu</a></li>
 			<li><a data-toggle="tab" href="#menu2">Thông tin shop</a></li>
+			<li><a data-toggle="tab" href="#menu3">Thông tin thanh toán</a></li>
 		</ul>
 
 		<div class="tab-content" style="margin-top: 20px">
@@ -27,6 +28,9 @@
 			</div>
 			<div id="menu2" class="tab-pane fade">
 				<jsp:include page="detail.jsp"></jsp:include>
+			</div>
+			<div id="menu3" class="tab-pane fade">
+				<jsp:include page="payment.info.jsp"></jsp:include>
 			</div>
 		</div>
 		

@@ -71,6 +71,7 @@ public class ShopController extends AbstractController {
     ModelAndView mv = new ModelAndView("shop.account");
     try {
       mv.addObject("shop", getShopInfo(httpRequest));
+      mv.addObject("shopPayment", httpRequest.getSession().getAttribute(AttributeConfig.SHOP_PAYMENT_INFO));
     } catch (Exception e) {
       logger.error(e.getMessage(), e);
       mv.addObject("error", e.getMessage());
@@ -91,19 +92,20 @@ public class ShopController extends AbstractController {
     return mv;
   }
 
-  @GetMapping(value = "/thong-tin-shop")
-  public ModelAndView showShop(HttpServletRequest httpRequest) {
-    logger.info(" ------->asdasdasd" );
-    ModelAndView mv = new ModelAndView("shop.detail");
-    mv.addObject("title", "Xe Nhàn - Thông Tin Shop");
-    try {
-      mv.addObject("shop", getShopInfo(httpRequest));
-    } catch (Exception e) {
-      logger.error(e.getMessage(), e);
-      mv.addObject("error", e.getMessage());
-    }
-    return mv;
-  }
+//
+//  @GetMapping(value = "/thong-tin-shop")
+//  public ModelAndView showShop(HttpServletRequest httpRequest) {
+//    logger.info(" ------->asdasdasd" );
+//    ModelAndView mv = new ModelAndView("shop.detail");
+//    mv.addObject("title", "Xe Nhàn - Thông Tin Shop");
+//    try {
+//      mv.addObject("shop", getShopInfo(httpRequest));
+//    } catch (Exception e) {
+//      logger.error(e.getMessage(), e);
+//      mv.addObject("error", e.getMessage());
+//    }
+//    return mv;
+//  }
 
   @PostMapping(value = "/sua-thong-tin-nguoi-dung")
   public byte[] editProfile(@RequestParam(value = "name", required = false) String name,

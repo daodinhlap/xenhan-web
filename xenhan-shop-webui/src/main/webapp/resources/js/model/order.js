@@ -1,5 +1,4 @@
-class Order {
-    constructor() {
+function Order() {
         this.id;
         this.createdDate = '';
         this.lastUpdate = '';
@@ -32,11 +31,9 @@ class Order {
         this.status = '';
         this.gender = '';
         this.shipper = '';
-    }
 }
 
-class Dropoff {
-    constructor() {
+function Dropoff (){
         this.contact;
         this.address;
         this.town;
@@ -45,32 +42,24 @@ class Dropoff {
         this.description;
         this.province;
         this.district;
-    }
-
 }
 
-class Contact {
-    constructor(userName, phone){
-        this.name = userName;
-        this.phone = phone;
-    }
+function Contact (userName, phone){
+    this.name = userName;
+    this.phone = phone;
 }
 
-class CouponResponse{
-    constructor()
-    {
+function CouponResponse(){
         this.amount = "";
         this.cardCode = "";
         this.cardSerial = "";
         this.description = "";
         this.status = "";
         this.transRef = "";
-    }
 }
 
 
-class OrderRequest {
-    constructor() {
+function OrderRequest (){
         this.orderId;
         this.orderMessage;
         this.dropoff;
@@ -80,6 +69,5 @@ class OrderRequest {
         this.shipAmount ;
 
         this.packageId ;
-        this.couponCode;
-    }
+        this.coupon;
 }

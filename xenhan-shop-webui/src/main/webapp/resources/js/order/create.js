@@ -10,21 +10,21 @@ var URL_EDIT_ORDER = BASE_URL + "/order/edit";
 // ON LOAD
 $(document).ready(function() {
     // on change coupon
-    $('#coupon').change(() => {
+    $('#coupon').change(function() {
         console.log('check coupon: ' + form.coupon());
         checkCoupon(form.coupon());
     });
 
     // on change cod
-    $('#cod').change(() => {
+    $('#cod').change(function() {
         buildText();
     });
     // on change amount
     buildText();
-    $('#amount').keyup(() => {
+    $('#amount').keyup(function() {
         onChangeAmount();
     });
-    $('#amount').change(() => {
+    $('#amount').change(function() {
         onChangeAmount();
     });
 
@@ -241,8 +241,7 @@ function makeModel(){
     order.dropoff = dropoff;
     order.goodAmount = form.amount();
     order.shipAmount = form.shipAmount();
-    order.couponCode = form.coupon();
-
+    order.coupon = form.coupon();
     return order;
 }
 

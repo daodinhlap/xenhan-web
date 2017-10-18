@@ -24,7 +24,7 @@ $(document).ready(function($) {
     getHistory();
 
     //onclick btn filter
-    $('#btn-filter').click(() => {
+    $('#btn-filter').click(function() {
         $('#filter-area').toggle();
     })
 });
@@ -125,7 +125,7 @@ function buildTable(orderPage) {
 
     buildCounting(orderPage);
 
-    orders.forEach((order, i) =>{
+    orders.forEach(function(order, i){
         var trigger = "data-toggle='modal' data-target='#modal-"+ order.id +"'";
         table.append(
             $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
@@ -282,11 +282,11 @@ function check(check, orderId) {
     }
 }
 function selectOrder(orderId) {
-    var selected = orders.find((o) => {return o.id == orderId});
+    var selected = orders.find(function(o) {return o.id == orderId});
     ordersSelected.push(selected);
 }
 function unSelectOrder(orderId) {
-    var selected = orders.find((o) => {return o.id == orderId});
+    var selected = orders.find(function(o) {return o.id == orderId});
     var index = orders.indexOf(selected);
     ordersSelected.splice(index, 1);
 }
