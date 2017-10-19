@@ -114,11 +114,11 @@
                                     <td style="text-align: right"><fmt:formatNumber maxFractionDigits = "3" value = "${order.goodAmount}" /></td>
 
                                 </tr>
-                                <tr>
-                                    <td>Phí ship</td>
-                                    <td style="text-align: right"><fmt:formatNumber maxFractionDigits = "3" value = "${order.shipAmount}" /></td>
+                                <%--<tr>--%>
+                                    <%--<td>Phí ship</td>--%>
+                                    <%--<td style="text-align: right"><fmt:formatNumber maxFractionDigits = "3" value = "${order.shipAmount}" /></td>--%>
 
-                                </tr>
+                                <%--</tr>--%>
                                 <tr>
                                     <td><strong>THU CỦA KHÁCH</strong></td>
                                     <td style="text-align: right"><strong><fmt:formatNumber maxFractionDigits = "3" value = "${order.goodAmount}" /></strong></td>

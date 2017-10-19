@@ -195,8 +195,9 @@ body {
 .navbar-inverse .navbar-nav > li > a:hover {opacity: 0.5}
 .nav > li > a:focus, .nav > li > a:hover {background-color: transparent;}
 .nav > li {line-height: 40px; border-bottom: 1px solid #f3931f;}
+
 .nav-sidebar a:hover {color: #f3931f;}
-.nav-sidebar li:hover {    border-left: 5px solid orange;}
+.nav-sidebar li:hover {border-right: 5px solid orange;}
 
 .nav-sidebar > li > a { color: #32383d}
 .nav-sidebar> li >a > img {max-width: 33px; margin-right:5px}
@@ -1131,4 +1132,10 @@ input::placeholder{
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
     color: #f3931f !important;
     font-weight: bold !important;
+}
+.note-color{
+    height: 8px;
+    margin: 4px 5px 0px 0px;
+    width: 3%;
+    float: left;
 }

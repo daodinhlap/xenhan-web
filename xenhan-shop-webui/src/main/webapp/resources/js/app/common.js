@@ -69,33 +69,7 @@ var districts = {
 
 
 var images = {
-		account:"icon-taikhoan",
-		clearing:"icon-butru",
-		recharge:"icon-naptien",
-		transfer:"icon-chuyentien",
-		history:"icon-lichsu",
-		telcoCard:"icon-muathe",
-		topupTelco:"icon-napthe",
-		gameCard:"icon-muathegame",
-		topupGame:"icon-napgame",
-		deposit:"icon-naptienbank",
-		withRaw:"icon-ruttien",
-		
-		viettel:"viettel",
-		vinaphone:"vinaphone",
-		mobifone:"mobifone",
-		vnm:"vnm",
-		gmobile:"g-mobile",
-		vcoin:"vcoin",
-		gate:"gate",
-		zingxu:"zing-xu",
-		bit:"bit",
-		garena:"garena",
-		oncash:"oncash",
-		megacard:"megacard",
-		vmsdata:"vmsdata",
-		vcard:"vcard"
-	
+		account:"icon-taikhoan"
 }
 
 
@@ -115,20 +89,6 @@ function setHighlight(li,className,image){
 // 		return pathImage + images.viettel + ext; break;
 // 	}
 // }
-
-function setCookie(name,value,days) {
-	if (days) {
-		var date = new Date();
-		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-		var expires = "; expires=" + date.toGMTString();
-	} else
-		var expires = "";
-	document.cookie = name + "=" + value + expires + "; path=/";
-}
-
-function eraseCookie(name) {
-	setCookie(name, "", -1);
-}
 
 function validatePhone(phone) {
 	var re = /^[0-9]{8,15}$/;

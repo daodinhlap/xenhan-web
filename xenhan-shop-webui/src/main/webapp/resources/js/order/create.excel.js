@@ -160,8 +160,9 @@ function getIndex(text) {
 function validate(i) {
 	$.ajax({url: "/order-excel/kiem-tra-du-lieu?index=" + i, success: function(result) {
 		if(result == null) return;
-		
-		$('#fee-' + result.id).text(result.fee);
+
+        $('#pre-fee-' + result.id).text(result.fee);
+        $('#fee-' + result.id).text(result.fee);
 		$('#coupon-value-' + result.id).text(result.couponValue);
 		
 		if(!result.error) {

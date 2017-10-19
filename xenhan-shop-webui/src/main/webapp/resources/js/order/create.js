@@ -10,21 +10,21 @@ var URL_EDIT_ORDER = BASE_URL + "/order/edit";
 // ON LOAD
 $(document).ready(function() {
     // on change coupon
-    $('#coupon').change(() => {
+    $('#coupon').change(function() {
         console.log('check coupon: ' + form.coupon());
         checkCoupon(form.coupon());
     });
 
     // on change cod
-    $('#cod').change(() => {
+    $('#cod').change(function() {
         buildText();
     });
     // on change amount
     buildText();
-    $('#amount').keyup(() => {
+    $('#amount').keyup(function() {
         onChangeAmount();
     });
-    $('#amount').change(() => {
+    $('#amount').change(function() {
         onChangeAmount();
     });
 
@@ -35,14 +35,14 @@ $(document).ready(function() {
     if( orderStatus >= 200 && orderStatus < 300){
         $('#cod').attr("disabled", 'disabled');
     }
-    if(isCOD == "false" && ( orderStatus >= 200 && orderStatus < 300)){
+    if(form.type() == '1' && isCOD == "false" && ( orderStatus >= 200 && orderStatus < 300)){
         $('#address').attr("disabled", 'disabled');
         $('#province').attr("disabled", 'disabled');
         $('#district').attr("disabled", 'disabled');
         $('#amount').attr("disabled", 'disabled');
         $('#coupon').attr("disabled", 'disabled');
     }
-    if(orderStatus >= 400 && orderStatus < 600){
+    if(form.type() == '1' && orderStatus >= 400 && orderStatus < 600){
         $('#address').attr("disabled", 'disabled');
         $('#province').attr("disabled", 'disabled');
         $('#district').attr("disabled", 'disabled');
@@ -78,12 +78,13 @@ function create() {
             noti.fail("Tạo đơn không thành công", data.message, function(){});
             return;
         }
-        noti.confirm(form.typeDes() + " thành công. Bạn muốn tạo thêm đơn?", function(result) {
-            if (!result) {
-                goHome();
-            } else {
-              window.location.href = URL_CREATE_ORDER_VIEW;
-            };
+        noti.confirmWithBtn(form.typeDes() + " số <strong> "+ data.data.id+"</strong>" + " thành công. Bạn muốn tạo thêm đơn?","Có", "Không",
+            function(result) {
+                if (!result) {
+                    goHome();
+                } else {
+                  window.location.href = URL_CREATE_ORDER_VIEW;
+                };
         });
     }).fail(function(data) {
         console.log("ERROR: " + JSON.stringify(data));
@@ -240,8 +241,7 @@ function makeModel(){
     order.dropoff = dropoff;
     order.goodAmount = form.amount();
     order.shipAmount = form.shipAmount();
-    order.couponCode = form.coupon();
-
+    order.coupon = form.coupon();
     return order;
 }
 

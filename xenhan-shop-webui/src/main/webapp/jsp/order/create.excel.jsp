@@ -80,7 +80,7 @@
             </dialog>
         </div>
     </script>
-<div class="col-md-8 col-md-offset-3  mobile-padding">
+<div class="col-md-8 col-md-offset-2  mobile-padding">
 	<div id="info-receiver" class="container card">
 		<div class="center" style="margin-top: 20px">
 			<h2 class="page-header">TẠO ĐƠN BẰNG EXCEL</h2>
@@ -153,7 +153,7 @@
 												<fmt:formatNumber type="number" maxFractionDigits="3"
 													value="${order.goodAmount}" />
 											</div>
-											<div class="col-xs-6 col-sm-3">
+											<div class="col-xs-6 col-sm-3" id="pre-fee-${loop.index}">
 												<fmt:formatNumber type="number" maxFractionDigits="3"
 													value="${order.shipAmount}" />
 											</div>
