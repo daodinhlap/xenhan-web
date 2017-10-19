@@ -147,7 +147,6 @@ function buildTable(orderPage) {
                 )
                 .append($("<td align=\"left\">"+buildOrderAction(order)+"</td>"))
         );
-        var trigger = "data-toggle='modal' data-target='#modal-"+ order.id +"'";
         bottom_table.append(
             buildOrderDetail(order)
         )
@@ -255,7 +254,7 @@ function Form() {
             index : this.index(),
             keyword : this.keyword(),
             status: this.status(),
-            typeOfView: this.typeOfView(),
+            typeOfView: this.typeOfView()
         }
     }
 }

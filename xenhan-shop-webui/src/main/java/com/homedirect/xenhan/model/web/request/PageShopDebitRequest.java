@@ -12,10 +12,15 @@ public class PageShopDebitRequest {
     private short typeOfView;
     private String shopName;
     private long periodId;
-    private short status;
+    private Short status;
     private Long provinceId;
     private Long districtId;
     private PeriodRecord periodRecord;
+
+    private String fromDate;
+    private String toDate;
+    private int index;
+    private int size;
 
     public PageShopDebitRequest() {
         super();
@@ -45,11 +50,11 @@ public class PageShopDebitRequest {
         this.periodId = periodId;
     }
 
-    public short getStatus() {
+    public Short getStatus() {
         return status;
     }
 
-    public void setStatus(short status) {
+    public void setStatus(Short status) {
         this.status = status;
     }
 
@@ -75,6 +80,38 @@ public class PageShopDebitRequest {
 
     public void setPeriodRecord(PeriodRecord periodRecord) {
         this.periodRecord = periodRecord;
+    }
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     @Override

@@ -1,27 +1,20 @@
 package com.homedirect.xenhan.shop.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.homedirect.common.model.Page;
 import com.homedirect.common.util.StringUtils;
-import com.homedirect.repo.batch.model.UserRecord;
 import com.homedirect.repo.model.User;
-import com.homedirect.repo.model.UserProfile;
 import com.homedirect.repo.model.response.RepositoryResponse;
-import com.homedirect.session.model.SimpleUser;
 import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.Shop;
 import com.homedirect.xenhan.model.common.response.UserDetailEntity;
 import com.homedirect.xenhan.model.web.request.PageShopDebitRequest;
-import com.homedirect.xenhan.user.model.OrderEntity;
-import com.homedirect.xenhan.util.DateUtil;
+import com.homedirect.xenhan.model.web.request.PageShopPaymentRequest;
 import com.homedirect.xenhan.util.JsonUtil;
 import com.homedirect.xenhan.web.util.UpdateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -142,16 +135,32 @@ public class ShopController extends AbstractController {
   /*DEBIT*/
   @GetMapping(value = "/cong-no")
   public ModelAndView debit() {
-      ModelAndView mv = new ModelAndView("shop.debit");
-      mv.addObject("title","Xe Nhàn - Công nợ");
-      return mv;
+    ModelAndView mv = new ModelAndView("shop.debit");
+    mv.addObject("title","Xe Nhàn - Công nợ");
+    return mv;
   }
 
   @PostMapping(value = "/debit")
-  public RepositoryResponse<?> listShopDebit(@RequestBody PageShopDebitRequest request, HttpServletRequest httpRequest) {
-      String url = apiExchangeService.createUrlWithToken(httpRequest,"shop", "debit");
-      return apiExchangeService.post(httpRequest, url, request).getBody();
+  public Object listShopDebit(@RequestBody PageShopDebitRequest request, HttpServletRequest httpRequest) {
+
+    request.setSize(20);
+    request.setTypeOfView((short) 0);
+    request.setShopName((String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME));
+    request.setPeriodRecord(getPeriod(httpRequest));
+
+    logger.info("\n==> GET DEBIT:{}", JsonUtil.toJson(request));
+    String url = apiExchangeService.createUrlWithToken(httpRequest,"shop", "debit");
+    return apiExchangeService.post(httpRequest, url, request).getBody();
   }
 
+
+  @PostMapping(value = "/shop-payment")
+  public Object shopPayments(@RequestBody PageShopPaymentRequest request, HttpServletRequest httpRequest) {
+
+    request.setSize(20);
+    logger.info("\n==> GET SHOP PAYMENT:{}", JsonUtil.toJson(request));
+    String url = apiExchangeService.createUrlWithToken(httpRequest,"shop", "list-shop-payment");
+    return apiExchangeService.post(httpRequest, url, request).getBody();
+  }
 
 }
