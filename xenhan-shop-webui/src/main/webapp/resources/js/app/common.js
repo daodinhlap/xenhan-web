@@ -124,24 +124,6 @@ function strcmp(a, b) {
 	return (a < b ? -1 : (a > b ? 1 : 0));
 }
 
-// var originalShipAmount = 0;
-// function getFee(provinceId, districtId){
-// 	var url = BASE_URL + "/get-fee?provinceId="+provinceId+"&districtId="+districtId;
-// 	$.ajax({
-// 		type : 'GET',
-// 		url : url
-// 	}).done(function(data) {
-// 		console.log(data);
-//
-//         originalShipAmount = data;
-//         $("#shipAmount").text(currencyFormat(data));
-//         callback;
-// 	}).fail(function(data) {
-// 		console.log("ERROR: " + JSON.stringify(data));
-// 	}).always(function(){
-//     });
-// }
-
 function toViewDiscount(value){
 	if(!value) $('#discount').text("0,00");
 	
@@ -158,8 +140,6 @@ function toViewDiscount(value){
 	}
 	
 }
-
-
 
 function goHome() {
 	window.location.href = "/";
@@ -341,25 +321,6 @@ function Notify(){
 	}
 }
 
-function getLinkConfirm(requestId, code){
-	if(isNaN(requestId)) requestId= "";
-	var url = BASE_URL + "/giao-dich/xac-nhan?code=" + md5(code) + "&requestId=" + requestId;
-	return url;
-}
-
-function setAuthenMethod(){
-	var url_setAuthen = BASE_URL + "/thong-tin-ca-nhan/auth-method";
-	$.ajax({
-		type : 'GET',
-		contenttype : 'application/json',
-		url : url_setAuthen,
-	}).done(function(data) {
-		console.log("success setting authen-method... ");
-	}).fail(function(data) {
-		console.log("error setting authen-method... ");
-	});
-}
-
 function handlerFailRequest(data){
 	var message = Error_message.UNKNOW_ERROR;
 	if(data.status == ErrorCode.FORBIDDEN){
@@ -369,4 +330,51 @@ function handlerFailRequest(data){
 	}
 	error.push({message: message, id: "alert"});
 	noti.error(error);
+}
+
+function ddMMyyyy(long){
+    if(long <= 0) return "";
+
+    date = new Date(long);
+    var dd = date.getDate();
+    var mm = date.getMonth()+1;
+
+    var yyyy = date.getFullYear();
+    if(dd<10){
+        dd='0'+dd;
+    }
+    if(mm<10){
+        mm='0'+mm;
+    }
+    return dd+'/'+mm+'/'+yyyy;
+}
+
+function ddMM(long){
+    if(long <= 0) return "";
+
+    date = new Date(long);
+    var dd = date.getDate();
+    var mm = date.getMonth()+1;
+    var h = date.getHours();
+    var m = date.getMinutes();
+
+    var yyyy = date.getFullYear();
+    if(dd<10){
+        dd='0'+dd;
+    }
+    if(mm<10){
+        mm='0'+mm;
+    }
+    return dd+'/'+mm+ ' ' + h+':'+m;
+}
+
+function yyyy_mm_dd(dateStr, type){
+    var el = dateStr.split("/");
+    if(type == "begin"){
+        return el[2]+"-"+el[1]+"-"+el[0] + " 00:00:00";
+    }
+    if(type == "end"){
+        return el[2]+"-"+el[1]+"-"+el[0] + " 23:59:59";
+    }
+    return "";
 }

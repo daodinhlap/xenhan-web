@@ -297,53 +297,6 @@ function unSelectOrder(orderId) {
     ordersSelected.splice(index, 1);
 }
 
-function ddMMyyyy(long){
-    if(long <= 0) return "";
-
-    date = new Date(long);
-    var dd = date.getDate();
-    var mm = date.getMonth()+1;
-
-    var yyyy = date.getFullYear();
-    if(dd<10){
-        dd='0'+dd;
-    }
-    if(mm<10){
-        mm='0'+mm;
-    }
-    return dd+'/'+mm+'/'+yyyy;
-}
-
-function ddMM(long){
-    if(long <= 0) return "";
-
-    date = new Date(long);
-    var dd = date.getDate();
-    var mm = date.getMonth()+1;
-    var h = date.getHours();
-    var m = date.getMinutes();
-
-    var yyyy = date.getFullYear();
-    if(dd<10){
-        dd='0'+dd;
-    }
-    if(mm<10){
-        mm='0'+mm;
-    }
-    return dd+'/'+mm+ ' ' + h+':'+m;
-}
-
-function yyyy_mm_dd(dateStr, type){
-    var el = dateStr.split("/");
-    if(type == "begin"){
-        return el[2]+"-"+el[1]+"-"+el[0] + " 00:00:00";
-    }
-    if(type == "end"){
-        return el[2]+"-"+el[1]+"-"+el[0] + " 23:59:59";
-    }
-    return "";
-}
-
 function buildPagination(page){
     var el = $('#pagination');
     el.empty();

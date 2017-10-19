@@ -119,6 +119,18 @@
         </put-list-attribute>
 	</definition>
 
+	<definition name="shop.debit" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/shop/debit.jsp" />
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.css" />
+		</put-list-attribute>
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/plugins/datePicker/moment-with-locales.js" />
+			<add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.js" />
+			<add-attribute value="/resources/js/shop/debit.js" />
+		</put-list-attribute>
+	</definition>
+
 	<definition name="shop.*" extends="layout.basic">
 		<put-attribute name="body" value="/jsp/shop/{1}.jsp" />
 		<put-list-attribute name="stylesheets" inherit="true">
