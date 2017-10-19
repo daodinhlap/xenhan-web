@@ -58,7 +58,7 @@
 			<tiles:insertAttribute name="footer" />
 		</div>
 	</div>
-
+	<jsp:include page="messenger.jsp"></jsp:include>
 	<!-- ./scripts -->
 	<tilesx:useAttribute id="listJs" name="scripts"
 		classname="java.util.List" />

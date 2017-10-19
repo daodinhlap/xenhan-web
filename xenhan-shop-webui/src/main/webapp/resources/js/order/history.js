@@ -23,12 +23,12 @@ $(document).ready(function($) {
     getHistory();
 
     //onclick btn filter
-    $('#btn-filter').click(() => {
+    $('#btn-filter').click(function() => {
         $('#filter-area').toggle();
     })
 });
 
-function getHistory(index){
+function getHistory(index) {
     order = [];
     buildTable();
 
@@ -59,7 +59,7 @@ function getHistory(index){
     });
 }
 
-function exportHistory(){
+function exportHistory() {
     var request = form.getRequest();
     request.fromDate = yyyy_mm_dd(request.fromDate, "begin");
     request.toDate = yyyy_mm_dd(request.toDate, "end");
