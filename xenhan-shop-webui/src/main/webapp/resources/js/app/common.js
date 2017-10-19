@@ -74,19 +74,7 @@ var images = {
 
 
 $( document ).ready(function() {
-    // set highligh menu
-    var path = location.pathname;
-    var menu = $( "ul.nav-sidebar > li" );
-    
-    if(path.indexOf("/tai-khoan/truy-van-tai-khoan") != -1){
-    	setHighlight(menu,".taikhoan",images.account);
-    }
-    if(path.indexOf("/tai-khoan/sao-ke") != -1){
-    	setHighlight(menu,".lichsu",images.history);
-    }
-
-	// handler tooltip
-	$('[data-toggle="tooltip"]').tooltip(); 
+	loadFacebookMessenger();
 });
 
 function setHighlight(li,className,image){
@@ -377,4 +365,31 @@ function yyyy_mm_dd(dateStr, type){
         return el[2]+"-"+el[1]+"-"+el[0] + " 23:59:59";
     }
     return "";
+}
+
+function loadFacebookMessenger() {
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=170527870194428";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    $(document).ready(function () {
+        var t = {delay: 125, overlay: $(".fb-overlay"), widget: $(".fb-widget"), button: $(".fb-button")};
+        setTimeout(function () {
+            $("div.fb-livechat").fadeIn()
+        }, 8 * t.delay), $(".ctrlq").on("click", function (e) {
+            e.preventDefault(), t.overlay.is(":visible") ? (t.overlay.fadeOut(t.delay), t.widget.stop().animate({
+                bottom: 0,
+                opacity: 0
+            }, 2 * t.delay, function () {
+                $(this).hide("slow"), t.button.show()
+            })) : t.button.fadeOut("medium", function () {
+                t.widget.stop().show().animate({bottom: "30px", opacity: 1}, 2 * t.delay), t.overlay.fadeIn(t.delay)
+            })
+        })
+    });
 }

@@ -29,7 +29,7 @@ $(document).ready(function($) {
     })
 });
 
-function getHistory(index){
+function getHistory(index) {
     order = [];
     buildTable();
 
