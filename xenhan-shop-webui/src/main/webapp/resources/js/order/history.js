@@ -114,11 +114,15 @@ function buildTable(orderPage) {
     var table = $('#table-history');
     var bottom_table = $('.table.table-hover');
 
-
-    if(!orderPage){
+    if(!orderPage || orderPage.pageItems.length == 0){
         table.empty();
+        $('#alert-no-orders').show();
+        buildPagination();
+        form.setCounting("");
         return;
     }
+    $('#alert-no-orders').hide();
+
     var page = new Page(orderPage);
     var index = page.pageNumber;
     var orders = page.pageItems;
@@ -343,6 +347,7 @@ function yyyy_mm_dd(dateStr, type){
 function buildPagination(page){
     var el = $('#pagination');
     el.empty();
+    if(!page) { return;}
 
     for(i = 0; i < page.pagesAvailable; i++){
         el.append(

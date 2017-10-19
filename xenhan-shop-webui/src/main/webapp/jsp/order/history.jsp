@@ -132,6 +132,10 @@
                     <tbody id="table-history">
                     </tbody>
                 </table>
+
+                <div class="alert alert-warning" style="display: none" id="alert-no-orders">
+                    Không có đơn hàng với điều kiện tìm kiếm trên !
+                </div>
             </div>
 
             <div style="text-align: right">
