@@ -44,8 +44,8 @@
 	background: #fff;
 	z-index: 2;
 	position: fixed;
-	width: 360px;
-	height: 435px;
+	width: 330px;
+	height: 250px;
 	overflow: hidden;
 	opacity: 0;
 	bottom: 0;
@@ -111,7 +111,7 @@
 		<div class="fb-page"
 			data-href="https://www.facebook.com/xenhan.vn"
 			data-tabs="messages" data-small-header="true"
-			data-height="400" data-width="350"
+			data-height="250" data-width="330"
 			data-adapt-container-width="true" data-hide-cover="true"
 			data-show-facepile="true">
 			<blockquote cite="https://www.facebook.com/xenhan.vn"
