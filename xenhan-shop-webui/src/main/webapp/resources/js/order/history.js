@@ -7,7 +7,7 @@ var URL_HISTORY = BASE_URL + "/order/history";
 var URL_EXPORT = BASE_URL + "/order/export";
 var URL_HISTORY_TOTAL = BASE_URL + "/order/total";
 var URL_HISTORY_PRINT = BASE_URL + "/order/print";
-var URL_CANCEL_ORDER = BASE_URL + "/order/cancel?order-id=";
+var URL_CANCEL_ORDER = BASE_URL + "/order/cancel";
 var URL_ORDER_HISTORY = BASE_URL + "/order/history";
 
 //================================================================
@@ -27,6 +27,7 @@ $(document).ready(function($) {
     $('#btn-filter').click(function() {
         $('#filter-area').toggle();
     })
+    
 });
 
 function getHistory(index) {
@@ -243,6 +244,10 @@ function Form() {
     this.typeOfView = function() {return $('#typeOfView').val()};
     this.index = function() {return $('#index').val()};
 
+    this.messageCancel = function() {return $('#message-cancel').val()};
+    this.setMessageCancel = function(value) {return $('#message-cancel').val(value)};
+    this.setRestCharMessage = function(value) {return $('#rest-char').text(value)};
+
     this.setCounting = function(value) {return $('#counting').text(value)};
     this.setTotalGoodAmount = function(value) {return $('#totalGoodAmount').text(value)};
     this.setTotalShipAmount = function(value) {return $('#totalShipAmount').text(value)};
@@ -313,54 +318,6 @@ function buildPagination(page){
 
 }
 
-function orderStatus(status){
-        if (status < 100) return 'Tìm Ship';
-        if (status >= 100 && status < 200)
-            return 'Chờ lấy hàng';
-        if (status == 200)
-            return 'Đã giao';
-        if (status > 200 && status < 400) {
-            // return 'Đang giao';
-            if (status == 201)
-                return 'Đang về kho';
-            if (status % 2 == 0)
-                return 'Lưu kho';
-            if (status % 2 != 0)
-                return 'Đang giao';
-        }
-
-        if (status == 400)
-            return 'Đã trả lại';
-        if (status > 400 && status < 500) {
-            if (status == 401)
-                return 'Đang về kho';
-            if (status % 2 == 0)
-                return 'Lưu kho';
-            if (status % 2 != 0)
-                return 'Đang trả lại';
-        }
-        // return 'Trả lại';
-        if (status == 500)
-            return 'Đã hủy';
-        if (status > 500 && status < 600) {
-            if (status == 501)
-                return 'Đang về kho';
-            if (status % 2 == 0)
-                return 'Lưu kho';
-            if (status % 2 != 0)
-                return 'Đang trả lại';
-        }
-        return '';
-}
-function corlorStatus(status) {
-        if (status < 100) return 'status-find-ship';
-        if (status >= 100 && status < 200) return 'status-waiting';
-        if (status == 200) return 'status-dropoff';
-        if (status > 200 && status < 400) return 'status-delivering';
-        if (status >= 400 && status < 500) return 'status-return';
-        if (status >= 500 && status < 600) return 'status-cancel';
-        return '';
-}
 
 function buildOrderAction(order){
     var action = "";
@@ -387,12 +344,17 @@ function buildOrderAction(order){
 function cancelOrder(orderId){
     if(!orderId){ alert('Có lỗi xảy ra. Xin thử lại'); return;}
 
-    noti.confirmWithBtn("<strong>Bạn muốn hủy đơn hàng?</strong>","Đồng ý", "Không đồng ý",
+    noti.confirmWithBtn("<strong>Bạn muốn hủy đơn hàng?</strong><br>"+
+                        "<textarea class='form-control' rows='2' id='message-cancel'" +
+                              "placeholder='Lý do hủy đơn?'></textarea>"+
+                                "<p id='rest-char'></p>",
+                        "Đồng ý", "Không đồng ý",
         function(result) {
             if (result) {
+                var url = URL_CANCEL_ORDER + "?order-id=" + orderId+ "&message=" + form.messageCancel();
                 $.ajax({
                     type : 'GET',
-                    url : URL_CANCEL_ORDER + orderId,
+                    url : url,
                 }).done(function(data) {
                     console.log(data);
                     getHistory();
@@ -402,6 +364,24 @@ function cancelOrder(orderId){
                 })
             };
         });
+    onTyping();
+}
+
+function onTyping(){
+    $('#message-cancel').keyup(function () {
+        var content = "";
+
+        if(form.messageCancel().length > 50){
+            $('#message-cancel').css({'background-color':'#ddd'});
+            form.setMessageCancel(form.messageCancel().substr(0, 50));
+            return;
+        }
+        $('#message-cancel').css({ 'background-color' : ''});
+
+        content += 50 - form.messageCancel().length;
+        content += "/50";
+        form.setRestCharMessage(content);
+    })
 }
 
 function getOrderHistory(order){

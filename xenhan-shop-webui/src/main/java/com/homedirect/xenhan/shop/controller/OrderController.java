@@ -114,6 +114,7 @@ private @Autowired OrderExcelExport orderExcelExport;
                                        @RequestParam(name="message", required = false) String message,
                                        HttpServletRequest httpRequest) {
 
+    if(StringUtils.isEmpty(message)) message = "";
     String url = apiExchangeService.createUrlWithToken(httpRequest,"order", "cancel-order");
     url += "&order-id="+ orderId + "&message=" + message;
     return apiExchangeService.get(httpRequest, url, new TypeReference<RepositoryResponse<JobHistoryEntity>>(){});

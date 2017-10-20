@@ -42,10 +42,10 @@
 
 .fb-widget {
 	background: #fff;
-	z-index: 2;
+	z-index: 3;
 	position: fixed;
-	width: 360px;
-	height: 435px;
+	/*width: 360px;*/
+	/*height: 435px;*/
 	overflow: hidden;
 	opacity: 0;
 	bottom: 0;

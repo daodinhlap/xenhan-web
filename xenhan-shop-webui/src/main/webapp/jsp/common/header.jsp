@@ -52,17 +52,15 @@
 							src="/resources/images/m-icon-order-excel.png"><span>Tạo đơn từ Excel</span></a></li>
 					<li><a href="/order/lich-su"> <img
 							src="/resources/images/m-icon-history.png"><span>Lịch sử đơn hàng</span></a></li>
-					<%--<li><a href="/shop/cong-no"> <img--%>
-							<%--src="/resources/images/"><span>Công nợ</span></a></li>--%>
+					<li><a href="/shop/cong-no"> <img
+							src="/resources/images/m-icon-debit.png"><span>Lịch sử công nợ</span></a></li>
 					<li><a href="/shop/thong-tin-tai-khoan"> <img
 							src="/resources/images/m-icon-profile.png"><span>Tài khoản</span></a></li>
 				</c:if>
 				<li><a href="/lien-he"><img
-						src="/resources/images/m-icon-support.png"><span>Liên
-							hệ</span></a></li>
+						src="/resources/images/m-icon-support.png"><span>Liên hệ</span></a></li>
 				<li><a href="/dang-xuat"><img
-						src="/resources/images/m-icon-exit.png"><span>Đăng
-							xuất</span></a></li>
+						src="/resources/images/m-icon-exit.png"><span>Đăng xuất</span></a></li>
 			</ul>
 		</div>
 	</div>

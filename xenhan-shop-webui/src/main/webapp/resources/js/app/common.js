@@ -366,6 +366,55 @@ function yyyy_mm_dd(dateStr, type){
     }
     return "";
 }
+function orderStatus(status){
+    if (status < 100) return 'Tìm Ship';
+    if (status >= 100 && status < 200)
+        return 'Chờ lấy hàng';
+    if (status == 200)
+        return 'Đã giao';
+    if (status > 200 && status < 400) {
+        // return 'Đang giao';
+        if (status == 201)
+            return 'Đang về kho';
+        if (status % 2 == 0)
+            return 'Lưu kho';
+        if (status % 2 != 0)
+            return 'Đang giao';
+    }
+
+    if (status == 400)
+        return 'Đã trả lại';
+    if (status > 400 && status < 500) {
+        if (status == 401)
+            return 'Đang về kho';
+        if (status % 2 == 0)
+            return 'Lưu kho';
+        if (status % 2 != 0)
+            return 'Đang trả lại';
+    }
+    // return 'Trả lại';
+    if (status == 500)
+        return 'Đã hủy';
+    if (status > 500 && status < 600) {
+        if (status == 501)
+            return 'Đang về kho';
+        if (status % 2 == 0)
+            return 'Lưu kho';
+        if (status % 2 != 0)
+            return 'Đang trả lại';
+    }
+    return '';
+}
+
+function corlorStatus(status) {
+    if (status < 100) return 'status-find-ship';
+    if (status >= 100 && status < 200) return 'status-waiting';
+    if (status == 200) return 'status-dropoff';
+    if (status > 200 && status < 400) return 'status-delivering';
+    if (status >= 400 && status < 500) return 'status-return';
+    if (status >= 500 && status < 600) return 'status-cancel';
+    return '';
+}
 
 function loadFacebookMessenger() {
     (function (d, s, id) {

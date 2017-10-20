@@ -41,8 +41,8 @@
 						src="/resources/images/icon-order-excel.png"><span>Tạo đơn từ Excel</span></a></li>
 				<li><a href="/order/lich-su"> <img
 						src="/resources/images/icon-history.png"><span>Lịch sử đơn hàng</span></a></li>
-				<%--<li><a href="/shop/cong-no"> <img--%>
-						<%--src="/resources/images/"><span>Công nợ</span></a></li>--%>
+				<li><a href="/shop/cong-no"> <img
+						src="/resources/images/icon-debit.png"><span>Lịch sử công nợ</span></a></li>
 				<li><a href="/shop/thong-tin-tai-khoan"> <img
 						src="/resources/images/icon-profile.png"> <span>Tài khoản</span></a></li>
 			</c:if>

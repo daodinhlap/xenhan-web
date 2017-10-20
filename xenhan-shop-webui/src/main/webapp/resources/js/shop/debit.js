@@ -1,6 +1,7 @@
 var form = new Form();
 var noti = new Notify();
 var debits = [];
+var debitSelected = {};
 
 var URL_DEBIT = BASE_URL + "/shop/debit";
 var URL_SHOP_PAYMENT = BASE_URL + "/shop/shop-payment";
@@ -19,6 +20,7 @@ $(document).ready(function($) {
 });
 
 function getDebit(index) {
+    debits = [];
     buildTable();
 
     var request = form.getRequest();
@@ -49,10 +51,13 @@ function getDebit(index) {
 
 }
 
-function getDebitDetail(debitId, index) {
-    var debitSelected = debits.find(function(debit){ return debit.id == debitId; });
+function getShopPayment(debitId, index) {
+    if(debitId){
+        debitSelected = debits.find(function(debit){ return debit.id == debitId; });
+    }
 
     var request = {
+        orderId: form.orderId(),
         shopDebit: debitSelected,
         index: index? index: 1
     }
@@ -68,8 +73,9 @@ function getDebitDetail(debitId, index) {
             noti.error([{message: data, id: "alert"}]);
             return;
         }
-        // buildTable(data.data.page);
-        // buildTotal(data.data.simpleTotal);
+        buildTablePayment(data.data.page);
+        buildTotalPayment(data.data.totalShopPayment);
+        buildInfoPayment(debitSelected);
 
     }).fail(function(data) {
         console.log(data);
@@ -98,56 +104,100 @@ function buildTable(debitsPage) {
         table.empty();
         $('#alert-no-debits').show();
         buildPagination();
-        form.setCounting("");
+        form.setCounting("", "counting");
         return;
     }
     $('#alert-no-debits').hide();
 
-    buildCounting(debitsPage);
+    buildCounting(debitsPage, "counting");
 
     var page = new Page(debitsPage);
     var index = page.pageNumber;
     var debits = page.pageItems;
     debits.forEach(function(debit, i){
         table.append(
-            $("<tr onclick='getDebitDetail("+debit.id+")'>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
+            $("<tr onclick='getShopPayment("+debit.id+")'>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
                 .append($("<td align=\"center\">"+ddMMyyyy(debit.startDate)+"</td>"))
                 .append($("<td align=\"center\">"+ddMMyyyy(debit.endDate)+"</td>"))
                 .append($("<td align=\"right\">"+currencyFormat(debit.debit)+"</td>"))
                 .append($("<td align=\"center\">"+ddMMyyyy(debit.planPaymentDate)+"</td>"))
                 .append($("<td align=\"center\">"+ddMMyyyy(debit.realPaymentDate)+"</td>"))
-                .append($("<td align=\"right\" class='order-"+corlor(debit.status)+"'><strong>"+statusOf(debit.status)+"</strong></td>"))
+                .append($("<td align=\"left\" class='order-"+corlor(debit.status)+"'><strong>"+statusOf(debit.status)+"</strong></td>"))
         );
     });
-    buildPagination(page);
+    buildPagination(page, "pagination");
 }
 
-function buildPagination(page){
-    var el = $('#pagination');
+function buildTablePayment(paymentsPage) {
+    var table = $('#table-payment');
+    table.empty();
+
+    if(!paymentsPage || paymentsPage.pageItems.length == 0){
+        $('#alert-no-payments').show();
+        buildPagination();
+        form.setCounting("", "counting-payments");
+        return;
+    }
+    $('#alert-no-payments').hide();
+
+    buildCounting(paymentsPage, "counting-payments");
+
+    var page = new Page(paymentsPage);
+    var index = page.pageNumber;
+    var payments = page.pageItems;
+    payments.forEach(function(payment, i){
+        table.append(
+            $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
+                .append($("<td align=\"center\">"+ddMM(payment.order.createdDate)+"</td>"))
+                .append($("<td align=\"center\">"+ddMM(payment.closeDate)+"</td>"))
+                .append($("<td align=\"center\">"+payment.order.id+"</td>"))
+                .append($("<td align=\"left\" class='order-"+corlorStatus(payment.order.status)+"'>"+orderStatus(payment.order.status)+"</td>"))
+                .append($("<td align=\"left\">"+payment.order.dropoff.contact.name+"<br>"+payment.order.dropoff.contact.phone +"</td>"))
+                .append($("<td align=\"left\">"+payment.order.dropoff.address +"<br>"+
+                    payment.order.dropoff.town.district.name+" - " + payment.order.dropoff.town.name +"</td>"))
+                .append($("<td align=\"right\">"+currencyFormat(payment.order.goodAmount) +"</td>"))
+                .append($("<td align=\"right\">"+
+                    (payment.order.status == 500 || payment.order.status == 400 ? '' : currencyFormat(payment.order.shipAmount)) +
+                    "</td>"))
+                .append($("<td align=\"right\">"+
+                    (payment.order.status == 500 || payment.order.status == 200 ? '' : currencyFormat(payment.order.refund)) +
+                    "</td>"))
+                .append($("<td align=\"right\">"+currencyFormat(payment.debit)+"</td>"))
+        );
+    });
+    buildPagination(page, "pagination-payments");
+    showShopPayment();
+}
+
+function buildPagination(page, id){
+    var el = $('#'+id);
     el.empty();
     if(!page) { return;}
+
+    var methodCall = "getDebit";
+    if(id == 'pagination-payments') methodCall = "getShopPayment";
 
     for(i = 0; i < page.pagesAvailable; i++){
         el.append(
             $("<li  class='"+(page.pageNumber == (i+1) ? 'active':'')+"'>")
                 .append($("<a href='#'>")
                     .text(""+(i+1))
-                    .attr("onclick","getDebit("+ (i+1) +")"))
+                    .attr("onclick", methodCall + "("+ (i+1) +")"))
         )
     }
 }
 
 
-function buildCounting(page){
+function buildCounting(page, id){
     var size = 20;
-    form.setCounting("");
+    form.setCounting("", id);
     var counting = "";
     counting += ((page.pageNumber-1) * size) + 1;
     counting += " - ";
     counting += ((page.pageNumber-1) * size) + page.pageItems.length;
     counting += " / " + page.totalItems;
 
-    form.setCounting(counting);
+    form.setCounting(counting, id);
 }
 
 
@@ -155,6 +205,26 @@ function buildTotal(simpleTotal){
     form.setTotalDebit("");
     if(!simpleTotal) return;
     form.setTotalDebit(currencyFormat(simpleTotal.total));
+}
+function buildTotalPayment(totalShopPayment){
+    form.setTotalGoodAmount('');
+    form.setTotalShipAmount('');
+    form.setTotalReturnAmount('');
+    form.setTotalDebitAmount('');
+    if(!totalShopPayment) return;
+    form.setTotalGoodAmount(currencyFormat(totalShopPayment.totalGoodAmount));
+    form.setTotalShipAmount(currencyFormat(totalShopPayment.totalShipAmount));
+    form.setTotalReturnAmount(currencyFormat(totalShopPayment.totalReturnAmount));
+    form.setTotalDebitAmount(currencyFormat(totalShopPayment.totalDebit));
+}
+function buildInfoPayment(shopDebit){
+    form.setFromDatePayment('');
+    form.setToDatePayment('');
+    form.setStatusDatePayment('');
+    if(!shopDebit) return;
+    form.setFromDatePayment(ddMMyyyy(shopDebit.startDate));
+    form.setToDatePayment(ddMMyyyy(shopDebit.endDate));
+    form.setStatusDatePayment(statusOf(shopDebit.status));
 }
 
 function corlor(status) {
@@ -183,13 +253,33 @@ function statusOf(status) {
     }
 }
 
+function showShopPayment(){
+    $('#list-debit').hide();
+    $('#list-payments').show();
+}
+function showShopDebit(){
+    $('#list-debit').show();
+    $('#list-payments').hide();
+}
+
 function Form() {
     this.fromDate = function() {return $('#fromDate').val()};
     this.toDate = function() {return $('#toDate').val()};
     this.status = function() {return $('#status').val()};
 
-    this.setCounting = function(value) {return $('#counting').text(value)};
+    this.orderId = function() {return $('#order-id').val()};
+
+    this.setCounting = function(value, id) {return $('#'+ id).text(value)};
     this.setTotalDebit = function(value) {return $('#totalDebit').text(value)};
+
+    this.setTotalGoodAmount = function(value) {return $('#totalGoodAmount').text(value)};
+    this.setTotalShipAmount = function(value) {return $('#totalShipAmount').text(value)};
+    this.setTotalReturnAmount = function(value) {return $('#totalReturnAmount').text(value)};
+    this.setTotalDebitAmount = function(value) {return $('#totalDebitAmount').text(value)};
+
+    this.setFromDatePayment = function(value) {return $('#fromDate-payment').text(value)};
+    this.setToDatePayment = function(value) {return $('#toDate-payment').text(value)};
+    this.setStatusDatePayment = function(value) {return $('#status-payment').text(value)};
 
     this.getRequest = function() {
         return {
