@@ -33,8 +33,8 @@
 			<div class="col-xs-9">
 				<address>
 					<strong>Hướng dẫn sử dụng</strong><br> Để xem hướng dẫn sử
-					dụng website, mời bạn <a
-						href="https://drive.google.com/open?id=0Byk5MCFPhL2oQkpfYUNvWkpJLVk"
+					dụng website, mời bạn <a target="_blank"
+						href="https://drive.google.com/file/d/0Byk5MCFPhL2oenFBMTE0c2pSOVk/view"
 						style="display: inline-block;">click vào đây</a>
 				</address>
 			</div>
