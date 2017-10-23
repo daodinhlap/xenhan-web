@@ -174,15 +174,23 @@ function buildPagination(page, id){
     el.empty();
     if(!page) { return;}
 
-    var methodCall = "getDebit";
-    if(id == 'pagination-payments') methodCall = "getShopPayment";
-
+    if(id == 'pagination-payments'){
+        for(i = 0; i < page.pagesAvailable; i++){
+            el.append(
+                $("<li  class='"+(page.pageNumber == (i+1) ? 'active':'')+"'>")
+                    .append($("<a href='#'>")
+                        .text(""+(i+1))
+                        .attr("onclick", "getShopPayment('',"+ (i+1) +")"))
+            )
+        }
+        return;
+    }
     for(i = 0; i < page.pagesAvailable; i++){
         el.append(
             $("<li  class='"+(page.pageNumber == (i+1) ? 'active':'')+"'>")
                 .append($("<a href='#'>")
                     .text(""+(i+1))
-                    .attr("onclick", methodCall + "("+ (i+1) +")"))
+                    .attr("onclick", "getDebit("+ (i+1) +")"))
         )
     }
 }
