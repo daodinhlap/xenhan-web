@@ -1139,3 +1139,7 @@ input::placeholder{
     width: 3%;
     float: left;
 }
+.order-status{
+    text-align: center;
+    border-radius: 20px;
+}

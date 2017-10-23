@@ -103,7 +103,6 @@ function configDatePicker(ids){
     for(i=0; i<ids.length; i++){
         $('#'+ids[i]).datetimepicker({
             locale:'vi',
-            showClear:true,
             ignoreReadonly:true,
             useCurrent: false,
             maxDate: new Date(),
@@ -135,7 +134,8 @@ function buildTable(orderPage) {
         table.append(
             $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
                 .append($("<td align=\"left\">").append($("<input type='checkbox' onclick='check($(this),"+ order.id +")'>")))
-                .append($("<td style='font-weight: bold;' "+trigger+" align=\"left\" class='order-"+corlorStatus(order.status)+"'>"+order.id+"</td>"))
+                .append($("<td "+trigger+" align=\"left\">"+order.id+"</td>"))
+                .append($("<td "+trigger+"><div class='order-status "+corlorStatus(order.status)+"'>"+orderStatus(order.status)+"</div></td>"))
                 .append($("<td "+trigger+" align=\"left\">"+ddMM(order.createdDate)+"</td>"))
                 .append($("<td "+trigger+" align=\"left\">"+ddMM(order.closedDate)+"</td>"))
                 .append($("<td "+trigger+" align=\"left\">"+order.dropoff.address+"</td>"))
@@ -334,7 +334,7 @@ function buildOrderAction(order){
     result = "  <div class=\"dropup\">\n" +
                 "    <button style='padding: 0px' class=\"btn btn-link dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">" +
                         "<i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>\n" +
-                "    <ul class=\"dropdown-menu\">\n" +
+                "    <ul class='dropdown-menu dropdown-menu-right'>\n" +
                         action+
                 "    </ul>\n" +
                 "  </div>";

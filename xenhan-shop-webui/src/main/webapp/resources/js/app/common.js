@@ -75,6 +75,9 @@ var images = {
 
 $( document ).ready(function() {
 	loadFacebookMessenger();
+
+	// enable bootstrap tooltip
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 function setHighlight(li,className,image){

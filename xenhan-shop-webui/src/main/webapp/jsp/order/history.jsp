@@ -5,7 +5,7 @@
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
 <%@ page import="java.util.*" %>
 
-<div class="col-md-8 col-md-offset-2 mobile-padding">
+<div class="col-md-10 col-md-offset-2 mobile-padding">
     <div class="container card" style="padding: 15px;">
     	<div class="center" style="margin-bottom: 20px">
             <h2 class="page-header">
@@ -97,7 +97,7 @@
                 <table class="table table-hover click">
                     <thead>
                         <tr>
-                            <th colspan="4" id="counting"></th>
+                            <th colspan="5" id="counting"></th>
                             <th style="text-align: right" colspan="3"><span id="totalGoodAmount"></span>&nbsp;đ</th>
                             <th style="text-align: right"><span id="totalShipAmount"></span>&nbsp;đ</th>
                             <th style="width: 10px;"></th>
@@ -110,6 +110,9 @@
                             </th>
                             <th style="text-align: left">
                                 <i style="color: #92c78a;" class="fa fa-barcode" data-toggle="tooltip" title="Mã vận đơn"></i>
+                            </th>
+                            <th style="text-align: center; width: 150px">
+                                <i style="color: #92c78a;" class="fa fa-commenting" data-toggle="tooltip" title="Trạng thái đơn hàng"></i>
                             </th>
                             <th style="text-align: left">
                                 <i style="color: #92c78a;" class="fa fa-calendar-check-o" data-toggle="tooltip" title="Ngày tạo đơn"></i>
