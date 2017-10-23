@@ -306,16 +306,43 @@ function buildPagination(page){
     el.empty();
     if(!page) { return;}
 
-    for(i = 0; i < page.pagesAvailable; i++){
-        el.append(
-            $("<li  class='"+(page.pageNumber == (i+1) ? 'active':'')+"'>")
-                .append($("<a href='#'>")
-                .text(""+(i+1))
-                .attr("onclick","getHistory("+ (i+1) +")"))
-        )
+    var pageAvailable = calculatorPage(page.pagesAvailable, page.pageNumber);
 
+    for(i = 0; i < pageAvailable.length; i++){
+        el.append(
+            $("<li  class='"+(page.pageNumber == pageAvailable[i] ? 'active':'')+"'>")
+                .append($("<a href='#'>")
+                .text(pageAvailable[i])
+                .attr("onclick","getHistory("+ pageAvailable[i] +")"))
+        )
+    }
+}
+
+function calculatorPage(pagesAvailable, pageNumber){
+    var temp = [];
+    if(pagesAvailable <= 7){
+        for(i = 1; i <= pagesAvailable; i++){ temp.push(i); }
+        return temp;
     }
 
+    temp.push(1);
+    if(pageNumber < 5){
+        temp.push(2);
+        temp.push(3);
+        temp.push(4);
+    }
+    temp.push(pageNumber - 1);
+    temp.push(pageNumber);
+    if(pageNumber < pagesAvailable){
+        temp.push(pageNumber + 1);
+    }
+    temp.push(pagesAvailable);
+
+    var result = [];
+    $.each(temp, function(i, el){
+        if($.inArray(el, result) === -1 && el > 0) result.push(el);
+    });
+    return result;
 }
 
 
