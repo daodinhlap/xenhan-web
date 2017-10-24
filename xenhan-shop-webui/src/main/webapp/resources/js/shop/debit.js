@@ -213,6 +213,7 @@ function buildTotal(simpleTotal){
     form.setTotalDebit("");
     if(!simpleTotal) return;
     form.setTotalDebit(currencyFormat(simpleTotal.total));
+    form.setCountingText(simpleTotal.total >= 0 ? 'Xe Nhàn nợ Shop:' : 'Shop nợ Xe Nhàn:')
 }
 function buildTotalPayment(totalShopPayment){
     form.setTotalGoodAmount('');
@@ -278,6 +279,7 @@ function Form() {
     this.orderId = function() {return $('#order-id').val()};
 
     this.setCounting = function(value, id) {return $('#'+ id).text(value)};
+    this.setCountingText = function(value) {return $('#counting-text').text(value)};
     this.setTotalDebit = function(value) {return $('#totalDebit').text(value)};
 
     this.setTotalGoodAmount = function(value) {return $('#totalGoodAmount').text(value)};

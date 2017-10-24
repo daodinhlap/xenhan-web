@@ -71,8 +71,9 @@
                 <table class="table table-hover click">
                     <thead>
                     <tr>
-                        <th colspan="3" id="counting"></th>
-                        <th style="text-align: right" colspan="1"><span id="totalDebit"></span>&nbsp;<span style="font-weight: lighter">đ</span></th>
+                        <th colspan="2" id="counting"></th>
+                        <th style="text-align: right" id="counting-text"></th>
+                        <th style="text-align: right"><span id="totalDebit"></span>&nbsp;<span style="font-weight: lighter">đ</span></th>
                         <th colspan="3"></th>
                     </tr>
                     <tr style=" background-color: honeydew;">
