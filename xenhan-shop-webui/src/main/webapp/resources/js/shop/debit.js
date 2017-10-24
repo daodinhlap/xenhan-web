@@ -212,7 +212,7 @@ function buildCounting(page, id){
 function buildTotal(simpleTotal){
     form.setTotalDebit("");
     if(!simpleTotal) return;
-    form.setTotalDebit(currencyFormat(simpleTotal.total));
+    form.setTotalDebit(currencyFormat(Math.abs(simpleTotal.total)));
     form.setCountingText(simpleTotal.total >= 0 ? 'Xe Nhàn nợ Shop:' : 'Shop nợ Xe Nhàn:')
 }
 function buildTotalPayment(totalShopPayment){
