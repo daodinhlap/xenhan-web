@@ -31,6 +31,8 @@ $(document).ready(function($) {
 });
 
 function getHistory(index) {
+    if(index && isNaN(index)) return;
+
     order = [];
     buildTable();
 
@@ -326,21 +328,20 @@ function calculatorPage(pagesAvailable, pageNumber){
     }
 
     temp.push(1);
-    if(pageNumber < 5){
-        temp.push(2);
-        temp.push(3);
-        temp.push(4);
+    if(pageNumber > 4) temp.push('...');
+    for(i = pageNumber - 2 ; i <= pageNumber + 2; i++){
+        temp.push(i);
     }
-    temp.push(pageNumber - 1);
-    temp.push(pageNumber);
-    if(pageNumber < pagesAvailable){
-        temp.push(pageNumber + 1);
-    }
+    if(pageNumber < pagesAvailable - 3) temp.push('...');
     temp.push(pagesAvailable);
 
     var result = [];
     $.each(temp, function(i, el){
-        if($.inArray(el, result) === -1 && el > 0) result.push(el);
+        if(isNaN(el)) {
+            result.push(el);
+        } else if($.inArray(el, result) === -1 && el >= 1 && el <= pagesAvailable){
+            result.push(el);
+        }
     });
     return result;
 }
