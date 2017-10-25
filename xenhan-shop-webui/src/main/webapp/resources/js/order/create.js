@@ -57,6 +57,15 @@ $(document).ready(function() {
     // check discount fee by times
     //checkDiscountByTime();
 
+    //onChangeProvince
+    $('#pickupDistrict-' + form.pickupProvince()).show();
+    $('#district-' + form.pickupProvince()).show();
+    $('#pickupProvince').change(function () {
+        $("[id^=district]").hide();
+        $("[id^=pickupDistrict]").hide();
+        $('#pickupDistrict-' + form.pickupProvince()).show();
+        $('#district-' + form.pickupProvince()).show();
+    });
 });
 function onChangeAmount() {
     buildText();
@@ -209,6 +218,10 @@ function Form(){
     this.couponAmount = function(){ return numberFormat($('#couponAmount').text())};
     this.shipAmount = function(){ return numberFormat($('#shipAmount').text())};
 
+    this.pickupAddress = function(){ return $('#pickupAddress').val()};
+    this.pickupProvince = function(){ return $('#pickupProvince').val()};
+    this.pickupDistrict = function(){ return $('#pickupDistrict').val()};
+
     this.setAmount = function(value){ return $('#amount').val(value)};
     this.setCoupon = function(value){ return $('#couponAmount').text(value)};
     this.setShipAmount = function(value){ return $('#shipAmount').text(value)};
@@ -247,6 +260,11 @@ function makeModel(){
     order.goodAmount = form.amount();
     order.shipAmount = form.shipAmount();
     order.coupon = form.coupon();
+
+    order.pickupAddress = form.pickupAddress();
+    order.pickupProvince = form.pickupProvince();
+    order.pickupDistrict = form.pickupDistrict();
+
     return order;
 }
 

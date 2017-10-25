@@ -79,7 +79,7 @@ private @Autowired OrderExcelExport orderExcelExport;
 
     ModelAndView mv = new ModelAndView("order.create");
     mv.addObject("title","Xe Nhàn - " + OrderStatus.toAction(type));
-    mv.addObject("province", shop.getTown().getName());
+    mv.addObject("shop", shop);
     mv.addObject("type", type);
     mv.addObject("action", OrderStatus.toAction(type));
 

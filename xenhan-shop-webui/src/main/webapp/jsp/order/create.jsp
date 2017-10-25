@@ -12,81 +12,138 @@
 	</div>
 	<p id="alert"></p>
 
-	<div class="form-group">
+	<div class="form-group pickup-place">
+		<div class="col-xs-12 col-md-6 form-field">
+			<label>Tỉnh/TP lấy hàng<span style="color: red">*</span></label>
+			<select class="form-control" id="pickupProvince">
+				<option ${shop.town.name == 'Hà Nội' ? 'selected': ''} value="1">Hà Nội</option>
+				<option ${shop.town.name == 'Hồ Chí Minh' ? 'selected': ''} value="2">Hồ Chí Minh</option>
+			</select>
+		</div>
+
+		<div class="col-xs-12 col-md-6 form-field">
+			<label>Quận/Huyện lấy hàng<span style="color: red">*</span></label>
+			<c:set var = "shopDistrict" value = "${shop.town.district.id}"/>
+			<select class="form-control" name="pickupDistrict" id="pickupDistrict-1" style="display: none">
+				<option ${shopDistrict == '1'? 'selected':''} value="1">Hoàn Kiếm</option>
+				<option ${shopDistrict == '2'? 'selected':''} value="2">Hai Bà Trưng</option>
+				<option ${shopDistrict == '3'? 'selected':''} value="3">Ba Đình</option>
+				<option ${shopDistrict == '4'? 'selected':''} value="4">Đống Đa</option>
+				<option ${shopDistrict == '5'? 'selected':''} value="5">Thanh Xuân</option>
+				<option ${shopDistrict == '6'? 'selected':''} value="6">Cầu Giấy</option>
+				<option ${shopDistrict == '7'? 'selected':''} value="7">Tây Hồ</option>
+				<option ${shopDistrict == '8'? 'selected':''} value="8">Long Biên</option>
+				<option ${shopDistrict == '9'? 'selected':''} value="9">Hoàng Mai</option>
+				<option ${shopDistrict == '10'? 'selected':''} value="10">Bắc Từ Liêm</option>
+				<option ${shopDistrict == '11'? 'selected':''} value="11">Nam Từ Liêm</option>
+				<option ${shopDistrict == '12'? 'selected':''} value="12">Gia Lâm</option>
+				<option ${shopDistrict == '15'? 'selected':''} value="15">Thanh Trì</option>
+				<option ${shopDistrict == '29'? 'selected':''} value="29">Hà Đông</option>
+			</select>
+			<select class="form-control" name="pickupDistrict" id="pickupDistrict-2" style="display: none">
+				<option ${shopDistrict == '31'? 'selected':''} value="31">Quận 1</option>
+				<option ${shopDistrict == '32'? 'selected':''} value="32">Quận 2</option>
+				<option ${shopDistrict == '33'? 'selected':''} value="33">Quận 3</option>
+				<option ${shopDistrict == '34'? 'selected':''} value="34">Quận 4</option>
+				<option ${shopDistrict == '35'? 'selected':''} value="35">Quận 5</option>
+				<option ${shopDistrict == '36'? 'selected':''} value="36">Quận 6</option>
+				<option ${shopDistrict == '37'? 'selected':''} value="37">Quận 7</option>
+				<option ${shopDistrict == '38'? 'selected':''} value="38">Quận 8</option>
+				<option ${shopDistrict == '39'? 'selected':''} value="39">Quận 9</option>
+				<option ${shopDistrict == '40'? 'selected':''} value="40">Quận 10</option>
+				<option ${shopDistrict == '41'? 'selected':''} value="41">Quận 11</option>
+				<option ${shopDistrict == '42'? 'selected':''} value="42">Quận 12</option>
+				<option ${shopDistrict == '47'? 'selected':''} value="47">Phú Nhuận</option>
+				<option ${shopDistrict == '44'? 'selected':''} value="44">Bình Thạnh</option>
+				<option ${shopDistrict == '45'? 'selected':''} value="45">Tân Bình</option>
+				<option ${shopDistrict == '46'? 'selected':''} value="46">Tân Phú</option>
+				<option ${shopDistrict == '54'? 'selected':''} value="54">Thủ Đức</option>
+				<option ${shopDistrict == '51'? 'selected':''} value="51">Bình Chánh</option>
+				<option ${shopDistrict == '48'? 'selected':''} value="48">Bình Tân</option>
+				<option ${shopDistrict == '43'? 'selected':''} value="43">Gò Vấp</option>
+				<option ${shopDistrict == '50'? 'selected':''} value="50">Hóc Môn</option>
+				<option ${shopDistrict == '52'? 'selected':''} value="52">Nhà Bè</option>
+			</select>
+		</div>
+
+		<div class="form-group col-xs-12 col-md-6">
+			<label>Địa chỉ lấy hàng<span style="color: red">*</span></label>
+			<input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực...." type="text" value="${shop.address}"
+				   class="form-control" id="pickupddress">
+		</div>
+
+	</div>
+
+	<div class="col-xs-12 col-md-6 form-field">
 		<label>Họ tên</label>
 		<input placeholder="Họ tên người nhận hàng"
 			type="text" class="form-control" id="userName" value="${order.dropoff.contact.name}">
 	</div>
-	<div class="form-group">
+	<div class="col-xs-12 col-md-6 form-field">
 		<label>Số điện thoại <span style="color: red">*</span></label>
 		<input placeholder="SĐT người nhận" type="text" class="form-control" id="phone" value="${order.dropoff.contact.phone}">
 	</div>
 
-	<div class="form-group" style="display: none">
-		<label>Tỉnh/TP <span style="color: red">*</span></label>
-		<select
-			class="form-control" id="province">
-			<option ${province == 'Hà Nội' ? 'selected': ''} value="1">Hà Nội</option>
-			<option ${province == 'Hồ Chí Minh' ? 'selected': ''} value="2">Hồ Chí Minh</option>
+	<%--<div class="col-xs-12 col-md-6 form-field">--%>
+		<%--<label>Tỉnh/TP <span style="color: red">*</span></label>--%>
+		<%--<select--%>
+			<%--class="form-control" id="province">--%>
+			<%--<option ${shop.town.name == 'Hà Nội' ? 'selected': ''} value="1">Hà Nội</option>--%>
+			<%--<option ${shop.town.name == 'Hồ Chí Minh' ? 'selected': ''} value="2">Hồ Chí Minh</option>--%>
+		<%--</select>--%>
+	<%--</div>--%>
+
+	<div class="col-xs-12 col-md-12 form-field">
+		<label>Quận/Huyện <span style="color: red">*</span></label>
+		<select class="form-control" name="district" id="district-1" style="display: none">
+			<option ${shopDistrict == '1'? 'selected':''} value="1">Hoàn Kiếm</option>
+			<option ${shopDistrict == '2'? 'selected':''} value="2">Hai Bà Trưng</option>
+			<option ${shopDistrict == '3'? 'selected':''} value="3">Ba Đình</option>
+			<option ${shopDistrict == '4'? 'selected':''} value="4">Đống Đa</option>
+			<option ${shopDistrict == '5'? 'selected':''} value="5">Thanh Xuân</option>
+			<option ${shopDistrict == '6'? 'selected':''} value="6">Cầu Giấy</option>
+			<option ${shopDistrict == '7'? 'selected':''} value="7">Tây Hồ</option>
+			<option ${shopDistrict == '8'? 'selected':''} value="8">Long Biên</option>
+			<option ${shopDistrict == '9'? 'selected':''} value="9">Hoàng Mai</option>
+			<option ${shopDistrict == '10'? 'selected':''} value="10">Bắc Từ Liêm</option>
+			<option ${shopDistrict == '11'? 'selected':''} value="11">Nam Từ Liêm</option>
+			<option ${shopDistrict == '12'? 'selected':''} value="12">Gia Lâm</option>
+			<option ${shopDistrict == '15'? 'selected':''} value="15">Thanh Trì</option>
+			<option ${shopDistrict == '29'? 'selected':''} value="29">Hà Đông</option>
+		</select>
+		<select class="form-control" name="district" id="district-2" style="display: none">
+			<option ${shopDistrict == '31'? 'selected':''} value="31">Quận 1</option>
+			<option ${shopDistrict == '32'? 'selected':''} value="32">Quận 2</option>
+			<option ${shopDistrict == '33'? 'selected':''} value="33">Quận 3</option>
+			<option ${shopDistrict == '34'? 'selected':''} value="34">Quận 4</option>
+			<option ${shopDistrict == '35'? 'selected':''} value="35">Quận 5</option>
+			<option ${shopDistrict == '36'? 'selected':''} value="36">Quận 6</option>
+			<option ${shopDistrict == '37'? 'selected':''} value="37">Quận 7</option>
+			<option ${shopDistrict == '38'? 'selected':''} value="38">Quận 8</option>
+			<option ${shopDistrict == '39'? 'selected':''} value="39">Quận 9</option>
+			<option ${shopDistrict == '40'? 'selected':''} value="40">Quận 10</option>
+			<option ${shopDistrict == '41'? 'selected':''} value="41">Quận 11</option>
+			<option ${shopDistrict == '42'? 'selected':''} value="42">Quận 12</option>
+			<option ${shopDistrict == '47'? 'selected':''} value="47">Phú Nhuận</option>
+			<option ${shopDistrict == '44'? 'selected':''} value="44">Bình Thạnh</option>
+			<option ${shopDistrict == '45'? 'selected':''} value="45">Tân Bình</option>
+			<option ${shopDistrict == '46'? 'selected':''} value="46">Tân Phú</option>
+			<option ${shopDistrict == '54'? 'selected':''} value="54">Thủ Đức</option>
+			<option ${shopDistrict == '51'? 'selected':''} value="51">Bình Chánh</option>
+			<option ${shopDistrict == '48'? 'selected':''} value="48">Bình Tân</option>
+			<option ${shopDistrict == '43'? 'selected':''} value="43">Gò Vấp</option>
+			<option ${shopDistrict == '50'? 'selected':''} value="50">Hóc Môn</option>
+			<option ${shopDistrict == '52'? 'selected':''} value="52">Nhà Bè</option>
 		</select>
 	</div>
 
-	<div class="form-group">
-		<label>Quận/Huyện <span style="color: red">*</span></label>
-		<c:if test="${province == 'Hà Nội'}">
-			<select class="form-control" name="district" id="district">
-				<option ${order.dropoff.district == 'Hoàn Kiếm'? 'selected':''} value="1">Hoàn Kiếm</option>
-				<option ${order.dropoff.district == 'Hai Bà Trưng'? 'selected':''} value="2">Hai Bà Trưng</option>
-				<option ${order.dropoff.district == 'Ba Đình'? 'selected':''} value="3">Ba Đình</option>
-				<option ${order.dropoff.district == 'Đống Đa'? 'selected':''} value="4">Đống Đa</option>
-				<option ${order.dropoff.district == 'Thanh Xuân'? 'selected':''} value="5">Thanh Xuân</option>
-				<option ${order.dropoff.district == 'Cầu Giấy'? 'selected':''} value="6">Cầu Giấy</option>
-				<option ${order.dropoff.district == 'Tây Hồ'? 'selected':''} value="7">Tây Hồ</option>
-				<option ${order.dropoff.district == 'Long Biên'? 'selected':''} value="8">Long Biên</option>
-				<option ${order.dropoff.district == 'Hoàng Mai'? 'selected':''} value="9">Hoàng Mai</option>
-				<option ${order.dropoff.district == 'Bắc Từ Liêm'? 'selected':''} value="10">Bắc Từ Liêm</option>
-				<option ${order.dropoff.district == 'Nam Từ Liêm'? 'selected':''} value="11">Nam Từ Liêm</option>
-				<option ${order.dropoff.district == 'Gia Lâm'? 'selected':''} value="12">Gia Lâm</option>
-				<option ${order.dropoff.district == 'Thanh Trì'? 'selected':''} value="15">Thanh Trì</option>
-				<option ${order.dropoff.district == 'Hà Đông'? 'selected':''} value="29">Hà Đông</option>
-			</select>
-		</c:if>
-		<c:if test="${province == 'Hồ Chí Minh'}">
-			<select class="form-control" name="district" id="district">
-				<option ${order.dropoff.district == 'Quận 1'? 'selected':''} value="31">Quận 1</option>
-				<option ${order.dropoff.district == 'Quận 2'? 'selected':''} value="32">Quận 2</option>
-				<option ${order.dropoff.district == 'Quận 3'? 'selected':''} value="33">Quận 3</option>
-				<option ${order.dropoff.district == 'Quận 4'? 'selected':''} value="34">Quận 4</option>
-				<option ${order.dropoff.district == 'Quận 5'? 'selected':''} value="35">Quận 5</option>
-				<option ${order.dropoff.district == 'Quận 6'? 'selected':''} value="36">Quận 6</option>
-				<option ${order.dropoff.district == 'Quận 7'? 'selected':''} value="37">Quận 7</option>
-				<option ${order.dropoff.district == 'Quận 8'? 'selected':''} value="38">Quận 8</option>
-				<option ${order.dropoff.district == 'Quận 9'? 'selected':''} value="39">Quận 9</option>
-				<option ${order.dropoff.district == 'Quận 10'? 'selected':''} value="40">Quận 10</option>
-				<option ${order.dropoff.district == 'Quận 11'? 'selected':''} value="41">Quận 11</option>
-				<option ${order.dropoff.district == 'Quận 12'? 'selected':''} value="42">Quận 12</option>
-				<option ${order.dropoff.district == 'Phú Nhuận'? 'selected':''} value="47">Phú Nhuận</option>
-				<option ${order.dropoff.district == 'Bình Thạnh'? 'selected':''} value="44">Bình Thạnh</option>
-				<option ${order.dropoff.district == 'Tân Bình'? 'selected':''} value="45">Tân Bình</option>
-				<option ${order.dropoff.district == 'Tân Phú'? 'selected':''} value="46">Tân Phú</option>
-				<option ${order.dropoff.district == 'Thủ Đức'? 'selected':''} value="54">Thủ Đức</option>
-				<option ${order.dropoff.district == 'Bình Chánh'? 'selected':''} value="51">Bình Chánh</option>
-				<option ${order.dropoff.district == 'Bình Tân'? 'selected':''} value="48">Bình Tân</option>
-				<option ${order.dropoff.district == 'Gò Vấp'? 'selected':''} value="43">Gò Vấp</option>
-				<option ${order.dropoff.district == 'Hóc Môn'? 'selected':''} value="50">Hóc Môn</option>
-				<option ${order.dropoff.district == 'Nhà Bè'? 'selected':''} value="52">Nhà Bè</option>
-			</select>
-		</c:if>
-
-	</div>
-
-	<div class="form-group">
+	<div class="col-xs-12 col-md-12 form-field">
 		<label>Địa chỉ <span style="color: red">*</span></label>
 		<input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực...." type="text" value="${order.dropoff.address}"
 			   class="form-control" id="address">
 	</div>
 
-	<div class="form-group">
+	<div class="col-xs-12 col-md-12 form-field">
 		<label>Ghi chú</label>
 		<textarea class="form-control" rows="3" id="note"
 			placeholder="Mô tả đơn hàng/Lời nhắn">${order.orderMessage}</textarea>
@@ -102,6 +159,7 @@
 	</div>
 </div>
 
+<%-- --===============================================----%>
 <div id="info-order" class="container card" style="display: none;">
 	<div class="center">
 		<h2>Tiền hàng</h2>

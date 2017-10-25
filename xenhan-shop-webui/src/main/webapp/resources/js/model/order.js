@@ -70,4 +70,8 @@ function OrderRequest (){
 
         this.packageId ;
         this.coupon;
+
+        this.pickupAddress;
+        this.pickupProvince;
+        this.pickupDistrict;
 }
