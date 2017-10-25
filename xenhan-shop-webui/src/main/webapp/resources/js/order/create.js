@@ -54,6 +54,9 @@ $(document).ready(function() {
         $('#note').attr("disabled", 'disabled');
     }
 
+    // check discount fee by times
+    //checkDiscountByTime();
+
 });
 function onChangeAmount() {
     buildText();
@@ -106,6 +109,8 @@ function next() {
 
 
 function getFee(provinceId, districtId){
+    //checkDiscountByTime(districtId);
+
     var url = BASE_URL + "/get-fee?provinceId="+provinceId+"&districtId="+districtId;
     $.ajax({
         type : 'GET',
@@ -243,5 +248,28 @@ function makeModel(){
     order.shipAmount = form.shipAmount();
     order.coupon = form.coupon();
     return order;
+}
+
+function checkDiscountByTime(districtId){
+    // thanh tri,gia lam,Hóc Môn, Bình Chánh, Nhà Bè.
+    var ignorePlaces = [15,12,50,51,52];
+    // var start = "1506790800000"; // 01/10
+    // var end = "1509382799000"; // 30/10
+    var start = "1509987599000"; //06/11
+    var end = "1510419600000"; // 12/11
+    var start_time = 16;
+    var end_time = 17;
+
+    var now = new Date();
+    var hours = now.getHours();
+    if(now.getTime() < start || now.getTime() > end) return;
+    if(start_time < end_time && (hours < start_time || hours > end_time)) return;
+    if(start_time > end_time && (hours < start_time && hours > end_time)) return;
+
+    if(districtId && !ignorePlaces.includes(Number(districtId))){
+        $('#coupon').attr('disabled', 'disabled');
+        return;
+    }
+    $('#coupon').removeAttr('disabled');
 }
 
