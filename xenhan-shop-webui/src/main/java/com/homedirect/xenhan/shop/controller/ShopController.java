@@ -46,11 +46,11 @@ public class ShopController extends AbstractController {
   public byte[] saveShop(@RequestBody Shop request, HttpServletRequest httpRequest, HttpSession session) {
     logger.info(request.toString());
     String url = apiExchangeService.createUrlWithToken(httpRequest, "shop", "create-shop");
-    ResponseEntity<RepositoryResponse<Object>> entity = apiExchangeService.post(httpRequest, url,
+    ResponseEntity<RepositoryResponse<Shop>> entity = apiExchangeService.post(httpRequest, url,
         request, new TypeReference<RepositoryResponse<Shop>>(){});
 
     if(apiExchangeService.isSuccessResponse(entity.getBody())) {
-      session.setAttribute(AttributeConfig.SHOPNAME, request.getShopName());
+      session.setAttribute(AttributeConfig.SHOPNAME, entity.getBody().getData().getShopName());
       session.setAttribute(AttributeConfig.SHOP, entity.getBody().getData());
       return "done".getBytes();
     }
