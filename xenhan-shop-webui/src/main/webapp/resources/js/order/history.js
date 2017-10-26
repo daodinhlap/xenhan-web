@@ -168,7 +168,14 @@ function buildOrderDetail(order){
                     "</div>"+
 
                     "<div class=\"modal-body\">"+
-                            // "<div class='col-md-1'><i>Đơn hàng:</i></div>"+
+
+                            // status
+                            "<div class='col-md-12'  title=\"Trạng thái đơn hàng\">" +
+                                  "<p style='text-align: center;' class='"+corlorStatus(order.status)+"'>"+orderStatus(order.status)+"</p>"+
+                                       (order.status >= 400 && order.status < 600 ?
+                                  "<p style='text-align: left;'><span>Lý do:&nbsp;</span><span style='font-weight: bold;'>"+order.failMessage+"</span></p>" : "")+
+                            "</div>"+
+                            // Đơn hàng:"+
                             "<div class='col-md-3 content-right'>"+
                                 "<p style='text-decoration: underline;'  title=\"Ngày tạo đơn\"><i>Đơn hàng:</i></p>"+
                                 "<p  title=\"Ngày tạo đơn\">" +
@@ -184,7 +191,21 @@ function buildOrderDetail(order){
                                        "<img src=\"/resources/images/icon_green_amount.png\" class='img-icon'>"+(currencyFormat(order.goodAmount))+"</p>"+
                             "</div>"+
 
-                            // "<div class='col-md-1'><i>Giao hàng:</i></div>"+
+                            // lay hàng:"+
+                            "<div class='col-md-3 content-right'>" +
+                                "<p style='text-decoration: underline;'><i>Lấy hàng:</i></p>"+
+                                "<p  title=\"Địa chỉ lấy hàng\">" +
+                                    "<img src=\"/resources/images/icon_location.png\" class='img-icon'>"+
+                                    order.shop.address+ ", "+order.shop.town.district.name + ", " + order.shop.town.name+"</p>"+
+
+                                "<p title=\"Tên chủ hàng\">" +
+                                "<img src=\"/resources/images/icon_taikhoan.png\" class='img-icon'>"+order.shop.fullName+"</p>"+
+
+                                "<p   title=\"SĐT chủ hàng\">" +
+                                "<img src=\"/resources/images/icon_phone.png\" class='img-icon'>"+order.shop.phone+"</p>"+
+                            "</div>"+
+
+                            // Giao hàng:+
                             "<div class='col-md-3 content-right'>" +
                                 "<p style='text-decoration: underline;'  title=\"Ngày tạo đơn\"><i>Giao hàng:</i></p>"+
                                 "<p  title=\"Địa chỉ giao hàng\">" +
@@ -195,11 +216,11 @@ function buildOrderDetail(order){
                                 "<p   title=\"SĐT khách hàng\">" +
                                     "<img src=\"/resources/images/icon_phone.png\" class='img-icon'>"+order.dropoff.contact.phone+"</p>"+
                             "</div>"+
-
+                            // shipper
                             (order.shipper ?
                                     // "<div class='col-md-1'><i>Thông tin tài xế:</i></div>" +
                                     "<div class='col-md-3 content-right'>" +
-                                    "<p style='text-decoration: underline;'  title=\"Ngày tạo đơn\"><i>Thông tin tài xế:</i></p>" +
+                                    "<p style='text-decoration: underline;'  title=\"Ngày tạo đơn\"><i>Tài xế:</i></p>" +
                                     "<p   title=\"Tên tài xế\">" +
                                     "<img src=\"/resources/images/icon_logo.png\" class='img-icon'>" + ( order.shipper.fullName) + "</p>" +
                                     "<p   title=\"SĐT tài xế\">" +
@@ -208,12 +229,6 @@ function buildOrderDetail(order){
                                     : ""
                             ) +
 
-                            "<div class='col-md-3'  title=\"Trạng thái đơn hàng\">" +
-                                "<p style='text-align: center;' class='"+corlorStatus(order.status)+"'>"+orderStatus(order.status)+"</p>"+
-                                "<p style='text-align: left;' id='message-"+order.id+"'></p>"+
-                            "</div>"+
-
-
                     "</div>"+
 
                     "<div class=\"modal-footer\">"+
@@ -221,8 +236,6 @@ function buildOrderDetail(order){
                 "</div>"+
             "</div>"+
         "</div>";
-
-    getOrderHistory(order);
 
     return result;
 }
@@ -353,7 +366,7 @@ function buildOrderAction(order){
         action += "<li><a href='/order/tao-don?type=1&order-id="+order.id+"'>Sửa đơn</a></li>\n";
         action += "<li><a href=\"#\" onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
     }
-    if(order.status >= 200 && order.status < 400){
+    if(order.status > 200 && order.status < 400){
         action += "<li><a href='/lien-he'><span style='color:red'>Liên hệ hủy hoặc sửa đơn</span></a></li>\n";
     }
     action += "<li><a href='/order/tao-don?type=2&order-id="+order.id+"'>Đăng lại đơn</a></li>\n";
@@ -411,32 +424,32 @@ function onTyping(){
         form.setRestCharMessage(content);
     })
 }
-
-function getOrderHistory(order){
-    if(order.status < 400) return "";
-    var action = "";
-    // return order
-    if(order.status >= 400 && order.status < 500){
-        action = "confirm_return"
-    }
-    // cancel order
-    if(order.status >= 500 && order.status < 600){
-        action = "cancel"
-    }
-    var url = URL_ORDER_HISTORY;
-    url += "?order-id=" + order.id;
-    url += "&action=" + action;
-    $.ajax({
-        type : 'GET',
-        url : url,
-    }).done(function(data) {
-        console.log(data);
-        if(data.data.message | data.data.message != 'null'){
-            var content = "<span>Lý do:&nbsp;</span><span style='font-weight: bold;'>"+data.data.message+"</span>";
-            $('#message-'+order.id).html(content);
-        }
-    }).fail(function(data) {
-        console.log(data);
-        return "";
-    })
-}
+//
+// function getOrderHistory(order){
+//     if(order.status < 400) return "";
+//     var action = "";
+//     // return order
+//     if(order.status >= 400 && order.status < 500){
+//         action = "confirm_return"
+//     }
+//     // cancel order
+//     if(order.status >= 500 && order.status < 600){
+//         action = "cancel"
+//     }
+//     var url = URL_ORDER_HISTORY;
+//     url += "?order-id=" + order.id;
+//     url += "&action=" + action;
+//     $.ajax({
+//         type : 'GET',
+//         url : url,
+//     }).done(function(data) {
+//         console.log(data);
+//         if(data.data.message | data.data.message != 'null'){
+//             var content = "<span>Lý do:&nbsp;</span><span style='font-weight: bold;'>"+data.data.message+"</span>";
+//             $('#message-'+order.id).html(content);
+//         }
+//     }).fail(function(data) {
+//         console.log(data);
+//         return "";
+//     })
+// }

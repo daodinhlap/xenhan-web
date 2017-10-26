@@ -1069,6 +1069,9 @@ input::placeholder{
 .table.click>tbody>tr{
     cursor: pointer;
 }
+.table-hover>tbody>tr:hover {
+    background-color: rgba(243, 147, 31, 0.15);
+}
 .bill-container{
     border-top: 1px solid; padding: 10px; clear: both;overflow: hidden
 }

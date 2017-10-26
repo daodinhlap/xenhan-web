@@ -31,6 +31,8 @@ function Order() {
         this.status = '';
         this.gender = '';
         this.shipper = '';
+
+        this.failMessage = '';
 }
 
 function Dropoff (){

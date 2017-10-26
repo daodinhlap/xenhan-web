@@ -32,7 +32,7 @@ $(document).ready(function() {
     var orderStatus = $('#order-status').val();
     var isCOD = form.cod();
 
-    if( orderStatus >= 200 && orderStatus < 300){
+    if( orderStatus > 200 && orderStatus < 300){
         $('#cod').attr("disabled", 'disabled');
     }
     if(form.type() == '1' && isCOD == "false" && ( orderStatus >= 200 && orderStatus < 300)){
@@ -58,13 +58,13 @@ $(document).ready(function() {
     //checkDiscountByTime();
 
     //onChangeProvince
-    $('#pickupDistrict-' + form.pickupProvince()).show();
-    $('#district-' + form.pickupProvince()).show();
-    $('#pickupProvince').change(function () {
+    $('#pickupDistrict-' + form.provinceId()).show();
+    $('#district-' + form.provinceId()).show();
+    $('#province').change(function () {
         $("[id^=district]").hide();
         $("[id^=pickupDistrict]").hide();
-        $('#pickupDistrict-' + form.pickupProvince()).show();
-        $('#district-' + form.pickupProvince()).show();
+        $('#pickupDistrict-' + form.provinceId()).show();
+        $('#district-' + form.provinceId()).show();
     });
 });
 function onChangeAmount() {
@@ -203,12 +203,17 @@ function Form(){
     this.id = function(){ return $('#order-id').val()};
     this.userName = function(){ return $('#userName').val()};
 	this.phone = function(){ return $('#phone').val()};
+
 	this.address = function(){ return $('#address').val()};
     this.provinceId = function(){ return $('#province').val()};
-    this.districtId = function(){ return $('#district').val()};
-
+    this.districtId = function(){ return $('#district-' + this.provinceId()).val()};
     this.province = function(){ return $('#province option:selected').text()};
-    this.district = function(){ return $('#district option:selected').text()};
+    this.district = function(){ return $('#district-' + this.provinceId() + ' option:selected').text()};
+
+    this.pickupAddress = function(){ return $('#pickupAddress').val()};
+    this.pickupDistrictId = function(){ return $('#pickupDistrict-' + this.provinceId()).val()};
+    this.pickupDistrict = function(){ return $('#pickupDistrict-' + this.provinceId() + '  option:selected').text()};
+
 	this.note = function(){ return $('#note').val()};
     this.type = function(){ return $('#type').val()};
 
@@ -218,9 +223,6 @@ function Form(){
     this.couponAmount = function(){ return numberFormat($('#couponAmount').text())};
     this.shipAmount = function(){ return numberFormat($('#shipAmount').text())};
 
-    this.pickupAddress = function(){ return $('#pickupAddress').val()};
-    this.pickupProvince = function(){ return $('#pickupProvince').val()};
-    this.pickupDistrict = function(){ return $('#pickupDistrict').val()};
 
     this.setAmount = function(value){ return $('#amount').val(value)};
     this.setCoupon = function(value){ return $('#couponAmount').text(value)};
@@ -237,6 +239,9 @@ function Form(){
         }
         if(!this.address()){
             error.push({message: Error_message.EMPTY_ADDRESS, id: "address"});
+        }
+        if(!this.pickupAddress()){
+            error.push({message: Error_message.EMPTY_ADDRESS, id: "pickupAddress"});
         }
         return error;
     }
@@ -262,7 +267,7 @@ function makeModel(){
     order.coupon = form.coupon();
 
     order.pickupAddress = form.pickupAddress();
-    order.pickupProvince = form.pickupProvince();
+    order.pickupProvince = form.province();
     order.pickupDistrict = form.pickupDistrict();
 
     return order;
