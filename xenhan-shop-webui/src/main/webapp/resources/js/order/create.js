@@ -35,19 +35,20 @@ $(document).ready(function() {
     if( orderStatus > 200 && orderStatus < 300){
         $('#cod').attr("disabled", 'disabled');
     }
+    if(form.type() == '1'){
+        $('#coupon').attr("disabled", 'disabled');
+    }
     if(form.type() == '1' && isCOD == "false" && ( orderStatus >= 200 && orderStatus < 300)){
         $('#address').attr("disabled", 'disabled');
         $('#province').attr("disabled", 'disabled');
         $('#district').attr("disabled", 'disabled');
         $('#amount').attr("disabled", 'disabled');
-        $('#coupon').attr("disabled", 'disabled');
     }
     if(form.type() == '1' && orderStatus >= 400 && orderStatus < 600){
         $('#address').attr("disabled", 'disabled');
         $('#province').attr("disabled", 'disabled');
         $('#district').attr("disabled", 'disabled');
         $('#amount').attr("disabled", 'disabled');
-        $('#coupon').attr("disabled", 'disabled');
 
         $('#userName').attr("disabled", 'disabled');
         $('#phone').attr("disabled", 'disabled');
