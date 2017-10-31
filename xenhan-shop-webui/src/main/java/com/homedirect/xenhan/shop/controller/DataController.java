@@ -29,15 +29,17 @@ public class DataController extends AbstractController {
   @GetMapping(value = "/get-fee")
   public Double getFee(@RequestParam(value = "provinceId", required = true) String provinceId,
                        @RequestParam(value = "districtId", required = true) String districtId,
+                       @RequestParam(value = "time", required = false) long time,
                        @RequestParam(value = "packageId", required = false) Integer packageId,
                        HttpServletRequest httpRequest) {
-    logger.info("\n GET FEE provinceId:{} - districtId:{}\n",provinceId, districtId);
+    logger.info("\n GET FEE provinceId:{} - districtId:{} - time: {}\n",provinceId, districtId, time);
 
     URI uri = apiExchangeService.createEncodeUrlWithToken(httpRequest, "common", "calculate-fee");
     UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromUri(uri);
-    uriBuilder.queryParam("shop-name",httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME));
-    uriBuilder.queryParam("province-id",provinceId);
-    uriBuilder.queryParam("district-id",districtId);
+    uriBuilder.queryParam("shop-name", httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME));
+    uriBuilder.queryParam("province-id", provinceId);
+    uriBuilder.queryParam("district-id", districtId);
+    uriBuilder.queryParam("time", time);
     uriBuilder.queryParam("package-id", packageId != null? packageId: DEFAULT_PACKAGE_ID);
 
     return apiExchangeService.getPure(httpRequest, uriBuilder.build().toString(), new TypeReference<Double>(){});

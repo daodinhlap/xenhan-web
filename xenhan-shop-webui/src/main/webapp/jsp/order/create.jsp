@@ -228,6 +228,7 @@
 	<input type="hidden" id="type" value="${type}">
 	<input type="hidden" id="type-des" value="${action}">
 	<input type="hidden" id="order-status" value="${order.status}">
+	<input type="hidden" id="created-time" value="${order.createdDate}">
 </div>
 
 </div>

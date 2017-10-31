@@ -56,7 +56,7 @@ $(document).ready(function() {
     }
 
     // check discount fee by times
-    //checkDiscountByTime();
+    checkDiscountByTime();
 
     //onChangeProvince
     $('#pickupDistrict-' + form.provinceId()).show();
@@ -119,9 +119,12 @@ function next() {
 
 
 function getFee(provinceId, districtId){
-    //checkDiscountByTime(districtId);
+    checkDiscountByTime(districtId);
 
-    var url = BASE_URL + "/get-fee?provinceId="+provinceId+"&districtId="+districtId;
+    var url = BASE_URL + "/get-fee";
+    url += "?provinceId=" + provinceId;
+    url += "&districtId=" + districtId;
+    url += "&time=" + (form.orderCreatedDate() ? form.orderCreatedDate() : 0);
     $.ajax({
         type : 'GET',
         url : url
@@ -217,6 +220,7 @@ function Form(){
 
 	this.note = function(){ return $('#note').val()};
     this.type = function(){ return $('#type').val()};
+    this.orderCreatedDate = function(){ return $('#created-time').val()};
 
 	this.cod = function(){ return $('#cod').val()};
     this.amount = function(){ return numberFormat($('#amount').val())};
@@ -281,8 +285,8 @@ function checkDiscountByTime(districtId){
     // var end = "1509382799000"; // 30/10
     var start = "1509987599000"; //06/11
     var end = "1510419600000"; // 12/11
-    var start_time = 16;
-    var end_time = 17;
+    var start_time = 18;
+    var end_time = 8;
 
     var now = new Date();
     var hours = now.getHours();
