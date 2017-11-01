@@ -127,7 +127,7 @@
                                 <img class="img-icon" src="/resources/images/icon_green_amount.png" data-toggle="tooltip" title="Tiền hàng">
                             </th>
                             <th style="text-align: right">
-                                <img class="img-icon" src="/resources/images/icon_green_ship_amount.png" data-toggle="tooltip" title="Phí ship">
+                                <img class="img-icon" src="/resources/images/icon_green_ship_amount.png" data-toggle="tooltip" title="Phí ship/Phí trả lại">
                             </th>
                             <th></th>
                         </tr>

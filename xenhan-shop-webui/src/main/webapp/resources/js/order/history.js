@@ -145,7 +145,7 @@ function buildTable(orderPage) {
                 .append(
                     $("<td "+trigger+" align=\"right\">"+
                         ((order.discount*(-1) <= 0)? '': "<i class='fa fa-gift' style='color: #eb7a25;'></i>&nbsp;")+
-                        currencyFormat(order.shipAmount)+
+                        currencyFormat(getShipAmount(order))+
                         "</td>")
                 )
                 .append($("<td align=\"left\">"+buildOrderAction(order)+"</td>"))
@@ -186,7 +186,7 @@ function buildOrderDetail(order){
                                 "<p  title=\"Mã coupon khuyến mại\">" +
                                     "<i class=\"fa fa-gift\" style='color: #eb7a25;'></i>&nbsp;&nbsp;"+(order.coupon? order.coupon:'')+" "+currencyFormat(order.discount)+"</p>"+
                                 "<p  title='Phí ship đã trừ mã giảm giá'>" +
-                                     "<img src='/resources/images/icon_green_ship_amount.png' class='img-icon'>"+(currencyFormat(order.shipAmount))+"</p>"+
+                                     "<img src='/resources/images/icon_green_ship_amount.png' class='img-icon'>"+(currencyFormat(getShipAmount(order)))+"</p>"+
                                 "<p  title=\"Tiền hàng\">" +
                                        "<img src=\"/resources/images/icon_green_amount.png\" class='img-icon'>"+(currencyFormat(order.goodAmount))+"</p>"+
                             "</div>"+
@@ -423,6 +423,13 @@ function onTyping(){
         content += "/50";
         form.setRestCharMessage(content);
     })
+}
+function getShipAmount(order) {
+    if(order.status >= 400 && order.status < 500) return order.refund;
+    if(order.status >= 500) return 0;
+    return order.shipAmount;
+
+
 }
 //
 // function getOrderHistory(order){
