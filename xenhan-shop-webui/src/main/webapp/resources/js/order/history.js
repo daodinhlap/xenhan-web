@@ -215,6 +215,8 @@ function buildOrderDetail(order){
                                     "<img src=\"/resources/images/icon_taikhoan.png\" class='img-icon'>"+order.dropoff.contact.name+"</p>"+
                                 "<p   title=\"SĐT khách hàng\">" +
                                     "<img src=\"/resources/images/icon_phone.png\" class='img-icon'>"+order.dropoff.contact.phone+"</p>"+
+                                "<p   title=\"Ghi chú\">" +
+                                    "<i class=\"fa fa-commenting\" style='color: #eb7a25;'></i>&nbsp;&nbsp;"+order.orderMessage+"</p>"+
                             "</div>"+
                             // shipper
                             (order.shipper ?
@@ -363,11 +365,16 @@ function calculatorPage(pagesAvailable, pageNumber){
 function buildOrderAction(order){
     var action = "";
     if(order.status < 200){
-        action += "<li><a href='/order/tao-don?type=1&order-id="+order.id+"'>Sửa đơn</a></li>\n";
-        action += "<li><a href=\"#\" onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
+        action += "<li><a href='#' onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
     }
-    if(order.status > 200 && order.status < 400){
-        action += "<li><a href='/lien-he'><span style='color:red'>Liên hệ hủy hoặc sửa đơn</span></a></li>\n";
+    if(order.status > 200 && order.status < 400 && order.cod){
+        action += "<li><a href='#' onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
+    }
+    if(order.status > 200 && order.status < 400 && !order.cod){
+        action += "<li><a href='/lien-he'><span style='color:red'>Liên hệ hủy đơn</span></a></li>\n";
+    }
+    if(order.status < 400){
+        action += "<li><a href='/order/tao-don?type=1&order-id="+order.id+"'>Sửa đơn</a></li>\n";
     }
     action += "<li><a href='/order/tao-don?type=2&order-id="+order.id+"'>Đăng lại đơn</a></li>\n";
 
