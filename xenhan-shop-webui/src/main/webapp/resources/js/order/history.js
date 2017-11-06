@@ -28,6 +28,15 @@ $(document).ready(function($) {
         $('#filter-area').toggle();
     })
     
+    // on check all
+    $('#check-all').change(function () {
+        if($(this).is(':checked')){
+            checkAll();
+        } else {
+            unCheckAll();
+        }
+    });
+
 });
 
 function getHistory(index) {
@@ -135,7 +144,7 @@ function buildTable(orderPage) {
         var trigger = "data-toggle='modal' data-target='#modal-"+ order.id +"'";
         table.append(
             $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
-                .append($("<td align=\"left\">").append($("<input type='checkbox' onclick='check($(this),"+ order.id +")'>")))
+                .append($("<td align=\"left\">").append($("<input id='check-'"+order.id+" type='checkbox' onclick='check($(this),"+ order.id +")'>")))
                 .append($("<td "+trigger+" align=\"left\">"+order.id+"</td>"))
                 .append($("<td "+trigger+"><div class='order-status "+corlorStatus(order.status)+"'>"+orderStatus(order.status)+"</div></td>"))
                 .append($("<td "+trigger+" align=\"left\">"+ddMM(order.createdDate)+"</td>"))
@@ -302,6 +311,15 @@ function print(type){
         console.log(data);
     }).always(function () {
     });
+}
+
+function checkAll(){
+    $('[id^=check-]').prop('checked', true);
+    ordersSelected = orders;
+}
+function unCheckAll(){
+    $('[id^=check-]').prop('checked', false);
+    ordersSelected = [];
 }
 
 function check(check, orderId) {

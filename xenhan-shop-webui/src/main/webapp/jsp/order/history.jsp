@@ -104,10 +104,9 @@
                         </tr>
                         <tr>
                             <th style="width: 10px;" style="color: #92c78a;">#</th>
-                            <th>
-                                <%--<a href="#" onclick="print(1)" data-toggle="tooltip" title="Click để In phiếu">--%>
-                                    <%--<i style="color: #92c78a;" class="fa fa-print"></i></a>--%>
-                                <div class="dropdown" data-toggle="tooltip" title="Click để In phiếu">
+                            <th style="width: 50px">
+                                <input type="checkbox" id="check-all">
+                                <div class="dropdown" data-toggle="tooltip" title="Click để In phiếu" style="float: right;cursor: pointer">
                                     <a class="dropdown-toggle" data-toggle="dropdown"
                                             data-toggle="tooltip" title="Click để In phiếu">
                                         <i style="color: #92c78a;" class="fa fa-print"></i>
