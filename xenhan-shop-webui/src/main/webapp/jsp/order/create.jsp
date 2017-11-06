@@ -193,8 +193,7 @@
 	</div>
 	<div class="col-xs-12 col-md-4 form-field">
 		<label>Mã giảm giá</label>
-		<input type="text" class="form-control" id="coupon" value="${type == 1? order.coupon:''}"
-			${type == 1 && not empty order.coupon? 'disabled':''}>
+		<input type="text" class="form-control" id="coupon" value="${type == 1? order.coupon:''}" >
 	</div>
 
 	<div class="form-group">

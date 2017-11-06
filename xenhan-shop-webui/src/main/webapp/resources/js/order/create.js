@@ -60,7 +60,7 @@ $(document).ready(function() {
     // }
 
     // check discount fee by times
-    checkDiscountByTime();
+    // checkDiscountByTime();
 
     //onChangeProvince
     $('#pickupDistrict-' + form.provinceId()).show();
@@ -130,7 +130,7 @@ function next() {
 
 
 function getFee(provinceId, districtId){
-    checkDiscountByTime(districtId);
+    //checkDiscountByTime(districtId);
 
     var url = BASE_URL + "/get-fee";
     url += "?provinceId=" + provinceId;
