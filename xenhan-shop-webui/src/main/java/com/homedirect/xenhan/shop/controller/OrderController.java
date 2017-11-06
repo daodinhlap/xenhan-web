@@ -62,11 +62,13 @@ private @Autowired OrderExcelExport orderExcelExport;
   }
 
   @PostMapping(value = "/print")
-  public ModelAndView print(@RequestBody List<Order> orders) {
+  public ModelAndView print(@RequestParam(value = "type") int type, @RequestBody List<Order> orders) {
     if(CollectionUtils.isEmpty(orders)) return null;
+
     ModelAndView mv = new ModelAndView("order.print");
     mv.addObject("title","Xe Nhàn - In");
     mv.addObject("orders",orders);
+    mv.addObject("type", type);
     return mv;
   }
 

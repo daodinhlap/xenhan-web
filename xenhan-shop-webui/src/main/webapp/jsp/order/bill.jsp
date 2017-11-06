@@ -34,7 +34,7 @@
 <body>
     <div class="container card">
         <c:forEach items="${orders}" var="order" varStatus="loopItem">
-            <div class="col-xs-4 col-sm-4 col-md-4" style="font-size: 13px; padding: 30px 5px">
+            <div class="${type == 1 ? "col-sm-4 col-md-4 a4" : "bill"}" style="font-size: 13px; padding: 30px 5px">
                 <%--HEADER--%>
                 <div>
                     <div class="bill-header-label-content">
@@ -55,48 +55,44 @@
                 <div style="border: 1px solid; clear: both;">
                     <div>
                         <div class="col-xs-4 col-sm-4 col-md-4 label-content">${order.id}</div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <img id="${order.id}"></img>
+                        <div class="col-xs-8 col-sm-8 col-md-8" style="padding: 0px">
+                            <img ${type == 2 ? "style='width: 180px!important'" : ""} id="${order.id}"></img>
                         </div>
                     </div>
                     <script>$("#${order.id}").JsBarcode(${order.id},{displayValue: false,width:4,height:40});
                     </script>
 
-                    <div  class="bill-container">
+                    <div class="bill-container bill-fix-height">
                         <p><strong>THÔNG TIN SHOP</strong></p>
                         <%--shop name--%>
-                            <div class="col-xs-4 col-sm-4 col-md-4"> Tên Shop </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.shop.fullName}</div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 no-padding"> Tên </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 content-right no-padding"> ${order.shop.fullName}</div>
                         <%--phone--%>
-                            <div class="col-xs-4 col-sm-4 col-md-4"> SĐT Shop </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.shop.phone} </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 no-padding"> SĐT </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 content-right no-padding"> ${order.shop.phone} </div>
                         <%--address--%>
-                            <div class="col-xs-4 col-sm-4 col-md-4"> Địa chỉ </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.shop.address}, ${order.shop.town.name} </div>
+                            <div class="col-md-12 content-right no-padding"> ${order.shop.address},
+                                    ${order.shop.town.district.name}, ${order.shop.town.name}
+                            </div>
                     </div>
 
-                    <div  class="bill-container">
-                        <p><strong>THÔNG TIN KHÁCH HÀNG</strong></p>
+                    <div class="bill-container bill-fix-height">
+                        <p style="margin: 0px"><strong>THÔNG TIN KHÁCH HÀNG</strong></p>
                             <%--contact--%>
-                            <div class="col-xs-4 col-sm-4 col-md-4">Tên khách</div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 content-right">
-                                    ${order.dropoff.contact.name? order.dropoff.contact.name:"..."}
+                            <div class="col-md-12 content-right no-padding">
+                                    ${order.dropoff.contact.name? order.dropoff.contact.name:"..."} - ${order.dropoff.contact.phone}
                             </div>
-                            <%--phone--%>
-                            <div class="col-xs-4 col-sm-4 col-md-4">SĐT nhận</div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.dropoff.contact.phone} </div>
                             <%--dropoff--%>
-                            <div class="col-xs-4 col-sm-4 col-md-4">Địa chỉ giao</div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 content-right"> ${order.dropoff.address},
+                            <div class="col-md-12 content-right no-padding"> ${order.dropoff.address},
                                 ${order.dropoff.town.district.name}, ${order.dropoff.town.name}</div>
                     </div>
 
-                    <div  style="border-top: 1px solid; padding: 10px">
-                        <p><strong>MÔ TẢ ĐƠN HÀNG</strong></p>
-                        <div>${order.orderMessage}</div>
+                    <div class="${type == 2 ? "bill-fix-height-msg" : ""}" style="border-top: 1px solid; padding: 5px 10px">
+                        <p style="margin: 0px"><strong>MÔ TẢ ĐƠN HÀNG</strong></p>
+                        <div class="col-md-12 content-right no-padding">${order.orderMessage}</div>
                     </div>
 
-                    <div  style="border-top: 1px solid">
+                    <div style="border-top: 1px solid">
                         <table class="table small table-bordered" style=" margin: 0px">
                             <tbody>
                                 <jsp:useBean id="createdDate" class="java.util.Date" />
@@ -136,6 +132,7 @@
 
             </div>
         </c:forEach>
+
     </div>
 </body>
 </html>

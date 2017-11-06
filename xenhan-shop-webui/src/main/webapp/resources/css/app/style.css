@@ -1073,7 +1073,10 @@ input::placeholder{
     background-color: rgba(243, 147, 31, 0.15);
 }
 .bill-container{
-    border-top: 1px solid; padding: 10px; clear: both;overflow: hidden
+    border-top: 1px solid;
+    padding: 5px 10px;
+    clear: both;
+    overflow: hidden
 }
 .status-find-ship{
     background-color: #77ba20;
@@ -1151,4 +1154,22 @@ input::placeholder{
 }
 .form-field{
  margin-bottom: 15px;
+}
+.bill{
+    height: 174.5mm !important;
+    width: 80mm;
+}
+.a4{
+    height: 190mm !important;
+}
+.bill-fix-height{
+    height: 105px;
+    overflow-y: hidden;
+}
+.bill-fix-height-msg{
+    height: 60px;
+    overflow-y: hidden;
+}
+.no-padding{
+    padding: 0px;
 }

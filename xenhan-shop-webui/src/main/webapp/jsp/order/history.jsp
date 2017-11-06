@@ -105,8 +105,18 @@
                         <tr>
                             <th style="width: 10px;" style="color: #92c78a;">#</th>
                             <th>
-                                <a href="#" onclick="print()" data-toggle="tooltip" title="Click để In phiếu">
-                                    <i style="color: #92c78a;" class="fa fa-print"></i></a>
+                                <%--<a href="#" onclick="print(1)" data-toggle="tooltip" title="Click để In phiếu">--%>
+                                    <%--<i style="color: #92c78a;" class="fa fa-print"></i></a>--%>
+                                <div class="dropdown" data-toggle="tooltip" title="Click để In phiếu">
+                                    <a class="dropdown-toggle" data-toggle="dropdown"
+                                            data-toggle="tooltip" title="Click để In phiếu">
+                                        <i style="color: #92c78a;" class="fa fa-print"></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" onclick="print(1)">A4</a></li>
+                                        <li><a href="#" onclick="print(2)">In nhiệt</a></li>
+                                    </ul>
+                                </div>
                             </th>
                             <th style="text-align: left">
                                 <i style="color: #92c78a;" class="fa fa-barcode" data-toggle="tooltip" title="Mã vận đơn"></i>
