@@ -8,7 +8,7 @@
 <div class="col-md-6 col-md-offset-3  mobile-padding">
     <div id="info-receiver" class="container card">
 	<div class="center">
-		<h2>THÔNG TIN</h2>
+		<h2>${fn:toUpperCase(action)}</h2>
 	</div>
 	<p id="alert"></p>
 

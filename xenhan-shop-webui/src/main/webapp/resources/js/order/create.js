@@ -95,6 +95,13 @@ function create() {
             noti.fail("Tạo đơn không thành công", data.message, function(){});
             return;
         }
+
+        if(form.type() == '1'){
+            noti.dialog('Sửa đơn hàng thành công', 2);
+            setTimeout(function(){goHome()}, 2000);
+            return;
+        }
+
         noti.confirmWithBtn(form.typeDes() + " số <strong> "+ data.data.id+"</strong>" + " thành công. Bạn muốn tạo thêm đơn?","Có", "Không",
             function(result) {
                 if (!result) {

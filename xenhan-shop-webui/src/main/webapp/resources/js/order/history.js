@@ -364,17 +364,24 @@ function calculatorPage(pagesAvailable, pageNumber){
 
 function buildOrderAction(order){
     var action = "";
+    // if(order.status < 200){
+    //     action += "<li><a href='#' onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
+    // }
+    // if(order.status > 200 && order.status < 400 && order.cod){
+    //     action += "<li><a href='#' onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
+    // }
+    // if(order.status > 200 && order.status < 400 && !order.cod){
+    //     action += "<li><a href='/lien-he'><span style='color:red'>Liên hệ hủy đơn</span></a></li>\n";
+    // }
+    // if(order.status < 400 && order.status != 200){
+    //     action += "<li><a href='/order/tao-don?type=1&order-id="+order.id+"'>Sửa đơn</a></li>\n";
+    // }
     if(order.status < 200){
-        action += "<li><a href='#' onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
-    }
-    if(order.status > 200 && order.status < 400 && order.cod){
-        action += "<li><a href='#' onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
-    }
-    if(order.status > 200 && order.status < 400 && !order.cod){
-        action += "<li><a href='/lien-he'><span style='color:red'>Liên hệ hủy đơn</span></a></li>\n";
-    }
-    if(order.status < 400){
         action += "<li><a href='/order/tao-don?type=1&order-id="+order.id+"'>Sửa đơn</a></li>\n";
+        action += "<li><a href='#' onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
+    }
+    if(order.status > 200 && order.status < 400){
+            action += "<li><a href='/lien-he'><span style='color:red'>Liên hệ Hủy hoặc Sửa đơn</span></a></li>\n";
     }
     action += "<li><a href='/order/tao-don?type=2&order-id="+order.id+"'>Đăng lại đơn</a></li>\n";
 
