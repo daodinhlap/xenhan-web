@@ -1,5 +1,6 @@
 var form = new Form();
 var noti = new Notify();
+var _index;
 var orders = [];
 var ordersSelected = [];
 
@@ -22,6 +23,10 @@ $(document).ready(function($) {
 
     // get history
     getHistory();
+    // autoReload
+    setInterval(function () {
+        getHistory(_index);
+    }, 1000 * 60);
 
     //onclick btn filter
     $('#btn-filter').click(function() {
@@ -45,8 +50,9 @@ function getHistory(index) {
     order = [];
     buildTable();
 
+    _index = index ? index : 1;
     var request = form.getRequest();
-    request.index = index? index: 1;
+    request.index = _index;
     request.fromDate = yyyy_mm_dd(request.fromDate, "begin");
     request.toDate = yyyy_mm_dd(request.toDate, "end");
 
@@ -140,6 +146,7 @@ function buildTable(orderPage) {
 
     buildCounting(orderPage);
 
+    table.hide();
     orders.forEach(function(order, i){
         var trigger = "data-toggle='modal' data-target='#modal-"+ order.id +"'";
         table.append(
@@ -163,6 +170,7 @@ function buildTable(orderPage) {
             buildOrderDetail(order)
         )
     });
+    table.fadeIn();
     buildPagination(page);
 }
 
