@@ -49,15 +49,6 @@ $(document).ready(function() {
         $('[id^=district]').attr("disabled", 'disabled');
         $('#amount').attr("disabled", 'disabled');
     }
-    // if(form.type() == '1' && orderStatus >= 400 && orderStatus < 600){
-    //     $('#address').attr("disabled", 'disabled');
-    //     $('#province').attr("disabled", 'disabled');
-    //     $('[id^=district]').attr("disabled", 'disabled');
-    //     $('#userName').attr("disabled", 'disabled');
-    //     $('#phone').attr("disabled", 'disabled');
-    //     $('#note').attr("disabled", 'disabled');
-    //     $('#amount').attr("disabled", 'disabled');
-    // }
 
     // check discount fee by times
     // checkDiscountByTime();
@@ -135,7 +126,7 @@ function getFee(provinceId, districtId){
     var url = BASE_URL + "/get-fee";
     url += "?provinceId=" + provinceId;
     url += "&districtId=" + districtId;
-    url += "&time=" + (form.orderCreatedDate() ? form.orderCreatedDate() : 0);
+    url += "&time=" + (form.orderCreatedDate() && form.type() == '1' ? form.orderCreatedDate() : 0);
     $.ajax({
         type : 'GET',
         url : url
