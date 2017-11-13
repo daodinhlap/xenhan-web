@@ -27,6 +27,10 @@ $(document).ready(function() {
 			"để được hỗ trợ",
 			function(){});
     });
+    // on btn register click
+	$("#btn-register").click(function () {
+		$(this).attr("disabled","disabled");
+    });
 });
 
 //Register xenhan user
@@ -54,7 +58,9 @@ function registerXenhan() {
 	}).fail(function(data) {
 		console.log(data);
 		noti.fail("Thông báo!","Đăng ký không thành công. Vui lòng thử lại sau", function() { reload() });
-	});
+	}).always(function () {
+        $("#btn-register").removeAttr("disabled");
+    });
 }
 
 function handlerError(data){

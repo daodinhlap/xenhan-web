@@ -50,7 +50,7 @@
 			</form>
 			<p id="alert"></p>
 			<div class="button-container" style=" clear: both;">
-				<button type="button" class="btn btn-success btn-xenhan" onclick="registerXenhan()">
+				<button id="btn-register" class="btn btn-success btn-xenhan" onclick="registerXenhan()">
 					<span>Đăng ký</span>
 				</button>
 

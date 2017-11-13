@@ -28,6 +28,11 @@ $(document).ready(function() {
         onChangeAmount();
     });
 
+    // button create on click
+    $("#btn-create").click(function () {
+        $(this).attr("disabled","disabled");
+    });
+
     // check condition edit order
     var orderStatus = $('#order-status').val();
     var isCOD = form.cod();
@@ -104,6 +109,7 @@ function create() {
     }).fail(function(data) {
         console.log("ERROR: " + JSON.stringify(data));
     }).always(function(){
+        $("#btn-create").removeAttr("disabled");
     });
 
 
