@@ -80,7 +80,7 @@
                         <p style="margin: 0px"><strong>THÔNG TIN KHÁCH HÀNG</strong></p>
                             <%--contact--%>
                             <div class="col-md-12 content-right no-padding">
-                                    ${order.dropoff.contact.name? order.dropoff.contact.name:"..."} - ${order.dropoff.contact.phone}
+                                    ${empty order.dropoff.contact.name ? "..." : order.dropoff.contact.name} - ${order.dropoff.contact.phone}
                             </div>
                             <%--dropoff--%>
                             <div class="col-md-12 content-right no-padding"> ${order.dropoff.address},
