@@ -68,7 +68,8 @@ function getHistory(index) {
             noti.error([{message: data, id: "alert"}]);
             return;
         }
-        orders = data.pageItems;
+        var itemsSorted = data.pageItems.sort(function (a, b) {return b.createdDate - a.createdDate});
+        orders = itemsSorted;
         buildTable(data)
 
     }).fail(function(data) {
