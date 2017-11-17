@@ -31,6 +31,7 @@ public class DataController extends AbstractController {
                        @RequestParam(value = "districtId", required = true) String districtId,
                        @RequestParam(value = "time", required = false) long time,
                        @RequestParam(value = "packageId", required = false) Integer packageId,
+                       @RequestParam(value = "order-id", required = false) Long orderId,
                        HttpServletRequest httpRequest) {
     logger.info("\n GET FEE provinceId:{} - districtId:{} - time: {}\n",provinceId, districtId, time);
 
@@ -41,6 +42,7 @@ public class DataController extends AbstractController {
     uriBuilder.queryParam("district-id", districtId);
     uriBuilder.queryParam("time", time);
     uriBuilder.queryParam("package-id", packageId != null? packageId: DEFAULT_PACKAGE_ID);
+    uriBuilder.queryParam("order-id", orderId);
 
     return apiExchangeService.getPure(httpRequest, uriBuilder.build().toString(), new TypeReference<Double>(){});
   }

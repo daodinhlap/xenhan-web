@@ -118,18 +118,21 @@ function next() {
     }
     noti.cleanError();
 
-    getFee(form.provinceId(), form.districtId());
+    clearTab2();
+    getFee(form.provinceId(), form.districtId(), form.id());
     move();
 }
 
 
-function getFee(provinceId, districtId){
+function getFee(provinceId, districtId, orderId){
     disableCouponWhenDiscountTime(districtId, provinceId);
 
+    if(form.type() == '2') orderId = "";
     var url = BASE_URL + "/get-fee";
     url += "?provinceId=" + provinceId;
     url += "&districtId=" + districtId;
     url += "&time=" + (form.orderCreatedDate() && form.type() == '1' ? form.orderCreatedDate() : 0);
+    url += "&order-id=" + orderId;
     $.ajax({
         type : 'GET',
         url : url
@@ -143,6 +146,14 @@ function getFee(provinceId, districtId){
         console.log("ERROR: " + JSON.stringify(data));
     }).always(function(){
     });
+}
+
+function  clearTab2() {
+    if(form.type() != '1'){
+        form.setAmount(0);
+        form.setCouponCode("");
+        form.setCoupon("");
+    }
 }
 
 function checkCoupon(){
@@ -237,6 +248,7 @@ function Form(){
 
     this.setAmount = function(value){ return $('#amount').val(value)};
     this.setCoupon = function(value){ return $('#couponAmount').text(value)};
+    this.setCouponCode = function(value){ return $('#coupon').val(value)};
     this.setShipAmount = function(value){ return $('#shipAmount').text(value)};
 
     this.typeDes = function(){ return $('#type-des').val()};
@@ -293,8 +305,8 @@ function disableCouponWhenDiscountTime(districtId, provinceId){
     var end_day = 1511197199000; // 20/11
     // var start = "1511110800000"; //20/11
     // var end = "1511715599000"; // 26/11
-    var start_time = 8;
-    var end_time = 19;
+    var start_time = 16;
+    var end_time = 18;
 
     // checking...
     if(ignoreShop.includes(form.shopName())) return;
