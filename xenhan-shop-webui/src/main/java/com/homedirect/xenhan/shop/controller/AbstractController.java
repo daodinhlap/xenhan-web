@@ -8,7 +8,7 @@ import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.PeriodRecord;
 import com.homedirect.xenhan.model.Shop;
-import com.homedirect.xenhan.model.data.request.ShopProfileData;
+import com.homedirect.xenhan.model.data.ShopProfileData;
 import com.homedirect.xenhan.util.JsonUtil;
 import com.homedirect.xenhan.web.connection.ApiExchangeService;
 import org.slf4j.Logger;
