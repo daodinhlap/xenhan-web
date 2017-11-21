@@ -28,6 +28,11 @@ $(document).ready(function() {
         onChangeAmount();
     });
 
+    // button create on click
+    $("#btn-create").click(function () {
+        $(this).attr("disabled","disabled");
+    });
+
     // check condition edit order
     var orderStatus = $('#order-status').val();
     var isCOD = form.cod();
@@ -49,18 +54,6 @@ $(document).ready(function() {
         $('[id^=district]').attr("disabled", 'disabled');
         $('#amount').attr("disabled", 'disabled');
     }
-    // if(form.type() == '1' && orderStatus >= 400 && orderStatus < 600){
-    //     $('#address').attr("disabled", 'disabled');
-    //     $('#province').attr("disabled", 'disabled');
-    //     $('[id^=district]').attr("disabled", 'disabled');
-    //     $('#userName').attr("disabled", 'disabled');
-    //     $('#phone').attr("disabled", 'disabled');
-    //     $('#note').attr("disabled", 'disabled');
-    //     $('#amount').attr("disabled", 'disabled');
-    // }
-
-    // check discount fee by times
-    // checkDiscountByTime();
 
     //onChangeProvince
     $('#pickupDistrict-' + form.provinceId()).show();
@@ -113,6 +106,7 @@ function create() {
     }).fail(function(data) {
         console.log("ERROR: " + JSON.stringify(data));
     }).always(function(){
+        $("#btn-create").removeAttr("disabled");
     });
 
 
@@ -124,18 +118,21 @@ function next() {
     }
     noti.cleanError();
 
-    getFee(form.provinceId(), form.districtId());
+    clearTab2();
+    getFee(form.provinceId(), form.districtId(), form.id());
     move();
 }
 
 
-function getFee(provinceId, districtId){
-    //checkDiscountByTime(districtId);
+function getFee(provinceId, districtId, orderId){
+    // disableCouponWhenDiscountTime(districtId, provinceId);
 
+    if(form.type() == '2') orderId = "";
     var url = BASE_URL + "/get-fee";
     url += "?provinceId=" + provinceId;
     url += "&districtId=" + districtId;
-    url += "&time=" + (form.orderCreatedDate() ? form.orderCreatedDate() : 0);
+    url += "&time=" + (form.orderCreatedDate() && form.type() == '1' ? form.orderCreatedDate() : 0);
+    url += "&order-id=" + orderId;
     $.ajax({
         type : 'GET',
         url : url
@@ -143,12 +140,21 @@ function getFee(provinceId, districtId){
         console.log(data);
 
         originalShipAmount = data;
-        $("#shipAmount").text(currencyFormat(data));
+        form.setShipAmount(currencyFormat(data));
+        disableCouponWhenDiscountTime();
         buildText();
     }).fail(function(data) {
         console.log("ERROR: " + JSON.stringify(data));
     }).always(function(){
     });
+}
+
+function  clearTab2() {
+    if(form.type() != '1'){
+        form.setAmount(0);
+        form.setCouponCode("");
+        form.setCoupon("");
+    }
 }
 
 function checkCoupon(){
@@ -232,6 +238,7 @@ function Form(){
 	this.note = function(){ return $('#note').val()};
     this.type = function(){ return $('#type').val()};
     this.orderCreatedDate = function(){ return $('#created-time').val()};
+    this.shopName = function(){ return $('#shop-name').val()};
 
 	this.cod = function(){ return $('#cod').val()};
     this.amount = function(){ return numberFormat($('#amount').val())};
@@ -242,6 +249,7 @@ function Form(){
 
     this.setAmount = function(value){ return $('#amount').val(value)};
     this.setCoupon = function(value){ return $('#couponAmount').text(value)};
+    this.setCouponCode = function(value){ return $('#coupon').val(value)};
     this.setShipAmount = function(value){ return $('#shipAmount').text(value)};
 
     this.typeDes = function(){ return $('#type-des').val()};
@@ -262,8 +270,6 @@ function Form(){
         return error;
     }
 }
-
-
 
 function makeModel(){
     var order = new OrderRequest();
@@ -289,26 +295,35 @@ function makeModel(){
     return order;
 }
 
-function checkDiscountByTime(districtId){
-    // thanh tri,gia lam,Hóc Môn, Bình Chánh, Nhà Bè.
-    var ignorePlaces = [15,12,50,51,52];
-    // var start = "1506790800000"; // 01/10
-    // var end = "1509382799000"; // 30/10
-    var start = "1509987599000"; //06/11
-    var end = "1510419600000"; // 12/11
-    var start_time = 18;
-    var end_time = 8;
+function disableCouponWhenDiscountTime(districtId, provinceId){
+    if(form.type() != '1') $('#coupon').removeAttr('disabled');
+    // // thanh tri,gia lam,Hóc Môn, Bình Chánh, Nhà Bè.
+    // var ignoreShop = ["XENHAN-SHOP-HN_shop-Van-Anh-1504693352291","XENHAN-SHOP-HN_shop-VanAnh3010-1509351903975"];
+    // var applyProvince = [2];
+    // var ignoreDistricts = [15,12,50,51,52];
+    //
+    // var start_day = 1510678800000; // 15/11
+    // var end_day = 1511197199000; // 20/11
+    // // var start = "1511110800000"; //20/11
+    // // var end = "1511715599000"; // 26/11
+    // var start_time = 16;
+    // var end_time = 18;
+    //
+    // // checking...
+    // if(ignoreShop.includes(form.shopName())) return;
+    // if(provinceId && !applyProvince.includes(Number(provinceId))) return;
+    // if(districtId && ignoreDistricts.includes(Number(districtId))) return;
+    //
+    // var now = new Date();
+    // var hours = now.getHours();
+    // if(now.getTime() < start_day || now.getTime() > end_day) return;
+    // if(start_time < end_time && (hours < start_time || hours > (end_time - 1))) return;
+    // if(start_time > end_time && (hours < start_time && hours > (end_time - 1))) return;
 
-    var now = new Date();
-    var hours = now.getHours();
-    if(now.getTime() < start || now.getTime() > end) return;
-    if(start_time < end_time && (hours < start_time || hours > end_time)) return;
-    if(start_time > end_time && (hours < start_time && hours > end_time)) return;
+    // $('#coupon').attr('disabled', 'disabled');
 
-    if(districtId && !ignorePlaces.includes(Number(districtId))){
+    if(form.shipAmount() == '15000'){
         $('#coupon').attr('disabled', 'disabled');
-        return;
     }
-    $('#coupon').removeAttr('disabled');
 }
 

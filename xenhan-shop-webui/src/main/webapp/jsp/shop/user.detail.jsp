@@ -92,7 +92,7 @@
 				<%--<div class="col-xs-8 col-md-8"><label>${user.userProfile.placeOfBirth}</label></div>--%>
 			<div class="col-xs-8 col-md-8"><a href="#" id="placeOfBirth"
 											  data-type="text" data-url="/shop/sua-thong-tin-nguoi-dung"
-											  data-name="identity" data-pk="${user.user.phone}"
+											  data-name="placeOfBirth" data-pk="${user.user.phone}"
 											  data-original-title="Nơi Sinh"
 											  data-value="${user.userProfile.placeOfBirth}"
 											  class="editable">${user.userProfile.placeOfBirth}</a></div>

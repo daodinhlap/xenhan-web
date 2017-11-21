@@ -104,7 +104,7 @@ private @Autowired OrderExcelExport orderExcelExport;
 
   @PostMapping(value = "/create-order")
   public ResponseEntity<?> createOrder(@RequestBody OrderRequest orderRequest, HttpServletRequest httpRequest) {
-    logger.info("\n CREATE ORDER: {}\n", JsonUtil.toJson(orderRequest));
+    logger.info("\n===> CREATE ORDER : {}\n", JsonUtil.toJson(orderRequest));
 
     orderRequest.setPackageId(DEFAULT_PACKAGE_ID);
     String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "create-order");

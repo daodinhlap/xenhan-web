@@ -218,7 +218,7 @@
 		<button class="btn btn-primary" onclick="move()">
 			<i class="fa fa-arrow-left"></i>&nbsp;Quay lại
 		</button>
-		<button class="btn btn-success" onclick="create()">${action}</button>
+		<button id="btn-create" class="btn btn-success" onclick="create()">${action}</button>
 		<%--<button class="btn btn-primary">--%>
 			<%--Đặt lại&nbsp;<i class="fa fa-refresh"></i>--%>
 		<%--</button>--%>
@@ -228,6 +228,7 @@
 	<input type="hidden" id="type-des" value="${action}">
 	<input type="hidden" id="order-status" value="${order.status}">
 	<input type="hidden" id="created-time" value="${order.createdDate}">
+	<input type="hidden" id="shop-name" value="${shop.shopName}">
 </div>
 
 </div>
