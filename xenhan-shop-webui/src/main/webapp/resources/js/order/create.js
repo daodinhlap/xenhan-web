@@ -3,6 +3,7 @@ var form = new Form();
 var originalShipAmount = 0;
 var districtSuggest;
 var hadSelectDistrict = false;
+var invokerDetect;
 
 var URL_CREATE_ORDER_VIEW = BASE_URL + "/order/tao-don?type=0";
 var URL_CREATE_ORDER = BASE_URL + "/order/create-order";
@@ -83,24 +84,31 @@ $(document).ready(function() {
 
 function getSuggest(){
     var address = form.address();
-    if(!address) return;
+    if(!address) {
+        clearSuggest(); return;
+    }
+    clearTimeout(invokerDetect);
+    invokerDetect = setTimeout(function () {
+        address = cleanAddress(address);
 
-    address = cleanAddress(address);
-    var detectResult = detect(address, form.province());
-    detectResult.done(function (data) {
-        buildSuggest(data);
-    }).fail(function (data) {
-        console.log("--> detect error:"+JSON.stringify(data));
-    })
+        var detectResult = detect(address, form.province());
+        detectResult.done(function (data) {
+                        buildSuggest(data);
+                    }).fail(function (data) {
+                        console.log("--> detect error:"+JSON.stringify(data));
+                    })
+    }, 500);
+
 }
 function cleanAddress(address) {
+    var removeKeys = ["số","ngõ","ngách","phường","làng","tổ","phố","đường","tòa","nhà","phòng"];
     address = address.toLowerCase();
-    address = address.replace(/[0-9]/g, '')
-                    .replace("số",'').replace("ngõ",'').replace("đường",'').replace("tòa",'')
-                    .replace("tổ",'').replace("chung cư",'')
-                    .replace(",",'')
-                    .trim();
-    return address;
+    removeKeys.forEach(function (key) {
+        address = address.replace(key,'');
+    })
+    address = address.replace(/[a-z][0-9]/g, '').replace(/[0-9][a-z]/g, '').replace(/[a-z]\./g, '')
+                     .replace(/[0-9]/g, '').replace(/\//g, '').replace(/  /g, ' ');
+    return address.trim();
 
 }
 

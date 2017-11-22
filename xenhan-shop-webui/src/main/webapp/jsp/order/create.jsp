@@ -88,8 +88,8 @@
 
 	<div class="col-xs-12 col-md-12 form-field">
 		<label>Địa chỉ <span style="color: red">*</span></label>
-		<input placeholder="Số nhà, ngõ, đường, tòa nhà, khu vực ..." type="text"
-			   data-toggle="tooltip" title="Nhập tên đường"
+		<input placeholder="Số nhà, ngõ, đường, tòa nhà, khu vực ..."
+			   data-toggle="tooltip" title="Số xx, ngõ xx, tòa xx, đường abcxyz ..."
 			   class="form-control" id="address" value="${order.dropoff.address}" >
 		<div class="alert alert-success" id="suggest-area">
 		</div>
