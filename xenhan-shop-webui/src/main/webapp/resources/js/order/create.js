@@ -267,6 +267,9 @@ function Form(){
         if(!this.pickupAddress()){
             error.push({message: Error_message.EMPTY_ADDRESS, id: "pickupAddress"});
         }
+        if(!this.districtId()){
+            error.push({message: "Vui lòng chọn Quận/Huyện giao hàng", id: "district-" + this.provinceId()});
+        }
         return error;
     }
 }

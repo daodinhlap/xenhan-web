@@ -109,6 +109,7 @@
 
 		<c:set var = "districtId" value = "${not empty order ? order.dropoff.town.district.id : ''}"/>
 		<select class="form-control" name="district" id="district-1" style="display: none">
+			<option value="">Chọn Quận/Huyện</option>
 			<option ${districtId == '1'? 'selected':''} value="1">Hoàn Kiếm</option>
 			<option ${districtId == '2'? 'selected':''} value="2">Hai Bà Trưng</option>
 			<option ${districtId == '3'? 'selected':''} value="3">Ba Đình</option>
@@ -125,6 +126,7 @@
 			<option ${districtId == '29'? 'selected':''} value="29">Hà Đông</option>
 		</select>
 		<select class="form-control" name="district" id="district-2" style="display: none">
+			<option value="">Chọn Quận/Huyện</option>
 			<option ${districtId == '31'? 'selected':''} value="31">Quận 1</option>
 			<option ${districtId == '32'? 'selected':''} value="32">Quận 2</option>
 			<option ${districtId == '33'? 'selected':''} value="33">Quận 3</option>
