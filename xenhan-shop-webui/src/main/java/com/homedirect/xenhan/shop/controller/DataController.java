@@ -48,16 +48,29 @@ public class DataController extends AbstractController {
   }
 
   @GetMapping(value = "/check-coupon")
-  public RepositoryResponse<?> getFee(@RequestParam(value = "coupon", required = true) String coupon,
+  public RepositoryResponse<?> getFee(@RequestParam(value = "coupon") String coupon,
                                       HttpServletRequest httpRequest) {
-    logger.info("\n CHECK COUPON:{}\n",coupon);
     if(StringUtils.isEmpty(coupon)) return null;
+    logger.info("\n CHECK COUPON:{}\n",coupon);
 
-    URI uri = apiExchangeService.createEncodeUrlWithToken(httpRequest, "coupon", "check-coupon-info");
-    UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromUri(uri);
-    uriBuilder.queryParam("code", coupon);
-    return apiExchangeService.get(httpRequest, uriBuilder.build().toString(),
-        new TypeReference<RepositoryResponse<Response>>(){});
+    String url = apiExchangeService.createUrlWithToken(httpRequest, "coupon", "check-coupon-info");
+    url += "&code=" + coupon;
+
+    return apiExchangeService.get(httpRequest, url, new TypeReference<RepositoryResponse<Response>>(){});
+  }
+
+  @GetMapping(value = "detect")
+  public RepositoryResponse<?> detect(@RequestParam(value = "address") String address,
+                                      @RequestParam(value = "province") String province,
+                                      HttpServletRequest httpRequest) {
+    if(StringUtils.isEmpty(address)) return null;
+    logger.info("\n ---> DETECT ADDRESS:{}\n", address);
+
+    String url = apiExchangeService.createUrlWithToken(httpRequest, "support", "detect");
+    url += "&address=" + address.trim();
+    url += "&province=" + province.trim();
+
+    return apiExchangeService.get(httpRequest, url, new TypeReference<RepositoryResponse<Object>>(){});
   }
 
 }

@@ -1173,3 +1173,8 @@ input::placeholder{
 .no-padding{
     padding: 0px;
 }
+div#suggest-area{
+    display: none;
+    font-size: large;
+    cursor: pointer;
+}

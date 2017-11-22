@@ -1,10 +1,13 @@
 var noti = new Notify();
 var form = new Form();
 var originalShipAmount = 0;
+var districtSuggest;
+var hadSelectDistrict = false;
 
 var URL_CREATE_ORDER_VIEW = BASE_URL + "/order/tao-don?type=0";
 var URL_CREATE_ORDER = BASE_URL + "/order/create-order";
 var URL_EDIT_ORDER = BASE_URL + "/order/edit";
+var URL_DETECT = BASE_URL + "/detect?address=";
 // ============================================
 
 // ON LOAD
@@ -64,7 +67,89 @@ $(document).ready(function() {
         $('#pickupDistrict-' + form.provinceId()).show();
         $('#district-' + form.provinceId()).show();
     });
+
+    // suggest address
+    $('#address').keyup(function () {
+        getSuggest();
+        $("#error1").remove();
+    });
+    eventClickSuggest();
+
+    // user selected district
+    $('[id^=district-]').click(function () {
+        hadSelectDistrict = true;
+    })
 });
+
+function getSuggest(){
+    var address = form.address();
+    if(!address) return;
+
+    address = cleanAddress(address);
+    var detectResult = detect(address, form.province());
+    detectResult.done(function (data) {
+        buildSuggest(data);
+    }).fail(function (data) {
+        console.log("--> detect error:"+JSON.stringify(data));
+    })
+}
+function cleanAddress(address) {
+    address = address.toLowerCase();
+    address = address.replace(/[0-9]/g, '')
+                    .replace("số",'').replace("ngõ",'').replace("đường",'').replace("tòa",'')
+                    .replace("tổ",'').replace("chung cư",'')
+                    .replace(",",'')
+                    .trim();
+    return address;
+
+}
+
+function buildSuggest(response){
+    if(response.code != 1) {
+        clearSuggest(); return;
+    }
+    if(response.data.id == 0) {
+        clearSuggest(); return;
+    }
+    if(response.data.id != form.provinceId()) {
+        clearSuggest(); return;
+    }
+
+    districtSuggest = response.data.district.id;
+    var district = response.data.district.name;
+    var province = response.data.name;
+    writeSuggest(form.address() + ", " + district + ", " + province);
+    showSuggest();
+}
+function clearSuggest(){
+    districtSuggest = 0;
+    if(!hadSelectDistrict){
+        form.setDistrictId(districtSuggest);
+    }
+    writeSuggest("");
+    $('#suggest-area').hide();
+}
+function showSuggest(){
+    $('#suggest-area').show();
+}
+function hideSuggest(){
+    $('#suggest-area').hide();
+}
+function writeSuggest(address){
+    $('#suggest-area').text(address);
+}
+function eventClickSuggest(){
+    $('#suggest-area').click(function () {
+        form.setDistrictId(districtSuggest);
+        hideSuggest();
+    })
+}
+
+
+function detect(address, province){
+    return $.ajax({ type : 'GET', url : URL_DETECT + address + "&province=" + province })
+}
+
 function onChangeAmount() {
     buildText();
     form.setAmount(currencyFormat(form.amount()));
@@ -228,6 +313,7 @@ function Form(){
 	this.address = function(){ return $('#address').val()};
     this.provinceId = function(){ return $('#province').val()};
     this.districtId = function(){ return $('#district-' + this.provinceId()).val()};
+    this.setDistrictId = function(value){ return $('#district-' + this.provinceId()).val(value)};
     this.province = function(){ return $('#province option:selected').text()};
     this.district = function(){ return $('#district-' + this.provinceId() + ' option:selected').text()};
 
@@ -267,7 +353,7 @@ function Form(){
         if(!this.pickupAddress()){
             error.push({message: Error_message.EMPTY_ADDRESS, id: "pickupAddress"});
         }
-        if(!this.districtId()){
+        if(!this.districtId() || this.districtId() == 0){
             error.push({message: "Vui lòng chọn Quận/Huyện giao hàng", id: "district-" + this.provinceId()});
         }
         return error;
@@ -298,33 +384,10 @@ function makeModel(){
     return order;
 }
 
-function disableCouponWhenDiscountTime(districtId, provinceId){
-    if(form.type() != '1') $('#coupon').removeAttr('disabled');
-    // // thanh tri,gia lam,Hóc Môn, Bình Chánh, Nhà Bè.
-    // var ignoreShop = ["XENHAN-SHOP-HN_shop-Van-Anh-1504693352291","XENHAN-SHOP-HN_shop-VanAnh3010-1509351903975"];
-    // var applyProvince = [2];
-    // var ignoreDistricts = [15,12,50,51,52];
-    //
-    // var start_day = 1510678800000; // 15/11
-    // var end_day = 1511197199000; // 20/11
-    // // var start = "1511110800000"; //20/11
-    // // var end = "1511715599000"; // 26/11
-    // var start_time = 16;
-    // var end_time = 18;
-    //
-    // // checking...
-    // if(ignoreShop.includes(form.shopName())) return;
-    // if(provinceId && !applyProvince.includes(Number(provinceId))) return;
-    // if(districtId && ignoreDistricts.includes(Number(districtId))) return;
-    //
-    // var now = new Date();
-    // var hours = now.getHours();
-    // if(now.getTime() < start_day || now.getTime() > end_day) return;
-    // if(start_time < end_time && (hours < start_time || hours > (end_time - 1))) return;
-    // if(start_time > end_time && (hours < start_time && hours > (end_time - 1))) return;
-
-    // $('#coupon').attr('disabled', 'disabled');
-
+function disableCouponWhenDiscountTime(){
+    if(form.type() != '1'){
+        $('#coupon').removeAttr('disabled');
+    }
     if(form.shipAmount() == '15000'){
         $('#coupon').attr('disabled', 'disabled');
     }

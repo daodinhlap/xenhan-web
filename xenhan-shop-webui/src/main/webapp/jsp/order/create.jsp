@@ -85,6 +85,16 @@
 	<div>
 		<label style='text-decoration: underline; color: #f3931f;'>NHẬN HÀNG:</label>
 	</div>
+
+	<div class="col-xs-12 col-md-12 form-field">
+		<label>Địa chỉ <span style="color: red">*</span></label>
+		<input placeholder="Số nhà, ngõ, đường, tòa nhà, khu vực ..." type="text"
+			   data-toggle="tooltip" title="Nhập tên đường"
+			   class="form-control" id="address" value="${order.dropoff.address}" >
+		<div class="alert alert-success" id="suggest-area">
+		</div>
+	</div>
+
 	<div class="col-xs-12 col-md-4 form-field">
 		<label>Họ tên</label>
 		<input placeholder="Họ tên người nhận hàng" value="${order.dropoff.contact.name}"
@@ -109,7 +119,7 @@
 
 		<c:set var = "districtId" value = "${not empty order ? order.dropoff.town.district.id : ''}"/>
 		<select class="form-control" name="district" id="district-1" style="display: none">
-			<option value="">Chọn Quận/Huyện</option>
+			<option value="0">Chọn Quận/Huyện</option>
 			<option ${districtId == '1'? 'selected':''} value="1">Hoàn Kiếm</option>
 			<option ${districtId == '2'? 'selected':''} value="2">Hai Bà Trưng</option>
 			<option ${districtId == '3'? 'selected':''} value="3">Ba Đình</option>
@@ -126,7 +136,7 @@
 			<option ${districtId == '29'? 'selected':''} value="29">Hà Đông</option>
 		</select>
 		<select class="form-control" name="district" id="district-2" style="display: none">
-			<option value="">Chọn Quận/Huyện</option>
+			<option value="0">Chọn Quận/Huyện</option>
 			<option ${districtId == '31'? 'selected':''} value="31">Quận 1</option>
 			<option ${districtId == '32'? 'selected':''} value="32">Quận 2</option>
 			<option ${districtId == '33'? 'selected':''} value="33">Quận 3</option>
@@ -153,21 +163,15 @@
 	</div>
 
 	<div class="col-xs-12 col-md-12 form-field">
-		<label>Địa chỉ <span style="color: red">*</span></label>
-		<input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực...." type="text" value="${order.dropoff.address}"
-			   class="form-control" id="address">
-	</div>
-
-	<div class="col-xs-12 col-md-12 form-field">
 		<label>Ghi chú</label>
 		<textarea class="form-control" rows="3" id="note"
 			placeholder="Mô tả đơn hàng/Lời nhắn">${order.orderMessage}</textarea>
 	</div>
 
 	<div class="form-group center">
-		<%--<button class="btn btn-primary">--%>
-			<%--<i class="fa fa-refresh"></i>&nbsp;Đặt lại--%>
-		<%--</button>--%>
+		<button class="btn" onclick="goHome()">
+			Hủy
+		</button>
 		<button class="btn btn-primary" onclick="next()">
 			Tiếp tục&nbsp;<i class="fa fa-arrow-right"></i>
 		</button>

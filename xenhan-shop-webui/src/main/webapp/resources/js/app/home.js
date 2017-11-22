@@ -27,17 +27,15 @@ $(document).ready(function() {
 			"để được hỗ trợ",
 			function(){});
     });
-    // on btn register click
-	$("#btn-register").click(function () {
-		$(this).attr("disabled","disabled");
-    });
 });
 
 //Register xenhan user
 function registerXenhan() {
+    $("#btn-register").attr("disabled","disabled");
 	var hasError = form.validate();
 	if(hasError ==  undefined || hasError.length != 0){
 		noti.error(error);
+        $("#btn-register").removeAttr("disabled");
 		return;
 	}
 
