@@ -101,7 +101,7 @@ function getSuggest(){
 
 }
 function cleanAddress(address) {
-    var removeKeys = ["số","ngõ","ngách","phường","làng","tổ","phố","đường","tòa","nhà","phòng"];
+    var removeKeys = ["số","ngõ","ngách","phường","làng","tổ","phố","khu","đường","tòa","nhà","phòng"];
     address = address.toLowerCase();
     removeKeys.forEach(function (key) {
         address = address.replace(key,'');
@@ -379,6 +379,14 @@ function makeModel(){
     dropoff.province = form.province();
     dropoff.district = form.district();
     dropoff.contact = new Contact(form.userName(), form.phone());
+    dropoff.town = {
+        id: form.provinceId(),
+        name: form.province(),
+        district:{
+            id: form.districtId(),
+            name: form.district()
+        }
+    }
 
     order.dropoff = dropoff;
     order.goodAmount = form.amount();
