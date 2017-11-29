@@ -9,6 +9,7 @@ import com.homedirect.xenhan.model.Shop;
 import com.homedirect.xenhan.model.common.response.UserDetailEntity;
 import com.homedirect.xenhan.model.web.request.PageShopDebitRequest;
 import com.homedirect.xenhan.model.web.request.PageShopPaymentRequest;
+import com.homedirect.xenhan.user.model.request.CouponGetRequest;
 import com.homedirect.xenhan.util.JsonUtil;
 import com.homedirect.xenhan.web.util.UpdateUtil;
 import org.slf4j.Logger;
@@ -160,6 +161,13 @@ public class ShopController extends AbstractController {
     request.setSize(20);
     logger.info("\n==> GET SHOP PAYMENT:{}", JsonUtil.toJson(request));
     String url = apiExchangeService.createUrlWithToken(httpRequest,"shop", "list-shop-payment");
+    return apiExchangeService.post(httpRequest, url, request).getBody();
+  }
+
+  @PostMapping(value = "/get-coupons")
+  public Object getCoupons(@RequestBody CouponGetRequest request, HttpServletRequest httpRequest) {
+    logger.info("\n==> GET COUPONS:{}", JsonUtil.toJson(request));
+    String url = apiExchangeService.createUrlWithToken(httpRequest,"coupon", "get");
     return apiExchangeService.post(httpRequest, url, request).getBody();
   }
 

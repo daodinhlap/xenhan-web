@@ -124,10 +124,10 @@
                                 <i style="color: #92c78a;" class="fa fa-commenting" data-toggle="tooltip" title="Trạng thái đơn hàng"></i>
                             </th>
                             <th style="text-align: left">
-                                <i style="color: #92c78a;" class="fa fa-calendar-check-o" data-toggle="tooltip" title="Ngày tạo đơn"></i>
+                                <i style="color: #92c78a;" class="fa fa-calendar-plus-o" data-toggle="tooltip" title="Ngày tạo đơn"></i>
                             </th>
                             <th style="text-align: left">
-                                <i style="color: #92c78a;" class="fa fa-calendar-times-o" data-toggle="tooltip" title="Ngày kết thúc"></i>
+                                <i style="color: #92c78a;" class="fa fa-calendar-check-o" data-toggle="tooltip" title="Ngày kết thúc"></i>
                             </th>
                             <th style="text-align: left">
                                 <img class="img-icon" src="/resources/images/icon_location_1.png" data-toggle="tooltip" title="Địa chỉ giao hàng">

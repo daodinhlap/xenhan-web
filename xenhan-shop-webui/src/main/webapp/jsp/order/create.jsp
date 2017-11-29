@@ -197,9 +197,13 @@
 		<input type="text" class="form-control" id="amount" style="text-align: right;"
 			   value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${empty order.goodAmount? 0: order.goodAmount}"/>">
 	</div>
-	<div class="col-xs-12 col-md-4 form-field">
+	<div class="col-xs-12 col-md-4 form-field dropdown">
 		<label>Mã giảm giá</label>
-		<input type="text" class="form-control" id="coupon" value="${type == 1? order.coupon:''}" >
+		<input type="text" class="form-control dropdown-toggle" data-toggle="dropdown"
+			   value="${type == 1? order.coupon:''}" id="coupon">
+		<ul id="coupons" class="dropdown-menu" role="menu" style=" margin-left: 15px;" aria-labelledby="coupon">
+
+		</ul>
 	</div>
 
 	<div class="form-group">

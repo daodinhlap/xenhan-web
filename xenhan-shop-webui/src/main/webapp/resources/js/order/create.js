@@ -4,11 +4,13 @@ var originalShipAmount = 0;
 var districtSuggest;
 var hadSelectDistrict = false;
 var invokerDetect;
+var coupons = [];
 
 var URL_CREATE_ORDER_VIEW = BASE_URL + "/order/tao-don?type=0";
 var URL_CREATE_ORDER = BASE_URL + "/order/create-order";
 var URL_EDIT_ORDER = BASE_URL + "/order/edit";
 var URL_DETECT = BASE_URL + "/detect?address=";
+var URL_GET_COUPON = BASE_URL + "/shop/get-coupons";
 // ============================================
 
 // ON LOAD
@@ -80,6 +82,11 @@ $(document).ready(function() {
     $('[id^=district-]').click(function () {
         hadSelectDistrict = true;
     })
+
+    // on FOCUS COUPON
+    $('#coupon').click(function () {
+        getCoupons();
+    });
 });
 
 function getSuggest(){
@@ -101,7 +108,7 @@ function getSuggest(){
 
 }
 function cleanAddress(address) {
-    var removeKeys = ["số","ngõ","ngách","phường","làng","tổ","phố","khu","đường","tòa","nhà","phòng"];
+    var removeKeys = ["số","ngõ","ngách","phường","làng","tổ","lô","kđt","phố","khu","đường","tòa","nhà","phòng"];
     address = address.toLowerCase();
     removeKeys.forEach(function (key) {
         address = address.replace(key,'');
@@ -288,7 +295,7 @@ function checkCoupon(){
 function buildText(){
     var goodAmountText= '';
     var actionText = '';
-
+    
     var amount = form.amount() ? form.amount(): 0;
     var coupon = form.couponAmount() ? form.couponAmount(): 0;
     var total = amount - (originalShipAmount - coupon);
@@ -409,3 +416,47 @@ function disableCouponWhenDiscountTime(){
     }
 }
 
+function getCoupons() {
+    if(coupons.length != 0){
+        buildMenuCoupons(coupons);
+        return;
+    }
+
+    var request = {
+        campaignPrefix:"XN",
+        status:3
+    }
+    $.ajax({
+        type : 'POST',
+        contentType : 'application/json',
+        url : URL_GET_COUPON,
+        data : JSON.stringify(request),
+    }).done(function (data) {
+        coupons = data.data.data;
+        buildMenuCoupons(data.data.data);
+    }).fail(function (data) {
+        console.log("error -> ", data);
+        buildMenuCoupons([]);
+    })
+}
+function buildMenuCoupons(coupons) {
+    var menu = $("#coupons");
+
+    coupons = coupons.filter(function (coupon) {
+        var expirationDate = coupon.expirationDate;
+        return expirationDate > new Date().getTime();
+    });
+    if(coupons.length == 0){
+        menu.hide();
+        return;
+    }
+
+    menu.empty();
+    coupons.forEach(function (coupon) {
+        menu.append("<li role='presentation'><a role='menuitem' tabindex='-1' href='#' onclick='useCoupon(\""+coupon.pinCode+"\")'>"+ coupon.pinCode +"</a></li>")
+    })
+}
+function useCoupon(coupon) {
+    form.setCouponCode(coupon);
+    checkCoupon();
+}
