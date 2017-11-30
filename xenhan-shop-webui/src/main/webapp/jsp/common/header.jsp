@@ -1,3 +1,4 @@
+<%@ page import="com.homedirect.session.model.SimpleUser" %>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -24,9 +25,9 @@
 		</div>
 		<div id="navbar-header" class="navbar-collapse collapse">
 
-			<c:set var="fullName"><%=session.getAttribute("FULLNAME")%></c:set>
-			<c:set var="phone"><%=session.getAttribute("USERNAME")%></c:set>
-			<c:set var="shopName"><%=session.getAttribute("SHOPNAME")%></c:set>
+			<c:set var = "fullName"><%= ((SimpleUser)session.getAttribute("SIMPLE-USER")).getUserProfile().getFullName() %></c:set>
+			<c:set var = "phone"><%= ((SimpleUser)session.getAttribute("SIMPLE-USER")).getUserName() %></c:set>
+			<c:set var = "shopName"><%=session.getAttribute("SHOPNAME")%></c:set>
 
 			<ul class="nav navbar-nav navbar-right profile"
 				style="margin-bottom: 2px">

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.homedirect.repo.model.Membership;
-import com.homedirect.xenhan.model.AttributeConfig;
+import static com.homedirect.xenhan.model.AttributeConfig.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +48,6 @@ public class XnAuthenticationFilter extends UsernamePasswordAuthenticationFilter
     ResponseEntity<String> loginResponse = null;
     try {
       loginResponse = apiExchangeService.login(request);
-//      loginResponse = restTemplate.getForEntity(uri, String.class);
     } catch (Exception e) {
       logger.error("LOGIN ERROR " + e.getMessage(), e);
       return loginFailured(request, response, ERROR_LOGIN);
@@ -61,23 +60,19 @@ public class XnAuthenticationFilter extends UsernamePasswordAuthenticationFilter
       
       // check user has account on XENHAN
       List<Membership> memberships = authentication.getUser().getUser().getMemberships().stream().filter(member -> {
-        return member.getDomain().equals(AttributeConfig.XN_DOMAIN)
-                && member.getGroupName().contains(AttributeConfig.XN_SHOP_PREFIX);
+        return member.getDomain().equals(XN_DOMAIN)
+                && member.getGroupName().contains(XN_SHOP_PREFIX);
       }).collect(Collectors.toList());
       
       HttpSession session = request.getSession(true);
       if (session != null) { // getAllowSessionCreation()
         String usernameKey = TextEscapeUtils.escapeEntities(request.getParameter("username"));
         session.setAttribute(SPRING_SECURITY_LAST_USERNAME_KEY, usernameKey);
-        session.setAttribute(AttributeConfig.USERNAME, usernameKey);
-        if(!CollectionUtils.isEmpty(memberships)) {
-          session.setAttribute(AttributeConfig.SHOPNAME, memberships.get(0).getGroupName());
-        } 
-//        session.setAttribute(AttributeConfig.MEMBERSHIPS, memberships);
-        session.setAttribute(AttributeConfig.USER_PROFILE, authentication.getUser().getUser().getUserProfile());
-        session.setAttribute(AttributeConfig.FULLNAME, authentication.getUser().getUser().getUserProfile().getFullName());
-        session.setAttribute(AttributeConfig.IDENTITY, authentication.getUser().getUser().getUserProfile().getIdentityCard());
+        session.setAttribute(SIMPLE_USER, authentication.getUser().getUser());
         session.setAttribute(ApiExchangeService.TOKEN_ATTRIBUTE_NAME, token);
+        if(!CollectionUtils.isEmpty(memberships)) {
+          session.setAttribute(SHOPNAME, memberships.get(0).getGroupName());
+        }
       }
 
       List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();

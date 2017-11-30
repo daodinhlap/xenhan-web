@@ -1,11 +1,13 @@
+<%@ page import="com.homedirect.session.model.SimpleUser" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
-<c:set var = "fullName"><%= session.getAttribute("FULLNAME") %></c:set>
-<c:set var = "phone"><%= session.getAttribute("USERNAME") %></c:set>
+<c:set var = "fullName"><%= ((SimpleUser)session.getAttribute("SIMPLE-USER")).getUserProfile().getFullName() %></c:set>
+<c:set var = "phone"><%= ((SimpleUser)session.getAttribute("SIMPLE-USER")).getUserName() %></c:set>
+<c:set var = "email"><%= ((SimpleUser)session.getAttribute("SIMPLE-USER")).getEmail() %></c:set>
 
 <div class="col-md-6 col-md-offset-3  mobile-padding">
 
@@ -106,7 +108,7 @@
 
     <div class="form-group">
         <label>Email</label>
-        <input  type="text" class="form-control" id="email">
+        <input type="text" class="form-control" id="email" value="${email}">
     </div>
 
     <div class="form-group">

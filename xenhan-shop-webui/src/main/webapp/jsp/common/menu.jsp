@@ -1,3 +1,4 @@
+<%@ page import="com.homedirect.session.model.SimpleUser" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -9,9 +10,9 @@
 	<div class="col-sm-3 col-md-2 sidebar">
 		<div class="user-login">
 
-			<c:set var="fullName"><%= session.getAttribute("FULLNAME") %></c:set>
-			<c:set var="shopName"><%= session.getAttribute("SHOPNAME") %></c:set>
-			<c:set var="phone"><%= session.getAttribute("USERNAME") %></c:set>
+			<c:set var = "fullName"><%= ((SimpleUser)session.getAttribute("SIMPLE-USER")).getUserProfile().getFullName() %></c:set>
+			<c:set var = "shopName"><%= session.getAttribute("SHOPNAME") %></c:set>
+			<c:set var = "phone"><%= ((SimpleUser)session.getAttribute("SIMPLE-USER")).getUserName() %></c:set>
 
 			<div class="col-md-12 center">
 				<%--<a href="/shop/thong-tin-tai-khoan" style="color: #555;">--%>
