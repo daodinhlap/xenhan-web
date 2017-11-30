@@ -9,6 +9,7 @@ import com.homedirect.xenhan.model.OrderHistory;
 import com.homedirect.xenhan.user.model.OrderEntity;
 import com.homedirect.xenhan.user.model.request.PageOrderRequest;
 import com.homedirect.xenhan.web.connection.ApiExchangeService;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -37,14 +38,8 @@ public class OrderExcelExport {
     private @Autowired
     ApiExchangeService apiExchangeService;
 
-    private String[] HEADER = {"STT", "MVĐ", "Ngày tạo", "Ngày kết thúc", "Tên Khách nhận hàng", "SĐT nhận hàng",
+    private String[] HEADER = {"STT", "MVĐ","Người tạo", "Ngày tạo", "Ngày kết thúc", "Tên Khách nhận hàng", "SĐT nhận hàng",
             "Địa chỉ giao hàng", "Quận/Huyện giao hàng", "Tỉnh/TP giao hàng", "Tiền hàng", "Phí ship", "Ghi chú", "Trạng thái", "Ghi chú Hủy/Trả"};
-
-//  public OrderExcelExport(List<OrderEntity> orders) {
-//    this.orders = orders;
-//    workbook = new XSSFWorkbook();
-//    dateFormat = new SimpleDateFormat("dd/MM HH:mm");
-//  }
 
     public void export(HttpServletRequest httpRequest, HttpServletResponse response, List<OrderEntity> orders) throws Exception {
         try {
@@ -104,12 +99,13 @@ public class OrderExcelExport {
 
         createCell(row, 0, index, tdCenterStyle);
         createCell(row, 1, order.getId(), tdCenterStyle);
-        createCell(row, 2, dateFormat.format(order.getCreatedDate()), tdLeftStyle);
+        createCell(row, 2, order.getAuthor().getFullName() + "\n" + order.getAuthor().getPhone(), tdLeftStyle);
+        createCell(row, 3, dateFormat.format(order.getCreatedDate()), tdLeftStyle);
 
         if (order.getStatus() == OrderConfig.STATUS_200 || order.getStatus() == OrderConfig.STATUS_400 || order.getStatus() == OrderConfig.STATUS_500) {
-            createCell(row, 3, dateFormat.format(order.getClosedDate()), tdLeftStyle);
+            createCell(row, 4, dateFormat.format(order.getClosedDate()), tdLeftStyle);
         } else {
-            createCell(row, 3, "", tdLeftStyle);
+            createCell(row, 4, "", tdLeftStyle);
         }
 
 
@@ -125,16 +121,16 @@ public class OrderExcelExport {
             dropoffDistrict = order.getDropoff().getTown() == null ? "" : order.getDropoff().getTown().getDistrict().getName();
             dropoffTown = order.getDropoff().getTown() == null ? "" : order.getDropoff().getTown().getName();
         }
-        createCell(row, 4, dropoffCustomerName, tdLeftStyle);
-        createCell(row, 5, dropoffCustomerPhone, tdLeftStyle);
-        createCell(row, 6, dropoffAddress, tdLeftStyle);
-        createCell(row, 7, dropoffDistrict, tdLeftStyle);
-        createCell(row, 8, dropoffTown, tdLeftStyle);
-        createCell(row, 9, order.getGoodAmount(), tdRightStyle);
-        createCell(row, 10, order.getShipAmount(), tdRightStyle);
-        createCell(row, 11, order.getOrderMessage() == null ? "" : order.getOrderMessage(), tdLeftStyle);
-        createCell(row, 12, OrderConfig.getOrderStatusDetailString(order.getStatus()), tdLeftStyle);
-        createCell(row, 13, getCauseOfReturnOrCancelOrder(order), tdLeftStyle);
+        createCell(row, 5, dropoffCustomerName, tdLeftStyle);
+        createCell(row, 6, dropoffCustomerPhone, tdLeftStyle);
+        createCell(row, 7, dropoffAddress, tdLeftStyle);
+        createCell(row, 8, dropoffDistrict, tdLeftStyle);
+        createCell(row, 9, dropoffTown, tdLeftStyle);
+        createCell(row, 10, order.getGoodAmount(), tdRightStyle);
+        createCell(row, 11, order.getShipAmount(), tdRightStyle);
+        createCell(row, 12, order.getOrderMessage() == null ? "" : order.getOrderMessage(), tdLeftStyle);
+        createCell(row, 13, OrderConfig.getOrderStatusDetailString(order.getStatus()), tdLeftStyle);
+        createCell(row, 14, getCauseOfReturnOrCancelOrder(order), tdLeftStyle);
     }
 
 
