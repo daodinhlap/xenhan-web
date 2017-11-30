@@ -28,6 +28,7 @@
 			<add-attribute value="/resources/plugins/pace/pace.min.js" />
 			<add-attribute value="/resources/plugins/holder.js" />
 			<add-attribute value="/resources/js/app/text.js" />
+			<add-attribute value="/resources/js/app/moment.js" />
 			<add-attribute value="/resources/plugins/md5/md5.min.js" />
 			<add-attribute value="/resources/js/app/common.js" />
 		</put-list-attribute>

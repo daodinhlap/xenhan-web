@@ -453,7 +453,13 @@ function buildMenuCoupons(coupons) {
 
     menu.empty();
     coupons.forEach(function (coupon) {
-        menu.append("<li role='presentation'><a role='menuitem' tabindex='-1' href='#' onclick='useCoupon(\""+coupon.pinCode+"\")'>"+ coupon.pinCode +"</a></li>")
+        var expiration = moment(coupon.expirationDate).format("DD/MM/YYYY HH:mm")
+        menu.append("<li role='presentation' style='text-align: center'>" +
+            "<a role='menuitem' tabindex='-1' href='#' onclick='useCoupon(\""+coupon.pinCode+"\")'>"
+                + coupon.pinCode
+                +"<br><span style='color: #999; font-size:smaller;'>"+ expiration + "</span>"
+            +"</a></li>")
+        menu.append("<li role='presentation' class='divider' style='margin: 0px'></li>")
     })
 }
 function useCoupon(coupon) {
