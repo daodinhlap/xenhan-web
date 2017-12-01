@@ -3,48 +3,38 @@
  **************************************************************************/
 package com.homedirect.xenhan.shop.controller;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.file.Files;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import com.homedirect.xenhan.user.model.Dropoff;
-import com.homedirect.xenhan.user.model.request.OrderRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.homedirect.common.util.StringUtils;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.OrderValidateEntity;
 import com.homedirect.xenhan.model.Shop;
 import com.homedirect.xenhan.user.model.OrderEntity;
+import com.homedirect.xenhan.user.model.ShopEntity;
 import com.homedirect.xenhan.voucher.Response;
 import com.homedirect.xenhan.web.util.OrderExcelUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.*;
+import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *  Author : Nhu Dinh Thuan
@@ -64,13 +54,19 @@ public class OrderExcelController extends AbstractController {
 
   @SuppressWarnings("unchecked")
   @GetMapping(value = "/tao-don-tu-excel")
-  public ModelAndView createOrderFromExcel(@RequestParam(value = "error", required = false) String error, HttpSession session) {
+  public ModelAndView createOrderFromExcel(@RequestParam(value = "error", required = false) String error,
+                                           HttpSession session) {
+    return getViewCreateOrderExcel(error, "", session);
+  }
+
+  private ModelAndView getViewCreateOrderExcel(String error, String result, HttpSession session){
     ModelAndView mv = new ModelAndView("order.create.excel");
     mv.addObject("title","Xe Nhàn - Tạo Đơn Từ Excel");
     mv.addObject("error", error);
+    mv.addObject("result", StringUtils.isEmpty(result) ? "" : result);
+
     List<OrderEntity> orders = (List<OrderEntity>)session.getAttribute(IMPORT_DATA);
     if(!CollectionUtils.isEmpty(orders))  mv.addObject("orders", orders);
-    //      session.setAttribute(IMPORT_DATA, resp.getBody().getData());
     return mv;
   }
 
@@ -111,9 +107,8 @@ public class OrderExcelController extends AbstractController {
 
   @SuppressWarnings("unchecked")
   @GetMapping(value = "/luu-don-tu-excel")
-  public ModelAndView saveFromExcel(@RequestParam(value = "index", required = true) Integer index,
-                                    HttpServletRequest httpRequest,
-                                    HttpSession session) {
+  public ModelAndView saveFromExcel(@RequestParam(value = "index") Integer index,
+                                    HttpServletRequest httpRequest, HttpSession session) {
     List<OrderEntity> orders = (List<OrderEntity>)session.getAttribute(IMPORT_DATA);
     if(CollectionUtils.isEmpty(orders) 
         || index == null || index.intValue() < 0 || index.intValue() >= orders.size()) return redirectWithNoData() ;
@@ -125,7 +120,7 @@ public class OrderExcelController extends AbstractController {
 
     if(apiExchangeService.isSuccessResponse(resp.getBody())) {
       orders.remove(entity);
-      return new ModelAndView("redirect:/order-excel/tao-don-tu-excel");
+      return getViewCreateOrderExcel("", "Tạo đơn thành công", session);
     }
     return redirectWithError(index + 1, resp.getBody().getMessage());
   }
@@ -151,7 +146,7 @@ public class OrderExcelController extends AbstractController {
       iterator.remove();
     }
     session.removeAttribute(IMPORT_DATA);
-    return new ModelAndView("redirect:/order-excel/tao-don-tu-excel");
+    return getViewCreateOrderExcel("", "Tạo toàn bộ đơn thành công", session);
   }
 
   @SuppressWarnings("unchecked")
@@ -203,15 +198,15 @@ public class OrderExcelController extends AbstractController {
   public @ResponseBody OrderValidateEntity editFromExcel(@RequestParam(value = "index", required = true) Integer index,
                                                          HttpServletRequest request,  HttpSession session)  {
     if(index == null) index = -1;
+
     OrderValidateEntity  validated = new OrderValidateEntity(new Long(index));
     List<OrderEntity> orders = (List<OrderEntity>)session.getAttribute(IMPORT_DATA);
-    if(CollectionUtils.isEmpty(orders) 
-        || index == null || index.intValue() < 0 || index.intValue() >= orders.size())  return validated;
+    if(CollectionUtils.isEmpty(orders) || index.intValue() < 0 || index.intValue() >= orders.size())  return validated;
 
-    Shop shop = getShopInfo(request);
     OrderEntity order = orders.get(index.intValue());
+    updatePickupPlace(order, request);
     
-    util.validateProvince(shop, order, validated);
+    util.validateProvince(order, validated);
     if(validated.getError()) {
       util.calculateFree(request, order, validated, null);
       return validated;
@@ -225,6 +220,16 @@ public class OrderExcelController extends AbstractController {
     
     util.calculateFree(request, order, validated, couponData);
     return validated;
+  }
+
+  private void updatePickupPlace(OrderEntity order, HttpServletRequest request) {
+    if(order.getShop() != null) return;
+
+    Shop shop = getShopInfo(request);
+    ShopEntity shopEntity = new ShopEntity();
+    shopEntity.setAddress(shop.getAddress());
+    shopEntity.setTown(shop.getTown());
+    order.setShop(shopEntity);
   }
 
 

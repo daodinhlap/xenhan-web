@@ -10,7 +10,6 @@ $('#fine-uploader-gallery').fineUploader({
 		onComplete: function(id, name, response) {
 			if(response['success'] != true) return;
 			location.reload();
-			//setInterval(window.location.replace('/shop/danh-sach-don-tu-excel'), 1*1000);
 		}
 	}
 });
@@ -76,6 +75,23 @@ $(function() {
 			title: 'Số Điện Thoại Giao Hàng'
 		});
 
+        $('#pickupProvince-' + i).editable({
+            source: provinces,
+            mode: "inline",
+            params: function(params) {
+                provinces.forEach(function(entry) {
+                    if(params.value == entry.value) params.label = entry.text;
+                });
+                return params;
+            },
+            success: function(response, newValue) {
+                var index = getIndex(this.id);
+                $('#pickupDistrict-' + index).editable('option', 'source', districts[newValue]);
+                $('#pickupDistrict-' + index).editable('setValue', null);
+                $('#pickupProvince-' + index).css({ 'color': 'black'});
+                validate(index);
+            }
+        });
 
 		$('#province-' + i).editable({
 			source: provinces,
@@ -89,13 +105,33 @@ $(function() {
 			success: function(response, newValue) {
 				var index = getIndex(this.id);
 				$('#district-' + index).editable('option', 'source', districts[newValue]);
-				var mapIter = districts[newValue].entries();
-				$('#district-' + index).editable('setValue', mapIter.next().value[1].value);
+				// var districtsOf = districts[newValue];
+				$('#district-' + index).editable('setValue', null);
 				$('#province-' + index).css({ 'color': 'black'});
 				validate(index);
 			}
 		});
 
+        $('#pickupDistrict-' + i).editable({
+            source: districts[$('#pickupProvince-' + i).attr('data-value')],
+            emptytext: '...',
+            mode: "inline",
+            params: function(params) {
+                var id = this.id;
+                districts[1].forEach(function(entry) {
+                    if(params.value == entry.value) params.label = entry.text;
+                });
+                if(params.label != null) return params;
+                districts[2].forEach(function(entry) {
+                    if(params.value == entry.value) params.label = entry.text;
+                });
+                return params;	x
+            },
+            success: function(response, newValue) {
+                var index = getIndex(this.id);
+                validate(index);
+            }
+        });
 
 		$('#district-' + i).editable({
 			source: districts[$('#province-' + i).attr('data-value')],

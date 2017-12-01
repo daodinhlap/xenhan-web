@@ -104,6 +104,11 @@
 				</div>
 			</c:if>
 		</div>
+		<c:if test="${not empty result}">
+			<div class="alert alert-success">
+				<strong>${result}</strong>
+			</div>
+		</c:if>
 	</div>
 
 
@@ -179,6 +184,36 @@
 						<div class="card-body">
 							<table class="table borderless" style="margin-top: 20px">
 								<tbody>
+									<%--PICKUP PLACES--%>
+									<tr>
+										<td colspan="2" align="left"><b>Địa chỉ lấy hàng</b></td>
+									</tr>
+									<tr>
+										<td>Địa chỉ lấy hàng:</td>
+										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
+											   data-name="pickupAddress" id="pickupAddress-${loop.index}" data-type="text"
+											   data-pk="${loop.index}">${order.shop.address}</a></td>
+									</tr>
+									<tr>
+										<td>Tỉnh/TP lấy hàng*:</td>
+										<td><a href="#" id="pickupProvince-${loop.index}"
+											   data-type="select" data-url="/order-excel/sua-don-tu-excel"
+											   data-name="pickupProvince" data-pk="${loop.index}"
+											   data-original-title="Chọn Tỉnh/Thành Phố"
+											   data-value="${order.shop.town.id}"
+											   class="editable editable-empty">${order.shop.town.name}</a></td>
+									</tr>
+									<tr>
+										<td>Quận/Huyện lấy hàng*:</td>
+										<td><a href="#" id="pickupDistrict-${loop.index}"
+											   data-type="select" data-url="/order-excel/sua-don-tu-excel"
+											   data-name="pickupDistrict" data-pk="${loop.index}"
+											   data-original-title="Chọn Quận/Huyện"
+											   data-value="${order.shop.town.district.id}"
+											   class="editable editable-empty">${order.shop.town.district.name}</a></td>
+									</tr>
+
+									<%--DROPOFF--%>
 									<tr>
 										<td colspan="2" align="left"><b>Người nhận hàng</b></td>
 									</tr>
@@ -188,6 +223,12 @@
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
 											data-name="phone" id="phone-${loop.index}" data-type="text"
 											data-pk="${loop.index}">${order.dropoff.contact.phone}</a></td>
+									</tr>
+									<tr>
+										<td>Người nhận:</td>
+										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
+											   data-name="name" id="name-${loop.index}" data-type="text"
+											   data-pk="${loop.index}">${order.dropoff.contact.name}</a></td>
 									</tr>
 									
 									<tr>
@@ -265,13 +306,11 @@
 											<div class="row">
 												<div class="col-xs-6">
 													<a class="btn btn-primary" id="save-${loop.index}"
-														href="/order-excel/luu-don-tu-excel?index=${loop.index}">Tạo
-														đơn</a>
+														href="/order-excel/luu-don-tu-excel?index=${loop.index}">Tạo đơn</a>
 												</div>
 												<div class="col-xs-6">
 													<a class="btn btn-warning"
-														href="/order-excel/xoa-don-tu-excel?index=${loop.index}">Xóa
-														đơn</a>
+														href="/order-excel/xoa-don-tu-excel?index=${loop.index}">Xóa đơn</a>
 												</div>
 											</div>
 										</td>
@@ -283,8 +322,7 @@
 				</c:forEach>
 			</div>
 			<div style="margin-top: 20px; vertical-align: center" align="center">
-				<a href="/order-excel/luu-het" id="save-all" class="btn btn-primary">Tạo
-					toàn bộ đơn</a>
+				<a href="/order-excel/luu-het" id="save-all" class="btn btn-primary">Tạo toàn bộ đơn</a>
 			</div>
 		</div>
 	</c:if>

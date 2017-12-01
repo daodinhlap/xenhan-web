@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.homedirect.xenhan.user.model.Dropoff;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +44,30 @@ public class OrderExcelUtil {
   @Autowired
   private ApiExchangeService apiExchangeService;
 
-  public void validateProvince(Shop shop,
-                               OrderEntity order,  OrderValidateEntity validated) {
-    if(shop.getTown().getId() == order.getDropoff().getTown().getId()) return;
+  public void validateProvince(OrderEntity order,  OrderValidateEntity validated) {
+    if(order.getShop().getTown().getDistrict() == null){
+      validated.setField("pickupDistrict");
+      validated.setMessage("Quận/Huyện lấy hàng trống");
+      validated.setError(true);
+      return;
+    }
+    if(notDetectedDropoff(order)){
+      validated.setField("province");
+      validated.setMessage("Không thể nhận diện TP/Quận huyện giao hàng");
+      validated.setError(true);
+      return;
+    }
+    if(order.getDropoff().getTown().getDistrict() == null){
+      validated.setField("district");
+      validated.setMessage("Quận/Huyện giao hàng trống");
+      validated.setError(true);
+      return;
+    }
+
+    if(order.getShop().getTown().getId() == order.getDropoff().getTown().getId()) return;
+
     validated.setField("province");
-    validated.setMessage("Tỉnh thành phố không trùng với shop");
+    validated.setMessage("Xe Nhàn chưa hỗ trợ giao hàng liên tỉnh");
     validated.setError(true);
   }
 
@@ -74,11 +94,8 @@ public class OrderExcelUtil {
   public void calculateFree(HttpServletRequest request,
                             OrderEntity order, OrderValidateEntity validated, Response coupon) {
     String url = createCalculateFeeURL(request, order);
-//    logger.info("url ---> "+ url);
     TypeReference<RepositoryResponse<Double>> reference = new TypeReference<RepositoryResponse<Double>>() {};
     Optional<Double> optional =  apiExchangeService.getForObject(request, url, reference);
-
-//    logger.info("---- > "+ apiExchangeService.get(request, url, reference));
 
     double fee = optional.isPresent() ? optional.get().doubleValue() : 0d;
     order.setShipAmount(fee);
@@ -96,6 +113,10 @@ public class OrderExcelUtil {
     order.setShipAmount(fee);
     validated.setCouponValue(format.format(couponValue));
     validated.setFee(format.format(fee));
+  }
+
+  private boolean notDetectedDropoff(OrderEntity order) {
+    return order.getDropoff().getTown() == null ? true : false;
   }
 
   private String createCalculateFeeURL(HttpServletRequest request, OrderEntity order) {
@@ -156,10 +177,24 @@ public class OrderExcelUtil {
     case "address":
       entity.getDropoff().setAddress(value);
       break;
+    case "pickupProvince":
+      if(!StringUtils.isEmpty(value)){
+        entity.getShop().getTown().setId(Long.parseLong(value));
+        entity.getShop().getTown().setName(label);
+        entity.getShop().getTown().setDistrict(null);
+      }
+      break;
     case "province":
       if(!StringUtils.isEmpty(value)) {
-        entity.getDropoff().getTown().setDistrict(null);
-        entity.getDropoff().getTown().setId(Long.parseLong(value));
+        if(entity.getDropoff().getTown() != null){
+          entity.getDropoff().getTown().setDistrict(null);
+          entity.getDropoff().getTown().setId(Long.parseLong(value));
+        } else {
+          Town townDropoff = new Town();
+          townDropoff.setDistrict(null);
+          townDropoff.setId(Long.parseLong(value));
+          entity.getDropoff().setTown(townDropoff);
+        }
       }
       if(!StringUtils.isEmpty(label)) entity.getDropoff().getTown().setName(label);
       break;
@@ -169,8 +204,15 @@ public class OrderExcelUtil {
         district = new District();
         entity.getDropoff().getTown().setDistrict(district);
       }
-      if(!StringUtils.isEmpty(value)) entity.getDropoff().getTown().getDistrict().setId(Long.parseLong(value));
-      if(!StringUtils.isEmpty(label)) entity.getDropoff().getTown().getDistrict().setName(label);
+      if(!StringUtils.isEmpty(value)) district.setId(Long.parseLong(value));
+      if(!StringUtils.isEmpty(label)) district.setName(label);
+      break;
+    case "pickupDistrict":
+      District pickupDistrict = entity.getShop().getTown().getDistrict();
+      if(pickupDistrict == null) pickupDistrict = new District();
+
+      if(!StringUtils.isEmpty(value)) pickupDistrict.setId(Long.parseLong(value));
+      if(!StringUtils.isEmpty(label)) pickupDistrict.setName(label);
       break;
     case "name":
       entity.getDropoff().getContact().setName(value);

@@ -19,7 +19,7 @@
 
         <div id="filter-area">
             <!-- FROM -->
-            <div class="col-md-3 col-xs-6 date-input">
+            <div class="col-md-2 col-xs-6 date-input">
                 <div class="form-group">
                     <div class="input-group date">
                         <span style="padding: 4px" class="input-group-addon">Từ</span>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <!-- TO -->
-            <div class="col-md-3 col-xs-6 date-input">
+            <div class="col-md-2 col-xs-6 date-input">
                 <div class="form-group">
                     <div class="input-group date">
                         <span style="padding: 4px" class="input-group-addon">Đến</span>
@@ -51,16 +51,6 @@
                 </div>
             </div>
 
-            <%--KEY WORD --%>
-            <div class="col-md-2 col-xs-6 date-input">
-                <div class="form-group">
-                    <input class="form-control" type="text"
-                        placeholder="Số vận đơn, địa chỉ giao hàng, mã giảm giá, sđt nhận hàng, ghi chú"
-                        title="Số vận đơn, địa chỉ giao hàng, mã giảm giá, sđt nhận hàng, ghi chú"
-                       id="keyword">
-                </div>
-            </div>
-
             <!-- STATUS -->
             <div class="col-md-2 col-xs-6 date-input">
                 <div class="form-group date">
@@ -74,6 +64,16 @@
                         <option value="400">Đã trả lại</option>
                         <option value="5">Đã hủy</option>
                     </select>
+                </div>
+            </div>
+
+            <%--KEY WORD --%>
+            <div class="col-md-4 col-xs-12 date-input">
+                <div class="form-group">
+                    <input class="form-control" type="text"
+                           data-toggle="tooltip" title="Số vận đơn, địa chỉ giao hàng, mã giảm giá, SĐT người tạo, SĐT nhận hàng, ghi chú ... "
+                           placeholder="Số vận đơn, địa chỉ giao hàng, mã giảm giá, SĐT người tạo, SĐT nhận hàng, ghi chú ..."
+                           id="keyword">
                 </div>
             </div>
 
