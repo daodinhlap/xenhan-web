@@ -51,6 +51,16 @@ $(function() {
 				validate(index);
 			}
 		});
+
+        $('#pickupAddress-' + i).editable({
+            validate:function(value) {
+                if((!value || 0 === value.length)) return 'Xin hãy nhập địa chỉ lấy hàng';
+            },
+            mode: "inline",
+            emptytext: '...',
+            title: 'Địa Chỉ lấy Hàng'
+        });
+
 		$('#address-' + i).editable({
 			validate:function(value) {
 				if((!value || 0 === value.length)) return 'Xin hãy nhập địa chỉ giao hàng';

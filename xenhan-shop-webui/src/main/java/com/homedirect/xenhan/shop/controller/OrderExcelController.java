@@ -10,8 +10,10 @@ import com.homedirect.xenhan.model.OrderValidateEntity;
 import com.homedirect.xenhan.model.Shop;
 import com.homedirect.xenhan.user.model.OrderEntity;
 import com.homedirect.xenhan.user.model.ShopEntity;
+import com.homedirect.xenhan.user.model.request.OrderRequest;
 import com.homedirect.xenhan.voucher.Response;
 import com.homedirect.xenhan.web.util.OrderExcelUtil;
+import org.mvel2.ast.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,13 +118,27 @@ public class OrderExcelController extends AbstractController {
     OrderEntity entity = orders.get(index.intValue());
     entity.setPackageId(DEFAULT_PACKAGE_ID);
     String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "create-order");
-    ResponseEntity<RepositoryResponse<Object>> resp = apiExchangeService.post(httpRequest, url, entity);
+    ResponseEntity<RepositoryResponse<Object>> resp = apiExchangeService.post(httpRequest, url, toOrderRequest(entity));
 
     if(apiExchangeService.isSuccessResponse(resp.getBody())) {
       orders.remove(entity);
       return getViewCreateOrderExcel("", "Tạo đơn thành công", session);
     }
     return redirectWithError(index + 1, resp.getBody().getMessage());
+  }
+
+  private OrderRequest toOrderRequest(OrderEntity order) {
+    OrderRequest request = new OrderRequest();
+    request.setOrderMessage(order.getOrderMessage());
+    request.setDropoff(order.getDropoff());
+    request.setGoodAmount(order.getGoodAmount());
+    request.setCOD(order.isCOD());
+    request.setPackageId(order.getPackageId());
+    request.setCoupon(order.getCoupon());
+    request.setPickupAddress(order.getShop().getAddress());
+    request.setPickupProvince(order.getShop().getTown().getName());
+    request.setPickupDistrict(order.getShop().getTown().getDistrict().getName());
+    return request;
   }
 
   @SuppressWarnings("unchecked")
@@ -179,8 +195,6 @@ public class OrderExcelController extends AbstractController {
     name = name.trim();
     value = value.trim();
 
-    //logger.info("----> "+ pk + " name: " + name + " value:" + value);
-
     try {
       OrderEntity entity = orders.get(pk);
       util.setUpdateData(entity, name, value, label);
@@ -189,7 +203,6 @@ public class OrderExcelController extends AbstractController {
       logger.error(e.getMessage());
       return e.getMessage().getBytes();
     }
-
     return "done".getBytes();
   }
 

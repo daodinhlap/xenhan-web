@@ -119,7 +119,7 @@
 					style="display: none">
 				<div class="container">
 					<div class="row">
-						<div class="col-xs-6">
+						<div class="col-md-6 col-xs-3">
 							<div class="row desktop">
 								<div class="col-xs-6 col-sm-3">
 									<b>Đơn hàng</b>
@@ -133,7 +133,10 @@
 							</div>
 							<b class="mobile">Đơn hàng</b>
 						</div>
-						<div class="col-xs-6">
+						<div class="col-md-2 col-xs-4" >
+							<b>Khách hàng</b>
+						</div>
+						<div class="col-md-4 col-xs-5">
 							<b>Giao hàng</b>
 						</div>
 					</div>
@@ -146,7 +149,8 @@
 
 							<div class="container">
 								<div class="row">
-									<div class="col-xs-6">
+
+									<div class="col-md-6 col-xs-3">
 										<div class="row desktop">
 											<div class="col-xs-6 col-sm-3">
 												<a class="collapsed" data-toggle="collapse"
@@ -168,11 +172,14 @@
 													id="order-entity-${loop.index}" aria-expanded="false"
 													aria-controls="order-${loop.index}"> Đơn ${loop.index + 1}</a> </span>
 									</div>
-									<div class="col-xs-6">${order.dropoff.address}
-										<p id="alert-order-${loop.index}" style="color: red"></p>	
-									</div>
+
+									<div class="col-md-2 col-xs-4">${order.dropoff.contact.name}<br>${order.dropoff.contact.phone}</div>
+
+									<div class="col-md-4 col-xs-5">${order.dropoff.address}</div>
+
+									<p id="alert-order-${loop.index}" style="color: red; clear: both;"></p>
+
 								</div>
-								
 							</div>
 
 						</div>
@@ -188,12 +195,7 @@
 									<tr>
 										<td colspan="2" align="left"><b>Địa chỉ lấy hàng</b></td>
 									</tr>
-									<tr>
-										<td>Địa chỉ lấy hàng:</td>
-										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
-											   data-name="pickupAddress" id="pickupAddress-${loop.index}" data-type="text"
-											   data-pk="${loop.index}">${order.shop.address}</a></td>
-									</tr>
+
 									<tr>
 										<td>Tỉnh/TP lấy hàng*:</td>
 										<td><a href="#" id="pickupProvince-${loop.index}"
@@ -211,6 +213,12 @@
 											   data-original-title="Chọn Quận/Huyện"
 											   data-value="${order.shop.town.district.id}"
 											   class="editable editable-empty">${order.shop.town.district.name}</a></td>
+									</tr>
+									<tr>
+										<td>Địa chỉ lấy hàng:</td>
+										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
+											   data-name="pickupAddress" id="pickupAddress-${loop.index}" data-type="text"
+											   data-pk="${loop.index}">${order.shop.address}</a></td>
 									</tr>
 
 									<%--DROPOFF--%>

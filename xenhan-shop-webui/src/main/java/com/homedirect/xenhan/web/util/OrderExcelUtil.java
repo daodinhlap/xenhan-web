@@ -174,6 +174,9 @@ public class OrderExcelUtil {
     case "coupon":
       entity.setCoupon(value);
       break;
+    case "pickupAddress":
+      if(!StringUtils.isEmpty(value)) entity.getShop().setAddress(value);
+      break;
     case "address":
       entity.getDropoff().setAddress(value);
       break;
