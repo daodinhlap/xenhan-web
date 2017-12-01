@@ -60,8 +60,7 @@ public class XnAuthenticationFilter extends UsernamePasswordAuthenticationFilter
       
       // check user has account on XENHAN
       List<Membership> memberships = authentication.getUser().getUser().getMemberships().stream().filter(member -> {
-        return member.getDomain().equals(XN_DOMAIN)
-                && member.getGroupName().contains(XN_SHOP_PREFIX);
+        return member.getDomain().equals(XN_DOMAIN) && member.getGroupName().contains(XN_SHOP_PREFIX);
       }).collect(Collectors.toList());
       
       HttpSession session = request.getSession(true);

@@ -1178,3 +1178,6 @@ div#suggest-area{
     font-size: large;
     cursor: pointer;
 }
+.un-clickable{
+    cursor:default;
+}

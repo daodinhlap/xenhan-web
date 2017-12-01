@@ -152,24 +152,22 @@ function buildTable(orderPage) {
         var trigger = "data-toggle='modal' data-target='#modal-"+ order.id +"'";
         table.append(
             $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
-                .append($("<td align=\"left\">").append($("<input id='check-'"+order.id+" type='checkbox' onclick='check($(this),"+ order.id +")'>")))
-                .append($("<td "+trigger+" align=\"left\">"+order.id+"</td>"))
+                .append($("<td align='left'>").append($("<input id='check-'"+order.id+" type='checkbox' onclick='check($(this),"+ order.id +")'>")))
+                .append($("<td "+trigger+" align='left'>"+order.id+"</td>"))
                 .append($("<td "+trigger+"><div class='order-status "+corlorStatus(order.status)+"'>"+orderStatus(order.status)+"</div></td>"))
-                .append($("<td "+trigger+" align=\"left\">"+ddMM(order.createdDate)+"</td>"))
-                .append($("<td "+trigger+" align=\"left\">"+ddMM(order.closedDate)+"</td>"))
-                .append($("<td "+trigger+" align=\"left\">"+order.dropoff.address+"</td>"))
-                .append($("<td "+trigger+" align=\"right\">"+currencyFormat(order.goodAmount)+"</td>"))
-                .append(
-                    $("<td "+trigger+" align=\"right\">"+
+                .append($("<td "+trigger+" align='left'>"+ddMM(order.createdDate)+"</td>"))
+                .append($("<td "+trigger+" align='left'>"+ddMM(order.closedDate)+"</td>"))
+                .append($("<td "+trigger+" align='left'>"+(order.dropoff.contact.name)+"</td>"))
+                .append($("<td class='un-clickable' align='left'>"+(order.dropoff.contact.phone)+"</td>"))
+                .append($("<td "+trigger+" align='left'>"+order.dropoff.address+"</td>"))
+                .append($("<td class='un-clickable' align='right'>"+currencyFormat(order.goodAmount)+"</td>"))
+                .append($("<td "+trigger+" align='right'>"+
                         ((order.discount*(-1) <= 0)? '': "<i class='fa fa-gift' style='color: #eb7a25;'></i>&nbsp;")+
                         currencyFormat(getShipAmount(order))+
-                        "</td>")
-                )
-                .append($("<td align=\"left\">"+buildOrderAction(order)+"</td>"))
+                        "</td>"))
+                .append($("<td align='left'>"+buildOrderAction(order)+"</td>"))
         );
-        bottom_table.append(
-            buildOrderDetail(order)
-        )
+        bottom_table.append( buildOrderDetail(order) )
     });
     table.fadeIn();
     buildPagination(page);
@@ -177,81 +175,81 @@ function buildTable(orderPage) {
 
 function buildOrderDetail(order){
     var result =
-        "<div id='modal-"+order.id+"' class=\"modal fade\" role=\"dialog\">" +
-            "<div class=\"modal-dialog modal-lg\">"+
-                "<div class=\"modal-content\">"+
-                    "<div class=\"modal-header\">\n" +
-                        "<button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>" +
-                            "<h4 class=\"modal-title\">Chi tiết đơn hàng: "+order.id+"</h4>" +
+        "<div id='modal-"+order.id+"' class='modal fade' role='dialog'>" +
+            "<div class='modal-dialog modal-lg'>"+
+                "<div class='modal-content'>"+
+                    "<div class='modal-header'>\n" +
+                        "<button type='button' class='close' data-dismiss='modal'>&times;</button>" +
+                            "<h4 class='modal-title'>Chi tiết đơn hàng: "+order.id+"</h4>" +
                     "</div>"+
 
-                    "<div class=\"modal-body\">"+
+                    "<div class='modal-body'>"+
 
                             // status
-                            "<div class='col-md-12'  title=\"Trạng thái đơn hàng\">" +
+                            "<div class='col-md-12'  title='Trạng thái đơn hàng'>" +
                                   "<p style='text-align: center;' class='"+corlorStatus(order.status)+"'>"+orderStatus(order.status)+"</p>"+
                                        (order.status >= 400 && order.status < 600 ?
                                   "<p style='text-align: left;'><span>Lý do:&nbsp;</span><span style='font-weight: bold;'>"+order.failMessage+"</span></p>" : "")+
                             "</div>"+
                             // Đơn hàng:"+
                             "<div class='col-md-3 content-right'>"+
-                                "<p style='text-decoration: underline;'  title=\"Ngày tạo đơn\"><i>Đơn hàng:</i></p>"+
-                                "<p  title=\"Ngày tạo đơn\">" +
-                                    "<img src=\"/resources/images/icon_ngaytao_donhang.png\" class='img-icon'>"+ddMM(order.createdDate)+"</p>"+
-                                "<p  title=\"Ngày kết thúc\">" +
-                                    "<img src=\"/resources/images/icon_ngayketthuc_donhang.png\" class='img-icon'>"+ddMM(order.closedDate)+"</p>"+
-                                "<p><img src=\"/resources/images/icon_loai_donhang.png\" class='img-icon'>"+(order.cod? 'COD':'Ư.T')+"</p>"+
-                                "<p  title=\"Mã coupon khuyến mại\">" +
-                                    "<i class=\"fa fa-gift\" style='color: #eb7a25;'></i>&nbsp;&nbsp;"+(order.coupon? order.coupon:'')+" "+currencyFormat(order.discount)+"</p>"+
+                                "<p style='text-decoration: underline;'  title='Ngày tạo đơn'><i>Đơn hàng:</i></p>"+
+                                "<p  title='Ngày tạo đơn'>" +
+                                    "<img src='/resources/images/icon_ngaytao_donhang.png' class='img-icon'>"+ddMM(order.createdDate)+"</p>"+
+                                "<p  title='Ngày kết thúc'>" +
+                                    "<img src='/resources/images/icon_ngayketthuc_donhang.png' class='img-icon'>"+ddMM(order.closedDate)+"</p>"+
+                                "<p><img src='/resources/images/icon_loai_donhang.png' class='img-icon'>"+(order.cod? 'COD':'Ư.T')+"</p>"+
+                                "<p  title='Mã coupon khuyến mại'>" +
+                                    "<i class='fa fa-gift' style='color: #eb7a25;'></i>&nbsp;&nbsp;"+(order.coupon? order.coupon:'')+" "+currencyFormat(order.discount)+"</p>"+
                                 "<p  title='Phí ship đã trừ mã giảm giá'>" +
                                      "<img src='/resources/images/icon_green_ship_amount.png' class='img-icon'>"+(currencyFormat(getShipAmount(order)))+"</p>"+
-                                "<p  title=\"Tiền hàng\">" +
-                                       "<img src=\"/resources/images/icon_green_amount.png\" class='img-icon'>"+(currencyFormat(order.goodAmount))+"</p>"+
+                                "<p  title='Tiền hàng'>" +
+                                       "<img src='/resources/images/icon_green_amount.png' class='img-icon'>"+(currencyFormat(order.goodAmount))+"</p>"+
                             "</div>"+
 
                             // lay hàng:"+
                             "<div class='col-md-3 content-right'>" +
                                 "<p style='text-decoration: underline;'><i>Lấy hàng:</i></p>"+
-                                "<p  title=\"Địa chỉ lấy hàng\">" +
-                                    "<img src=\"/resources/images/icon_location.png\" class='img-icon'>"+
+                                "<p  title='Địa chỉ lấy hàng'>" +
+                                    "<img src='/resources/images/icon_location.png' class='img-icon'>"+
                                     order.shop.address+ ", "+order.shop.town.district.name + ", " + order.shop.town.name+"</p>"+
 
-                                "<p title=\"Tên chủ hàng\">" +
-                                "<img src=\"/resources/images/icon_taikhoan.png\" class='img-icon'>"+order.shop.fullName+"</p>"+
+                                "<p title='Tên chủ hàng'>" +
+                                "<img src='/resources/images/icon_taikhoan.png' class='img-icon'>"+order.shop.fullName+"</p>"+
 
-                                "<p   title=\"SĐT chủ hàng\">" +
-                                "<img src=\"/resources/images/icon_phone.png\" class='img-icon'>"+order.shop.phone+"</p>"+
+                                "<p   title='SĐT chủ hàng'>" +
+                                "<img src='/resources/images/icon_phone.png' class='img-icon'>"+order.shop.phone+"</p>"+
                             "</div>"+
 
                             // Giao hàng:+
                             "<div class='col-md-3 content-right'>" +
-                                "<p style='text-decoration: underline;'  title=\"Ngày tạo đơn\"><i>Giao hàng:</i></p>"+
-                                "<p  title=\"Địa chỉ giao hàng\">" +
-                                     "<img src=\"/resources/images/icon_location.png\" class='img-icon'>"+
+                                "<p style='text-decoration: underline;'  title='Ngày tạo đơn'><i>Giao hàng:</i></p>"+
+                                "<p  title='Địa chỉ giao hàng'>" +
+                                     "<img src='/resources/images/icon_location.png' class='img-icon'>"+
                                         order.dropoff.address+ ", "+order.dropoff.town.district.name + ", " + order.dropoff.town.name+"</p>"+
-                                "<p   title=\"Tên khách hàng\">" +
-                                    "<img src=\"/resources/images/icon_taikhoan.png\" class='img-icon'>"+order.dropoff.contact.name+"</p>"+
-                                "<p   title=\"SĐT khách hàng\">" +
-                                    "<img src=\"/resources/images/icon_phone.png\" class='img-icon'>"+order.dropoff.contact.phone+"</p>"+
-                                "<p   title=\"Ghi chú\">" +
-                                    "<i class=\"fa fa-commenting\" style='color: #eb7a25;'></i>&nbsp;&nbsp;"+order.orderMessage+"</p>"+
+                                "<p   title='Tên khách hàng'>" +
+                                    "<img src='/resources/images/icon_taikhoan.png' class='img-icon'>"+order.dropoff.contact.name+"</p>"+
+                                "<p   title='SĐT khách hàng'>" +
+                                    "<img src='/resources/images/icon_phone.png' class='img-icon'>"+order.dropoff.contact.phone+"</p>"+
+                                "<p   title='Ghi chú'>" +
+                                    "<i class='fa fa-commenting' style='color: #eb7a25;'></i>&nbsp;&nbsp;"+order.orderMessage+"</p>"+
                             "</div>"+
                             // shipper
                             (order.shipper ?
                                     // "<div class='col-md-1'><i>Thông tin tài xế:</i></div>" +
                                     "<div class='col-md-3 content-right'>" +
-                                    "<p style='text-decoration: underline;'  title=\"Ngày tạo đơn\"><i>Tài xế:</i></p>" +
-                                    "<p   title=\"Tên tài xế\">" +
-                                    "<img src=\"/resources/images/icon_logo.png\" class='img-icon'>" + ( order.shipper.fullName) + "</p>" +
-                                    "<p   title=\"SĐT tài xế\">" +
-                                    "<img src=\"/resources/images/icon_phone.png\" class='img-icon'>" + ( order.shipper.phone) + "</p>" +
+                                    "<p style='text-decoration: underline;'  title='Ngày tạo đơn'><i>Tài xế:</i></p>" +
+                                    "<p   title='Tên tài xế'>" +
+                                    "<img src='/resources/images/icon_logo.png' class='img-icon'>" + ( order.shipper.fullName) + "</p>" +
+                                    "<p   title='SĐT tài xế'>" +
+                                    "<img src='/resources/images/icon_phone.png' class='img-icon'>" + ( order.shipper.phone) + "</p>" +
                                     "</div>"
                                     : ""
                             ) +
 
                     "</div>"+
 
-                    "<div class=\"modal-footer\">"+
+                    "<div class='modal-footer'>"+
                     "</div>"+
                 "</div>"+
             "</div>"+

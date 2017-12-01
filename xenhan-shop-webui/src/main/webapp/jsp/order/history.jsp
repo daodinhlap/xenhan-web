@@ -98,7 +98,7 @@
                     <thead>
                         <tr>
                             <th colspan="5" id="counting"></th>
-                            <th style="text-align: right" colspan="3"><span id="totalGoodAmount"></span>&nbsp;đ</th>
+                            <th style="text-align: right" colspan="5"><span id="totalGoodAmount"></span>&nbsp;đ</th>
                             <th style="text-align: right"><span id="totalShipAmount"></span>&nbsp;đ</th>
                             <th style="width: 10px;"></th>
                         </tr>
@@ -128,6 +128,12 @@
                             </th>
                             <th style="text-align: left">
                                 <i style="color: #92c78a;" class="fa fa-calendar-check-o" data-toggle="tooltip" title="Ngày kết thúc"></i>
+                            </th>
+                            <th style="text-align: left">
+                                <i style="color: #92c78a;" class="fa fa-user" data-toggle="tooltip" title="Khách hàng"></i>
+                            </th>
+                            <th style="text-align: left">
+                                <i style="color: #92c78a;" class="fa fa-phone" data-toggle="tooltip" title="SĐT Khách hàng"></i>
                             </th>
                             <th style="text-align: left">
                                 <img class="img-icon" src="/resources/images/icon_location_1.png" data-toggle="tooltip" title="Địa chỉ giao hàng">
