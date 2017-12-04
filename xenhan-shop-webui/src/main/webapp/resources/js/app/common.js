@@ -94,7 +94,7 @@ function setHighlight(li,className,image){
 // }
 
 function validatePhone(phone) {
-	var re = /^[0-9]{8,15}$/;
+	var re = /^[0][0-9]{7,12}$/;
 	return re.test(phone);
 }
 function validateEmail(email) {

@@ -72,6 +72,9 @@ function FormRegisterShop() {
         if (!this.phone()) {
             error.push({message:"Xin vui lòng nhập số điện thoại", id: "phone"});
         }
+        if (!validatePhone(this.phone()) && this.phone()) {
+            error.push({message:"Số điện thoại không đúng định dạng", id: "phone"});
+        }
         if (!this.address()) {
             error.push({message:"Xin vui lòng nhập địa chỉ", id: "address"});
         }
