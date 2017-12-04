@@ -196,10 +196,18 @@ $(function() {
         emptytext: '...',
         validate: function(value) {
             if(!value) return 'Xin hãy nhập SĐT shop';
+            if(value && !validatePhone(value)) return "SĐT không đúng định dạng";
         }
     });// require
     
-    $('#shopEmail').editable({ mode:"inline", emptytext:"...",});
+    $('#shopEmail').editable({
+        mode:"inline",
+        emptytext:"...",
+        validate: function(value) {
+            if(value && !validateEmail(value)) return "Email không đúng định dạng";
+        }
+
+    });
     $('#shopWebsite').editable({ mode:"inline", emptytext:"...",});
 });
 
