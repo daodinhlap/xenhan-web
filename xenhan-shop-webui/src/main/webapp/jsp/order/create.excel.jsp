@@ -87,17 +87,20 @@
 		</div>
 		<div class="center container"
 			style="margin-bottom: 20px; margin-top: 30px">
+
 			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-lg-8">
+				<div class="col-xs-12 col-sm-6 col-lg-6">
 					<div id="fine-uploader-gallery"></div>
 				</div>
-				<div class="col-xs-6 col-lg-4" style="margin-top: 30px">
-					<a target="_blank"
-						href="/resources/file/DanhSachDonHang_ShopXeNhan.xlsx"> <i
-						class="glyphicon glyphicon-download-alt"></i>Tải mẫu
-					</a>
+				<div class="col-xs-6 col-lg-6">
+					<a target="_blank" href="/resources/file/DanhSachDonHang_ShopXeNhan.xlsx">
+						<i class="glyphicon glyphicon-download-alt"></i> Tải mẫu
+
+					</a><br>
+					<span style="color: red">Shop vui lòng tải file mẫu mới cập nhật ngày <strong>04/12/2017</strong></span>
 				</div>
 			</div>
+
 			<c:if test="${not empty error}">
 				<div class="row" style="margin-top: 20px">
 					<div class="alert alert-success" role="alert">${error}</div>

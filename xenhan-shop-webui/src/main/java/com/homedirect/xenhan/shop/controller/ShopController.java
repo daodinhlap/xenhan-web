@@ -37,7 +37,9 @@ public class ShopController extends AbstractController {
 
   /* CREATE Shop */
   @GetMapping(value = "/tao-shop")
-  public ModelAndView createShop() {
+  public ModelAndView createShop(HttpSession session) {
+    String shopName = (String) session.getAttribute(AttributeConfig.SHOPNAME);
+    if(!StringUtils.isEmpty(shopName)) return new ModelAndView("redirect:/");
     ModelAndView mv = new ModelAndView("shop.create");
     mv.addObject("title", "Xe Nhàn - Đăng ký Shop");
     return mv;
