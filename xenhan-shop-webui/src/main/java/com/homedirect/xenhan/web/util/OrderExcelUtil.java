@@ -224,7 +224,14 @@ public class OrderExcelUtil {
       entity.getDropoff().getContact().setName(value);
       break;
     case "phone":
-      entity.getDropoff().getContact().setPhone(value);
+      if(!StringUtils.isEmpty(value)){
+        entity.getDropoff().getContact().setPhone(value);
+      }
+      break;
+    case "pickupPhone":
+      if(!StringUtils.isEmpty(value)){
+        entity.getShop().setPhone(value);
+      }
       break;
     case "message":
       entity.setOrderMessage(value);;

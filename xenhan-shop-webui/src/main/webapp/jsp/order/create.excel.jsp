@@ -200,6 +200,14 @@
 									</tr>
 
 									<tr>
+										<td>SĐT lấy hàng*:</td>
+										<td><a href="#" id="pickupPhone-${loop.index}"
+											   data-type="text" data-url="/order-excel/sua-don-tu-excel"
+											   data-name="pickupPhone" data-pk="${loop.index}"
+											   data-value="${order.shop.phone}"
+											   class="editable editable-empty">${order.shop.phone}</a></td>
+									</tr>
+									<tr>
 										<td>Tỉnh/TP lấy hàng*:</td>
 										<td><a href="#" id="pickupProvince-${loop.index}"
 											   data-type="select" data-url="/order-excel/sua-don-tu-excel"

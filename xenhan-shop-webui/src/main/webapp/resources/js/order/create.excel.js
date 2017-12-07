@@ -82,8 +82,20 @@ $(function() {
 			},
 			emptytext: '...',
 			mode: "inline",
-			title: 'Số Điện Thoại Giao Hàng'
+			title: 'Số Điện Thoại Giao Hàng',
+            success: function(response, newValue) {
+                var index = getIndex(this.id);
+                validate(index);
+            }
 		});
+        $('#pickupPhone-' + i).editable({
+            validate:function(value){
+                if((!value || 0 === value.length)) return 'Xin hãy nhập số điện thoại';
+            },
+            emptytext: '...',
+            mode: "inline",
+            title: 'Số Điện Thoại Lấy hàng'
+        });
 
         $('#pickupProvince-' + i).editable({
             source: provinces,

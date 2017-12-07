@@ -138,6 +138,7 @@ public class OrderExcelController extends AbstractController {
     request.setPickupAddress(order.getShop().getAddress());
     request.setPickupProvince(order.getShop().getTown().getName());
     request.setPickupDistrict(order.getShop().getTown().getDistrict().getName());
+    request.setPickupPhone(order.getShop().getPhone());
     return request;
   }
 
@@ -228,6 +229,12 @@ public class OrderExcelController extends AbstractController {
     Response couponData = util.validateCoupon(request, order, validated);;
     if(validated.getError()) {
       util.calculateFree(request, order, validated, null);
+      return validated;
+    }
+    if(StringUtils.isEmpty(order.getDropoff().getContact().getPhone())){
+      validated.setError(true);
+      validated.setField("phone");
+      validated.setMessage("SĐT giao hàng trống");
       return validated;
     }
     

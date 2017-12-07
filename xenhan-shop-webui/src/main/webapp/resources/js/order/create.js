@@ -225,7 +225,6 @@ function next() {
 
 
 function getFee(provinceId, districtId, orderId){
-    // disableCouponWhenDiscountTime(districtId, provinceId);
 
     if(form.type() == '2') orderId = "";
     var url = BASE_URL + "/get-fee";
@@ -332,6 +331,7 @@ function Form(){
     this.province = function(){ return $('#province option:selected').text()};
     this.district = function(){ return $('#district-' + this.provinceId() + ' option:selected').text()};
 
+    this.shopPhone = function(){ return $('#shopPhone').val()};
     this.pickupAddress = function(){ return $('#pickupAddress').val()};
     this.pickupDistrictId = function(){ return $('#pickupDistrict-' + this.provinceId()).val()};
     this.pickupDistrict = function(){ return $('#pickupDistrict-' + this.provinceId() + '  option:selected').text()};
@@ -361,6 +361,12 @@ function Form(){
         }
         if(this.phone() && !validatePhone(this.phone())){
             error.push({message: Error_message.PHONE_INVALID_FORMAT, id: "phone"});
+        }
+        if(!this.shopPhone()){
+            error.push({message: Error_message.EMPTY_PHONE_CONFIRM, id: "shopPhone"});
+        }
+        if(this.shopPhone() && !validatePhone(this.shopPhone())){
+            error.push({message: Error_message.PHONE_INVALID_FORMAT, id: "shopPhone"});
         }
         if(!this.address()){
             error.push({message: Error_message.EMPTY_ADDRESS, id: "address"});
@@ -403,6 +409,7 @@ function makeModel(){
     order.pickupAddress = form.pickupAddress();
     order.pickupProvince = form.province();
     order.pickupDistrict = form.pickupDistrict();
+    order.pickupPhone = form.shopPhone();
 
     return order;
 }
@@ -421,10 +428,9 @@ function getCoupons() {
         buildMenuCoupons(coupons);
         return;
     }
-
     var request = {
         campaignPrefix:"XN",
-        status:3
+        status:3 // available
     }
     $.ajax({
         type : 'POST',

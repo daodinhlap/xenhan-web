@@ -16,7 +16,7 @@
 		<div>
 			<label style='text-decoration: underline; color: #f3931f;'>LẤY HÀNG:</label>
 		</div>
-		<div class="col-xs-12 col-md-6 form-field">
+		<div class="col-xs-12 col-md-4 form-field">
 			<label>Tỉnh/TP lấy hàng<span style="color: red">*</span></label>
 
 			<c:set var = "provinceId" value = "${not empty order ? order.shop.town.id : shop.town.id}"/>
@@ -26,7 +26,7 @@
 			</select>
 		</div>
 
-		<div class="col-xs-12 col-md-6 form-field">
+		<div class="col-xs-12 col-md-4 form-field">
 			<label>Quận/Huyện lấy hàng<span style="color: red">*</span></label>
 
 			<c:set var = "pickupDistrictId" value = "${not empty order ? order.shop.town.district.id : shop.town.district.id}"/>
@@ -70,6 +70,12 @@
 				<option ${pickupDistrictId == '50'? 'selected':''} value="50">Hóc Môn</option>
 				<option ${pickupDistrictId == '52'? 'selected':''} value="52">Nhà Bè</option>
 			</select>
+		</div>
+
+		<div class="col-xs-12 col-md-4 form-field">
+			<label>SĐT lấy hàng<span style="color: red">*</span></label>
+			<c:set var = "shopPhone" value = "${not empty order ? order.shop.phone : shop.phone}"/>
+			<input placeholder="SĐT lấy hàng" value="${shopPhone}" class="form-control" id="shopPhone">
 		</div>
 
 		<div class="form-group col-xs-12 col-md-6">
