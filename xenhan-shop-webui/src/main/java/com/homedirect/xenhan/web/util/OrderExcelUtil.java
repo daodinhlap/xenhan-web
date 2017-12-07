@@ -212,7 +212,10 @@ public class OrderExcelUtil {
       break;
     case "pickupDistrict":
       District pickupDistrict = entity.getShop().getTown().getDistrict();
-      if(pickupDistrict == null) pickupDistrict = new District();
+      if(pickupDistrict == null){
+        pickupDistrict = new District();
+        entity.getShop().getTown().setDistrict(pickupDistrict);
+      }
 
       if(!StringUtils.isEmpty(value)) pickupDistrict.setId(Long.parseLong(value));
       if(!StringUtils.isEmpty(label)) pickupDistrict.setName(label);
