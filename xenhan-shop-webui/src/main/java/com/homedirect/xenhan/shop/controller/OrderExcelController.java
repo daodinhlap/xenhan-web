@@ -36,6 +36,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -147,23 +148,22 @@ public class OrderExcelController extends AbstractController {
   public ModelAndView saveFromExcel(HttpServletRequest httpRequest,
                                     HttpSession session) {
     List<OrderEntity> orders = (List<OrderEntity>)session.getAttribute(IMPORT_DATA);
+    Integer total = new Integer(orders.size());
     if(CollectionUtils.isEmpty(orders)) return redirectWithNoData() ;
 
     String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "create-order");
-    Iterator<OrderEntity> iterator = orders.iterator();
-    int index = 1;
-    while(iterator.hasNext()) {
-      OrderEntity entity = iterator.next();
+
+    List<OrderEntity> ordersRemove = new LinkedList<>();
+    for(OrderEntity entity: orders) {
       entity.setPackageId(DEFAULT_PACKAGE_ID);
       ResponseEntity<RepositoryResponse<Object>> resp = apiExchangeService.post(httpRequest, url, entity);
-      if(apiExchangeService.isUnSuccessResponse(resp.getBody())) {
-        return redirectWithError(index, resp.getBody().getMessage());
+      if(apiExchangeService.isSuccessResponse(resp.getBody())) {
+        ordersRemove.add(entity);
       }
-      index++;
-      iterator.remove();
     }
-    session.removeAttribute(IMPORT_DATA);
-    return getViewCreateOrderExcel("", "Tạo toàn bộ đơn thành công", session);
+    orders.removeAll(ordersRemove);
+    String message = orders.size() == 0 ? "Tạo toàn bộ đơn thành công" : "Tạo "+(total-orders.size())+"/"+total+" đơn thành công";
+    return getViewCreateOrderExcel("", message, session);
   }
 
   @SuppressWarnings("unchecked")
@@ -237,7 +237,13 @@ public class OrderExcelController extends AbstractController {
       validated.setMessage("SĐT giao hàng trống");
       return validated;
     }
-    
+    if(order.getDropoff().getContact().getPhone().trim().length() > 11){
+      validated.setError(true);
+      validated.setField("phone");
+      validated.setMessage("SĐT giao hàng sai định dạng");
+      return validated;
+    }
+
     util.calculateFree(request, order, validated, couponData);
     return validated;
   }

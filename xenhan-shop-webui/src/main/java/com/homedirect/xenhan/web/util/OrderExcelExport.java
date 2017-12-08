@@ -35,8 +35,7 @@ public class OrderExcelExport {
     private HttpServletRequest httpRequest;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM HH:mm");
 
-    private @Autowired
-    ApiExchangeService apiExchangeService;
+    private @Autowired ApiExchangeService apiExchangeService;
 
     private String[] HEADER = {"STT", "MVĐ","Người tạo", "Ngày tạo", "Ngày kết thúc", "Tên Khách nhận hàng", "SĐT nhận hàng",
             "Địa chỉ giao hàng", "Quận/Huyện giao hàng", "Tỉnh/TP giao hàng", "Tiền hàng", "Phí ship", "Ghi chú", "Trạng thái", "Ghi chú Hủy/Trả"};

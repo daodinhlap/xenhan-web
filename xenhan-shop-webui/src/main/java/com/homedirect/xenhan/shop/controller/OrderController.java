@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -145,11 +146,10 @@ private @Autowired OrderExcelExport orderExcelExport;
     request.setKeyword(keyword);
     request.setStatus(StringUtils.isEmpty(status)? 0: Integer.valueOf(status));
     request.setTypeOfView(typeOfView);
-    request.setSize(50);
+    request.setSize(100);
     request.setIndex(1);
     request.setPackageId(DEFAULT_PACKAGE_ID);
     request.setShopName((String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME));
-    logger.info("\n EXPORT ORDER: {}\n", JsonUtil.toJson(request));
 
     String fileName = "lich-su-don-hang";
     fileName += "_tu_" + request.getFromDate();
@@ -158,8 +158,24 @@ private @Autowired OrderExcelExport orderExcelExport;
     String headerValue = "attachment; filename=\"" + fileName + ".xls" +"\"";
     httpResponse.setContentType("application/vnd.ms-excel");
     httpResponse.setHeader(headerKey, headerValue);
-    orderExcelExport.export(httpRequest, httpResponse, getOrderHistory(httpRequest, request).getPageItems());
+
+    List<OrderEntity> orders = getOrder2Export(httpRequest, request);
+    orderExcelExport.export(httpRequest, httpResponse, orders);
     httpResponse.getOutputStream().flush();
+  }
+
+  private List<OrderEntity> getOrder2Export(HttpServletRequest httpRequest, PageOrderRequest request){
+    int pageNumber = 1;
+    int totalPage = 1;
+    List<OrderEntity> orders = new LinkedList<>();
+    do {
+      request.setIndex(pageNumber);
+      Page<OrderEntity> page = getOrderHistory(httpRequest, request);
+      orders.addAll(page.getPageItems());
+
+      totalPage = page.getPagesAvailable();
+    }while (++pageNumber <= totalPage );
+    return orders;
   }
 
   private Page<OrderEntity> getOrderHistory(HttpServletRequest httpRequest, PageOrderRequest request){
