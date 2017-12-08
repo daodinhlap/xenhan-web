@@ -162,7 +162,7 @@ public class OrderExcelController extends AbstractController {
       }
     }
     orders.removeAll(ordersRemove);
-    String message = orders.size() == 0 ? "Tạo toàn bộ đơn thành công" : "Tạo "+(total-orders.size())+"/"+total+" đơn thành công";
+    String message = orders.size() == 0 ? "Tạo "+total+" đơn thành công" : "Tạo "+(total-orders.size())+"/"+total+" đơn thành công";
     return getViewCreateOrderExcel("", message, session);
   }
 
