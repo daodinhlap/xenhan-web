@@ -96,13 +96,8 @@ public class ShopController extends AbstractController {
   public byte[] editProfile(@RequestParam(value = "name", required = false) String name,
                             @RequestParam(value = "value", required = false) String value,
                             HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
-
-    if(StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "Không có dữ liệu".getBytes("utf8");
     logger.info(" name: {} - value:{}",name,value);
-
-    name = name.trim();
-    value = value.trim();
-    return updateUtil.updateUser(name, value, httpRequest, httpResponse);
+    return updateUtil.updateUser(name.trim(), value.trim(), httpRequest, httpResponse);
   }
 
   /*UPDATE SHOP*/
@@ -110,13 +105,9 @@ public class ShopController extends AbstractController {
   public byte[] editShop(@RequestParam(value = "name", required = false) String name,
                          @RequestParam(value = "value", required = false) String value,
                          HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws UnsupportedEncodingException {
-    if (StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) return "Không có dữ liệu".getBytes("utf8");
     logger.info(" name: {} - vale:{}",name,value);
-
-    name = name.trim();
-    value = value.trim();
     Shop shop = getShopInfo(httpRequest);
-    return updateUtil.updateShop(shop, name, value, httpRequest, httpResponse);
+    return updateUtil.updateShop(shop, name.trim(), value.trim(), httpRequest, httpResponse);
   }
 
   /*CHANGE PASSWORD*/

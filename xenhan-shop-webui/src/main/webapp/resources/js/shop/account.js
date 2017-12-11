@@ -90,7 +90,13 @@ $(function() {
         source:[{value: 1, text: 'Nam'}, {value: 2, text: 'Nữ'}]
     });
 
-    $('#address').editable({mode: "inline",  emptytext: '...'});
+    $('#address').editable({
+        mode: "inline",
+        emptytext: '...',
+        validate: function(value) {
+            if(!value) return 'Xin hãy nhập địa chỉ';
+        }
+    });
     
     $('#province').editable({
         mode:"inline",

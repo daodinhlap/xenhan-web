@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,17 +44,32 @@ public class UpdateUtil {
         UserProfile userProfile = userRecord.getUserProfile();
         switch (name) {
             case "name": userProfile.setFullName(value); break;
-            case "phone": user.setPhone(value); break;
-            case "email": user.setEmail(value); break;
+            case "email": if(!StringUtils.isEmpty(value)) user.setEmail(value); break;
             case "gender": userProfile.setGender(Integer.valueOf(value)); break;
-            case "address": userProfile.setAddress(value); break;
-            case "province": userProfile.setProvince(value);
-                             userProfile.setDistrict(null); break;
-            case "district": userProfile.setDistrict(value); break;
+            case "address": if(!StringUtils.isEmpty(value)) userProfile.setAddress(value); break;
+            case "province":
+                if(!StringUtils.isEmpty(value)) {
+                    userProfile.setProvince(value);
+                    userProfile.setDistrict(null);
+                }
+                break;
+            case "district": if(!StringUtils.isEmpty(value)) userProfile.setDistrict(value); break;
             case "placeOfBirth": userProfile.setPlaceOfBirth(value); break;
-            case "birthDay": userProfile.setBirthday(DateUtil.ddMMyyyy2Date(value)); break;
+            case "birthDay":
+                if(StringUtils.isEmpty(value)){
+                    userProfile.setBirthday(null);
+                } else {
+                    userProfile.setBirthday(DateUtil.ddMMyyyy2Date(value));
+                }
+                break;
             case "identityCard": userProfile.setIdentityCard(value); break;
-            case "dateOfIdentity": userProfile.setDateOfIdentity(DateUtil.ddMMyyyy2Date(value)); break;
+            case "dateOfIdentity":
+                if(StringUtils.isEmpty(value)){
+                    userProfile.setDateOfIdentity(null);
+                } else {
+                    userProfile.setDateOfIdentity(DateUtil.ddMMyyyy2Date(value));
+                }
+                break;
             case "facebook": userProfile.setFacebookId(value); break;
             default: return "error".getBytes();
         }
@@ -83,13 +99,19 @@ public class UpdateUtil {
     public byte[] updateShop(Shop shop, String name, String value, HttpServletRequest httpRequest, HttpServletResponse httpResponse)
             throws UnsupportedEncodingException {
         switch (name) {
-            case "shopName": shop.setFullName(value); break;
-            case "shopAddress": shop.setAddress(value); break;
-            case "shopProvince": shop.getTown().setId(Long.valueOf(value));
-                                 int defaultId = Long.valueOf(value) == 1? DEFAULT_DISTRICT_ID_HN : DEFAULT_DISTRICT_ID_HCM;
-                                 shop.getTown().getDistrict().setId(defaultId); break;
-            case "shopDistrict": shop.getTown().getDistrict().setId(Long.valueOf(value)); break;
-            case "shopPhone": shop.setPhone(value); break;
+            case "shopName": if(!StringUtils.isEmpty(value)) shop.setFullName(value); break;
+            case "shopAddress":if(!StringUtils.isEmpty(value)) shop.setAddress(value); break;
+            case "shopProvince":
+                if(StringUtils.isEmpty(value)) break;
+                shop.getTown().setId(Long.valueOf(value));
+                int defaultId = Long.valueOf(value) == 1? DEFAULT_DISTRICT_ID_HN : DEFAULT_DISTRICT_ID_HCM;
+                shop.getTown().getDistrict().setId(defaultId); break;
+            case "shopDistrict":
+                if(StringUtils.isEmpty(value)) break;
+                shop.getTown().getDistrict().setId(Long.valueOf(value)); break;
+            case "shopPhone":
+                if(StringUtils.isEmpty(value)) break;
+                shop.setPhone(value); break;
             case "shopEmail": shop.setEmail(value); break;
             case "shopWebsite": shop.setWebsite(value); break;
             default: return "error".getBytes();
