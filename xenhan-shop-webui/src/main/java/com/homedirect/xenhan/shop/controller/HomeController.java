@@ -105,13 +105,19 @@ public class HomeController extends AbstractController {
     mv.addObject("title", "Xe Nhàn - Liên hệ");
     return mv;
   }
-  
+
   @GetMapping(value="/dang-xuat")
   public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    if (auth != null) {    
+    if (auth != null) {
       new SecurityContextLogoutHandler().logout(request, response, auth);
     }
     return new ModelAndView("redirect:/");
+  }
+
+
+  @GetMapping(value="/taiapp")
+  public ModelAndView download(HttpServletRequest request, HttpServletResponse response) {
+    return new ModelAndView("public.download");
   }
 }
