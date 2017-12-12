@@ -63,9 +63,12 @@ private @Autowired OrderExcelExport orderExcelExport;
   }
 
   @PostMapping(value = "/print")
-  public ModelAndView print(@RequestParam(value = "type") int type, @RequestBody List<Order> orders) {
+  public ModelAndView print(@RequestParam(value = "type") int type,
+                            @RequestBody List<Order> orders,
+                            HttpServletRequest httpRequest) {
     if(CollectionUtils.isEmpty(orders)) return null;
 
+    updateOriginShop(orders, httpRequest);
     ModelAndView mv = new ModelAndView("order.print");
     mv.addObject("title","Xe Nhàn - In");
     mv.addObject("orders",orders);
@@ -176,6 +179,10 @@ private @Autowired OrderExcelExport orderExcelExport;
       totalPage = page.getPagesAvailable();
     }while (++pageNumber <= totalPage );
     return orders;
+  }
+  private void updateOriginShop(List<Order> orders, HttpServletRequest httpRequest){
+    Shop shop = getShopInfo(httpRequest);
+    orders.forEach(order -> order.setShop(shop));
   }
 
   private Page<OrderEntity> getOrderHistory(HttpServletRequest httpRequest, PageOrderRequest request){

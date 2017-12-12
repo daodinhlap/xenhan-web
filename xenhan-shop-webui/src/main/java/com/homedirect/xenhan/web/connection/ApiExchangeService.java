@@ -175,7 +175,6 @@ public class ApiExchangeService {
 
   public <T> RepositoryResponse<T> get(HttpServletRequest httpRequest, String url, TypeReference<?> reference) throws RestClientException {
     HttpEntity<?> entity = createEntity(httpRequest);
-    //    logger.info("GET from URL ---> "+ url + " : " + headers.getFirst("User-Agent"));
     ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
     try {
       return MAPPER.readValue(response.getBody(), reference);
