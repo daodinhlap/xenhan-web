@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import com.homedirect.repo.model.Membership;
 import static com.homedirect.xenhan.model.AttributeConfig.*;
+
+import com.homedirect.xenhan.web.util.MembershipConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -74,14 +76,26 @@ public class XnAuthenticationFilter extends UsernamePasswordAuthenticationFilter
         }
       }
 
-      List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
-      grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+      List<GrantedAuthority> grantedAuths = getAuths(authentication);
       UsernamePasswordAuthenticationToken user = new UsernamePasswordAuthenticationToken(authentication.getUser(), token, grantedAuths);
       user.setDetails(authentication.getDetails());
       return user;
     }
 
     return loginFailured(request, response, ERROR_LOGIN);
+  }
+
+  private List<GrantedAuthority> getAuths(Authentication authentication) {
+    List<GrantedAuthority> grantedAuths = new ArrayList<>();
+    grantedAuths.add(new SimpleGrantedAuthority(getRole(authentication)));
+    return grantedAuths.stream().distinct().collect(Collectors.toList());
+  }
+
+  private String getRole(Authentication authentication){
+    List<UserRepoGrantedAuthority> authorities = (List<UserRepoGrantedAuthority>) authentication.getAuthorities();
+    if(authorities.stream().anyMatch(auth -> auth.getAuthority().contains(MembershipConfig.MEMBERSHIP_TYPE_SHOP_ADMIN))) return "ROLE_ADMIN";
+    if(authorities.stream().anyMatch(auth -> auth.getAuthority().contains(MembershipConfig.MEMBERSHIP_TYPE_SHOP_MEMBER))) return "ROLE_USER";
+    return "";
   }
 
   private  UserAuthentication loginFailured(HttpServletRequest request, HttpServletResponse response, String message) {

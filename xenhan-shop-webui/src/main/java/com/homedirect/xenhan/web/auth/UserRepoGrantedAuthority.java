@@ -18,8 +18,7 @@ public class UserRepoGrantedAuthority implements GrantedAuthority {
 
   @Override
   public String getAuthority() {
-//    System.out.println("\n\n ----  quyen nay "+ authority);
-    return authority; 
+    return authority;
   }
   
   

@@ -6,7 +6,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<sec:authorize access="hasRole('ROLE_USER')">
+
 	<div class="col-sm-3 col-md-2 sidebar">
 		<div class="user-login">
 
@@ -15,9 +15,6 @@
 			<c:set var = "phone"><%= ((SimpleUser)session.getAttribute("SIMPLE-USER")).getUserName() %></c:set>
 
 			<div class="col-md-12 center">
-				<%--<a href="/shop/thong-tin-tai-khoan" style="color: #555;">--%>
-					<%--<img class="avatar" src="/resources/images/app_logo_white.png">--%>
-				<%--</a>--%>
 				<div style="margin-top: 10px;">
 					<a href="/shop/thong-tin-tai-khoan" style=" color: white"> <c:if
 							test="${not empty fullName}">
@@ -34,23 +31,30 @@
 
 		</div>
 		<ul class="nav nav-sidebar" style="font-size: 14px;">
-			<c:if test="${not empty shopName && !shopName.equals('null') }">
-				<li><a href="/"> <img src="/resources/images/icon-home.png"><span>Trang chủ</span></a></li>
-				<li><a href="/order/tao-don?type=0"> <img
-						src="/resources/images/icon-order.png"><span>Tạo đơn hàng</span></a></li>
-				<li><a href="/order-excel/tao-don-tu-excel"> <img
-						src="/resources/images/icon-order-excel.png"><span>Tạo đơn từ Excel</span></a></li>
-				<li><a href="/order/lich-su"> <img
-						src="/resources/images/icon-history.png"><span>Lịch sử đơn hàng</span></a></li>
-				<li><a href="/shop/cong-no"> <img
-						src="/resources/images/icon-debit.png"><span>Lịch sử công nợ</span></a></li>
-				<li><a href="/shop/thong-tin-tai-khoan"> <img
-						src="/resources/images/icon-profile.png"> <span>Tài khoản</span></a></li>
-			</c:if>
+
+			<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+				<c:if test="${not empty shopName && !shopName.equals('null') }">
+					<li><a href="/"> <img src="/resources/images/icon-home.png"><span>Trang chủ</span></a></li>
+					<li><a href="/order/tao-don?type=0"> <img
+							src="/resources/images/icon-order.png"><span>Tạo đơn hàng</span></a></li>
+					<li><a href="/order-excel/tao-don-tu-excel"> <img
+							src="/resources/images/icon-order-excel.png"><span>Tạo đơn từ Excel</span></a></li>
+					<li><a href="/order/lich-su"> <img
+							src="/resources/images/icon-history.png"><span>Lịch sử đơn hàng</span></a></li>
+					<li><a href="/shop/cong-no"> <img
+							src="/resources/images/icon-debit.png"><span>Lịch sử công nợ</span></a></li>
+					<li><a href="/shop/thong-tin-tai-khoan"> <img
+							src="/resources/images/icon-profile.png"> <span>Tài khoản</span></a></li>
+				</c:if>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<li><a href="/admin/danh-sach"> <img src="/resources/images/icon-member.png"> <span>Nhân viên</span></a></li>
+			</sec:authorize>
+
 			<li><a href="/lien-he"><img
 					src="/resources/images/icon-support.png"><span>Liên hệ</span></a></li>
 			<li><a href="/dang-xuat"><img
 					src="/resources/images/icon-exit.png"><span>Đăng xuất</span></a></li>
 		</ul>
 	</div>
-</sec:authorize>
+

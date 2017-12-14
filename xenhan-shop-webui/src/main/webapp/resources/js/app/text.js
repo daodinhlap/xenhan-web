@@ -6,6 +6,8 @@ var ErrorCode = {
 		INVALID_CAPTCHA:"19",
 		FORBIDDEN : "403",
     	NOT_MATCH_OLD_PASS:"18",
+    	DUPLICATE_MEMBERSHIP:"45",
+		USER_EXISTED:"47",
 }
 
 var Error_message = {

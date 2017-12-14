@@ -103,7 +103,7 @@
                             <th style="width: 10px;"></th>
                         </tr>
                         <tr>
-                            <th style="width: 10px;" style="color: #92c78a;">#</th>
+                            <th style="width: 10px;" style="color: #92c78a;"><i style="color: #92c78a;" class="fa fa-hashtag"></th>
                             <th style="width: 50px">
                                 <input type="checkbox" id="check-all">
                                 <div class="dropdown" data-toggle="tooltip" title="Click để In phiếu" style="float: right;cursor: pointer">

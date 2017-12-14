@@ -45,7 +45,6 @@ public class UserAuthentication implements Authentication {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-//	  new Exception().printStackTrace();
 		return  authorities;
 	}
 
@@ -82,11 +81,13 @@ public class UserAuthentication implements Authentication {
 
 	public void setUserSession(UserSession user) {
 		this.user = user;
-		if(this.user == null) return;
-    List<Membership> memberships = this.user.getUser().getMemberships();
-    if(memberships != null) memberships.forEach(membership -> {
-      authorities.add(new UserRepoGrantedAuthority(membership.getGroupName(), membership.getMembershipType()));
-    });
+		if (this.user == null) return;
+
+		List<Membership> memberships = this.user.getUser().getMemberships();
+
+		if (memberships != null) memberships.forEach(membership -> {
+			authorities.add(new UserRepoGrantedAuthority(membership.getGroupName(), membership.getMembershipType()));
+		});
 	}
 
 

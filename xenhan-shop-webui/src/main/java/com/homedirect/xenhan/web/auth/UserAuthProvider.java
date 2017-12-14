@@ -22,7 +22,7 @@ public class UserAuthProvider implements AuthenticationProvider {
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
     String username = authentication.getName().toString();
     try {
-      return successful(username, authentication.getCredentials().toString(), "ROLE_USER");
+      return successful(username, authentication.getCredentials().toString(), "ROLE_MEMBER");
     } catch (Exception exp) {
       LOGGER.error(exp.getMessage(), exp);
     }
@@ -39,4 +39,5 @@ public class UserAuthProvider implements AuthenticationProvider {
   public boolean supports(Class<?> authentication) {
     return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
   }
+
 }
