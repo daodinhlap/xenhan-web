@@ -50,7 +50,9 @@
 		<intercept-url pattern="/dang-nhap" access="permitAll" />
 		<intercept-url pattern="/dang-ky" access="permitAll" />
 		<intercept-url pattern="/resources/*" access="permitAll" />
+
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+
 		<intercept-url pattern="/shop/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<intercept-url pattern="/order/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<intercept-url pattern="/order-excel/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />

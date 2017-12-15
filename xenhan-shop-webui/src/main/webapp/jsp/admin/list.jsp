@@ -64,7 +64,7 @@
                 <form>
                     <div class="form-group">
                         <label>Họ và tên <span style="color: red">*</span></label>
-                        <input type="text" class="form-control" id="name" name="name" value="01640924700">
+                        <input type="text" class="form-control" id="name" name="name">
                     </div>
 
                     <div class="form-group">
@@ -78,22 +78,22 @@
 
                     <div class="form-group">
                         <label>Số điện thoại đăng nhập <span style="color: red">*</span></label>
-                        <input type="text" class="form-control" id="phone" name="phone" value="01640924700">
+                        <input type="text" class="form-control" id="phone" name="phone">
                     </div>
 
                     <div class="form-group">
                         <label>Email <span style="color: red">*</span></label>
-                        <input type="text" class="form-control" id="email" name="email" value="01640924700@gmail.com">
+                        <input type="text" class="form-control" id="email" name="email">
                     </div>
 
                     <div class="form-group">
                         <label>Mật khẩu <span style="color: red">*</span></label>
-                        <input type="password" class="form-control" id="password" name="password" value="123456">
+                        <input type="password" class="form-control" id="password" name="password">
                     </div>
 
                     <div class="form-group">
                         <label>Nhập lại mật khẩu  <span style="color: red">*</span></label>
-                        <input type="password" class="form-control" id="confirmPassword" value="123456">
+                        <input type="password" class="form-control" id="confirmPassword">
                     </div>
                 </form>
 

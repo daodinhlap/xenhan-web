@@ -104,8 +104,9 @@ function buildTable(members) {
                 .append($("<td>"+(i+1)+"</td>"))
                 .append($("<td align='left'>").text(member.fullName))
                 .append($("<td align='left'>").text(member.phone))
-                .append("<td align='center'><i class='fa fa-pencil-square-o' data-toggle='tooltip' title='Sửa nhân viên'></i>&emsp;" +
-                    "<i class='fa fa-times' data-toggle='tooltip' title='Xóa nhân viên' onclick=\"deleteMember('" + member.userName + "')\"></i></td>")
+                .append("<td align='center'>" +
+                    "<i class='fa fa-times' data-toggle='tooltip' title='Xóa nhân viên' style=' cursor: pointer;' " +
+                    "onclick=\"deleteMember('" + member.userName + "', '"+member.fullName+"')\"></i></td>")
         );
     });
     table.fadeIn();
@@ -113,13 +114,17 @@ function buildTable(members) {
     $('[data-toggle="tooltip"]').tooltip();
 }
 
-function deleteMember(userName){
+function deleteMember(phone, name){
+    noti.confirmWithBtn("Bạn muốn xóa nhân viên "+name+" ?", "Đồng ý", "Không", function(result){if(result) doDelete(phone)});
+}
+
+function doDelete(userName) {
     if(!userName) return;
     $.ajax({
         type : 'GET',
         url : URL_DELETE + "?user-name=" + userName,
     }).done(function(data) {
-        if (!data) {
+        if (data.code != "01") {
             noti.fail("Thông báo!","Xóa nhân viên không thành công", function() { reload() });
             return;
         }
