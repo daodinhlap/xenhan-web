@@ -4,14 +4,16 @@ public class Member {
     private String fullName;
     private String userName;
     private String phone;
+    private String email;
 
     public Member() {
     }
 
-    public Member(String fullName, String userName, String phone) {
+    public Member(String fullName, String userName, String phone, String email) {
         this.fullName = fullName;
         this.userName = userName;
         this.phone = phone;
+        this.email = email;
     }
 
     public String getFullName() {
@@ -36,5 +38,13 @@ public class Member {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

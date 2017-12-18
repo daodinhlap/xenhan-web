@@ -4,12 +4,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
 
-<div class="col-md-6 col-md-offset-3 mobile-padding">
-    <div class="container card" style="padding: 15px;">
+<%--<div class="col-md-6 col-md-offset-3 mobile-padding">--%>
+    <%--<div class="container card" style="padding: 15px;">--%>
         <div class="center" style="margin-bottom: 20px">
-            <h2 class="page-header">
-                <span>DANH SÁCH NHÂN VIÊN</span>
-            </h2>
+            <%--<h2 class="page-header">--%>
+                <%--<span>DANH SÁCH NHÂN VIÊN</span>--%>
+            <%--</h2>--%>
             <a href="#" style=" color: #f3921f;float:left" data-toggle="modal" data-target="#modal-add-member">
                 <i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp;Thêm nhân viên
             </a>
@@ -64,36 +64,36 @@
                 <form>
                     <div class="form-group">
                         <label>Họ và tên <span style="color: red">*</span></label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control" id="member-name" name="member-name">
                     </div>
 
                     <div class="form-group">
                         <label class="radio-inline">
-                            <input type="radio" name="gender" value="1" checked="checked">Nam
+                            <input type="radio" name="member-ender" value="1" checked="checked">Nam
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="gender" value="2">Nữ
+                            <input type="radio" name="member-gender" value="2">Nữ
                         </label>
                     </div>
 
                     <div class="form-group">
                         <label>Số điện thoại đăng nhập <span style="color: red">*</span></label>
-                        <input type="text" class="form-control" id="phone" name="phone">
+                        <input type="text" class="form-control" id="member-phone" name="member-phone">
                     </div>
 
                     <div class="form-group">
                         <label>Email <span style="color: red">*</span></label>
-                        <input type="text" class="form-control" id="email" name="email">
+                        <input type="text" class="form-control" id="member-email" name="member-email">
                     </div>
 
                     <div class="form-group">
                         <label>Mật khẩu <span style="color: red">*</span></label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="member-password" name="member-password">
                     </div>
 
                     <div class="form-group">
                         <label>Nhập lại mật khẩu  <span style="color: red">*</span></label>
-                        <input type="password" class="form-control" id="confirmPassword">
+                        <input type="password" class="form-control" id="member-confirmPassword">
                     </div>
                 </form>
 
@@ -104,8 +104,8 @@
             </div>
         </div>
 
-    </div>
-</div>
+    <%--</div>--%>
+<%--</div>--%>
 
 
 

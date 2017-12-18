@@ -304,7 +304,7 @@ function Notify(){
     };
     
 	this.dialog = function(message,time){
-		var noti = bootbox.dialog({message: message, closeButton:false});
+		var noti = bootbox.dialog({message: icon_check + message, closeButton:false});
 		setTimeout(function(){
 			noti.modal("hide");
 		},time * 1000);

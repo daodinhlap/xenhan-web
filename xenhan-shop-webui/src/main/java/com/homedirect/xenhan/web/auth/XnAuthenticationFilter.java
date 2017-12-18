@@ -93,9 +93,9 @@ public class XnAuthenticationFilter extends UsernamePasswordAuthenticationFilter
 
   private String getRole(Authentication authentication){
     List<UserRepoGrantedAuthority> authorities = (List<UserRepoGrantedAuthority>) authentication.getAuthorities();
-    if(authorities.stream().anyMatch(auth -> auth.getAuthority().contains(MembershipConfig.MEMBERSHIP_TYPE_SHOP_ADMIN))) return "ROLE_ADMIN";
     if(authorities.stream().anyMatch(auth -> auth.getAuthority().contains(MembershipConfig.MEMBERSHIP_TYPE_SHOP_MEMBER))) return "ROLE_USER";
-    return "";
+//    if(authorities.stream().anyMatch(auth -> auth.getAuthority().contains(MembershipConfig.MEMBERSHIP_TYPE_SHOP_ADMIN))) return "ROLE_ADMIN";
+    return "ROLE_ADMIN";
   }
 
   private  UserAuthentication loginFailured(HttpServletRequest request, HttpServletResponse response, String message) {

@@ -17,6 +17,8 @@
 		<ul class="nav nav-tabs">
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="active"><a data-toggle="tab" href="#menu2">Shop</a></li>
+				<li><a data-toggle="tab" href="#menu4">Nhân viên</a></li>
+				<li><a data-toggle="tab" href="#menu3">Thanh toán</a></li>
 			</sec:authorize>
 
 			<sec:authorize access="hasRole('ROLE_USER')">
@@ -25,17 +27,11 @@
 
 			<li class="${active}"><a data-toggle="tab" href="#home">Người dùng</a></li>
 			<li><a data-toggle="tab" href="#menu1">Đổi mật khẩu</a></li>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li><a data-toggle="tab" href="#menu3">Thanh toán</a></li>
-			</sec:authorize>
+
 		</ul>
 
 		<div class="tab-content" style="margin-top: 20px">
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<div id="menu2" class="tab-pane fade in active">
-					<jsp:include page="detail.jsp"></jsp:include>
-				</div>
-			</sec:authorize>
+
 			<div id="home" class="tab-pane fade in ${active}">
 				<jsp:include page="user.detail.jsp"></jsp:include>
 			</div>
@@ -44,8 +40,14 @@
 			</div>
 
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<div id="menu2" class="tab-pane fade in active">
+					<jsp:include page="detail.jsp"></jsp:include>
+				</div>
 				<div id="menu3" class="tab-pane fade">
 					<jsp:include page="payment.info.jsp"></jsp:include>
+				</div>
+				<div id="menu4" class="tab-pane fade">
+					<jsp:include page="../admin/list.jsp"></jsp:include>
 				</div>
 			</sec:authorize>
 

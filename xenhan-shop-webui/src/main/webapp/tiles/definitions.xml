@@ -127,6 +127,7 @@
         <put-list-attribute name="scripts" inherit="true">
        		<add-attribute value="/resources/js/app/bootstrap-editable.js" />
             <add-attribute value="/resources/js/shop/account.js" />
+			<add-attribute value="/resources/js/admin/list.js" />
         </put-list-attribute>
 	</definition>
 

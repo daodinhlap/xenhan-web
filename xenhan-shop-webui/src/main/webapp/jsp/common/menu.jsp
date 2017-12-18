@@ -40,15 +40,17 @@
 							src="/resources/images/icon-order-excel.png"><span>Tạo đơn từ Excel</span></a></li>
 					<li><a href="/order/lich-su"> <img
 							src="/resources/images/icon-history.png"><span>Lịch sử đơn hàng</span></a></li>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li><a href="/shop/cong-no"> <img
 							src="/resources/images/icon-debit.png"><span>Lịch sử công nợ</span></a></li>
+			</sec:authorize>
 					<li><a href="/shop/thong-tin-tai-khoan"> <img
 							src="/resources/images/icon-profile.png"> <span>Tài khoản</span></a></li>
 				</c:if>
 			</sec:authorize>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li><a href="/admin/danh-sach"> <img src="/resources/images/icon-member.png"> <span>Nhân viên</span></a></li>
-			</sec:authorize>
+			<%--<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
+				<%--<li><a href="/admin/danh-sach"> <img src="/resources/images/icon-member.png"> <span>Nhân viên</span></a></li>--%>
+			<%--</sec:authorize>--%>
 
 			<li><a href="/lien-he"><img
 					src="/resources/images/icon-support.png"><span>Liên hệ</span></a></li>

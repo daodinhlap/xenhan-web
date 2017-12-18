@@ -1,4 +1,4 @@
-var form = new Form();
+var formMember = new FormMember();
 var noti = new Notify();
 var members = [];
 
@@ -34,12 +34,12 @@ function getListMember() {
 
     }).fail(function(data) {
         console.log(data);
-        noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() { reload() });
+        // noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() { reload() });
     });
 }
 
 function addMember() {
-    var hasError = form.validate();
+    var hasError = formMember.validate();
     if(hasError.length != 0){
         noti.error(error); return;
     }
@@ -48,17 +48,18 @@ function addMember() {
         type : 'POST',
         contentType : 'application/json',
         url : URL_ADD,
-        data : JSON.stringify(form.getRequest())
+        data : JSON.stringify(formMember.getRequest())
     }).done(function(data) {
-        if(ErrorCode.DUPLICATE_MEMBERSHIP == data.code){
+        if(ErrorCode.DUPLICATE_MEMBER == data.code ){
             error.push({message: "Nhân viên đã được thêm", id: "alert"});
             noti.error(error);
             return;
         }
-        if(ErrorCode.USER_EXISTED == data.code){
-            rebuildTable();
+        if(ErrorCode.USER_EXISTED == data.code || ErrorCode.MEMBERSHIP_EXISTED == data.code){
             $("#modal-add-member").modal("hide");
-            noti.ok("Tạo nhân viên thành công", "SĐT: " + form.getPhone() + " đã có tài khoản HomeDirect. Hãy đăng nhập bằng tài khoản đã có");
+            noti.ok("Tạo nhân viên thành công", "SĐT: " + formMember.getPhone() + " đã có tài khoản HomeDirect<br>" +
+                " Hãy đăng nhập bằng tài khoản đã có");
+            rebuildTable();
             return;
         }
         if(ErrorCode.SUCCESS == data.code){
@@ -80,14 +81,14 @@ function addMember() {
 }
 
 function cancel() {
-    form.reset();
+    formMember.reset();
     noti.cleanError();
 }
 
 function rebuildTable() {
-    members.push(form.getNewMember());
+    members.push(formMember.getNewMember());
     buildTable(members);
-    form.reset();
+    formMember.reset();
 }
 
 function buildTable(members) {
@@ -145,13 +146,13 @@ function removeMemberLocal(userName) {
     buildTable(members);
 }
 
-function Form() {
-    this.getName = function() {return $('#name').val()};
-    this.getGender = function() { return $('input[name=gender]:checked').val() };
-    this.getPhone = function() { return $('#phone').val().trim() };
-    this.getEmail = function() { return $('#email').val().trim() };
-    this.getPass = function() {return $('#password').val()};
-    this.getConfirmPass = function() {return $('#confirmPassword').val()};
+function FormMember() {
+    this.getName = function() {return $('#member-name').val()};
+    this.getGender = function() { return $('input[name=member-gender]:checked').val() };
+    this.getPhone = function() { return $('#member-phone').val().trim() };
+    this.getEmail = function() { return $('#member-email').val().trim() };
+    this.getPass = function() {return $('#member-password').val()};
+    this.getConfirmPass = function() {return $('#member-confirmPassword').val()};
 
 
     this.reset = function() {
