@@ -59,7 +59,7 @@
                 <h4 class="modal-title">Thông tin nhân viên</h4>
             </div>
             <div class="modal-body">
-                <p id="alert"></p>
+                <p id="member-alert"></p>
 
                 <form>
                     <div class="form-group">
@@ -100,7 +100,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancel()">Hủy</button>
-                <button type="button" class="btn btn-primary" onclick="addMember()">Thêm nhân viên</button>
+                <button type="button" class="btn btn-primary"
+                        data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Đang thực hiện"
+                        onclick="addMember()" id="btn-add-member">Thêm nhân viên</button>
             </div>
         </div>
 

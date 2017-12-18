@@ -12,6 +12,10 @@ $(document).ready(function($) {
 
     getListMember();
 
+    $("#btn-add-member").click(function () {
+        if(formMember.validate().length != 0) return;
+        $(this).button('loading');
+    });
 
 });
 
@@ -25,7 +29,7 @@ function getListMember() {
         url : URL_LIST,
     }).done(function(data) {
         if (!data) {
-            noti.error([{message: data, id: "alert"}]);
+            noti.error([{message: data, id: "member-alert"}]);
             return;
         }
 
@@ -41,7 +45,8 @@ function getListMember() {
 function addMember() {
     var hasError = formMember.validate();
     if(hasError.length != 0){
-        noti.error(error); return;
+        noti.error(error);
+        return;
     }
 
     $.ajax({
@@ -51,7 +56,7 @@ function addMember() {
         data : JSON.stringify(formMember.getRequest())
     }).done(function(data) {
         if(ErrorCode.DUPLICATE_MEMBER == data.code ){
-            error.push({message: "Nhân viên đã được thêm", id: "alert"});
+            error.push({message: "Nhân viên đã được thêm", id: "member-alert"});
             noti.error(error);
             return;
         }
@@ -70,13 +75,15 @@ function addMember() {
         }
 
         if (data.code != 1) {
-            error.push({message: data.message, id: "alert"});
+            error.push({message: data.message, id: "member-alert"});
             noti.error(error);
             return;
         }
     }).fail(function(data) {
         console.log(data);
         noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() { reload() });
+    }).always(function () {
+        $("#btn-add-member").button('reset');
     });
 }
 
@@ -156,41 +163,41 @@ function FormMember() {
 
 
     this.reset = function() {
-        $('#name').val("");
-        $('#phone').val("");
-        $('#email').val("");
-        $('#password').val("");
-        $('#confirmPassword').val("")
+        $('#member-name').val("");
+        $('#member-phone').val("");
+        $('#member-email').val("");
+        $('#member-password').val("");
+        $('#member-confirmPassword').val("")
     };
 
     this.validate = function(){
         if (!this.getPhone() && !this.getPass() && !this.getName() && !this.getConfirmPass() && !this.getEmail()) {
-            error.push({message: Error_message.EMPTY_INPUT, id: "alert"});
+            error.push({message: Error_message.EMPTY_INPUT, id: "member-alert"});
             return error;
         }
         if (this.getName().length < 6 || this.getName().length > 50) {
-            error.push({message:"Họ tên hợp lệ có độ dài từ 6 đến 50 ký tự", id: "name"});
+            error.push({message:"Họ tên hợp lệ có độ dài từ 6 đến 50 ký tự", id: "member-name"});
         }
         if (!this.getEmail()) {
-            error.push({message:"Xin vui lòng nhập Email", id: "email"});
+            error.push({message:"Xin vui lòng nhập Email", id: "member-email"});
         }
         if (this.getEmail() && !validateEmail(this.getEmail())) {
-            error.push({message:"Email không đúng định dạng", id: "email"});
+            error.push({message:"Email không đúng định dạng", id: "member-email"});
         }
         if (!this.getPhone()) {
-            error.push({message:"Xin vui lòng nhập số điện thoại", id: "phone"});
+            error.push({message:"Xin vui lòng nhập số điện thoại", id: "member-phone"});
         }
         if (this.getPhone() && !validatePhone(this.getPhone())) {
-            error.push({message:"Số điện thoại không đúng định dạng", id: "phone"});
+            error.push({message:"Số điện thoại không đúng định dạng", id: "member-phone"});
         }
         if (this.getPass().length < 6 || this.getPass().length > 30) {
-            error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "password"});
+            error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "member-password"});
         }
         if (this.getConfirmPass().length < 6 || this.getConfirmPass().length > 30) {
-            error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "confirmPassword"});
+            error.push({message:"Mật khẩu hợp lệ có độ dài từ 6 - 30 ký tự", id: "member-confirmPassword"});
         }
         if (strcmp(this.getPass(), this.getConfirmPass()) != 0 && this.getConfirmPass().length >= 6) {
-            error.push({message:"Mật khẩu không khớp. Nhập lại mật khẩu", id: "confirmPassword"});
+            error.push({message:"Mật khẩu không khớp. Nhập lại mật khẩu", id: "member-confirmPassword"});
         }
         return error;
     }
