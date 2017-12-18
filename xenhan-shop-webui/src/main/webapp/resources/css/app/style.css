@@ -1181,3 +1181,10 @@ div#suggest-area{
 .un-clickable{
     cursor:default;
 }
+.link-app{
+    width: 50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}

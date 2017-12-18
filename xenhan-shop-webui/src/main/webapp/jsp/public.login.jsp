@@ -32,10 +32,7 @@
 				</div>
 
 				<div>
-					<a
-						style="float: right; margin-top: -10px; margin-bottom: 20px; cursor: pointer;"
-						rel="nofollow" rel="noreferrer" id="forgotPassword">Quên mật
-						khẩu</a>
+					<a style="float: right; margin-top: -10px; margin-bottom: 20px; cursor: pointer;" rel="nofollow" rel="noreferrer" id="forgotPassword">Quên mật khẩu</a>
 				</div>
 
 				<%--BUTTON--%>
@@ -46,22 +43,21 @@
 				</div>
 				<%--BUTTON--%>
 
-				<div class="button-container" style="margin-top: 10px">
+				<div class="button-container" style="margin-top: 10px; font-weight: bold">
 					<a rel="nofollow" rel="noreferrer" href="/dang-ky"> Đăng ký </a>
 				</div>
+
+				<div style="margin-top: 10px">
+					<div class="col-md-3 col-md-offset-3 col-xs-6" style="text-align: center">
+						<a href="https://play.google.com/store/apps/details?id=com.homedirect.xenhanv2shop" target="_blank">
+							<img width="120px" src="/resources/images/icon-CHplay.png"></a>
+					</div>
+					<div class="col-md-3 col-xs-6" style="text-align: center">
+						<a href="https://itunes.apple.com/us/app/xe-nh%C3%A0n-shop/id1319783243?ls=1&mt=8" target="_blank">
+							<img width="120px" src="/resources/images/icon-appstore.png"></a>
+					</div>
+				</div>
 			</div>
-
-			<%--<div class="input-container">--%>
-			<%--<input type="tel" id="phone" required="required" style="height: 40px; margin-top: 15px;"/>--%>
-			<%--<label for="phone">Số điện thoại</label>--%>
-			<%--<div class="bar"></div>--%>
-			<%--</div>--%>
-
-			<%--<div class="input-container">--%>
-			<%--<input type="password" id="pass" required="required"style="height: 40px; margin-top: 15px;"/>--%>
-			<%--<label for="pass">Mật khẩu</label>--%>
-			<%--<div class="bar"></div>--%>
-			<%--</div>--%>
 
 		</div>
 	</div>
