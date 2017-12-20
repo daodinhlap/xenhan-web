@@ -132,7 +132,7 @@ function doDelete(userName) {
         type : 'GET',
         url : URL_DELETE + "?user-name=" + userName,
     }).done(function(data) {
-        if (data.code != "01") {
+        if (ErrorCode.SUCCESS != data.code) {
             noti.fail("Thông báo!","Xóa nhân viên không thành công", function() { reload() });
             return;
         }
