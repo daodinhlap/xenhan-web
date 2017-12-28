@@ -97,7 +97,7 @@
 						<i class="glyphicon glyphicon-download-alt"></i> Tải mẫu
 
 					</a><br>
-					<span style="color: red">Shop vui lòng tải file mẫu mới cập nhật ngày <strong>04/12/2017</strong></span>
+					<span style="color: red">Shop vui lòng tải file mẫu mới cập nhật ngày <strong>12/12/2017</strong></span>
 				</div>
 			</div>
 
