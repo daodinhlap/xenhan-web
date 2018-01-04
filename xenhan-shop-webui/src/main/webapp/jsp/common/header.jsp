@@ -3,10 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -32,7 +29,7 @@
 			<ul class="nav navbar-nav navbar-right profile"
 				style="margin-bottom: 2px">
 				<li style="height: 50px; margin-top: 5px;">
-					<div class="col-xs-8 col-sm-8 col-md-7" style="color: white">
+					<div style="color: white">
 						<img class="avatar" src="/resources/images/app_logo_white.png" style="max-width: 50px">
 						<c:choose>
 						 <c:when test="${not empty fullName}"><a href="/shop/thong-tin-tai-khoan" style="color: white">${fullName }</a></c:when>
@@ -53,8 +50,12 @@
 							src="/resources/images/m-icon-order-excel.png"><span>Tạo đơn từ Excel</span></a></li>
 					<li><a href="/order/lich-su"> <img
 							src="/resources/images/m-icon-history.png"><span>Lịch sử đơn hàng</span></a></li>
-					<li><a href="/shop/cong-no"> <img
-							src="/resources/images/m-icon-debit.png"><span>Lịch sử công nợ</span></a></li>
+
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li><a href="/shop/cong-no"> <img
+								src="/resources/images/m-icon-debit.png"><span>Lịch sử công nợ</span></a></li>
+					</sec:authorize>
+
 					<li><a href="/shop/thong-tin-tai-khoan"> <img
 							src="/resources/images/m-icon-profile.png"><span>Tài khoản</span></a></li>
 				</c:if>
