@@ -44,13 +44,12 @@
 					<li><a href="/shop/cong-no"> <img
 							src="/resources/images/icon-debit.png"><span>Lịch sử công nợ</span></a></li>
 			</sec:authorize>
+					<li><a href="/tin khuyen mai"> <img
+							src="/resources/images/.png"> <span>Tin khuyến mại</span></a></li>
 					<li><a href="/shop/thong-tin-tai-khoan"> <img
 							src="/resources/images/icon-profile.png"> <span>Tài khoản</span></a></li>
 				</c:if>
 			</sec:authorize>
-			<%--<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
-				<%--<li><a href="/admin/danh-sach"> <img src="/resources/images/icon-member.png"> <span>Nhân viên</span></a></li>--%>
-			<%--</sec:authorize>--%>
 
 			<li><a href="/lien-he"><img
 					src="/resources/images/icon-support.png"><span>Liên hệ</span></a></li>
