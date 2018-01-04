@@ -12,6 +12,8 @@
 			<c:set var = "fullName"><%= ((SimpleUser)session.getAttribute("SIMPLE-USER")).getUserProfile().getFullName() %></c:set>
 			<c:set var = "shopName"><%= session.getAttribute("SHOPNAME") %></c:set>
 			<c:set var = "phone"><%= ((SimpleUser)session.getAttribute("SIMPLE-USER")).getUserName() %></c:set>
+			<c:set var = "badge"><%= session.getAttribute("NOTI_BADGE") %></c:set>
+
 
 			<div class="col-md-12 center">
 				<div style="margin-top: 10px;">
@@ -44,8 +46,8 @@
 					<li><a href="/shop/cong-no"> <img
 							src="/resources/images/icon-debit.png"><span>Lịch sử công nợ</span></a></li>
 			</sec:authorize>
-					<li><a href="/tin khuyen mai"> <img
-							src="/resources/images/.png"> <span>Tin khuyến mại</span></a></li>
+					<li><a href="/noti/tin-khuyen-mai"> <img
+							src="/resources/images/noti.png"> <span>Tin khuyến mại</span> <span id="badge-menu">${badge == "null" ? "" : badge}</span></a></li>
 					<li><a href="/shop/thong-tin-tai-khoan"> <img
 							src="/resources/images/icon-profile.png"> <span>Tài khoản</span></a></li>
 				</c:if>

@@ -162,4 +162,11 @@
 		</put-list-attribute>
 	</definition>
 
+	<definition name="noti.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/noti/{1}.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/noti/{1}.js" />
+		</put-list-attribute>
+	</definition>
+
 </tiles-definitions>

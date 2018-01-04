@@ -49,9 +49,6 @@ public class HomeController extends AbstractController {
     String shopName = (String)session.getAttribute(AttributeConfig.SHOPNAME);
     if(StringUtils.isEmpty(shopName))  return new ModelAndView("redirect:/shop/tao-shop");
     
-//    ModelAndView mv = new ModelAndView("home");
-//    mv.addObject("title", "Xe Nhàn - Shop");
-//    return mv;
     session.removeAttribute("error");
     return new ModelAndView("redirect:/order/lich-su");
   }

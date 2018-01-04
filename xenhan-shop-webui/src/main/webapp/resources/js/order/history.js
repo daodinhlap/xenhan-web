@@ -9,31 +9,40 @@ var URL_EXPORT = BASE_URL + "/order/export";
 var URL_HISTORY_TOTAL = BASE_URL + "/order/total";
 var URL_HISTORY_PRINT = BASE_URL + "/order/print";
 var URL_CANCEL_ORDER = BASE_URL + "/order/cancel";
-var URL_ORDER_HISTORY = BASE_URL + "/order/history";
+var URL_GET_ADVERTISING_HOT = BASE_URL + "/noti/prioritize";
 
 //================================================================
 //ON LOADED
 $(document).ready(function($) {
-    //Date picker
+    setupDatetime();
+    getHistory();
+    autoReload();
+    onClickFilter();
+    handlerCheckAll();
+    getAdvertisingHot();
+});
+
+function setupDatetime() {
     configDatePicker(['fromDate', 'toDate']);
     var today = new Date();
     var firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
     $('#fromDate').val(ddMMyyyy(firstDay.getTime()));
     $('#toDate').val(ddMMyyyy(today.getTime()));
+}
 
-    // get history
-    getHistory();
-    // autoReload
+function autoReload() {
     setInterval(function () {
         getHistory(_index);
     }, 1000 * 60);
+}
 
-    //onclick btn filter
+function onClickFilter() {
     $('#btn-filter').click(function() {
         $('#filter-area').toggle();
     })
-    
-    // on check all
+}
+
+function handlerCheckAll() {
     $('#check-all').change(function () {
         if($(this).is(':checked')){
             checkAll();
@@ -41,8 +50,48 @@ $(document).ready(function($) {
             unCheckAll();
         }
     });
+}
 
-});
+function getAdvertisingHot() {
+    $.ajax({
+        type : 'GET',
+        url : URL_GET_ADVERTISING_HOT,
+    }).done(function(data) {
+        showAd(data);
+        setBadge(data);
+    }).fail(function(data) {
+        console.log(data);
+    });
+}
+
+function setBadge(data) {
+    if(!data) return;
+    var quantity = data.numberBadge;
+    if(quantity <= 0) return;
+    $("#badge-menu").text(quantity);
+}
+
+function showAd(data) {
+    if(!data) return;
+    var ad = data.ad;
+    if(!hasSeen(ad) && ad.contentNoti){
+        $("#ad-title").text(ad.title);
+        $("#ad-content").text(ad.contentNoti);
+        $("#advertising").modal("show");
+    }
+}
+
+function hasSeen(data) {
+    if (typeof(Storage) !== "undefined") {
+        var adId = data.id;
+        var adStorage = localStorage.getItem("ad-id");
+        if(!adStorage || Number(adStorage) != adId){
+            localStorage.setItem("ad-id", adId);
+            return false;
+        }
+        return true;
+    }
+}
 
 function getHistory(index) {
     if(index && isNaN(index)) return;
@@ -474,32 +523,3 @@ function getShipAmount(order) {
 
 
 }
-//
-// function getOrderHistory(order){
-//     if(order.status < 400) return "";
-//     var action = "";
-//     // return order
-//     if(order.status >= 400 && order.status < 500){
-//         action = "confirm_return"
-//     }
-//     // cancel order
-//     if(order.status >= 500 && order.status < 600){
-//         action = "cancel"
-//     }
-//     var url = URL_ORDER_HISTORY;
-//     url += "?order-id=" + order.id;
-//     url += "&action=" + action;
-//     $.ajax({
-//         type : 'GET',
-//         url : url,
-//     }).done(function(data) {
-//         console.log(data);
-//         if(data.data.message | data.data.message != 'null'){
-//             var content = "<span>Lý do:&nbsp;</span><span style='font-weight: bold;'>"+data.data.message+"</span>";
-//             $('#message-'+order.id).html(content);
-//         }
-//     }).fail(function(data) {
-//         console.log(data);
-//         return "";
-//     })
-// }
