@@ -55,8 +55,8 @@
 						<li><a href="/shop/cong-no"> <img
 								src="/resources/images/m-icon-debit.png"><span>Lịch sử công nợ</span></a></li>
 					</sec:authorize>
-					<li><a href="/noti/tin-khuyen-mai"> <img
-							src="/resources/images/noti.png"> <span>Tin khuyến mại</span></a></li>
+					<li><a href="/noti/tin-khuyen-mai"> <img width="30px"
+							src="/resources/images/noti.png"> <span>Tin tức</span></a></li>
 					<li><a href="/shop/thong-tin-tai-khoan"> <img
 							src="/resources/images/m-icon-profile.png"><span>Tài khoản</span></a></li>
 				</c:if>

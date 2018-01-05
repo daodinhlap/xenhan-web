@@ -69,10 +69,11 @@ function setBadge(data) {
     var quantity = data.numberBadge;
     if(quantity <= 0) return;
     $("#badge-menu").text(quantity);
+    $("#badge-menu").addClass("badge");
 }
 
 function showAd(data) {
-    if(!data) return;
+    if(!data || !data.ad) return;
     var ad = data.ad;
     if(!hasSeen(ad) && ad.contentNoti){
         $("#ad-title").text(ad.title);

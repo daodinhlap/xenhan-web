@@ -46,8 +46,16 @@
 					<li><a href="/shop/cong-no"> <img
 							src="/resources/images/icon-debit.png"><span>Lịch sử công nợ</span></a></li>
 			</sec:authorize>
-					<li><a href="/noti/tin-khuyen-mai"> <img
-							src="/resources/images/noti.png"> <span>Tin khuyến mại</span> <span id="badge-menu">${badge == "null" ? "" : badge}</span></a></li>
+					<li>
+						<a href="/noti/tin-khuyen-mai">
+							<img src="/resources/images/noti.png">
+							<span>Tin tức</span>
+							<div class="${badge != 'null' && badge != 0 ? 'badge' : ''}"
+								 id="badge-menu" style="background-color: #f3921f !important;">
+								 ${badge != 'null' && badge != 0 ? badge : ''}
+							</div>
+						</a>
+					</li>
 					<li><a href="/shop/thong-tin-tai-khoan"> <img
 							src="/resources/images/icon-profile.png"> <span>Tài khoản</span></a></li>
 				</c:if>

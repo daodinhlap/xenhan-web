@@ -7,17 +7,17 @@
 
 
 <div class="col-md-6 col-md-offset-3 mobile-padding">
-	<div class="container card" >
+	<div class="container card" style="font-weight: bold;">
 		<div class="center">
-			<h2>
-				THÔNG TIN KHUYẾN MẠI
-			</h2>
+			<h2> THÔNG BÁO </h2>
 		</div>
 
 		<div>
 			<table class="table table-hover click">
+				<tr><button class="btn btn-link" onclick="closeAll()" style="float: right;display: none" id="btn-close-all">
+					Xóa tất cả</button>
+				</tr>
 				<tbody id="table-ad">
-
 				</tbody>
 			</table>
 		</div>
@@ -26,18 +26,19 @@
 </div>
 
 <!-- ad -->
-<div id="advertising" class="modal fade" role="dialog">
+<div id="detail-ad" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<button type="button" class="close" data-dismiss="modal" id="btn-close">Xóa</button>
 				<h4 class="modal-title" id="ad-title"></h4>
 			</div>
 			<div class="modal-body">
 				<p id="ad-content"></p>
 			</div>
 			<div class="modal-footer">
+				<%--<button class="btn btn-default" data-dismiss="modal" id="btn-close">Xóa</button>--%>
 			</div>
 
 		</div>
