@@ -50,8 +50,9 @@ public class AdvertisingController extends AbstractController {
   @GetMapping(value = "/close")
   public Object close(@RequestParam(value = "ad-id") List<Long> adIds, HttpServletRequest httpRequest) {
     String url = apiExchangeService.createUrlWithToken(httpRequest, "advertising", "close");
-    ResponseEntity<RepositoryResponse<Object>> res = apiExchangeService.post(httpRequest, url, adIds);
-    if(apiExchangeService.isSuccessResponse(res.getBody())) setNotiBadge(adIds.size() * -1, httpRequest);
+    url += "&ids=" + adIds.toString().replace("[","").replace("]","");
+    RepositoryResponse res = apiExchangeService.get(httpRequest, url, new TypeReference<RepositoryResponse<?>>() {});
+    if(apiExchangeService.isSuccessResponse(res)) setNotiBadge(adIds.size() * -1, httpRequest);
     return res;
   }
 
