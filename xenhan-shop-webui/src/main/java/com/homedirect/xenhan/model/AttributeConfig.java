@@ -11,5 +11,7 @@ public class AttributeConfig {
     public static final String SIMPLE_USER = "SIMPLE-USER";
 
     public static final String XN_DOMAIN = "XENHAN";
+    public static final String XN_SHOP_HN_PREFIX = "XENHAN-SHOP-HN";
+    public static final String XN_SHOP_HCM_PREFIX = "XENHAN-SHOP-HCM";
     public static final String XN_SHOP_PREFIX = "XENHAN-SHOP";
 }
