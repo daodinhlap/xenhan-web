@@ -7,12 +7,12 @@
 
 
 <div class="col-md-6 col-md-offset-3 mobile-padding">
-	<div class="container card" style="font-weight: bold;">
+	<div class="container card">
 		<div class="center">
-			<h2> THÔNG BÁO </h2>
+			<h2> TIN TỨC XE NHÀN</h2>
 		</div>
 
-		<div>
+		<div style="white-space: pre;">
 			<table class="table table-hover click">
 				<tr><button class="btn btn-link" onclick="closeAll()" style="float: right;display: none" id="btn-close-all">
 					Xóa tất cả</button>
@@ -31,10 +31,10 @@
 		<div class="modal-content">
 
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" id="btn-close">Xóa</button>
+				<button type="button" class="close" data-dismiss="modal" id="btn-close">&times;</button>
 				<h4 class="modal-title" id="ad-title"></h4>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" style="white-space: pre-line;">
 				<p id="ad-content"></p>
 			</div>
 			<div class="modal-footer">

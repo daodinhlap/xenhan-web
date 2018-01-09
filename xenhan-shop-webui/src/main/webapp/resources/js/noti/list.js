@@ -30,16 +30,24 @@ function buildTable(ads) {
 
     table.hide();
     ads.forEach(function(ad, i){
-        var style = ad.promotionStatus == 2 ? "style='opacity: 0.5'" : "";
+        var style = ad.promotionStatus == 2 ? "style='opacity: 0.5; font-weight: lighter;'" : "";
         table.append(
             $("<tr id='"+ad.id+"' onclick='showAd("+ad.id+")'>")
                 .append($("<td align='left' "+ style +">").text(ddMMyyyy(ad.startTime)))
-                .append($("<td align='left' "+ style +">").text(ad.title))
+                .append($("<td align='left' "+ style +">").html(
+                    "<p style='margin: 0px; font-weight: bold'>" + ad.title + "</p>" +
+                    "<p style='font-size: smaller;margin: 0px'>" + previewContent(ad.shortContentNoti) + "</p>"
+                ))
         );
     });
     table.fadeIn();
     $("#btn-close-all").show();
     $('[data-toggle="tooltip"]').tooltip();
+}
+
+function previewContent(content) {
+    if(content.length < 80) return content;
+    return content.substr(0, 80) + " ...";
 }
 
 function showAd(id) {
@@ -48,9 +56,11 @@ function showAd(id) {
 
     $("#ad-title").text(ad.title);
     $("#ad-content").text(ad.contentNoti);
-    $("#btn-close").attr("onclick", "closeAd("+id+")");
+    // $("#btn-close").attr("onclick", "closeAd("+id+")");
     $("#detail-ad").modal("show");
-    viewAd(id);
+    if(ad.promotionStatus == 1 ) {
+        viewAd(id);
+    }
 }
 
 function viewAd(id) {
