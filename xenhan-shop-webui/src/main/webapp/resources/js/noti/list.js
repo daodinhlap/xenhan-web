@@ -46,7 +46,7 @@ function buildTable(ads) {
 }
 
 function previewContent(content) {
-    if(content.length < 80) return content;
+    if(content.length < 80) return content + " ...";
     return content.substr(0, 80) + " ...";
 }
 
@@ -56,7 +56,7 @@ function showAd(id) {
 
     $("#ad-title").text(ad.title);
     $("#ad-content").text(ad.contentNoti);
-    // $("#btn-close").attr("onclick", "closeAd("+id+")");
+    $("#btn-close").attr("onclick", "closeAd("+id+")");
     $("#detail-ad").modal("show");
     if(ad.promotionStatus == 1 ) {
         viewAd(id);
@@ -96,13 +96,13 @@ function setBadge(quantity) {
 
 function closeAd(id){
     if(!id) return;
-    close(id).done(function(data) { removeAdLocal(id); });
+    var ad = findAd(id);
+    close(ad).done(function(data) { removeAdLocal(id) });
 }
 
-function closeAll(){
+function closeAll() {
     if(ads.length == 0) return;
-    var ids = ads.map(function (ad) { return ad.id; });
-    close(ids).done(function () {
+    close(ads).done(function () {
         setBadge(ads.length * -1);
         ads = [];
         buildTable();
@@ -110,18 +110,24 @@ function closeAll(){
     });
 }
 
-function close(ids) {
+function close(ads) {
     return $.ajax({
-        type : 'GET',
-        url : URL_CLOSE + "?ad-id=" + ids,
+        type : 'POST',
+        url : URL_CLOSE,
+        contentType : 'application/json',
+        data : JSON.stringify(ads)
     })
 }
 
 function removeAdLocal(id) {
-    var ad = ads.filter(function (ad) {
-        return ad.id == id;
-    })
+    var ad = findAd(id);
     var index = ads.indexOf(ad);
     ads.splice(index, 1);
     buildTable(ads);
+}
+
+function findAd(id) {
+    return ads.filter(function (ad) {
+        return ad.id == id;
+    });
 }

@@ -8,10 +8,8 @@ import com.homedirect.xenhan.model.web.response.AdPrioritize;
 import com.homedirect.xenhan.user.model.response.AdvertisingEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,12 +45,18 @@ public class AdvertisingController extends AbstractController {
     return new AdPrioritize(null, numberBadge);
   }
 
-  @GetMapping(value = "/close")
-  public Object close(@RequestParam(value = "ad-id") List<Long> adIds, HttpServletRequest httpRequest) {
+  @PostMapping(value = "/close")
+  public Object close(@RequestBody List<AdvertisingEntity> ads, HttpServletRequest httpRequest) {
     String url = apiExchangeService.createUrlWithToken(httpRequest, "advertising", "close");
+    List<Long> adIds = ads.stream().map(ad-> ad.getId()).collect(Collectors.toList());
     url += "&ids=" + adIds.toString().replace("[","").replace("]","");
+
     RepositoryResponse res = apiExchangeService.get(httpRequest, url, new TypeReference<RepositoryResponse<?>>() {});
-    if(apiExchangeService.isSuccessResponse(res)) setNotiBadge(adIds.size() * -1, httpRequest);
+    if(apiExchangeService.isSuccessResponse(res)){
+      long numberOfSeen = ads.stream().filter(ad -> ad.getPromotionStatus() == Promotion.RECEIVED).count();
+      if(numberOfSeen == 0) return res;
+      setNotiBadge(numberOfSeen, httpRequest);
+    }
     return res;
   }
 
@@ -65,10 +69,12 @@ public class AdvertisingController extends AbstractController {
     return res;
   }
 
-  private void setNotiBadge(int number, HttpServletRequest httpRequest){
-    int quantiy = (int) httpRequest.getSession().getAttribute("NOTI_BADGE");
-    quantiy += number;
-    httpRequest.getSession().setAttribute("NOTI_BADGE", quantiy <= 0 ? "" : quantiy);
+  private void setNotiBadge(long number, HttpServletRequest httpRequest){
+    Object oldNumber = httpRequest.getSession().getAttribute("NOTI_BADGE");
+    if( oldNumber == null || StringUtils.isEmpty(oldNumber)) return;
+    int newNumber = (Integer) oldNumber;
+    newNumber += number;
+    httpRequest.getSession().setAttribute("NOTI_BADGE", newNumber <= 0 ? "" : oldNumber);
   }
 
   private int setNotiBadge(List<AdvertisingEntity> ads, HttpServletRequest httpRequest){

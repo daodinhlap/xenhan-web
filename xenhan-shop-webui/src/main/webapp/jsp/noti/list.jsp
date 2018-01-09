@@ -31,14 +31,14 @@
 		<div class="modal-content">
 
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" id="btn-close">&times;</button>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title" id="ad-title"></h4>
 			</div>
 			<div class="modal-body" style="white-space: pre-line;">
 				<p id="ad-content"></p>
 			</div>
 			<div class="modal-footer">
-				<%--<button class="btn btn-default" data-dismiss="modal" id="btn-close">Xóa</button>--%>
+				<button class="btn btn-default" data-dismiss="modal" id="btn-close">Xóa thông báo</button>
 			</div>
 
 		</div>
