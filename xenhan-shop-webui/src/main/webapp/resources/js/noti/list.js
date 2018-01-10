@@ -58,7 +58,7 @@ function showAd(id) {
     $("#ad-content").text(ad.contentNoti);
     $("#btn-close").attr("onclick", "closeAd("+id+")");
     $("#detail-ad").modal("show");
-    if(ad.promotionStatus == 1 ) {
+    if(ad.promotionStatus == 1 || ad.promotionStatus == 0) {
         viewAd(id);
     }
 }
