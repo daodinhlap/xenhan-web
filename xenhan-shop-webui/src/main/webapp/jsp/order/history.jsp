@@ -183,7 +183,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" id="ad-title"></h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="white-space: pre-line;">
                 <p id="ad-content"></p>
             </div>
             <div class="modal-footer">
