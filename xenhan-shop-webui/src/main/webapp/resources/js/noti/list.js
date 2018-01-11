@@ -13,14 +13,25 @@ function get() {
     $.ajax({
         type : 'GET', url : URL_GET
     }).done(function(data) {
-        data.sort(function (a, b) {
-            return a.promotionStatus - b.promotionStatus
-        });
+        data.sort(function (a,b) { return sort(a,b)});
         ads = data;
         buildTable(data)
     }).fail(function(data) {
         console.log(data);
     });
+}
+
+function sort(a, b) {
+    var status_a = a.promotionStatus;
+    var status_b = b.promotionStatus;
+    var time_a = a.startTime;
+    var time_b = b.startTime;
+
+    if(status_a < status_b) return -1;
+    if(status_a > status_b) return 1;
+    if(time_a < time_b) return 1;
+    if(time_a > time_b) return -1;
+    return 0;
 }
 
 function buildTable(ads) {

@@ -183,8 +183,9 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" id="ad-title"></h4>
             </div>
-            <div class="modal-body" style="white-space: pre-line;">
+            <div class="modal-body" style="white-space: pre-line;" onclick="shopDetailAd()">
                 <p id="ad-content"></p>
+                <p id="ad-content-detail" style="display: none;"></p>
             </div>
             <div class="modal-footer">
             </div>

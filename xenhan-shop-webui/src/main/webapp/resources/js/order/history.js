@@ -77,17 +77,27 @@ function showAd(data) {
     var ad = data.ad;
     if(!hasSeen(ad) && ad.contentNoti){
         $("#ad-title").text(ad.title);
-        $("#ad-content").text(ad.contentNoti);
+        $("#ad-content").text(ad.shortContentNoti + " ...");
+        $("#ad-content-detail").text(ad.contentNoti);
         $("#advertising").modal("show");
     }
+}
+
+function shopDetailAd() {
+    $("#ad-content").toggle();
+    $("#ad-content-detail").toggle();
 }
 
 function hasSeen(data) {
     if (typeof(Storage) !== "undefined") {
         var adId = data.id;
+        var day = new Date().getDay();
         var adStorage = localStorage.getItem("ad-id");
-        if(!adStorage || Number(adStorage) != adId){
-            localStorage.setItem("ad-id", adId);
+        ad = JSON.parse(adStorage);
+        if(!ad
+            || ad.id != adId
+            || Number(ad.day) != day){
+            localStorage.setItem("ad-id", JSON.stringify({id: adId, day: day}));
             return false;
         }
         return true;
