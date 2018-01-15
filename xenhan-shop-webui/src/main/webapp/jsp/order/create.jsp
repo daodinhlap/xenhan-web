@@ -207,10 +207,10 @@
 	</div>
 	<div class="col-xs-12 col-md-4 form-field dropdown">
 		<label>Mã giảm giá</label>
-		<input type="text" class="form-control dropdown-toggle" data-toggle="dropdown"
-			   value="${type == 1? order.coupon:''}" id="coupon">
+		<input type="text" class="form-control dropdown-toggle" data-toggle="dropdown" id="coupon"
+			   value="${type == 1? order.coupon : ''}">
+		<input id="coupon-use-quick" type="hidden" value="${coupon}"/>
 		<ul id="coupons" class="dropdown-menu" role="menu" style=" margin-left: 15px;" aria-labelledby="coupon">
-
 		</ul>
 	</div>
 

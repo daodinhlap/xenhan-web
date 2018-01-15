@@ -5,6 +5,7 @@ package com.homedirect.xenhan.shop.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.homedirect.repo.model.response.RepositoryResponse;
+import com.homedirect.xenhan.coupon.CouponGetRequest;
 import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.PeriodRecord;
 import com.homedirect.xenhan.model.Shop;
@@ -14,12 +15,15 @@ import com.homedirect.xenhan.web.connection.ApiExchangeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.List;
 
 public class AbstractController {
-  private final static Logger logger = LoggerFactory.getLogger(AbstractController.class);
+  protected final static Logger logger = LoggerFactory.getLogger(AbstractController.class);
 
   public final static String TOKEN_ATTRIBUTE_NAME = "token-id";
   public static final int DEFAULT_PACKAGE_ID = 2;
@@ -54,6 +58,15 @@ public class AbstractController {
     logger.info("\n ==> GET PERIODS: {}", JsonUtil.toJson(periods));
     DEFAULT_PERIOD = periods.getData().get(0);
     return DEFAULT_PERIOD;
+  }
+
+  protected Object getCoupon(HttpServletRequest httpRequest, CouponGetRequest request){
+    String url = apiExchangeService.createUrlWithToken(httpRequest,"coupon", "get");
+
+    RepositoryResponse<Object> response = apiExchangeService.post(httpRequest, url, request).getBody();
+
+    if(apiExchangeService.isUnSuccessResponse(response)) return Collections.EMPTY_LIST;
+    return response.getData();
   }
 
 }

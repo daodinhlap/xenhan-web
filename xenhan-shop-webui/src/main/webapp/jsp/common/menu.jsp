@@ -56,6 +56,14 @@
 							</div>
 						</a>
 					</li>
+					<li><a href="/shop/khuyen-mai"> <img
+							src="/resources/images/icon-discount.png">
+						<span>Mã khuyến mại</span>
+						<div class="${badge_coupon != null && badge_coupon != 0 ? 'badge' : ''}"
+							 id="badge-coupon-menu" style="background-color: #f3921f !important;">
+								${badge_coupon != null && badge_coupon != 0 ? badge_coupon : ''}
+						</div>
+						</a></li>
 					<li><a href="/shop/thong-tin-tai-khoan"> <img
 							src="/resources/images/icon-profile.png"> <span>Tài khoản</span></a></li>
 				</c:if>
