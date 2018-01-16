@@ -60,13 +60,12 @@ public class AbstractController {
     return DEFAULT_PERIOD;
   }
 
-  protected Object getCoupon(HttpServletRequest httpRequest, CouponGetRequest request){
-    String url = apiExchangeService.createUrlWithToken(httpRequest,"coupon", "get");
+  protected List getCoupon(HttpServletRequest httpRequest, CouponGetRequest request){
+    String url = apiExchangeService.createUrlWithToken(httpRequest,"coupon", "list");
 
     RepositoryResponse<Object> response = apiExchangeService.post(httpRequest, url, request).getBody();
-
     if(apiExchangeService.isUnSuccessResponse(response)) return Collections.EMPTY_LIST;
-    return response.getData();
+    return (List) response.getData();
   }
 
 }

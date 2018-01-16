@@ -440,8 +440,8 @@ function getCoupons() {
         url : URL_GET_COUPON,
         data : JSON.stringify(request),
     }).done(function (data) {
-        coupons = data.data;
-        buildMenuCoupons(data.data);
+        coupons = data;
+        buildMenuCoupons(data);
     }).fail(function (data) {
         console.log("error -> ", data);
         buildMenuCoupons([]);

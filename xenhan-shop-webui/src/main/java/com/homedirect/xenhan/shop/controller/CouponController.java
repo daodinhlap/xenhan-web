@@ -18,7 +18,7 @@ public class CouponController extends AbstractController {
   }
 
   @PostMapping(value = "/get-coupons")
-  public Object getCoupons(@RequestBody CouponGetRequest request, HttpServletRequest httpRequest) {
+  public List getCoupons(@RequestBody CouponGetRequest request, HttpServletRequest httpRequest) {
     request.setCampaignPrefix(CouponGetRequest.XN_CAMPAIGN_PREFIX);
     return getCoupon(httpRequest, request);
   }

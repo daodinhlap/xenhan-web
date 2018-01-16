@@ -24,7 +24,7 @@ function get(status) {
         contentType : 'application/json',
         data : JSON.stringify(makeRequest(status))
     }).done(function(data) {
-        buildTable(data.data);
+        buildTable(data);
     }).fail(function(data) {
     });
 }
@@ -54,6 +54,7 @@ function buildTable(coupons) {
                 .append($("<td align='left'>").text(ddMMyyyy(coupon.expirationDate)))
         );
     });
+    $("#total").text(coupons.length);
     table.fadeIn();
     $('[data-toggle="tooltip"]').tooltip();
 }

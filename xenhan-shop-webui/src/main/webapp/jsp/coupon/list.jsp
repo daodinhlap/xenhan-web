@@ -24,10 +24,10 @@
 			<table class="table table-hover click">
 				<thead>
 					<tr>
-						<th style="color: #92c78a;"><i class="fa fa-hashtag"/></th>
-						<th><i style="color: #92c78a;" class="fa fa-barcode" aria-hidden="true"></i>&nbsp; Mã Coupon </th>
-						<th><i style="color: #92c78a;" class="fa fa-usd" aria-hidden="true"></i>&nbsp; Mệnh giá </th>
-						<th><i style="color: #92c78a;" class="fa fa-calendar" aria-hidden="true"></i>&nbsp; Ngày hết hạn </th>
+						<th style="color: #92c78a;"><i class="fa fa-hashtag"/><span id="total"></span></th>
+						<th><i style="color: #92c78a;" class="fa fa-barcode" aria-hidden="true"></i>&nbsp; Mã </th>
+						<th><i style="color: #92c78a;" class="fa fa-usd" aria-hidden="true"></i>&nbsp; Giá </th>
+						<th><i style="color: #92c78a;" class="fa fa-calendar" aria-hidden="true"></i>&nbsp; Hết hạn </th>
 					</tr>
 				</thead>
 				<tbody id="table-coupons">

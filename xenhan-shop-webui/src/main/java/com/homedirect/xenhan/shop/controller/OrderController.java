@@ -3,6 +3,7 @@ package com.homedirect.xenhan.shop.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.homedirect.common.model.Page;
 import com.homedirect.repo.model.response.RepositoryResponse;
+import com.homedirect.xenhan.coupon.CouponGetRequest;
 import com.homedirect.xenhan.model.*;
 import com.homedirect.xenhan.user.model.OrderEntity;
 import com.homedirect.xenhan.user.model.request.OrderRequest;
@@ -33,10 +34,10 @@ private @Autowired OrderExcelExport orderExcelExport;
   private final static Logger logger = LoggerFactory.getLogger(OrderController.class);
   
   @GetMapping(value = "/lich-su")
-  public ModelAndView historyView() {
+  public ModelAndView historyView(HttpServletRequest httpRequest) {
     ModelAndView mv = new ModelAndView("order.history");
     mv.addObject("title", "Xe Nhàn - Lịch sử đơn hàng");
-    mv.addObject("badge_coupon", 20);
+    mv.addObject("badge_coupon", getCoupon(httpRequest, new CouponGetRequest()).size());
     return mv;
   }
 
