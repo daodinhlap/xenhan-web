@@ -248,11 +248,16 @@ function getFee(provinceId, districtId, orderId){
     });
 }
 
-function  clearTab2() {
+function clearTab2() {
     if(form.type() != '1'){
         form.setAmount(0);
         form.setCouponCode("");
         form.setCoupon("");
+    }
+    var couponUseQuick = $("#coupon-use-quick").val();
+    if(couponUseQuick && couponUseQuick != ''){
+        form.setCouponCode(couponUseQuick);
+        checkCoupon();
     }
 }
 
@@ -428,18 +433,15 @@ function getCoupons() {
         buildMenuCoupons(coupons);
         return;
     }
-    var request = {
-        campaignPrefix:"XN",
-        status:3 // available
-    }
+    var request = { status:3}
     $.ajax({
         type : 'POST',
         contentType : 'application/json',
         url : URL_GET_COUPON,
         data : JSON.stringify(request),
     }).done(function (data) {
-        coupons = data.data.data;
-        buildMenuCoupons(data.data.data);
+        coupons = data;
+        buildMenuCoupons(data);
     }).fail(function (data) {
         console.log("error -> ", data);
         buildMenuCoupons([]);

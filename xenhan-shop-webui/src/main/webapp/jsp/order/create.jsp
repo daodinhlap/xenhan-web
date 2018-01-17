@@ -111,14 +111,6 @@
 		<input placeholder="SĐT người nhận" type="text" class="form-control" id="phone" value="${order.dropoff.contact.phone}">
 	</div>
 
-	<%--<div class="col-xs-12 col-md-6 form-field">--%>
-		<%--<label>Tỉnh/TP <span style="color: red">*</span></label>--%>
-		<%--<select--%>
-			<%--class="form-control" id="province">--%>
-			<%--<option ${shop.town.name == 'Hà Nội' ? 'selected': ''} value="1">Hà Nội</option>--%>
-			<%--<option ${shop.town.name == 'Hồ Chí Minh' ? 'selected': ''} value="2">Hồ Chí Minh</option>--%>
-		<%--</select>--%>
-	<%--</div>--%>
 
 	<div class="col-xs-12 col-md-4 form-field">
 		<label>Quận/Huyện <span style="color: red">*</span></label>
@@ -182,6 +174,16 @@
 			Tiếp tục&nbsp;<i class="fa fa-arrow-right"></i>
 		</button>
 	</div>
+
+	<%--noti--%>
+	<div class="alert alert-success" style="clear: both; white-space: pre; padding: 0px;">
+		Đừng bỏ lỡ cơ hội hưởng giá ship đặc biệt không giới hạn từ Xe Nhàn nhé.
+		1. Thời gian tạo đơn: 19h - 7h mỗi ngày từ 02/1 - 31/1/2018
+		2. Giá khuyến mại: 15.000đ/ đơn
+		3. Khu vực giao hàng áp dụng:
+		- Nội thành Hà Nội
+		- Nội thành và Ngoại thành Hồ Chí Minh
+	</div>
 </div>
 
 <%-- --===============================================----%>
@@ -205,10 +207,10 @@
 	</div>
 	<div class="col-xs-12 col-md-4 form-field dropdown">
 		<label>Mã giảm giá</label>
-		<input type="text" class="form-control dropdown-toggle" data-toggle="dropdown"
-			   value="${type == 1? order.coupon:''}" id="coupon">
+		<input type="text" class="form-control dropdown-toggle" data-toggle="dropdown" id="coupon"
+			   value="${type == 1? order.coupon : ''}">
+		<input id="coupon-use-quick" type="hidden" value="${coupon}"/>
 		<ul id="coupons" class="dropdown-menu" role="menu" style=" margin-left: 15px;" aria-labelledby="coupon">
-
 		</ul>
 	</div>
 
@@ -239,6 +241,18 @@
 			<%--Đặt lại&nbsp;<i class="fa fa-refresh"></i>--%>
 		<%--</button>--%>
 	</div>
+
+
+	<%--noti--%>
+	<div class="alert alert-success" style="clear: both; white-space: pre; padding: 0px;">
+		Đừng bỏ lỡ cơ hội hưởng giá ship đặc biệt không giới hạn từ Xe Nhàn nhé.
+		1. Thời gian tạo đơn: 19h - 7h mỗi ngày từ 02/1 - 31/1/2018
+		2. Giá khuyến mại: 15.000đ/ đơn
+		3. Khu vực giao hàng áp dụng:
+		- Nội thành Hà Nội
+		- Nội thành và Ngoại thành Hồ Chí Minh
+	</div>
+
 	<input type="hidden" id="order-id" value="${order.id}">
 	<input type="hidden" id="type" value="${type}">
 	<input type="hidden" id="type-des" value="${action}">

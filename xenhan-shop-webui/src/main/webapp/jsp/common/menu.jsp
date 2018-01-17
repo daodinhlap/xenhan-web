@@ -12,6 +12,8 @@
 			<c:set var = "fullName"><%= ((SimpleUser)session.getAttribute("SIMPLE-USER")).getUserProfile().getFullName() %></c:set>
 			<c:set var = "shopName"><%= session.getAttribute("SHOPNAME") %></c:set>
 			<c:set var = "phone"><%= ((SimpleUser)session.getAttribute("SIMPLE-USER")).getUserName() %></c:set>
+			<c:set var = "badge"><%= session.getAttribute("NOTI_BADGE") %></c:set>
+
 
 			<div class="col-md-12 center">
 				<div style="margin-top: 10px;">
@@ -44,13 +46,28 @@
 					<li><a href="/shop/cong-no"> <img
 							src="/resources/images/icon-debit.png"><span>Lịch sử công nợ</span></a></li>
 			</sec:authorize>
+					<li>
+						<a href="/noti/tin-khuyen-mai">
+							<img src="/resources/images/noti.png">
+							<span>Tin tức</span>
+							<div class="${badge != 'null' && badge != 0 ? 'badge' : ''}"
+								 id="badge-menu" style="background-color: #f3921f !important;">
+								 ${badge != 'null' && badge != 0 ? badge : ''}
+							</div>
+						</a>
+					</li>
+					<li><a href="/shop/khuyen-mai"> <img
+							src="/resources/images/icon-discount.png">
+						<span>Mã khuyến mại</span>
+						<div class="${badge_coupon != null && badge_coupon != 0 ? 'badge' : ''}"
+							 id="badge-coupon-menu" style="background-color: #f3921f !important;">
+								${badge_coupon != null && badge_coupon != 0 ? badge_coupon : ''}
+						</div>
+						</a></li>
 					<li><a href="/shop/thong-tin-tai-khoan"> <img
 							src="/resources/images/icon-profile.png"> <span>Tài khoản</span></a></li>
 				</c:if>
 			</sec:authorize>
-			<%--<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
-				<%--<li><a href="/admin/danh-sach"> <img src="/resources/images/icon-member.png"> <span>Nhân viên</span></a></li>--%>
-			<%--</sec:authorize>--%>
 
 			<li><a href="/lien-he"><img
 					src="/resources/images/icon-support.png"><span>Liên hệ</span></a></li>

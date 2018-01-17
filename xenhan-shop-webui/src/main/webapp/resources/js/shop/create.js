@@ -22,11 +22,16 @@ function registerShop() {
 			error.push({message: data, id: "alert"});
 			return;
 		}
-        noti.ok("Chúc mừng","Bạn đã đăng ký Shop thành công", function () { goHome(); })
+        noti.ok("Chúc mừng","Bạn đã đăng ký Shop thành công", function () { goListCoupon(); })
 	}).fail(function(data) {
 		console.log(data);
 		noti.fail("Thông báo!","Đăng ký không thành công. Vui lòng thử lại sau", function() { reload() });
 	});
+}
+
+function goListCoupon() {
+    window.location.href = "/shop/khuyen-mai";
+
 }
 
 function cancelRegisterShop(){

@@ -157,11 +157,4 @@ public class ShopController extends AbstractController {
     return apiExchangeService.post(httpRequest, url, request).getBody();
   }
 
-  @PostMapping(value = "/get-coupons")
-  public Object getCoupons(@RequestBody CouponGetRequest request, HttpServletRequest httpRequest) {
-    logger.info("\n==> GET COUPONS:{}", JsonUtil.toJson(request));
-    String url = apiExchangeService.createUrlWithToken(httpRequest,"coupon", "get");
-    return apiExchangeService.post(httpRequest, url, request).getBody();
-  }
-
 }

@@ -20,7 +20,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th style="width: 10%;color: #92c78a;">
+                            <th style="width: 10%;">
                                 <i style="color: #92c78a;" class="fa fa-hashtag"></i>
                             </th>
                             <th style="text-align: left">

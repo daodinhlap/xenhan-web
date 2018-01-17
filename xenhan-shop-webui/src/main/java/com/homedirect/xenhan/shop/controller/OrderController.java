@@ -3,6 +3,7 @@ package com.homedirect.xenhan.shop.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.homedirect.common.model.Page;
 import com.homedirect.repo.model.response.RepositoryResponse;
+import com.homedirect.xenhan.coupon.CouponGetRequest;
 import com.homedirect.xenhan.model.*;
 import com.homedirect.xenhan.user.model.OrderEntity;
 import com.homedirect.xenhan.user.model.request.OrderRequest;
@@ -33,9 +34,10 @@ private @Autowired OrderExcelExport orderExcelExport;
   private final static Logger logger = LoggerFactory.getLogger(OrderController.class);
   
   @GetMapping(value = "/lich-su")
-  public ModelAndView historyView() {
+  public ModelAndView historyView(HttpServletRequest httpRequest) {
     ModelAndView mv = new ModelAndView("order.history");
     mv.addObject("title", "Xe Nhàn - Lịch sử đơn hàng");
+    mv.addObject("badge_coupon", getCoupon(httpRequest, new CouponGetRequest()).size());
     return mv;
   }
 
@@ -78,8 +80,9 @@ private @Autowired OrderExcelExport orderExcelExport;
 
   /* CREATE Order */
   @GetMapping(value = "/tao-don")
-  public ModelAndView create(@RequestParam(value = "type", required = true) Integer type,
+  public ModelAndView create(@RequestParam(value = "type") Integer type,
                              @RequestParam(value = "order-id", required = false) Long orderId,
+                             @RequestParam(value = "coupon", required = false) String coupon,
                              HttpServletRequest httpRequest) {
     Shop shop = getShopInfo(httpRequest);
 
@@ -87,6 +90,7 @@ private @Autowired OrderExcelExport orderExcelExport;
     mv.addObject("title","Xe Nhàn - " + OrderStatus.toAction(type));
     mv.addObject("shop", shop);
     mv.addObject("type", type);
+    mv.addObject("coupon", StringUtils.isEmpty(coupon) ? "" : coupon.trim());
     mv.addObject("action", OrderStatus.toAction(type));
 
     if(orderId != null){

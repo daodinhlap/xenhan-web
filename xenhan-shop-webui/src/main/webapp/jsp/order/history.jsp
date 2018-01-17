@@ -103,7 +103,7 @@
                             <th style="width: 10px;"></th>
                         </tr>
                         <tr>
-                            <th style="width: 10px;" style="color: #92c78a;"><i style="color: #92c78a;" class="fa fa-hashtag"></th>
+                            <th style="width: 10px;" style="color: #92c78a;"><i style="color: #92c78a;" class="fa fa-hashtag"/></th>
                             <th style="width: 50px">
                                 <input type="checkbox" id="check-all">
                                 <div class="dropdown" data-toggle="tooltip" title="Click để In phiếu" style="float: right;cursor: pointer">
@@ -173,6 +173,28 @@
         </div>
     </div>
 </div>
+
+<!-- ad -->
+<div id="advertising" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="ad-title"></h4>
+            </div>
+            <div class="modal-body" style="white-space: pre-line;" onclick="shopDetailAd()">
+                <p id="ad-content"></p>
+                <p id="ad-content-detail" style="display: none;"></p>
+            </div>
+            <div class="modal-footer">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
 
 
 
