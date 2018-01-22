@@ -35,7 +35,25 @@
 
 			<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 				<c:if test="${not empty shopName && !shopName.equals('null') }">
-					<li><a href="/"> <img src="/resources/images/icon-home.png"><span>Trang chủ</span></a></li>
+					<%--<li><a href="/"><img src="/resources/images/icon-home.png"><span>Trang chủ</span></a></li>--%>
+					<li>
+						<a href="/noti/tin-khuyen-mai">
+							<img src="/resources/images/noti.png"><span>Tin tức</span>
+							<div class="${badge != 'null' && badge != 0 ? 'badge' : ''}"
+								 id="badge-menu" style="background-color: #f3921f !important;">
+									${badge != 'null' && badge != 0 ? badge : ''}
+							</div>
+						</a>
+					</li>
+					<li><a href="/shop/khuyen-mai"> <img
+							src="/resources/images/icon-discount.png"><span>Mã khuyến mại</span>
+						<div class="${badge_coupon != null && badge_coupon != 0 ? 'badge' : ''}"
+							 id="badge-coupon-menu" style="background-color: #f3921f !important;">
+								${badge_coupon != null && badge_coupon != 0 ? badge_coupon : ''}
+						</div>
+					</a>
+					</li>
+
 					<li><a href="/order/tao-don?type=0"> <img
 							src="/resources/images/icon-order.png"><span>Tạo đơn hàng</span></a></li>
 					<li><a href="/order-excel/tao-don-tu-excel"> <img
@@ -46,22 +64,7 @@
 					<li><a href="/shop/cong-no"> <img
 							src="/resources/images/icon-debit.png"><span>Lịch sử công nợ</span></a></li>
 			</sec:authorize>
-					<li>
-						<a href="/noti/tin-khuyen-mai">
-							<img src="/resources/images/noti.png"><span>Tin tức</span>
-							<div class="${badge != 'null' && badge != 0 ? 'badge' : ''}"
-								 id="badge-menu" style="background-color: #f3921f !important;">
-								 ${badge != 'null' && badge != 0 ? badge : ''}
-							</div>
-						</a>
-					</li>
-					<li><a href="/shop/khuyen-mai"> <img
-							src="/resources/images/icon-discount.png"><span>Mã khuyến mại</span>
-						<div class="${badge_coupon != null && badge_coupon != 0 ? 'badge' : ''}"
-							 id="badge-coupon-menu" style="background-color: #f3921f !important;">
-								${badge_coupon != null && badge_coupon != 0 ? badge_coupon : ''}
-						</div>
-						</a></li>
+
 					<li><a href="/shop/thong-tin-tai-khoan"> <img
 							src="/resources/images/icon-profile.png"><span>Tài khoản</span></a></li>
 				</c:if>

@@ -75,16 +75,29 @@ function setBadge(data) {
 function showAd(data) {
     if(!data || !data.ad) return;
     var ad = data.ad;
-    if(!hasSeen(ad) && ad.contentNoti){
+
+    if(!hasSeen(ad)){
+        save2Local(ad);
         $("#ad-title").text(ad.title);
-        $("#ad-content").text(ad.shortContentNoti + " ...");
         $("#ad-content-detail").text(ad.contentNoti);
-        $("#advertising").modal("show");
+
+        if(ad.image && ad.image != "undefined"){
+            $("#ad-img").attr("src", ad.image);
+            $("#advertising").modal("show");
+            return;
+        }
+        if(ad.contentNoti){
+            $("#ad-content").text(ad.shortContentNoti + " ...");
+            $("#advertising").modal("show");
+        }
+        return;
     }
+
 }
 
 function shopDetailAd() {
     $("#ad-content").toggle();
+    $("#ad-img").toggle();
     $("#ad-content-detail").toggle();
 }
 
@@ -94,14 +107,16 @@ function hasSeen(data) {
         var day = new Date().getDay();
         var adStorage = localStorage.getItem("ad-id");
         ad = JSON.parse(adStorage);
-        if(!ad
-            || ad.id != adId
-            || Number(ad.day) != day){
-            localStorage.setItem("ad-id", JSON.stringify({id: adId, day: day}));
+        if(!ad || ad.id != adId || Number(ad.day) != day){
             return false;
         }
         return true;
     }
+}
+function save2Local(data) {
+    var adId = data.id;
+    var day = new Date().getDay();
+    localStorage.setItem("ad-id", JSON.stringify({id: adId, day: day}));
 }
 
 function getHistory(index) {

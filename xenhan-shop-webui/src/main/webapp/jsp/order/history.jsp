@@ -183,13 +183,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" id="ad-title"></h4>
             </div>
+
             <div class="modal-body" style="white-space: pre-line;" onclick="shopDetailAd()">
+                <img id="ad-img" src="" width="100%"/>
                 <p id="ad-content"></p>
                 <p id="ad-content-detail" style="display: none;"></p>
             </div>
-            <div class="modal-footer">
-            </div>
-
         </div>
     </div>
 </div>
