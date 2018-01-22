@@ -195,7 +195,7 @@ function create() {
             return;
         }
 
-        noti.confirmWithBtn(form.typeDes() + " số <strong> "+ data.data.id+"</strong>" + " thành công. Bạn muốn tạo thêm đơn?","Có", "Không",
+        noti.confirmWithBtn(icon_check + form.typeDes() + " số <strong> "+ data.data.id+"</strong>" + " thành công. Bạn muốn tạo thêm đơn?","Có", "Không",
             function(result) {
                 if (!result) {
                     goHome();

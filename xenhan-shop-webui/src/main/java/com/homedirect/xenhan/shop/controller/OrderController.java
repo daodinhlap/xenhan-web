@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ private @Autowired OrderExcelExport orderExcelExport;
   private final static Logger logger = LoggerFactory.getLogger(OrderController.class);
   
   @GetMapping(value = "/lich-su")
-  public ModelAndView historyView(HttpServletRequest httpRequest) {
+  public ModelAndView historyView(HttpServletRequest httpRequest) throws IOException {
     ModelAndView mv = new ModelAndView("order.history");
     mv.addObject("title", "Xe Nhàn - Lịch sử đơn hàng");
     mv.addObject("badge_coupon", getCoupon(httpRequest, new CouponGetRequest()).size());

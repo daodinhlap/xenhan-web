@@ -24,6 +24,7 @@ function get(status) {
         contentType : 'application/json',
         data : JSON.stringify(makeRequest(status))
     }).done(function(data) {
+        data = data.filter(function(coupon){ return coupon.expirationDate > new Date().getTime()});
         buildTable(data);
     }).fail(function(data) {
     });
