@@ -19,16 +19,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="/resources/images/icon_logo.png"
-	type="image/x-icon">
+<link rel="shortcut icon" href="/resources/images/icon_logo.png" type="image/x-icon">
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 
-<tilesx:useAttribute id="listCss" name="stylesheets"
-	classname="java.util.List" />
+<tilesx:useAttribute id="listCss" name="stylesheets" classname="java.util.List" />
 <c:forEach var="item" items="${listCss}">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}${item}" />
 </c:forEach>
@@ -52,22 +48,16 @@
 	<div class="container-fluid">
 		<div class="row">
 			<tiles:insertAttribute name="menu" />
-
-			<%--<div class="col-sm-4 col-sm-offset-3 col-md-6 col-md-offset-3  mobile-padding">--%>
 			<tiles:insertAttribute name="body" />
-			<%--</div>--%>
-
 			<tiles:insertAttribute name="footer" />
 		</div>
 	</div>
-	<jsp:include page="messenger.jsp"></jsp:include>
+	<%--<jsp:include page="messenger.jsp"></jsp:include>--%>
 	<!-- ./scripts -->
-	<tilesx:useAttribute id="listJs" name="scripts"
-		classname="java.util.List" />
+	<tilesx:useAttribute id="listJs" name="scripts" classname="java.util.List" />
 	<c:forEach var="item" items="${listJs}">
 		<script src="${pageContext.request.contextPath }${item}"></script>
 	</c:forEach>
-
 
 	<!-- Google Tag Manager (noscript) -->
 	<noscript>
