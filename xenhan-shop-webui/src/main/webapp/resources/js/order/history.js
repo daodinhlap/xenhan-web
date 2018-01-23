@@ -84,16 +84,16 @@ function setBadge(data) {
 function buildAdItem(ad) {
     var adItem = $("<div class='item' onclick='shopDetailAd("+ ad.id +")'>");
     adItem.append($("<h4>").text(ad.title));
-    adItem.append($("<p id='ad-content-detail'>")
+    adItem.append($("<p id='ad-content-detail-"+ad.id+"'>")
             .css({"white-space":"pre-line", "display":"none"})
             .text(ad.contentNoti));
     if(ad.image && ad.image != "undefined" && ad.image.length != 0){
-        adItem.append($("<img id='ad-img'>").attr("src", ad.image));
+        adItem.append($("<img id='ad-img-"+ad.id+"'>").attr("src", ad.image));
         $('#list-ad').append(adItem);
         return;
     }
     if(ad.shortContentNoti){
-        adItem.append($("<p id='ad-content'>").text(ad.shortContentNoti));
+        adItem.append($("<p id='ad-content-"+ad.id+"'>").text(ad.shortContentNoti));
     }
     $('#list-ad').append(adItem);
 }
@@ -113,10 +113,10 @@ function showAd(data) {
     $("#advertising").modal("show");
 }
 
-function shopDetailAd() {
-    $("#ad-content").toggle();
-    $("#ad-img").toggle();
-    $("#ad-content-detail").toggle();
+function shopDetailAd(id) {
+    $("#ad-content-"+id).toggle();
+    $("#ad-img-"+id).toggle();
+    $("#ad-content-detail-"+id).toggle();
 }
 
 function hasSeen(data) {
