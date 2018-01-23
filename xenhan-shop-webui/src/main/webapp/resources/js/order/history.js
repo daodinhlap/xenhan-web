@@ -12,7 +12,7 @@ var URL_CANCEL_ORDER = BASE_URL + "/order/cancel";
 var URL_GET_ADVERTISING_HOT = BASE_URL + "/noti/prioritize";
 
 //================================================================
-//ON LOADED
+//ON READY
 $(document).ready(function($) {
     setupDatetime();
     getHistory();
@@ -21,6 +21,16 @@ $(document).ready(function($) {
     handlerCheckAll();
     getAdvertisingHot();
 });
+
+function activeCarouselAds() {
+    $('.owl-carousel').owlCarousel({
+        autoplay:true,
+        autoplayTimeout:5000,
+        responsive:{
+            0:{ items:1 }
+        }
+    })
+}
 
 function setupDatetime() {
     configDatePicker(['fromDate', 'toDate']);
@@ -71,28 +81,36 @@ function setBadge(data) {
     $("#badge-menu").text(quantity);
     $("#badge-menu").addClass("badge");
 }
-
-function showAd(data) {
-    if(!data || !data.ad) return;
-    var ad = data.ad;
-
-    if(!hasSeen(ad)){
-        save2Local(ad);
-        $("#ad-title").text(ad.title);
-        $("#ad-content-detail").text(ad.contentNoti);
-
-        if(ad.image && ad.image != "undefined"){
-            $("#ad-img").attr("src", ad.image);
-            $("#advertising").modal("show");
-            return;
-        }
-        if(ad.contentNoti){
-            $("#ad-content").text(ad.shortContentNoti + " ...");
-            $("#advertising").modal("show");
-        }
+function buildAdItem(ad) {
+    var adItem = $("<div class='item' onclick='shopDetailAd("+ ad.id +")'>");
+    adItem.append($("<h4>").text(ad.title));
+    adItem.append($("<p id='ad-content-detail'>")
+            .css({"white-space":"pre-line", "display":"none"})
+            .text(ad.contentNoti));
+    if(ad.image && ad.image != "undefined" && ad.image.length != 0){
+        adItem.append($("<img id='ad-img'>").attr("src", ad.image));
+        $('#list-ad').append(adItem);
         return;
     }
+    if(ad.shortContentNoti){
+        adItem.append($("<p id='ad-content'>").text(ad.shortContentNoti));
+    }
+    $('#list-ad').append(adItem);
+}
+function showAd(data) {
+    if(!data.ads || data.ads.length == 0) return;
+    var ads = data.ads;
+    ads = ads.filter(function (ad) {
+        return !hasSeen(ad);
+    });
+    if(ads.length == 0) return ;
 
+    ads.forEach(function (ad) {
+        save2Local(ad);
+        buildAdItem(ad);
+    });
+    activeCarouselAds();
+    $("#advertising").modal("show");
 }
 
 function shopDetailAd() {
@@ -106,17 +124,35 @@ function hasSeen(data) {
         var adId = data.id;
         var day = new Date().getDay();
         var adStorage = localStorage.getItem("ad-id");
-        ad = JSON.parse(adStorage);
-        if(!ad || ad.id != adId || Number(ad.day) != day){
-            return false;
+
+        if(!adStorage || adStorage == null || adStorage == undefined) return false;
+        ads = JSON.parse(adStorage);
+
+        for(i=0; i < ads.length; i++){
+            if(ads[i] && ads[i].id == adId && Number(ads[i].day) == day){
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 }
+
 function save2Local(data) {
+    var ads_Storage = localStorage.getItem("ad-id");
+    if(!ads_Storage) {
+        ads_Storage = [];
+    } else {
+        ads_Storage = JSON.parse(ads_Storage);
+    }
+
     var adId = data.id;
     var day = new Date().getDay();
-    localStorage.setItem("ad-id", JSON.stringify({id: adId, day: day}));
+    var newAd = {id: adId, day: day};
+
+    if(!ads_Storage.includes(newAd)){
+        ads_Storage.push({id: adId, day: day});
+    }
+    localStorage.setItem("ad-id", JSON.stringify(ads_Storage));
 }
 
 function getHistory(index) {

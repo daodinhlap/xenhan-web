@@ -37,10 +37,10 @@ public class AdvertisingController extends AbstractController {
     List<AdvertisingEntity> ads = list(httpRequest);
     if(CollectionUtils.isEmpty(ads)) return null;
 
-    Optional<AdvertisingEntity> prioritize = ads.stream().filter(ad -> ad.isPrioritize()).findFirst();
+    List<AdvertisingEntity> prioritizes = ads.stream().filter(ad -> ad.isPrioritize()).collect(Collectors.toList());
     int numberBadge = setNotiBadge(ads, httpRequest);
-    if(prioritize.isPresent()) {
-      return new AdPrioritize(prioritize.get(), numberBadge);
+    if(!CollectionUtils.isEmpty(prioritizes)) {
+      return new AdPrioritize(prioritizes, numberBadge);
     }
     return new AdPrioritize(null, numberBadge);
   }

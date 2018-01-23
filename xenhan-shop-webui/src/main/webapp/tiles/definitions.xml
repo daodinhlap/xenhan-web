@@ -102,9 +102,12 @@
             <add-attribute value="/resources/js/order/history.js" />
 			<add-attribute value="/resources/plugins/datePicker/moment-with-locales.js" />
 			<add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.js" />
+			<add-attribute value="/resources/plugins/carousel/owl.carousel.min.js" />
         </put-list-attribute>
         <put-list-attribute name="stylesheets" inherit="true">
             <add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.css" />
+			<add-attribute value="/resources/plugins/carousel/owl.carousel.min.css" />
+			<add-attribute value="/resources/plugins/carousel/owl.theme.default.min.css" />
         </put-list-attribute>
     </definition>
 
