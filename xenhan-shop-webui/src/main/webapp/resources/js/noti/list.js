@@ -5,7 +5,18 @@ var URL_VIEW = BASE_URL + "/noti/view";
 //================================================================
 $(document).ready(function($) {
     get();
+    activeCarouselAds();
 });
+
+function activeCarouselAds() {
+    $('.owl-carousel').owlCarousel({
+        autoplay:true,
+        autoplayTimeout:5000,
+        responsive:{
+            0:{ items:1 }
+        }
+    })
+}
 
 function get() {
     ads = [];

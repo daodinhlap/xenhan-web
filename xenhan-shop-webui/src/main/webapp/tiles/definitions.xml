@@ -169,6 +169,11 @@
 		<put-attribute name="body" value="/jsp/noti/{1}.jsp" />
 		<put-list-attribute name="scripts" inherit="true">
 			<add-attribute value="/resources/js/noti/{1}.js" />
+			<add-attribute value="/resources/plugins/carousel/owl.carousel.min.js" />
+		</put-list-attribute>
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/plugins/carousel/owl.carousel.min.css" />
+			<add-attribute value="/resources/plugins/carousel/owl.theme.default.min.css" />
 		</put-list-attribute>
 	</definition>
 

@@ -12,10 +12,10 @@
 			<h2> TIN TỨC XE NHÀN</h2>
 		</div>
 
-		<div style="white-space: pre;">
+		<div>
 			<table class="table table-hover click">
 				<tr><button class="btn btn-link" onclick="closeAll()" style="float: right;display: none" id="btn-close-all">
-					Xóa tất cả</button>
+					<i class="fa fa-times" aria-hidden="true"></i> Xóa tất cả</button>
 				</tr>
 				<tbody id="table-ad">
 				</tbody>
@@ -24,6 +24,18 @@
 
 	</div>
 </div>
+
+<%--<div class="col-md-3 mobile-padding">--%>
+	<%--<div class="owl-carousel owl-theme">--%>
+		<%--<div class="item">--%>
+			<%--<img style="width: 300px !important;" src="/resources/images/advertising/ad-1.png"/>--%>
+		<%--</div>--%>
+		<%--<div class="item">--%>
+			<%--<img style="width: 300px !important;" src="/resources/images/advertising/ad-2.png"/>--%>
+		<%--</div>--%>
+	<%--</div>--%>
+<%--</div>--%>
+
 
 <!-- ad -->
 <div id="detail-ad" class="modal fade" role="dialog">

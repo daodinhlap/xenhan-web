@@ -143,6 +143,7 @@ function save2Local(data) {
         ads_Storage = [];
     } else {
         ads_Storage = JSON.parse(ads_Storage);
+        if(!Array.isArray(ads_Storage)) ads_Storage = [];
     }
 
     var adId = data.id;
