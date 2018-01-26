@@ -7,6 +7,7 @@ import com.homedirect.xenhan.model.Promotion;
 import com.homedirect.xenhan.model.web.response.AdPrioritize;
 import com.homedirect.xenhan.user.model.response.AdvertisingEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,9 @@ public class AdvertisingController extends AbstractController {
 
   @GetMapping(value = "/tin-khuyen-mai")
   public ModelAndView getView(HttpServletRequest httpRequest) {
-    return new ModelAndView("noti.list");
+    ModelAndView mv = new ModelAndView("noti.list");
+    mv.addObject("title", "Xe Nhàn - Tin tức");
+    return mv;
   }
 
   @GetMapping(value = "/get")

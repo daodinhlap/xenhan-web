@@ -15,7 +15,9 @@ public class CouponController extends AbstractController {
 
   @GetMapping(value = "/khuyen-mai")
   public ModelAndView coupons(){
-    return new ModelAndView("coupon.list");
+    ModelAndView mv = new ModelAndView("coupon.list");
+    mv.addObject("title", "Xe Nhàn - Mã khuyến mại");
+    return mv;
   }
 
   @PostMapping(value = "/get-coupons")
