@@ -50,18 +50,17 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-xs-6">
+                <div class="col-md-4">
                     <div class="button-container center">
-                        <button style="width: 100% " class="btn btn-primary" onclick="getDebit()">
+                        <button style="width: 45%" class="btn btn-primary" onclick="getDebit()">
                             <i class="fa fa-search" aria-hidden="true"></i>&nbsp;
                             <span>Tìm kiếm</span>
                         </button>
-                        <%--<button class="btn btn-primary" onclick="reset()">--%>
-                        <%--<span>Đặt lại</span>--%>
-                        <%--</button>--%>
-    <%--                    <button class="btn btn-primary" onclick="exportHistory()">
+
+                        </button>
+                        <button style="width: 40%" class="btn btn-primary" onclick="exportDebit()">
                             <span>Xuất Excel</span>
-                        </button>--%>
+                        </button>
                     </div>
                 </div>
             </div>

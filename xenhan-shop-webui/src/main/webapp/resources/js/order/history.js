@@ -105,8 +105,8 @@ function showAd(data) {
     });
     if(ads.length == 0) return ;
 
+    save2Local(ads);
     ads.forEach(function (ad) {
-        save2Local(ad);
         buildAdItem(ad);
     });
     activeCarouselAds();
@@ -137,22 +137,15 @@ function hasSeen(data) {
     }
 }
 
-function save2Local(data) {
-    var ads_Storage = localStorage.getItem("ad-id");
-    if(!ads_Storage) {
-        ads_Storage = [];
-    } else {
-        ads_Storage = JSON.parse(ads_Storage);
-        if(!Array.isArray(ads_Storage)) ads_Storage = [];
-    }
+function save2Local(ads) {
+    var ads_Storage = [];
+    ads.forEach(function(ad){
+        var adId = data.id;
+        var day = new Date().getDay();
+        var newAd = {id: adId, day: day};
+        var ads_Storage = [newAd];
+    })
 
-    var adId = data.id;
-    var day = new Date().getDay();
-    var newAd = {id: adId, day: day};
-
-    if(!ads_Storage.includes(newAd)){
-        ads_Storage.push({id: adId, day: day});
-    }
     localStorage.setItem("ad-id", JSON.stringify(ads_Storage));
 }
 

@@ -162,10 +162,8 @@ private @Autowired OrderExcelExport orderExcelExport;
     String fileName = "lich-su-don-hang";
     fileName += "_tu_" + request.getFromDate();
     fileName += "_den_" + request.getToDate();
-    String headerKey = "Content-Disposition";
-    String headerValue = "attachment; filename=\"" + fileName + ".xls" +"\"";
     httpResponse.setContentType("application/vnd.ms-excel");
-    httpResponse.setHeader(headerKey, headerValue);
+    httpResponse.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + ".xls" +"\"");
 
     List<OrderEntity> orders = getOrder2Export(httpRequest, request);
     orderExcelExport.export(httpRequest, httpResponse, orders);
@@ -192,7 +190,7 @@ private @Autowired OrderExcelExport orderExcelExport;
 
   private Page<OrderEntity> getOrderHistory(HttpServletRequest httpRequest, PageOrderRequest request){
     String url = apiExchangeService.createUrlWithToken(httpRequest,"shop",  "list-orders");
-    TypeReference<RepositoryResponse<Page<OrderEntity>>> reference = new TypeReference<RepositoryResponse<Page<OrderEntity>>>() {};
+    TypeReference reference = new TypeReference<RepositoryResponse<Page<OrderEntity>>>() {};
     ResponseEntity<RepositoryResponse<Page<OrderEntity>>> ordersResponse =  apiExchangeService.post(httpRequest, url, request, reference);
     return ordersResponse.getBody().getData();
   }
