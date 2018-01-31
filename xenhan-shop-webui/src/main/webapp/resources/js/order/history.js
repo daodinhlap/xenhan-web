@@ -140,10 +140,10 @@ function hasSeen(data) {
 function save2Local(ads) {
     var ads_Storage = [];
     ads.forEach(function(ad){
-        var adId = data.id;
+        var adId = ad.id;
         var day = new Date().getDay();
         var newAd = {id: adId, day: day};
-        var ads_Storage = [newAd];
+        ads_Storage.push(newAd);
     })
 
     localStorage.setItem("ad-id", JSON.stringify(ads_Storage));
