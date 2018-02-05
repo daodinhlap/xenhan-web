@@ -86,7 +86,7 @@ function buildAdItem(ad) {
     adItem.append($("<h4>").text(ad.title));
     adItem.append($("<p id='ad-content-detail-"+ad.id+"'>")
             .css({"white-space":"pre-line", "display":"none"})
-            .text(ad.contentNoti));
+            .html(ad.contentNoti));
     if(ad.image && ad.image != "undefined" && ad.image.length != 0){
         adItem.append($("<img id='ad-img-"+ad.id+"'>").attr("src", ad.image));
         $('#list-ad').append(adItem);
@@ -138,15 +138,35 @@ function hasSeen(data) {
 }
 
 function save2Local(ads) {
-    var ads_Storage = [];
+
+    var ads_Storage = getAdStorage();
     ads.forEach(function(ad){
         var adId = ad.id;
         var day = new Date().getDay();
+        removeOldAdStorage(adId, ads_Storage);
+
         var newAd = {id: adId, day: day};
         ads_Storage.push(newAd);
     })
 
     localStorage.setItem("ad-id", JSON.stringify(ads_Storage));
+}
+
+function removeOldAdStorage(id, ads_storage) {
+    if(ads_storage.length == 0) return ads_storage;
+    var oldAds = ads_storage.filter(function (ad) { return ad.id == id; })
+    oldAds.forEach(function (old) {
+        var index = ads_storage.indexOf(old);
+        ads_storage.splice(index, 1);
+    })
+    return ads_storage;
+}
+
+function getAdStorage() {
+    var ads_Storage = localStorage.getItem("ad-id");
+    ads_Storage = JSON.parse(ads_Storage);
+    if(!Array.isArray(ads_Storage)) return [];
+    return ads_Storage;
 }
 
 function getHistory(index) {
