@@ -82,7 +82,7 @@ function setBadge(data) {
     $("#badge-menu").addClass("badge");
 }
 function buildAdItem(ad) {
-    var adItem = $("<div class='item' onclick='shopDetailAd("+ ad.id +")'>");
+    var adItem = $("<div class='item' style='cursor: pointer' onclick='shopDetailAd("+ ad.id +")'>");
     adItem.append($("<h4>").text(ad.title));
     adItem.append($("<p id='ad-content-detail-"+ad.id+"'>")
             .css({"white-space":"pre-line", "display":"none"})
@@ -199,7 +199,7 @@ function getHistory(index) {
 
     }).fail(function(data) {
         console.log(data);
-        noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() { reload() });
+        noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() {});
     }).always(function () {
     });
 }
