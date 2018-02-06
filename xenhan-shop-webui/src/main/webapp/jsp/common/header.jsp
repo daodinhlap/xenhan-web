@@ -44,8 +44,10 @@
 				<c:if test="${not empty shopName && !shopName.equals('null') }">
 					<li><a href="/"> <img
 							src="/resources/images/m-icon-home.png"><span>Trang chủ</span></a></li>
-					<li><a href="/order/tao-don?type=0"> <img
-							src="/resources/images/m-icon-order.png"><span>Tạo đơn hàng</span></a></li>
+					<li><a href="#" data-toggle="modal" data-target="#order-type">
+						<img src="/resources/images/m-icon-order.png">
+						<span>Tạo đơn hàng</span></a>
+					</li>
 					<li><a href="/order-excel/tao-don-tu-excel"> <img
 							src="/resources/images/m-icon-order-excel.png"><span>Tạo đơn từ Excel</span></a></li>
 					<li><a href="/order/lich-su"> <img

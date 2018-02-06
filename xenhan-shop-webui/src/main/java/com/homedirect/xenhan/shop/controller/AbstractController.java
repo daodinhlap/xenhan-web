@@ -12,6 +12,7 @@ import com.homedirect.xenhan.model.PeriodRecord;
 import com.homedirect.xenhan.model.Shop;
 import com.homedirect.xenhan.model.data.ShopProfileData;
 import com.homedirect.xenhan.model.web.response.CardResponse;
+import com.homedirect.xenhan.user.model.OrderEntity;
 import com.homedirect.xenhan.util.JsonUtil;
 import com.homedirect.xenhan.web.connection.ApiExchangeService;
 import org.slf4j.Logger;
@@ -73,6 +74,16 @@ public class AbstractController {
     List<CardResponse> responses = MAPPER.readValue(JsonUtil.toJson(response.getData()), new TypeReference<List<CardResponse>>(){});
     return responses.stream().filter(coupon -> coupon.getExpirationDate().after(Calendar.getInstance().getTime()))
             .collect(Collectors.toList());
+  }
+
+
+  protected OrderEntity getOrder(HttpServletRequest httpRequest, Long orderId){
+    String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "get-order?order-id="+orderId);
+    RepositoryResponse<OrderEntity> orderResponse = apiExchangeService.get(httpRequest, url,
+            new TypeReference<RepositoryResponse<OrderEntity>>(){});
+
+    logger.info("\n GET ORDER INFO: {}", JsonUtil.toJson(orderResponse.getData()));
+    return orderResponse.getData();
   }
 
 }

@@ -30,9 +30,7 @@ import java.util.List;
 @RequestMapping("/order")
 public class OrderController extends AbstractController {
 
-private @Autowired OrderExcelExport orderExcelExport;
-  
-  private final static Logger logger = LoggerFactory.getLogger(OrderController.class);
+  private @Autowired OrderExcelExport orderExcelExport;
   
   @GetMapping(value = "/lich-su")
   public ModelAndView historyView(HttpServletRequest httpRequest) throws IOException {
@@ -99,15 +97,6 @@ private @Autowired OrderExcelExport orderExcelExport;
       mv.addObject("order", order);
     }
     return mv;
-  }
-
-  private OrderEntity getOrder(HttpServletRequest httpRequest, Long orderId){
-    String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "get-order?order-id="+orderId);
-    RepositoryResponse<OrderEntity> orderResponse = apiExchangeService.get(httpRequest, url,
-        new TypeReference<RepositoryResponse<OrderEntity>>(){});
-
-    logger.info("\n GET ORDER INFO: {}", JsonUtil.toJson(orderResponse.getData()));
-    return orderResponse.getData();
   }
 
 

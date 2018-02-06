@@ -275,10 +275,13 @@ function buildTable(orderPage) {
     table.hide();
     orders.forEach(function(order, i){
         var trigger = "data-toggle='modal' data-target='#modal-"+ order.id +"'";
+        var pic_order_type = typeOfOrder(order.type);
+        var title_des_pic = desTypeOfOrder(order.type);
         table.append(
             $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
                 .append($("<td align='left'>").append($("<input id='check-'"+order.id+" type='checkbox' onclick='check($(this),"+ order.id +")'>")))
-                .append($("<td "+trigger+" align='left'>"+order.id+"</td>"))
+                .append($("<td "+trigger+" align='left'>"+order.id
+                    + " <img "+title_des_pic+" width='25px' src='/resources/images/icon-"+pic_order_type+".png'/></td>"))
                 .append($("<td "+trigger+"><div class='order-status "+corlorStatus(order.status)+"'>"+orderStatus(order.status)+"</div></td>"))
                 .append($("<td "+trigger+" align='left'>"+ddMM(order.createdDate)+"</td>"))
                 .append($("<td "+trigger+" align='left'>"+ddMM(order.closedDate)+"</td>"))
@@ -296,6 +299,25 @@ function buildTable(orderPage) {
     });
     table.fadeIn();
     buildPagination(page);
+    $('[data-toggle="tooltip"]').tooltip();
+}
+
+function typeOfOrder(type) {
+    switch (type) {
+        case 1: return "pickup";
+        case 3: return "";
+        case 2:
+        default: return "dropoff";
+    }
+}
+function desTypeOfOrder(type) {
+    var des = "data-toggle='tooltip' title='";
+    switch (type) {
+        case 1: return des + "Lấy hàng" + "'";
+        case 3: return "";
+        case 2:
+        default: return des + "Giao hàng" + "'";;
+    }
 }
 
 function buildOrderDetail(order){

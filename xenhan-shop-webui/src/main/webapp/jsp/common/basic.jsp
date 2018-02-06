@@ -30,9 +30,9 @@
 </c:forEach>
 
 <script type="text/javascript">
-		var BASE_URL = "${pageContext.request.contextPath}";
-		console.log(BASE_URL);
-	</script>
+	var BASE_URL = "${pageContext.request.contextPath}";
+	console.log(BASE_URL);
+</script>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -66,15 +66,32 @@
 	</noscript>
 	<!-- End Google Tag Manager (noscript) -->
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async
-		src="https://www.googletagmanager.com/gtag/js?id=UA-107421702-1"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107421702-1"></script>
 	<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  		window.dataLayer = window.dataLayer || [];
+  		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+  		gtag('config', 'UA-107421702-1');
+	</script>
 
-  gtag('config', 'UA-107421702-1');
-</script>
+	<%--modal select create order--%>
+	<div id="order-type" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm" style=" top: 45%;">
+			<div class="modal-content">
+				<div class="modal-body" style="text-align: center">
+					<a style="color: white;" href="/order/tao-don-lay-hang?type=0">
+						<button type="button" class="btn btn-warning btn-lg" style="width: 90%;text-align: left">
+							<img width="30px" src="/resources/images/icon-pickup-w.png"/>
+							LẤY HÀNG HỘ SHOP</button></a>
+					<a style="color: white;" href="/order/tao-don?type=0">
+						<button type="button" class="btn btn-primary btn-lg" style="width: 90%;margin-top: 10px;text-align: left">
+							<img width="30px" src="/resources/images/icon-dropoff-w.png"/>
+							GIAO HÀNG CHO KHÁCH</button></a>
+				</div>
+			</div>
+
+		</div>
+	</div>
 
 </body>
 </html>
