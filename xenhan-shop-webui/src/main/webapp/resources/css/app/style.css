@@ -594,9 +594,9 @@ body {
     overflow: hidden;
     -webkit-transform: translate3d(0,0,0);
 }
-/*.owl-carousel.owl-drag .owl-item {width: 75px !important}*/
-/* .owl-carousel-card {width: 45% !important} */
-.owl-nav, .owl-dots {display: none;}
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+    background: #f3931f !important;
+}
 .input-number-card input  {
     float: left;
     width: 100px !important;

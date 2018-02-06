@@ -12,7 +12,7 @@ var URL_CANCEL_ORDER = BASE_URL + "/order/cancel";
 var URL_GET_ADVERTISING_HOT = BASE_URL + "/noti/prioritize";
 
 //================================================================
-//ON LOADED
+//ON READY
 $(document).ready(function($) {
     setupDatetime();
     getHistory();
@@ -21,6 +21,16 @@ $(document).ready(function($) {
     handlerCheckAll();
     getAdvertisingHot();
 });
+
+function activeCarouselAds() {
+    $('.owl-carousel').owlCarousel({
+        autoplay:true,
+        autoplayTimeout:5000,
+        responsive:{
+            0:{ items:1 }
+        }
+    })
+}
 
 function setupDatetime() {
     configDatePicker(['fromDate', 'toDate']);
@@ -71,21 +81,42 @@ function setBadge(data) {
     $("#badge-menu").text(quantity);
     $("#badge-menu").addClass("badge");
 }
-
-function showAd(data) {
-    if(!data || !data.ad) return;
-    var ad = data.ad;
-    if(!hasSeen(ad) && ad.contentNoti){
-        $("#ad-title").text(ad.title);
-        $("#ad-content").text(ad.shortContentNoti + " ...");
-        $("#ad-content-detail").text(ad.contentNoti);
-        $("#advertising").modal("show");
+function buildAdItem(ad) {
+    var adItem = $("<div class='item' style='cursor: pointer' onclick='shopDetailAd("+ ad.id +")'>");
+    adItem.append($("<h4>").text(ad.title));
+    adItem.append($("<p id='ad-content-detail-"+ad.id+"'>")
+            .css({"white-space":"pre-line", "display":"none"})
+            .html(ad.contentNoti));
+    if(ad.image && ad.image != "undefined" && ad.image.length != 0){
+        adItem.append($("<img id='ad-img-"+ad.id+"'>").attr("src", ad.image));
+        $('#list-ad').append(adItem);
+        return;
     }
+    if(ad.shortContentNoti){
+        adItem.append($("<p id='ad-content-"+ad.id+"'>").text(ad.shortContentNoti));
+    }
+    $('#list-ad').append(adItem);
+}
+function showAd(data) {
+    if(!data.ads || data.ads.length == 0) return;
+    var ads = data.ads;
+    ads = ads.filter(function (ad) {
+        return !hasSeen(ad);
+    });
+    if(ads.length == 0) return ;
+
+    save2Local(ads);
+    ads.forEach(function (ad) {
+        buildAdItem(ad);
+    });
+    activeCarouselAds();
+    $("#advertising").modal("show");
 }
 
-function shopDetailAd() {
-    $("#ad-content").toggle();
-    $("#ad-content-detail").toggle();
+function shopDetailAd(id) {
+    $("#ad-content-"+id).toggle();
+    $("#ad-img-"+id).toggle();
+    $("#ad-content-detail-"+id).toggle();
 }
 
 function hasSeen(data) {
@@ -93,15 +124,49 @@ function hasSeen(data) {
         var adId = data.id;
         var day = new Date().getDay();
         var adStorage = localStorage.getItem("ad-id");
-        ad = JSON.parse(adStorage);
-        if(!ad
-            || ad.id != adId
-            || Number(ad.day) != day){
-            localStorage.setItem("ad-id", JSON.stringify({id: adId, day: day}));
-            return false;
+
+        if(!adStorage || adStorage == null || adStorage == undefined) return false;
+        ads = JSON.parse(adStorage);
+
+        for(i=0; i < ads.length; i++){
+            if(ads[i] && ads[i].id == adId && Number(ads[i].day) == day){
+                return true;
+            }
         }
-        return true;
+        return false;
     }
+}
+
+function save2Local(ads) {
+
+    var ads_Storage = getAdStorage();
+    ads.forEach(function(ad){
+        var adId = ad.id;
+        var day = new Date().getDay();
+        removeOldAdStorage(adId, ads_Storage);
+
+        var newAd = {id: adId, day: day};
+        ads_Storage.push(newAd);
+    })
+
+    localStorage.setItem("ad-id", JSON.stringify(ads_Storage));
+}
+
+function removeOldAdStorage(id, ads_storage) {
+    if(ads_storage.length == 0) return ads_storage;
+    var oldAds = ads_storage.filter(function (ad) { return ad.id == id; })
+    oldAds.forEach(function (old) {
+        var index = ads_storage.indexOf(old);
+        ads_storage.splice(index, 1);
+    })
+    return ads_storage;
+}
+
+function getAdStorage() {
+    var ads_Storage = localStorage.getItem("ad-id");
+    ads_Storage = JSON.parse(ads_Storage);
+    if(!Array.isArray(ads_Storage)) return [];
+    return ads_Storage;
 }
 
 function getHistory(index) {
@@ -134,7 +199,7 @@ function getHistory(index) {
 
     }).fail(function(data) {
         console.log(data);
-        noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() { reload() });
+        noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() {});
     }).always(function () {
     });
 }

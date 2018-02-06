@@ -5,7 +5,18 @@ var URL_VIEW = BASE_URL + "/noti/view";
 //================================================================
 $(document).ready(function($) {
     get();
+    activeCarouselAds();
 });
+
+function activeCarouselAds() {
+    $('.owl-carousel').owlCarousel({
+        autoplay:true,
+        autoplayTimeout:5000,
+        responsive:{
+            0:{ items:1 }
+        }
+    })
+}
 
 function get() {
     ads = [];
@@ -66,7 +77,7 @@ function showAd(id) {
     if(!ad.contentNoti) return;
 
     $("#ad-title").text(ad.title);
-    $("#ad-content").text(ad.contentNoti);
+    $("#ad-content").html(ad.contentNoti);
     $("#btn-close").attr("onclick", "closeAd("+id+")");
     $("#detail-ad").modal("show");
     if(ad.promotionStatus == 1 || ad.promotionStatus == 0) {

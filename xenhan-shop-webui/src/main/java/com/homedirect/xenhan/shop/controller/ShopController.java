@@ -126,35 +126,4 @@ public class ShopController extends AbstractController {
     return apiExchangeService.get(httpRequest, url, new TypeReference<RepositoryResponse<User>>(){});
   }
 
-  /*DEBIT*/
-  @GetMapping(value = "/cong-no")
-  public ModelAndView debit() {
-    ModelAndView mv = new ModelAndView("shop.debit");
-    mv.addObject("title","Xe Nhàn - Công nợ");
-    return mv;
-  }
-
-  @PostMapping(value = "/debit")
-  public Object listShopDebit(@RequestBody PageShopDebitRequest request, HttpServletRequest httpRequest) {
-
-    request.setSize(20);
-    request.setTypeOfView((short) 0);
-    request.setShopName((String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME));
-    request.setPeriodRecord(getPeriod(httpRequest));
-
-    logger.info("\n==> GET DEBIT:{}", JsonUtil.toJson(request));
-    String url = apiExchangeService.createUrlWithToken(httpRequest,"shop", "debit");
-    return apiExchangeService.post(httpRequest, url, request).getBody();
-  }
-
-
-  @PostMapping(value = "/shop-payment")
-  public Object shopPayments(@RequestBody PageShopPaymentRequest request, HttpServletRequest httpRequest) {
-
-    request.setSize(20);
-    logger.info("\n==> GET SHOP PAYMENT:{}", JsonUtil.toJson(request));
-    String url = apiExchangeService.createUrlWithToken(httpRequest,"shop", "list-shop-payment");
-    return apiExchangeService.post(httpRequest, url, request).getBody();
-  }
-
 }
