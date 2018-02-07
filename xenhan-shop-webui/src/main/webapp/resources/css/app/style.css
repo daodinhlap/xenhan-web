@@ -1188,4 +1188,9 @@ div#suggest-area{
     margin-right: auto;
     margin-top: 10px;
 }
+.btn-bold {
+    width: 90%;
+    text-align: left;
+    font-weight: bold;
+}
 

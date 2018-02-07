@@ -23,14 +23,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AbstractController {
-  protected final static Logger logger = LoggerFactory.getLogger(AbstractController.class);
+  protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-  public final static String TOKEN_ATTRIBUTE_NAME = "token-id";
   public static final int DEFAULT_PACKAGE_ID = 2;
   public static PeriodRecord DEFAULT_PERIOD = null;
 

@@ -305,18 +305,18 @@ function buildTable(orderPage) {
 function typeOfOrder(type) {
     switch (type) {
         case 1: return "pickup";
-        case 3: return "";
+        case 3: return "derivative";
         case 2:
         default: return "dropoff";
     }
 }
 function desTypeOfOrder(type) {
-    var des = "data-toggle='tooltip' title='";
+    var des = "data-toggle='tooltip' title='%s'";
     switch (type) {
-        case 1: return des + "Lấy hàng" + "'";
-        case 3: return "";
+        case 1: return des.replace(/%s/g, 'Lấy hàng hộ Shop');
+        case 3: return des.replace(/%s/g, 'Đơn phái sinh');
         case 2:
-        default: return des + "Giao hàng" + "'";;
+        default: return des.replace(/%s/g, 'Giao hàng hộ Shop');
     }
 }
 

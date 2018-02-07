@@ -15,31 +15,54 @@ var URL_GET_COUPON = BASE_URL + "/shop/get-coupons";
 
 // ON LOAD
 $(document).ready(function() {
-    // on change coupon
-    $('#coupon').change(function() {
-        console.log('check coupon: ' + form.coupon());
-        checkCoupon(form.coupon());
-    });
+    handChangeCoupon();
+    handChangeAmount();
+    handEditOrder();
+    handBtnCreateClick();
+    handChangeProvince();
+    handChangeAddress();
+    handChangeCOD();
+});
 
-    // on change cod
-    $('#cod').change(function() {
-        buildText();
+function handChangeCOD() {
+    $('input[type=radio][name=type-order]').change(function() {
+        $('[name^=amount-label]').toggle();
+        form.setAmount(0);
+        handChangeAmount();
     });
-    // on change amount
-    buildText();
-    $('#amount').keyup(function() {
-        onChangeAmount();
-    });
-    $('#amount').change(function() {
-        onChangeAmount();
-    });
+}
 
-    // button create on click
+function handChangeAddress() {
+    $('#address').keyup(function () {
+        getSuggest();
+        $("#error1").remove();
+    });
+    eventClickSuggest();
+
+    // user selected district
+    $('[id^=district-]').click(function () {
+        hadSelectDistrict = true;
+    })
+}
+
+function handChangeProvince() {
+    $('#pickupDistrict-' + form.provinceId()).show();
+    $('#district-' + form.provinceId()).show();
+    $('#province').change(function () {
+        $("[id^=district]").hide();
+        $("[id^=pickupDistrict]").hide();
+        $('#pickupDistrict-' + form.provinceId()).show();
+        $('#district-' + form.provinceId()).show();
+    });
+}
+
+function handBtnCreateClick() {
     $("#btn-create").click(function () {
         $(this).attr("disabled","disabled");
     });
+}
 
-    // check condition edit order
+function handEditOrder() {
     var orderStatus = $('#order-status').val();
     var isCOD = form.cod();
 
@@ -60,34 +83,27 @@ $(document).ready(function() {
         $('[id^=district]').attr("disabled", 'disabled');
         $('#amount').attr("disabled", 'disabled');
     }
+}
 
-    //onChangeProvince
-    $('#pickupDistrict-' + form.provinceId()).show();
-    $('#district-' + form.provinceId()).show();
-    $('#province').change(function () {
-        $("[id^=district]").hide();
-        $("[id^=pickupDistrict]").hide();
-        $('#pickupDistrict-' + form.provinceId()).show();
-        $('#district-' + form.provinceId()).show();
+function handChangeCoupon() {
+    $('#coupon').change(function() {
+        checkCoupon(form.coupon());
     });
-
-    // suggest address
-    $('#address').keyup(function () {
-        getSuggest();
-        $("#error1").remove();
-    });
-    eventClickSuggest();
-
-    // user selected district
-    $('[id^=district-]').click(function () {
-        hadSelectDistrict = true;
-    })
-
-    // on FOCUS COUPON
     $('#coupon').click(function () {
         getCoupons();
     });
-});
+}
+
+function handChangeAmount() {
+    buildText();
+    $('#amount').keyup(function() {
+        onChangeAmount();
+    });
+    $('#amount').change(function() {
+        onChangeAmount();
+    });
+    
+}
 
 function getSuggest(){
     var address = form.address();
@@ -297,25 +313,12 @@ function checkCoupon(){
 }
 
 function buildText(){
-    var goodAmountText= '';
-    var actionText = '';
-    
     var amount = form.amount() ? form.amount(): 0;
     var coupon = form.couponAmount() ? form.couponAmount(): 0;
-    var total = amount - (originalShipAmount - coupon);
+    var finalAmount = Number(amount) + Number(originalShipAmount - coupon);
 
-    if(form.cod() == 'true'){
-        goodAmountText = "Tiền thu hộ";
-        actionText = total > 0 ? "Xe Nhàn nợ Shop" : "Shop nợ Xe nhàn";
-    }
-    if(form.cod() == 'false'){
-        goodAmountText = "Tiền hàng";
-        actionText = total > 0 ? "Xe Nhàn trả Shop" : "Shop trả Xe nhàn";
-    }
     form.setShipAmount(currencyFormat(originalShipAmount - coupon));
-    $('#amount-text').text(goodAmountText);
-    $('#action').text(actionText);
-    $('#totalAmount').text(currencyFormat(Math.abs(total)));
+    form.setTotalAmount(currencyFormat(Math.abs(finalAmount)));
 }
 
 function move(){
@@ -357,6 +360,7 @@ function Form(){
     this.setCoupon = function(value){ return $('#couponAmount').text(value)};
     this.setCouponCode = function(value){ return $('#coupon').val(value)};
     this.setShipAmount = function(value){ return $('#shipAmount').text(value)};
+    this.setTotalAmount = function(value){ return $('#totalAmount').text(value)};
 
     this.typeDes = function(){ return $('#type-des').val()};
 

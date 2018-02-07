@@ -78,7 +78,7 @@ public class OrderController extends AbstractController {
   }
 
   /* CREATE Order */
-  @GetMapping(value = "/tao-don")
+  @GetMapping(value = "/tao-don-giao-hang")
   public ModelAndView create(@RequestParam(value = "type") Integer type,
                              @RequestParam(value = "order-id", required = false) Long orderId,
                              @RequestParam(value = "coupon", required = false) String coupon,
@@ -185,9 +185,9 @@ public class OrderController extends AbstractController {
   }
 
   @GetMapping(value = "/history")
-  public RepositoryResponse<?> getHistory (@RequestParam(name="order-id", required = true) long orderId,
-                                          @RequestParam(name="action", required = true) String action,
-                                       HttpServletRequest httpRequest) {
+  public RepositoryResponse<?> getHistory (@RequestParam(name="order-id") long orderId,
+                                           @RequestParam(name="action") String action,
+                                            HttpServletRequest httpRequest) {
 
     String url = apiExchangeService.createUrlWithToken(httpRequest,"order", "get-order-history");
     url += "&order-id="+ orderId + "&action=" + action;
