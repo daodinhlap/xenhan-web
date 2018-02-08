@@ -6,7 +6,7 @@ var hadSelectDistrict = false;
 var invokerDetect;
 var coupons = [];
 
-var URL_CREATE_ORDER_VIEW = BASE_URL + "/order/tao-don?type=0";
+var URL_CREATE_ORDER_VIEW = BASE_URL + "/order/tao-don-giao-hang?type=0";
 var URL_CREATE_ORDER = BASE_URL + "/order/create-order";
 var URL_EDIT_ORDER = BASE_URL + "/order/edit";
 var URL_DETECT = BASE_URL + "/detect?address=";
@@ -415,7 +415,7 @@ function makeModel(){
     order.pickupProvince = form.province();
     order.pickupDistrict = form.pickupDistrict();
     order.pickupPhone = form.shopPhone();
-
+    order.type = 2;
     return order;
 }
 

@@ -79,6 +79,7 @@
 		<div class="modal-dialog modal-sm" style=" top: 45%;">
 			<div class="modal-content">
 				<div class="modal-body" style="text-align: center">
+					<h4>TẠO ĐƠN:</h4>
 					<a style="color: white;" href="/order/tao-don-lay-hang?type=0">
 						<button type="button" class="btn btn-warning btn-lg btn-bold">
 							<img width="30px" src="/resources/images/icon-pickup-w.png"/>

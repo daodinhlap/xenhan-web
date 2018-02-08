@@ -281,7 +281,7 @@ function buildTable(orderPage) {
             $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
                 .append($("<td align='left'>").append($("<input id='check-'"+order.id+" type='checkbox' onclick='check($(this),"+ order.id +")'>")))
                 .append($("<td "+trigger+" align='left'>"+order.id
-                    + " <img "+title_des_pic+" width='25px' src='/resources/images/icon-"+pic_order_type+".png'/></td>"))
+                    + " <img "+title_des_pic+" width='20px' src='/resources/images/icon-"+pic_order_type+".png'/></td>"))
                 .append($("<td "+trigger+"><div class='order-status "+corlorStatus(order.status)+"'>"+orderStatus(order.status)+"</div></td>"))
                 .append($("<td "+trigger+" align='left'>"+ddMM(order.createdDate)+"</td>"))
                 .append($("<td "+trigger+" align='left'>"+ddMM(order.closedDate)+"</td>"))
@@ -538,12 +538,13 @@ function calculatorPage(pagesAvailable, pageNumber){
 
 
 function buildOrderAction(order){
+    var type = order.type == 1 ? "-lay-hang" : "-giao-hang";
     var action = "";
-    if(order.status < 400 && order.status != 200){
-        action += "<li><a href='/order/tao-don?type=1&order-id="+order.id+"'>Sửa đơn</a></li>\n";
-    }
     if(order.status < 200){
         action += "<li><a href='#' onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
+    }
+    if(order.status < 400 && order.status != 200){
+        action += "<li><a href='/order/tao-don"+type+"?type=1&order-id="+order.id+"'>Sửa đơn</a></li>\n";
     }
     if(order.status > 200 && order.status < 400 && order.cod){
         action += "<li><a href='#' onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
@@ -552,14 +553,7 @@ function buildOrderAction(order){
         action += "<li><a href='/lien-he'><span style='color:red'>Liên hệ hủy đơn</span></a></li>\n";
     }
 
-    // if(order.status < 200){
-    //     action += "<li><a href='/order/tao-don?type=1&order-id="+order.id+"'>Sửa đơn</a></li>\n";
-    //     action += "<li><a href='#' onclick='cancelOrder("+ order.id +")'>Hủy đơn</a></li>\n";
-    // }
-    // if(order.status > 200 && order.status < 400){
-    //         action += "<li><a href='/lien-he'><span style='color:red'>Liên hệ Hủy hoặc Sửa đơn</span></a></li>\n";
-    // }
-    action += "<li><a href='/order/tao-don?type=2&order-id="+order.id+"'>Đăng lại đơn</a></li>\n";
+    action += "<li><a href='/order/tao-don"+type+"?type=2&order-id="+order.id+"'>Đăng lại đơn</a></li>\n";
 
     var result ;
     result = "  <div class=\"dropup\">\n" +

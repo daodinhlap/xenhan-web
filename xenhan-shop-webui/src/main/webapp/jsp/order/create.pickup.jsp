@@ -75,16 +75,14 @@
 		<div class="col-xs-12 col-md-4 form-field">
 			<label>SĐT lấy hàng<span style="color: red">*</span></label>
 			<c:set var = "shopPhone" value = "${order.shop.phone}"/>
-			<%--<input placeholder="SĐT lấy hàng" value="${shopPhone}" class="form-control" id="shopPhone">--%>
-			<input placeholder="SĐT lấy hàng" value="01645924806" class="form-control" id="shopPhone">
+			<input placeholder="SĐT lấy hàng" value="${shopPhone}" class="form-control" id="shopPhone">
 		</div>
 
 		<div class="form-group col-xs-12 col-md-6">
 			<label>Địa chỉ lấy hàng<span style="color: red">*</span></label>
 
 			<c:set var = "pickupAddress" value = "${order.shop.address}"/>
-			<%--<input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực...." type="text" value="${pickupAddress}" class="form-control" id="pickupAddress">--%>
-			<input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực...." type="text" value="xxx" class="form-control" id="pickupAddress">
+			<input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực...." type="text" value="${pickupAddress}" class="form-control" id="pickupAddress">
 		</div>
 
 	</div>
