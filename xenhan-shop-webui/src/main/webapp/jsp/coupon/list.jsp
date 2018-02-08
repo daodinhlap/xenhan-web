@@ -46,7 +46,7 @@
 				<button type="button" class="btn btn-warning btn-lg btn-bold" onclick="createPickupOrder()">
 					<img width="30px" src="/resources/images/icon-pickup-w.png"/>
 					TẠO ĐƠN LẤY HÀNG HỘ SHOP</button>
-				<button type="button" class="btn btn-primary btn-lg btn-bold" style="margin-top: 10px;" onclick="createDropoffsOrder()">
+				<button type="button" class="btn btn-success btn-lg btn-bold" style="margin-top: 10px;" onclick="createDropoffsOrder()">
 					<img width="30px" src="/resources/images/icon-dropoff-w.png"/>
 					TẠO ĐƠN GIAO HÀNG CHO KHÁCH</button>
 			</div>

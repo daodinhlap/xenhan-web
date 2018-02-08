@@ -15,31 +15,38 @@ var URL_GET_COUPON = BASE_URL + "/shop/get-coupons";
 
 // ON LOAD
 $(document).ready(function() {
-    // on change coupon
-    $('#coupon').change(function() {
-        console.log('check coupon: ' + form.coupon());
-        checkCoupon(form.coupon());
-    });
+    handChangeCoupon();
+    handChangeCOD();
+    handChangeAmount();
+    handClickBtnCreate();
+    handCheckConditionOrder();
+    handChangeProvince();
+    handSuggestAddress();
+});
 
-    // on change cod
-    $('#cod').change(function() {
-        buildText();
+function handSuggestAddress() {
+    $('#address').keyup(function () {
+        getSuggest();
+        $("#error1").remove();
     });
-    // on change amount
-    buildText();
-    $('#amount').keyup(function() {
-        onChangeAmount();
-    });
-    $('#amount').change(function() {
-        onChangeAmount();
-    });
+    eventClickSuggest();
 
-    // button create on click
-    $("#btn-create").click(function () {
-        $(this).attr("disabled","disabled");
+    // user selected district
+    $('[id^=district-]').click(function () {
+        hadSelectDistrict = true;
+    })
+}
+function handChangeProvince() {
+    $('#pickupDistrict-' + form.provinceId()).show();
+    $('#district-' + form.provinceId()).show();
+    $('#province').change(function () {
+        $("[id^=district]").hide();
+        $("[id^=pickupDistrict]").hide();
+        $('#pickupDistrict-' + form.provinceId()).show();
+        $('#district-' + form.provinceId()).show();
     });
-
-    // check condition edit order
+}
+function handCheckConditionOrder() {
     var orderStatus = $('#order-status').val();
     var isCOD = form.cod();
 
@@ -61,34 +68,35 @@ $(document).ready(function() {
         $('#amount').attr("disabled", 'disabled');
     }
 
-    //onChangeProvince
-    $('#pickupDistrict-' + form.provinceId()).show();
-    $('#district-' + form.provinceId()).show();
-    $('#province').change(function () {
-        $("[id^=district]").hide();
-        $("[id^=pickupDistrict]").hide();
-        $('#pickupDistrict-' + form.provinceId()).show();
-        $('#district-' + form.provinceId()).show();
+}
+function handChangeCoupon() {
+    $('#coupon').change(function() {
+        checkCoupon(form.coupon());
     });
-
-    // suggest address
-    $('#address').keyup(function () {
-        getSuggest();
-        $("#error1").remove();
-    });
-    eventClickSuggest();
-
-    // user selected district
-    $('[id^=district-]').click(function () {
-        hadSelectDistrict = true;
-    })
-
     // on FOCUS COUPON
     $('#coupon').click(function () {
         getCoupons();
     });
-});
-
+}
+function handChangeCOD() {
+    $('#cod').change(function() {
+        buildText();
+    });
+}
+function handChangeAmount() {
+    buildText();
+    $('#amount').keyup(function() {
+        onChangeAmount();
+    });
+    $('#amount').change(function() {
+        onChangeAmount();
+    });
+}
+function handClickBtnCreate() {
+    $("#btn-create").click(function () {
+        $(this).attr("disabled","disabled");
+    });
+}
 function getSuggest(){
     var address = form.address();
     if(!address) {

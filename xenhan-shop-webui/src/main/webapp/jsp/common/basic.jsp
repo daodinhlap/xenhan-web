@@ -78,16 +78,15 @@
 	<div id="order-type" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-sm" style=" top: 45%;">
 			<div class="modal-content">
-				<div class="modal-body" style="text-align: center">
-					<h4>TẠO ĐƠN:</h4>
+				<div class="modal-body" style="text-align: center;padding: 3px;">
 					<a style="color: white;" href="/order/tao-don-lay-hang?type=0">
 						<button type="button" class="btn btn-warning btn-lg btn-bold">
 							<img width="30px" src="/resources/images/icon-pickup-w.png"/>
-							LẤY HÀNG HỘ SHOP</button></a>
+							TẠO ĐƠN LẤY HÀNG HỘ SHOP</button></a>
 					<a style="color: white;" href="/order/tao-don-giao-hang?type=0">
-						<button type="button" class="btn btn-primary btn-lg btn-bold" style="margin-top: 10px;">
+						<button type="button" class="btn btn-success btn-lg btn-bold" style="margin-top: 10px;">
 							<img width="30px" src="/resources/images/icon-dropoff-w.png"/>
-							GIAO HÀNG CHO KHÁCH</button></a>
+							TẠO ĐƠN GIAO HÀNG CHO KHÁCH</button></a>
 				</div>
 			</div>
 
