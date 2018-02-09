@@ -86,13 +86,6 @@ function setHighlight(li,className,image){
 		.find("img").attr("src", pathImage + image + "-active.png");
 }
 
-// function imagesLink(issuerCode) {
-// 	switch (issuerCode) {
-// 	case "VTT":
-// 		return pathImage + images.viettel + ext; break;
-// 	}
-// }
-
 function validatePhone(phone) {
 	var re = /^[0][0-9]{7,12}$/;
 	return re.test(phone);
@@ -113,23 +106,6 @@ function isBlank(str) {
 }
 function strcmp(a, b) {
 	return (a < b ? -1 : (a > b ? 1 : 0));
-}
-
-function toViewDiscount(value){
-	if(!value) $('#discount').text("0,00");
-	
-	discount = value;
-	var fee_label = "Phí:";
-	var discount_label = "Chiết khấu:";
-	$('#discount').text(doubleFormatView(Math.abs(discount)));
-	if(discount < 0){
-		$("label[for='discount']").text(fee_label);
-		$("label[for='discountConfirm']").text(fee_label);
-	} else {
-		$("label[for='discount']").text(discount_label);
-		$("label[for='discountConfirm']").text(discount_label);
-	}
-	
 }
 
 function goHome() {
@@ -175,21 +151,6 @@ function currencyFormat(number) {
 	temparray.unshift(integer);
 	integer = temparray.join(thousandseparater);
 	return sign + integer;
-}
-
-
-function showMessage(input) {
-	if (input == "clean") {
-		$('#alert').hide();
-		$('#alert-PIN').hide();
-		return;
-	}
-	if (input == true) {
-		$('#alert').show();
-		return;
-	}
-	$("#" + input.id + " > h4 > span").text(input.mes);
-	$('#' + input.id).show();
 }
 
 function toDate(milliseconds){
@@ -432,6 +393,26 @@ function loadFacebookMessenger() {
             })
         })
     });
+}
+
+function typeOfOrder(type) {
+    switch (type) {
+        case 1: return "pickup";
+        case 31:
+        case 32: return "derivative";
+        case 2:
+        default: return "dropoff";
+    }
+}
+function desTypeOfOrder(type) {
+    var des = "data-toggle='tooltip' title='%s'";
+    switch (type) {
+        case 1: return des.replace(/%s/g, 'Lấy hàng hộ Shop');
+        case 31:
+        case 32: return des.replace(/%s/g, 'Đơn phái sinh');
+        case 2:
+        default: return des.replace(/%s/g, 'Giao hàng hộ Shop');
+    }
 }
 
 function removeMark(str) {
