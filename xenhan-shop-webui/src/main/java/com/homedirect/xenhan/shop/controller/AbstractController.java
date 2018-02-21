@@ -66,25 +66,28 @@ public class AbstractController {
   }
 
   protected List<CardResponse> getCoupon(HttpServletRequest httpRequest, CouponGetRequest request) throws IOException {
+    Shop shop = getShopInfo(httpRequest);
     request.setCampaignPrefix(CouponGetRequest.XN_CAMPAIGN_PREFIX);
-    if(request.getUserEmail() == null){
-      Shop shop = getShopInfo(httpRequest);
-      request.setUserEmail(shop.getEmail());
-    }
+    request.setUserEmail(shop.getEmail());
 
     String url = apiExchangeService.createUrlWithToken(httpRequest,"coupon", "list");
     RepositoryResponse<Object> response = apiExchangeService.post(httpRequest, url, request).getBody();
-    if(apiExchangeService.isUnSuccessResponse(response)) return Collections.EMPTY_LIST;
+    List<CardResponse> cardResponses = resolveCoupon(response);
 
+    if(CollectionUtils.isEmpty(cardResponses)) {
+      request.setUserEmail(null);
+      response = apiExchangeService.post(httpRequest, url, request).getBody();
+      return resolveCoupon(response);
+    }
+    return cardResponses;
+  }
+
+  private List<CardResponse> resolveCoupon(RepositoryResponse<Object> response) throws IOException {
+    if(apiExchangeService.isUnSuccessResponse(response)) return Collections.EMPTY_LIST;
     List<CardResponse> responses = MAPPER.readValue(JsonUtil.toJson(response.getData()), new TypeReference<List<CardResponse>>(){});
     List<CardResponse> cardResponses = responses.stream()
             .filter(coupon -> coupon.getExpirationDate().after(Calendar.getInstance().getTime()))
             .collect(Collectors.toList());
-
-    if(CollectionUtils.isEmpty(cardResponses)) {
-      request.setUserEmail("");
-      cardResponses = getCoupon(httpRequest, request);
-    }
     return cardResponses;
   }
 
