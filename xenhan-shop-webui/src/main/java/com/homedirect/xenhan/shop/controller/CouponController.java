@@ -22,7 +22,6 @@ public class CouponController extends AbstractController {
 
   @PostMapping(value = "/get-coupons")
   public List getCoupons(@RequestBody CouponGetRequest request, HttpServletRequest httpRequest) throws IOException {
-    request.setCampaignPrefix(CouponGetRequest.XN_CAMPAIGN_PREFIX);
     return getCoupon(httpRequest, request);
   }
 }

@@ -17,6 +17,7 @@ import com.homedirect.xenhan.web.connection.ApiExchangeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -65,14 +66,26 @@ public class AbstractController {
   }
 
   protected List<CardResponse> getCoupon(HttpServletRequest httpRequest, CouponGetRequest request) throws IOException {
-    String url = apiExchangeService.createUrlWithToken(httpRequest,"coupon", "list");
+    request.setCampaignPrefix(CouponGetRequest.XN_CAMPAIGN_PREFIX);
+    if(request.getUserEmail() == null){
+      Shop shop = getShopInfo(httpRequest);
+      request.setUserEmail(shop.getEmail());
+    }
 
+    String url = apiExchangeService.createUrlWithToken(httpRequest,"coupon", "list");
     RepositoryResponse<Object> response = apiExchangeService.post(httpRequest, url, request).getBody();
     if(apiExchangeService.isUnSuccessResponse(response)) return Collections.EMPTY_LIST;
 
     List<CardResponse> responses = MAPPER.readValue(JsonUtil.toJson(response.getData()), new TypeReference<List<CardResponse>>(){});
-    return responses.stream().filter(coupon -> coupon.getExpirationDate().after(Calendar.getInstance().getTime()))
+    List<CardResponse> cardResponses = responses.stream()
+            .filter(coupon -> coupon.getExpirationDate().after(Calendar.getInstance().getTime()))
             .collect(Collectors.toList());
+
+    if(CollectionUtils.isEmpty(cardResponses)) {
+      request.setUserEmail("");
+      cardResponses = getCoupon(httpRequest, request);
+    }
+    return cardResponses;
   }
 
 }
