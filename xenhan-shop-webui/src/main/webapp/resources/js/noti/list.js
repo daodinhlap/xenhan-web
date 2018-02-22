@@ -52,7 +52,7 @@ function buildTable(ads) {
 
     table.hide();
     ads.forEach(function(ad, i){
-        var style = ad.promotionStatus == 2 ? "style='opacity: 0.5; font-weight: lighter;'" : "";
+        var style = (ad.promotionStatus == 2 || expired(ad)) ? "style='opacity: 0.5; font-weight: lighter;'" : "";
         table.append(
             $("<tr id='"+ad.id+"' onclick='showAd("+ad.id+")'>")
                 .append($("<td align='left' "+ style +">").text(ddMMyyyy(ad.startTime)))
@@ -65,6 +65,10 @@ function buildTable(ads) {
     table.fadeIn();
     $("#btn-close-all").show();
     $('[data-toggle="tooltip"]').tooltip();
+}
+
+function expired(ad) {
+    return ad.endTime < new Date().getTime();
 }
 
 function previewContent(content) {
