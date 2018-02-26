@@ -169,26 +169,24 @@ function getAdStorage() {
     return ads_Storage;
 }
 
-function getHistory(index) {
+function getHistory(index, request) {
     if(index && isNaN(index)) return;
 
     order = [];
     buildTable();
 
     _index = index ? index : 1;
-    var request = form.getRequest();
-    request.index = _index;
-    request.fromDate = yyyy_mm_dd(request.fromDate, "begin");
-    request.toDate = yyyy_mm_dd(request.toDate, "end");
+    if(!request) {
+        request = form.getRequest();
+        request.index = _index;
+        request.fromDate = yyyy_mm_dd(request.fromDate, "begin");
+        request.toDate = yyyy_mm_dd(request.toDate, "end");
+    }
 
     getTotal(request);
 
-    $.ajax({
-        type : 'POST',
-        contentType : 'application/json',
-        url : URL_HISTORY,
-        data : JSON.stringify(request)
-    }).done(function(data) {
+    callHistory(request)
+    .done(function(data) {
         if (!data) {
             noti.error([{message: data, id: "alert"}]);
             return;
@@ -202,6 +200,30 @@ function getHistory(index) {
         noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() {});
     }).always(function () {
     });
+}
+
+function callHistory(request) {
+    return $.ajax({
+        type : 'POST',
+        contentType : 'application/json',
+        url : URL_HISTORY,
+        data : JSON.stringify(request)
+    })
+}
+
+function getOrder(orderId) {
+    var request = form.getDefaultRequest();
+    request.keyword = orderId;
+    callHistory(request).done(function(data) {
+        if (!data) {
+            noti.error([{message: data, id: "alert"}]);
+            return;
+        }
+        buildTable();
+        orders = data.pageItems;
+        buildTable(data);
+        showDetailOrder(orderId);
+    })
 }
 
 function exportHistory(){
@@ -311,6 +333,15 @@ function showDetailOrder(orderId) {
 
 function buildOrderDetail(order) {
     $("#modal-order-id").text(order.id);
+    if(order.parentId != 0){
+        $("#parent-id").text(" - Đơn gốc: ")
+            .append($("<a>")
+                .css("cursor","pointer")
+                .attr("onclick","getOrder("+order.parentId+")")
+                .text(order.parentId));
+    } else {
+        $("#parent-id").text('');
+    }
     $("#modal-order-status").text(orderStatus(order.status));
     $("#modal-order-status").removeClass();
     $("#modal-order-status").addClass(corlorStatus(order.status));
@@ -372,6 +403,15 @@ function Form() {
             index : this.index(),
             keyword : this.keyword(),
             status: this.status(),
+            typeOfView: this.typeOfView(),
+            type: this.type()
+        }
+    }
+    this.getDefaultRequest = function () {
+        return {
+            fromDate : this.fromDate(),
+            toDate : this.toDate(),
+            index : this.index(),
             typeOfView: this.typeOfView(),
             type: this.type()
         }

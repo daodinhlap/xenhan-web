@@ -206,7 +206,7 @@
         <div class='modal-content'>
             <div class='modal-header'>
                 <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                <h4 class='modal-title'>Chi tiết đơn hàng: <span id="modal-order-id"></span></h4>
+                <h4 class='modal-title'>Chi tiết đơn hàng: <span id="modal-order-id"></span><span id="parent-id"></span></h4>
             </div>
 
             <div class='modal-body'>
