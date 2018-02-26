@@ -68,7 +68,7 @@ function buildTable(ads) {
 }
 
 function expired(ad) {
-    return ad.endTime < new Date().getTime();
+    return ad.endTime != 0 && ad.endTime < new Date().getTime();
 }
 
 function previewContent(content) {
