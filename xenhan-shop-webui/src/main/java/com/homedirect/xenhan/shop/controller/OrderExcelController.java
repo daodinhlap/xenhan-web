@@ -12,6 +12,7 @@ import com.homedirect.xenhan.user.model.OrderEntity;
 import com.homedirect.xenhan.user.model.ShopEntity;
 import com.homedirect.xenhan.user.model.request.OrderRequest;
 import com.homedirect.xenhan.voucher.Response;
+import com.homedirect.xenhan.web.util.OrderConfig;
 import com.homedirect.xenhan.web.util.OrderExcelUtil;
 import org.mvel2.ast.Or;
 import org.slf4j.Logger;
@@ -69,31 +70,34 @@ public class OrderExcelController extends AbstractController {
     mv.addObject("result", StringUtils.isEmpty(result) ? "" : result);
 
     List<OrderEntity> orders = (List<OrderEntity>)session.getAttribute(IMPORT_DATA);
-    if(!CollectionUtils.isEmpty(orders))  mv.addObject("orders", orders);
+    if(!CollectionUtils.isEmpty(orders)) {
+      mv.addObject("orders", orders);
+      mv.addObject("type", orders.get(0).getType());
+    }
     return mv;
   }
 
   @RequestMapping(value = "/nhap-don-tu-excel", method = RequestMethod.POST)
-  public byte[] createByExcel(@RequestParam(value = "qqfile", required = true) MultipartFile partFile,
+  public byte[] createByExcel(@RequestParam(value = "qqfile") MultipartFile partFile,
+                              @RequestParam(value = "type", required = false) Integer type,
                               HttpServletRequest httpRequest, HttpSession session) {
     File file = null;
     try {
       file = util.createTempFile(partFile);
 
       LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+      map.add("type", type == null ? 2 : type);
       map.add("file", new FileSystemResource(file));
       map.add("shop-name", session.getAttribute(AttributeConfig.SHOPNAME));
+
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-
       HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<LinkedMultiValueMap<String, Object>>(map, headers);
+
       ParameterizedTypeReference<RepositoryResponse<List<OrderEntity>>> reference = new ParameterizedTypeReference<RepositoryResponse<List<OrderEntity>>>() {};
       String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "read-order-excel");
-      
-      logger.info("Upload url ---> "+ url);
+      ResponseEntity<RepositoryResponse<List<OrderEntity>>> resp = apiExchangeService.getTemplate().exchange(url, HttpMethod.POST, requestEntity, reference);
 
-      ResponseEntity<RepositoryResponse<List<OrderEntity>>> resp = 
-          apiExchangeService.getTemplate().exchange(url, HttpMethod.POST, requestEntity, reference);
       session.setAttribute(IMPORT_DATA, resp.getBody().getData());
       return "done".getBytes();
     } catch (Exception e) {
@@ -140,6 +144,7 @@ public class OrderExcelController extends AbstractController {
     request.setPickupProvince(order.getShop().getTown().getName());
     request.setPickupDistrict(order.getShop().getTown().getDistrict().getName());
     request.setPickupPhone(order.getShop().getPhone());
+    request.setType(order.getType());
     return request;
   }
 

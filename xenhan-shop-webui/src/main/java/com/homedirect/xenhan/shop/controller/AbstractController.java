@@ -81,10 +81,6 @@ public class AbstractController {
             .filter(coupon -> coupon.getExpirationDate().after(Calendar.getInstance().getTime()))
             .collect(Collectors.toList());
 
-    if(CollectionUtils.isEmpty(cardResponses)) {
-      request.setUserEmail("");
-      cardResponses = getCoupon(httpRequest, request);
-    }
     return cardResponses;
   }
 
