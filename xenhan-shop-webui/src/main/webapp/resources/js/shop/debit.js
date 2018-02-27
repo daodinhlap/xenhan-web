@@ -16,7 +16,6 @@ $(document).ready(function($) {
     $('#fromDate').val(ddMMyyyy(firstDay.getTime()));
     $('#toDate').val(ddMMyyyy(today.getTime()));
 
-    //get Debit
     getDebit();
 });
 
@@ -25,7 +24,7 @@ function getDebit(index) {
     buildTable();
 
     var request = form.getRequest();
-    request.index = index? index: 1;
+    request.index = index? index : 1;
     request.fromDate = yyyy_mm_dd(request.fromDate, "begin");
     request.toDate = yyyy_mm_dd(request.toDate, "end");
 
@@ -47,9 +46,7 @@ function getDebit(index) {
     }).fail(function(data) {
         console.log(data);
         noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() { reload() });
-    }).always(function () {
-    });
-
+    })
 }
 
 function exportDebit() {
@@ -288,6 +285,7 @@ function Form() {
     this.fromDate = function() {return $('#fromDate').val()};
     this.toDate = function() {return $('#toDate').val()};
     this.status = function() {return $('#status').val()};
+    this.keyword = function() {return $('#keyword').val()};
 
     this.orderId = function() {return $('#order-id').val()};
 
@@ -309,6 +307,7 @@ function Form() {
             fromDate : this.fromDate(),
             toDate : this.toDate(),
             status : this.status(),
+            keyword: this.keyword(),
             index: 1
         }
     }

@@ -42,7 +42,6 @@ public class DebitController extends AbstractController {
     request.setShopName((String) httpRequest.getSession().getAttribute(AttributeConfig.SHOPNAME));
     request.setPeriodRecord(getPeriod(httpRequest));
 
-    logger.info("\n==> GET DEBIT:{}", JsonUtil.toJson(request));
     String url = apiExchangeService.createUrlWithToken(httpRequest,"shop", "debit");
     return apiExchangeService.post(httpRequest, url, request).getBody();
   }

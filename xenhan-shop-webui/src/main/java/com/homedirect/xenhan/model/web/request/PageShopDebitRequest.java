@@ -21,6 +21,7 @@ public class PageShopDebitRequest {
     private String toDate;
     private int index;
     private int size;
+    private String keyword;
 
     public PageShopDebitRequest() {
         super();
@@ -112,6 +113,14 @@ public class PageShopDebitRequest {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     @Override
