@@ -30,9 +30,7 @@ import java.util.List;
 @RequestMapping("/order")
 public class OrderController extends AbstractController {
 
-private @Autowired OrderExcelExport orderExcelExport;
-  
-  private final static Logger logger = LoggerFactory.getLogger(OrderController.class);
+  private @Autowired OrderExcelExport orderExcelExport;
   
   @GetMapping(value = "/lich-su")
   public ModelAndView historyView(HttpServletRequest httpRequest) throws IOException {
@@ -80,7 +78,7 @@ private @Autowired OrderExcelExport orderExcelExport;
   }
 
   /* CREATE Order */
-  @GetMapping(value = "/tao-don")
+  @GetMapping(value = "/tao-don-giao-hang")
   public ModelAndView create(@RequestParam(value = "type") Integer type,
                              @RequestParam(value = "order-id", required = false) Long orderId,
                              @RequestParam(value = "coupon", required = false) String coupon,
@@ -99,15 +97,6 @@ private @Autowired OrderExcelExport orderExcelExport;
       mv.addObject("order", order);
     }
     return mv;
-  }
-
-  private OrderEntity getOrder(HttpServletRequest httpRequest, Long orderId){
-    String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "get-order?order-id="+orderId);
-    RepositoryResponse<OrderEntity> orderResponse = apiExchangeService.get(httpRequest, url,
-        new TypeReference<RepositoryResponse<OrderEntity>>(){});
-
-    logger.info("\n GET ORDER INFO: {}", JsonUtil.toJson(orderResponse.getData()));
-    return orderResponse.getData();
   }
 
 
@@ -196,9 +185,9 @@ private @Autowired OrderExcelExport orderExcelExport;
   }
 
   @GetMapping(value = "/history")
-  public RepositoryResponse<?> getHistory (@RequestParam(name="order-id", required = true) long orderId,
-                                          @RequestParam(name="action", required = true) String action,
-                                       HttpServletRequest httpRequest) {
+  public RepositoryResponse<?> getHistory (@RequestParam(name="order-id") long orderId,
+                                           @RequestParam(name="action") String action,
+                                            HttpServletRequest httpRequest) {
 
     String url = apiExchangeService.createUrlWithToken(httpRequest,"order", "get-order-history");
     url += "&order-id="+ orderId + "&action=" + action;

@@ -1,6 +1,8 @@
 var coupons = [];
+var couponSelected = "";
 var URL_GET = BASE_URL + "/shop/get-coupons";
-var URL_CREATE_ORDER = BASE_URL + "/order/tao-don?type=0&coupon=";
+var URL_CREATE_PICKUP = BASE_URL + "/order/tao-don-lay-hang?type=0&coupon=";
+var URL_CREATE_DROPOFF = BASE_URL + "/order/tao-don-giao-hang?type=0&coupon=";
 //================================================================
 $(document).ready(function($) {
     get();
@@ -62,5 +64,14 @@ function buildTable(coupons) {
 
 function use(coupon) {
     if(!coupon) return;
-    window.location.href = URL_CREATE_ORDER + coupon;
+    couponSelected = coupon;
+    $("#order-coupon-type").modal();
+}
+
+function createPickupOrder() {
+    window.location.href = URL_CREATE_PICKUP + couponSelected;
+}
+
+function createDropoffsOrder() {
+    window.location.href = URL_CREATE_DROPOFF + couponSelected;
 }

@@ -76,4 +76,5 @@ function OrderRequest (){
         this.pickupAddress;
         this.pickupProvince;
         this.pickupDistrict;
+        this.type;
 }

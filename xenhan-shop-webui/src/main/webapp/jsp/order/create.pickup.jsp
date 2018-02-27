@@ -8,7 +8,7 @@
 <div class="col-md-6 col-md-offset-3  mobile-padding">
     <div id="info-receiver" class="container card">
 	<div class="center">
-		<h2 style=" color: blue;">${fn:toUpperCase(action)}</h2>
+		<h2 style=" color: orange;">${fn:toUpperCase(action)}</h2>
 	</div>
 	<p id="alert"></p>
 
@@ -74,16 +74,15 @@
 
 		<div class="col-xs-12 col-md-4 form-field">
 			<label>SĐT lấy hàng<span style="color: red">*</span></label>
-			<c:set var = "shopPhone" value = "${not empty order ? order.shop.phone : shop.phone}"/>
+			<c:set var = "shopPhone" value = "${order.shop.phone}"/>
 			<input placeholder="SĐT lấy hàng" value="${shopPhone}" class="form-control" id="shopPhone">
 		</div>
 
 		<div class="form-group col-xs-12 col-md-6">
 			<label>Địa chỉ lấy hàng<span style="color: red">*</span></label>
 
-			<c:set var = "pickupAddress" value = "${not empty order ? order.shop.address : shop.address}"/>
-			<input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực...." type="text" value="${pickupAddress}"
-				   class="form-control" id="pickupAddress">
+			<c:set var = "pickupAddress" value = "${order.shop.address}"/>
+			<input placeholder="Số nhà, tên tòa nhà, tên đường, tên khu vực...." type="text" value="${pickupAddress}" class="form-control" id="pickupAddress">
 		</div>
 
 	</div>
@@ -96,26 +95,26 @@
 		<label>Địa chỉ <span style="color: red">*</span></label>
 		<input placeholder="Số nhà, ngõ, đường, tòa nhà, khu vực ..."
 			   data-toggle="tooltip" title="Số nhà, ngõ, đường, phường ... Ngăn cách bởi dấu phẩy ','"
-			   class="form-control" id="address" value="${order.dropoff.address}" >
+			   class="form-control" id="address" value="${not empty order ? order.dropoff.address : shop.address}" >
 		<div class="alert alert-success" id="suggest-area">
 		</div>
 	</div>
 
 	<div class="col-xs-12 col-md-4 form-field">
 		<label>Họ tên</label>
-		<input placeholder="Họ tên người nhận hàng" value="${order.dropoff.contact.name}"
+		<input placeholder="Họ tên người nhận hàng" value="${not empty order ? order.dropoff.contact.name : shop.fullName}"
 			type="text" class="form-control" id="userName">
 	</div>
 	<div class="col-xs-12 col-md-4 form-field">
 		<label>Số điện thoại <span style="color: red">*</span></label>
-		<input placeholder="SĐT người nhận" type="text" class="form-control" id="phone" value="${order.dropoff.contact.phone}">
+		<input placeholder="SĐT người nhận" type="text" class="form-control" id="phone" value="${not empty order ? order.dropoff.contact.phone : shop.phone}">
 	</div>
 
 
 	<div class="col-xs-12 col-md-4 form-field">
 		<label>Quận/Huyện <span style="color: red">*</span></label>
 
-		<c:set var = "districtId" value = "${not empty order ? order.dropoff.town.district.id : ''}"/>
+		<c:set var = "districtId" value = "${not empty order ? order.dropoff.town.district.id : shop.town.district.id}"/>
 		<select class="form-control" name="district" id="district-1" style="display: none">
 			<option value="0">Chọn Quận/Huyện</option>
 			<option ${districtId == '1'? 'selected':''} value="1">Hoàn Kiếm</option>
@@ -175,6 +174,17 @@
 		</button>
 	</div>
 
+	<%--noti--%>
+	<div class="alert alert-success" style="clear: both; white-space: pre; padding: 0px;">
+		Đừng bỏ lỡ cơ hội hưởng giá ship đặc biệt không giới hạn từ Xe Nhàn nhé.
+		1. Thời gian tạo đơn: 19h - 7h mỗi ngày từ 02/01 - 10/02/2018
+		2. Giá khuyến mại: 15.000đ/ đơn
+		3. Không áp dụng kèm code khuyến mại
+		4. Không áp dụng khi sửa đơn sau khung giờ vàng
+		5. Khu vực giao hàng áp dụng:
+		- Nội thành Hà Nội
+		- Nội thành và Ngoại thành Hồ Chí Minh
+	</div>
 </div>
 
 <%-- --===============================================----%>
@@ -183,26 +193,35 @@
 		<h2>Tiền hàng</h2>
 	</div>
 
-	<div class="col-xs-12 col-md-4 form-field">
-		<label>Loại đơn<span style="color: red">*</span></label> <select
-			class="form-control" id="cod">
-			<option ${order.COD == 'true'? 'selected':''} value="true">COD</option>
-			<option ${order.COD == 'false'? 'selected':''} value="false">Ứng tiền</option>
-		</select>
+	<div class="col-xs-6 col-md-6 form-field" style="padding: 0px;">
+		<label>Có ứng tiền cho Shop không?<span style="color: red">*</span></label>
+	</div>
+	<div class="col-xs-6 col-md-6 form-field" style="text-align: right;padding: 0px">
+		<label class="radio-inline">
+			<input type="radio" name="type-order" value="true" checked="checked">Không
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="type-order" value="false">Có
+		</label>
 	</div>
 
-	<div class="col-xs-12 col-md-4 form-field">
-		<label id="amount-text">Tiền hàng<span style="color: red">*</span></label>
-		<input type="text" class="form-control" id="amount" style="text-align: right;"
-			   value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${empty order.goodAmount? 0: order.goodAmount}"/>">
-	</div>
-	<div class="col-xs-12 col-md-4 form-field dropdown">
+	<div class="col-xs-6 col-md-2 form-field dropdown" style="padding: 0px;clear: both;">
 		<label>Mã giảm giá</label>
+	</div>
+	<div class="col-xs-6 col-md-4 form-field dropdown" style="padding:0px;">
 		<input type="text" class="form-control dropdown-toggle" data-toggle="dropdown" id="coupon"
 			   value="${type == 1? order.coupon : ''}">
 		<input id="coupon-use-quick" type="hidden" value="${coupon}"/>
 		<ul id="coupons" class="dropdown-menu" role="menu" style=" margin-left: 15px;" aria-labelledby="coupon">
 		</ul>
+	</div>
+
+	<div class="col-xs-6 col-md-2 form-field" name="amount-label" style="display: none">
+		<label id="amount-text">Tiền ứng<span style="color: red">*</span></label>
+	</div>
+	<div class="col-xs-6 col-md-4 form-field" style="padding: 0px;display: none" name="amount-label-input">
+		<input type="text" class="form-control" id="amount" style="text-align: right;"
+			   value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${empty order.goodAmount? 0: order.goodAmount}"/>">
 	</div>
 
 	<div class="form-group">
@@ -231,6 +250,19 @@
 		<%--<button class="btn btn-primary">--%>
 			<%--Đặt lại&nbsp;<i class="fa fa-refresh"></i>--%>
 		<%--</button>--%>
+	</div>
+
+
+	<%--noti--%>
+	<div class="alert alert-success" style="clear: both; white-space: pre; padding: 0px;">
+		Đừng bỏ lỡ cơ hội hưởng giá ship đặc biệt không giới hạn từ Xe Nhàn nhé.
+		1. Thời gian tạo đơn: 19h - 7h mỗi ngày từ 02/01 - 10/02/2018
+		2. Giá khuyến mại: 15.000đ/ đơn
+		3. Không áp dụng kèm code khuyến mại
+		4. Không áp dụng khi sửa đơn sau khung giờ vàng
+		5. Khu vực giao hàng áp dụng:
+		- Nội thành Hà Nội
+		- Nội thành và Ngoại thành Hồ Chí Minh
 	</div>
 
 	<input type="hidden" id="order-id" value="${order.id}">

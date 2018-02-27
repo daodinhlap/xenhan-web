@@ -160,6 +160,9 @@ public class OrderExcelUtil {
     case "type":
       entity.setCOD(StringUtils.isEmpty(value) || Integer.parseInt(value) == 1);
       break;
+    case "type-order":
+      entity.setType(Integer.parseInt(value));
+      break;
     case "package":
       if(StringUtils.isEmpty(value)) value = "3";
       try {

@@ -121,6 +121,15 @@
 			<add-attribute value="/resources/plugins/barCode/JsBarcode.min.js" />
 		</put-list-attribute>
 	</definition>
+
+
+	<definition name="order.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/order/{1}.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/model/order.js" />
+			<add-attribute value="/resources/js/order/{1}.js" />
+		</put-list-attribute>
+	</definition>
 	
 	<definition name="shop.account" extends="layout.basic">
 		<put-attribute name="body" value="/jsp/shop/account.jsp" />
