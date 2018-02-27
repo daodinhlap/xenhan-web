@@ -175,17 +175,6 @@
 		</button>
 	</div>
 
-	<%--noti--%>
-	<div class="alert alert-success" style="clear: both; white-space: pre; padding: 0px;">
-		Đừng bỏ lỡ cơ hội hưởng giá ship đặc biệt không giới hạn từ Xe Nhàn nhé.
-		1. Thời gian tạo đơn: 19h - 7h mỗi ngày từ 02/01 - 10/02/2018
-		2. Giá khuyến mại: 15.000đ/ đơn
-		3. Không áp dụng kèm code khuyến mại
-		4. Không áp dụng khi sửa đơn sau khung giờ vàng
-		5. Khu vực giao hàng áp dụng:
-		- Nội thành Hà Nội
-		- Nội thành và Ngoại thành Hồ Chí Minh
-	</div>
 </div>
 
 <%-- --===============================================----%>
@@ -242,19 +231,6 @@
 		<%--<button class="btn btn-primary">--%>
 			<%--Đặt lại&nbsp;<i class="fa fa-refresh"></i>--%>
 		<%--</button>--%>
-	</div>
-
-
-	<%--noti--%>
-	<div class="alert alert-success" style="clear: both; white-space: pre; padding: 0px;">
-		Đừng bỏ lỡ cơ hội hưởng giá ship đặc biệt không giới hạn từ Xe Nhàn nhé.
-		1. Thời gian tạo đơn: 19h - 7h mỗi ngày từ 02/01 - 10/02/2018
-		2. Giá khuyến mại: 15.000đ/ đơn
-		3. Không áp dụng kèm code khuyến mại
-		4. Không áp dụng khi sửa đơn sau khung giờ vàng
-		5. Khu vực giao hàng áp dụng:
-		- Nội thành Hà Nội
-		- Nội thành và Ngoại thành Hồ Chí Minh
 	</div>
 
 	<input type="hidden" id="order-id" value="${order.id}">

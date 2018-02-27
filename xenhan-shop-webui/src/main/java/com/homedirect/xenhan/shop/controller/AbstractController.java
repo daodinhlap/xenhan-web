@@ -3,6 +3,19 @@
  **************************************************************************/
 package com.homedirect.xenhan.shop.controller;
 
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.homedirect.repo.model.response.RepositoryResponse;
@@ -15,18 +28,6 @@ import com.homedirect.xenhan.model.web.response.CardResponse;
 import com.homedirect.xenhan.user.model.OrderEntity;
 import com.homedirect.xenhan.util.JsonUtil;
 import com.homedirect.xenhan.web.connection.ApiExchangeService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class AbstractController {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -74,13 +75,22 @@ public class AbstractController {
 
     String url = apiExchangeService.createUrlWithToken(httpRequest,"coupon", "list");
     RepositoryResponse<Object> response = apiExchangeService.post(httpRequest, url, request).getBody();
-    if(apiExchangeService.isUnSuccessResponse(response)) return Collections.EMPTY_LIST;
+    List<CardResponse> cardResponses = resolveCoupon(response);
 
+    if(CollectionUtils.isEmpty(cardResponses)) {
+      request.setUserEmail(null);
+      response = apiExchangeService.post(httpRequest, url, request).getBody();
+      return resolveCoupon(response);
+    }
+    return cardResponses;
+  }
+
+  private List<CardResponse> resolveCoupon(RepositoryResponse<Object> response) throws IOException {
+    if(apiExchangeService.isUnSuccessResponse(response)) return Collections.EMPTY_LIST;
     List<CardResponse> responses = MAPPER.readValue(JsonUtil.toJson(response.getData()), new TypeReference<List<CardResponse>>(){});
     List<CardResponse> cardResponses = responses.stream()
-            .filter(coupon -> coupon.getExpirationDate().after(Calendar.getInstance().getTime()))
-            .collect(Collectors.toList());
-
+        .filter(coupon -> coupon.getExpirationDate().after(Calendar.getInstance().getTime()))
+        .collect(Collectors.toList());
     return cardResponses;
   }
 
@@ -88,7 +98,7 @@ public class AbstractController {
   protected OrderEntity getOrder(HttpServletRequest httpRequest, Long orderId){
     String url = apiExchangeService.createUrlWithToken(httpRequest, "order", "get-order?order-id="+orderId);
     RepositoryResponse<OrderEntity> orderResponse = apiExchangeService.get(httpRequest, url,
-            new TypeReference<RepositoryResponse<OrderEntity>>(){});
+        new TypeReference<RepositoryResponse<OrderEntity>>(){});
 
     logger.info("\n GET ORDER INFO: {}", JsonUtil.toJson(orderResponse.getData()));
     return orderResponse.getData();

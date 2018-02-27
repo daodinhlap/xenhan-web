@@ -101,7 +101,7 @@ function showAd(data) {
     if(!data.ads || data.ads.length == 0) return;
     var ads = data.ads;
     ads = ads.filter(function (ad) {
-        return !hasSeen(ad);
+        return !hasSeen(ad) && !expired(ad);
     });
     if(ads.length == 0) return ;
 
@@ -135,6 +135,10 @@ function hasSeen(data) {
         }
         return false;
     }
+}
+
+function expired(ad) {
+    return ad.endTime < new Date().getTime();
 }
 
 function save2Local(ads) {
