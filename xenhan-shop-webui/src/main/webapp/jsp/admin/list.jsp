@@ -69,7 +69,7 @@
 
                     <div class="form-group">
                         <label class="radio-inline">
-                            <input type="radio" name="member-ender" value="1" checked="checked">Nam
+                            <input type="radio" name="member-gender" value="1" checked="checked">Nam
                         </label>
                         <label class="radio-inline">
                             <input type="radio" name="member-gender" value="2">Nữ

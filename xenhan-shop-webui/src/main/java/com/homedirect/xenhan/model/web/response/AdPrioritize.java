@@ -3,25 +3,27 @@ package com.homedirect.xenhan.model.web.response;
 
 import com.homedirect.xenhan.user.model.response.AdvertisingEntity;
 
+import java.util.List;
+
 public class AdPrioritize {
 
-  private AdvertisingEntity ad;
+  private List<AdvertisingEntity> ads;
   private int numberBadge;
 
   public AdPrioritize() {
   }
 
-  public AdPrioritize(AdvertisingEntity ad, int numberBadge) {
-    this.ad = ad;
+  public AdPrioritize(List<AdvertisingEntity> ads, int numberBadge) {
+    this.ads = ads;
     this.numberBadge = numberBadge;
   }
 
-  public AdvertisingEntity getAd() {
-    return ad;
+  public List<AdvertisingEntity> getAds() {
+    return ads;
   }
 
-  public void setAd(AdvertisingEntity ad) {
-    this.ad = ad;
+  public void setAds(List<AdvertisingEntity> ads) {
+    this.ads = ads;
   }
 
   public int getNumberBadge() {

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -14,12 +15,13 @@ public class CouponController extends AbstractController {
 
   @GetMapping(value = "/khuyen-mai")
   public ModelAndView coupons(){
-    return new ModelAndView("coupon.list");
+    ModelAndView mv = new ModelAndView("coupon.list");
+    mv.addObject("title", "Xe Nhàn - Mã khuyến mại");
+    return mv;
   }
 
   @PostMapping(value = "/get-coupons")
-  public List getCoupons(@RequestBody CouponGetRequest request, HttpServletRequest httpRequest) {
-    request.setCampaignPrefix(CouponGetRequest.XN_CAMPAIGN_PREFIX);
+  public List getCoupons(@RequestBody CouponGetRequest request, HttpServletRequest httpRequest) throws IOException {
     return getCoupon(httpRequest, request);
   }
 }

@@ -5,7 +5,18 @@ var URL_VIEW = BASE_URL + "/noti/view";
 //================================================================
 $(document).ready(function($) {
     get();
+    activeCarouselAds();
 });
+
+function activeCarouselAds() {
+    $('.owl-carousel').owlCarousel({
+        autoplay:true,
+        autoplayTimeout:5000,
+        responsive:{
+            0:{ items:1 }
+        }
+    })
+}
 
 function get() {
     ads = [];
@@ -41,7 +52,7 @@ function buildTable(ads) {
 
     table.hide();
     ads.forEach(function(ad, i){
-        var style = ad.promotionStatus == 2 ? "style='opacity: 0.5; font-weight: lighter;'" : "";
+        var style = (ad.promotionStatus == 2 || expired(ad)) ? "style='opacity: 0.5; font-weight: lighter;'" : "";
         table.append(
             $("<tr id='"+ad.id+"' onclick='showAd("+ad.id+")'>")
                 .append($("<td align='left' "+ style +">").text(ddMMyyyy(ad.startTime)))
@@ -56,6 +67,10 @@ function buildTable(ads) {
     $('[data-toggle="tooltip"]').tooltip();
 }
 
+function expired(ad) {
+    return ad.endTime != 0 && ad.endTime < new Date().getTime();
+}
+
 function previewContent(content) {
     if(content.length < 80) return content + " ...";
     return content.substr(0, 80) + " ...";
@@ -66,7 +81,7 @@ function showAd(id) {
     if(!ad.contentNoti) return;
 
     $("#ad-title").text(ad.title);
-    $("#ad-content").text(ad.contentNoti);
+    $("#ad-content").html(ad.contentNoti);
     $("#btn-close").attr("onclick", "closeAd("+id+")");
     $("#detail-ad").modal("show");
     if(ad.promotionStatus == 1 || ad.promotionStatus == 0) {

@@ -4,23 +4,28 @@
 package com.homedirect.xenhan.shop.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.homedirect.repo.model.response.RepositoryResponse;
 import com.homedirect.xenhan.coupon.CouponGetRequest;
 import com.homedirect.xenhan.model.AttributeConfig;
 import com.homedirect.xenhan.model.PeriodRecord;
 import com.homedirect.xenhan.model.Shop;
 import com.homedirect.xenhan.model.data.ShopProfileData;
+import com.homedirect.xenhan.model.web.response.CardResponse;
 import com.homedirect.xenhan.util.JsonUtil;
 import com.homedirect.xenhan.web.connection.ApiExchangeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AbstractController {
   protected final static Logger logger = LoggerFactory.getLogger(AbstractController.class);
@@ -29,8 +34,8 @@ public class AbstractController {
   public static final int DEFAULT_PACKAGE_ID = 2;
   public static PeriodRecord DEFAULT_PERIOD = null;
 
-  @Autowired
-  protected ApiExchangeService apiExchangeService;
+  protected @Autowired ApiExchangeService apiExchangeService;
+  private ObjectMapper MAPPER = new ObjectMapper();
 
   public AbstractController() {
   }
@@ -60,12 +65,30 @@ public class AbstractController {
     return DEFAULT_PERIOD;
   }
 
-  protected List getCoupon(HttpServletRequest httpRequest, CouponGetRequest request){
-    String url = apiExchangeService.createUrlWithToken(httpRequest,"coupon", "list");
+  protected List<CardResponse> getCoupon(HttpServletRequest httpRequest, CouponGetRequest request) throws IOException {
+    Shop shop = getShopInfo(httpRequest);
+    request.setCampaignPrefix(CouponGetRequest.XN_CAMPAIGN_PREFIX);
+    request.setUserEmail(shop.getEmail());
 
+    String url = apiExchangeService.createUrlWithToken(httpRequest,"coupon", "list");
     RepositoryResponse<Object> response = apiExchangeService.post(httpRequest, url, request).getBody();
+    List<CardResponse> cardResponses = resolveCoupon(response);
+
+    if(CollectionUtils.isEmpty(cardResponses)) {
+      request.setUserEmail(null);
+      response = apiExchangeService.post(httpRequest, url, request).getBody();
+      return resolveCoupon(response);
+    }
+    return cardResponses;
+  }
+
+  private List<CardResponse> resolveCoupon(RepositoryResponse<Object> response) throws IOException {
     if(apiExchangeService.isUnSuccessResponse(response)) return Collections.EMPTY_LIST;
-    return (List) response.getData();
+    List<CardResponse> responses = MAPPER.readValue(JsonUtil.toJson(response.getData()), new TypeReference<List<CardResponse>>(){});
+    List<CardResponse> cardResponses = responses.stream()
+            .filter(coupon -> coupon.getExpirationDate().after(Calendar.getInstance().getTime()))
+            .collect(Collectors.toList());
+    return cardResponses;
   }
 
 }

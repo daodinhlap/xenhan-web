@@ -4,6 +4,7 @@ var debits = [];
 var debitSelected = {};
 
 var URL_DEBIT = BASE_URL + "/shop/debit";
+var URL_EXPORT = BASE_URL + "/shop/export-debit";
 var URL_SHOP_PAYMENT = BASE_URL + "/shop/shop-payment";
 //================================================================
 //ON LOADED
@@ -49,6 +50,14 @@ function getDebit(index) {
     }).always(function () {
     });
 
+}
+
+function exportDebit() {
+    var request = "";
+    request += "?fromDate="+yyyy_mm_dd(form.fromDate(), "begin");
+    request += "&toDate="+yyyy_mm_dd(form.toDate(), "end");
+    request += "&status="+form.status();
+    window.location.href = URL_EXPORT + request;
 }
 
 function getShopPayment(debitId, index) {
