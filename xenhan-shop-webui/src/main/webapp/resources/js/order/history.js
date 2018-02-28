@@ -138,7 +138,7 @@ function hasSeen(data) {
 }
 
 function expired(ad) {
-    return ad.endTime < new Date().getTime();
+    return ad.endTime != 0 && ad.endTime < new Date().getTime();
 }
 
 function save2Local(ads) {
