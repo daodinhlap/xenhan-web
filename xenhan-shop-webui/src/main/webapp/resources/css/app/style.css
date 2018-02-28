@@ -1188,4 +1188,13 @@ div#suggest-area{
     margin-right: auto;
     margin-top: 10px;
 }
-
+.modal-transparent{
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border:none;
+}
+.modal-transparent > .modal-body{
+    background-color: white
+}
