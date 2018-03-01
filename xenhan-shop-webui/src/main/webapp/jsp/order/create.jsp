@@ -175,6 +175,17 @@
 		</button>
 	</div>
 
+	<%--noti--%>
+	<div class="alert alert-success" style="clear: both; white-space: pre; padding: 0px;">
+		Tạo đơn giờ vàng nhận ngay ưu đãi giá phí ship chỉ 15.000đ/đơn
+
+		❤ Thời gian áp dụng: từ 01/03 - 31/03/2018
+		❤ Giờ tạo đơn: 19h - 7h
+		❤ Khu vực giao hàng được áp dụng: Nội thành Hà Nội, Nội thành và Ngoại thành HCM
+		❤ Không áp dụng kèm code khuyến mại
+		❤ Không áp dụng khi sửa đơn sau khung giờ vàng
+	</div>
+
 </div>
 
 <%-- --===============================================----%>
