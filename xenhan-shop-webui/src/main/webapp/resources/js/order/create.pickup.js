@@ -5,6 +5,7 @@ var districtSuggest;
 var hadSelectDistrict = false;
 var invokerDetect;
 var coupons = [];
+var ORDER_TYPE = 1;
 
 var URL_CREATE_ORDER_VIEW = BASE_URL + "/order/tao-don-lay-hang?type=0";
 var URL_CREATE_ORDER = BASE_URL + "/order/create-order";
@@ -235,7 +236,8 @@ function next() {
     noti.cleanError();
 
     clearTab2();
-    getFee(form.provinceId(), form.districtId(), form.id());
+
+    getFee(form.provinceId(), form.pickupDistrictId(), form.id());
     move();
 }
 
@@ -419,7 +421,7 @@ function makeModel(){
     order.pickupProvince = form.province();
     order.pickupDistrict = form.pickupDistrict();
     order.pickupPhone = form.shopPhone();
-    order.type = 1;
+    order.type = ORDER_TYPE;
 
     return order;
 }
