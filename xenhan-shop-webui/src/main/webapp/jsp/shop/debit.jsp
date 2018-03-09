@@ -16,7 +16,7 @@
 
             <div id="filter-area">
                 <!-- FROM -->
-                <div class="col-md-4 col-xs-6 date-input">
+                <div class="col-md-3 col-xs-6 date-input">
                     <div class="form-group">
                         <div class="input-group date">
                             <span style="padding: 4px" class="input-group-addon">Từ</span>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <!-- TO -->
-                <div class="col-md-4 col-xs-6 date-input">
+                <div class="col-md-3 col-xs-6 date-input">
                     <div class="form-group">
                         <div class="input-group date">
                             <span style="padding: 4px" class="input-group-addon">Đến</span>
@@ -39,7 +39,7 @@
                 </div>
 
                 <!-- STATUS -->
-                <div class="col-md-4 col-xs-6 date-input" style="display: none;">
+                <div class="col-md-3 col-xs-6 date-input" style="display: none;">
                     <div class="form-group date">
                         <select id="status" class="form-control">
                             <option value="-1">Trạng thái</option>
@@ -47,6 +47,15 @@
                             <option value="0">Chờ thanh toán</option>
                             <option value="4">Đã thanh toán</option>
                         </select>
+                    </div>
+                </div>
+
+                <!-- KEYWORD -->
+                <div class="col-md-2 col-xs-6 date-input">
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <input placeholder="Tìm theo mã đơn hàng" type="text" class="form-control pull-right" id="keyword" name="keyword">
+                        </div>
                     </div>
                 </div>
 

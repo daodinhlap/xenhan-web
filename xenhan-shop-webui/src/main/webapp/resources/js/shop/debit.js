@@ -16,7 +16,6 @@ $(document).ready(function($) {
     $('#fromDate').val(ddMMyyyy(firstDay.getTime()));
     $('#toDate').val(ddMMyyyy(today.getTime()));
 
-    //get Debit
     getDebit();
 });
 
@@ -25,7 +24,7 @@ function getDebit(index) {
     buildTable();
 
     var request = form.getRequest();
-    request.index = index? index: 1;
+    request.index = index? index : 1;
     request.fromDate = yyyy_mm_dd(request.fromDate, "begin");
     request.toDate = yyyy_mm_dd(request.toDate, "end");
 
@@ -47,9 +46,7 @@ function getDebit(index) {
     }).fail(function(data) {
         console.log(data);
         noti.fail("Thông báo!","Có lỗi xảy ra. Xin vui lòng thử lại sau", function() { reload() });
-    }).always(function () {
-    });
-
+    })
 }
 
 function exportDebit() {
@@ -155,11 +152,14 @@ function buildTablePayment(paymentsPage) {
     var index = page.pageNumber;
     var payments = page.pageItems;
     payments.forEach(function(payment, i){
+        var pic_order_type = typeOfOrder(payment.order.type);
+        var title_des_pic = desTypeOfOrder(payment.order.type);
         table.append(
             $("<tr>").append($("<td>"+(20*(index-1) + (i+1))+"</td>"))
                 .append($("<td align=\"center\">"+ddMM(payment.order.createdDate)+"</td>"))
                 .append($("<td align=\"center\">"+ddMM(payment.closeDate)+"</td>"))
-                .append($("<td align=\"center\">"+payment.order.id+"</td>"))
+                .append($("<td align=\"center\">"+payment.order.id
+                    + " <img "+title_des_pic+" width='20px' src='/resources/images/icon-"+pic_order_type+".png'/></td>"))
                 .append($("<td align=\"left\" class='order-"+corlorStatus(payment.order.status)+"'>"+orderStatus(payment.order.status)+"</td>"))
                 .append($("<td align=\"left\">"+payment.order.dropoff.contact.name+"<br>"+payment.order.dropoff.contact.phone +"</td>"))
                 .append($("<td align=\"left\">"+payment.order.dropoff.address +"<br>"+
@@ -176,6 +176,7 @@ function buildTablePayment(paymentsPage) {
     });
     buildPagination(page, "pagination-payments");
     showShopPayment();
+    $('[data-toggle="tooltip"]').tooltip();
 }
 
 function buildPagination(page, id){
@@ -284,6 +285,7 @@ function Form() {
     this.fromDate = function() {return $('#fromDate').val()};
     this.toDate = function() {return $('#toDate').val()};
     this.status = function() {return $('#status').val()};
+    this.keyword = function() {return $('#keyword').val()};
 
     this.orderId = function() {return $('#order-id').val()};
 
@@ -305,6 +307,7 @@ function Form() {
             fromDate : this.fromDate(),
             toDate : this.toDate(),
             status : this.status(),
+            keyword: this.keyword(),
             index: 1
         }
     }

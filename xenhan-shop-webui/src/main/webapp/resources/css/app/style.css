@@ -1188,6 +1188,13 @@ div#suggest-area{
     margin-right: auto;
     margin-top: 10px;
 }
+
+.btn-bold {
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+}
+
 .modal-transparent{
     background-color: transparent;
     -webkit-box-shadow: none;

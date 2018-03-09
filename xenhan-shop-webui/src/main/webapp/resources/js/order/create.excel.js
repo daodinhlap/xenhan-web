@@ -1,18 +1,41 @@
-$('#fine-uploader-gallery').fineUploader({
-	template: 'qq-template-excel',
-	request: {
-		endpoint: '/order-excel/nhap-don-tu-excel'
-	},
-	validation: {
-		allowedExtensions: ['xlsx', 'xls']
-	},
-	callbacks: {
-		onComplete: function(id, name, response) {
-			if(response['success'] != true) return;
-			location.reload();
-		}
-	}
-});
+$(document).ready(function () {
+    var typeOfImportOrder = $("#selected-type").val();
+	if(!typeOfImportOrder) {
+        $("#order-type").modal();
+    }
+    configUploader();
+})
+
+function selectType(type) {
+	if(type == 1){
+        $("#des-type").css("color","orange").text(" : LẤY HÀNG HỘ SHOP")
+    } else {
+        $("#des-type").css("color","green").text(" : GIAO HÀNG CHO KHÁCH")
+    }
+    $("#selected-type").val(type);
+    $("#order-type").modal("hide");
+    configUploader(type)
+}
+
+function configUploader(type) {
+	if(!type) type = 2;
+    $('#fine-uploader-gallery').fineUploader({
+        template: 'qq-template-excel',
+        request: {
+            endpoint: '/order-excel/nhap-don-tu-excel?type=' + type
+        },
+        validation: {
+            allowedExtensions: ['xlsx', 'xls']
+        },
+        callbacks: {
+            onComplete: function(id, name, response) {
+                if(response['success'] != true) return;
+                location.reload();
+            }
+        }
+    });
+
+}
 
 
 $(function() {
@@ -26,6 +49,14 @@ $(function() {
 				{value: 2, text: 'Ứng Tiền'}
 				]
 		});
+        $('#type-order-' + i).editable({
+            emptytext: '...',
+            mode: "inline",
+            source: [
+                {value: 1, text: 'Lấy hàng'},
+                {value: 2, text: 'Giao hàng'}
+            ]
+        });
 		$('#package-' + i).editable({
 			emptytext: '...',
 			mode: "inline",

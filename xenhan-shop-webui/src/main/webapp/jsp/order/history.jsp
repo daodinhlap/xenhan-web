@@ -41,19 +41,9 @@
                 </div>
             </div>
 
-            <!-- type view -->
-            <div class="col-md-2 col-xs-6 date-input">
-                <div class="form-group date">
-                    <select id="typeOfView" class="form-control">
-                        <option value="0">Ngày tạo</option>
-                        <option value="1">Ngày kết thúc</option>
-                    </select>
-                </div>
-            </div>
-
             <!-- STATUS -->
             <div class="col-md-2 col-xs-6 date-input">
-                <div class="form-group date">
+                <div class="form-group date" data-toggle="tooltip" title="Trạng thái đơn hàng">
                     <select id="status" class="form-control">
                         <option value="">Trạng thái</option>
                         <option value="0">Tất cả</option>
@@ -67,8 +57,29 @@
                 </div>
             </div>
 
+            <!-- type order -->
+            <div class="col-md-2 col-xs-6 date-input">
+                <div class="form-group date" data-toggle="tooltip" title="Loại đơn hàng">
+                    <select id="typeOrder" class="form-control">
+                        <option value="0">Tất cả loại đơn</option>
+                        <option value="1">Lấy hàng</option>
+                        <option value="2">Giao hàng</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- type view -->
+            <div class="col-md-1 col-xs-6 date-input">
+                <div class="form-group date" data-toggle="tooltip" title="Xem theo">
+                    <select id="typeOfView" class="form-control">
+                        <option value="0">Ngày tạo</option>
+                        <option value="1">Ngày kết thúc</option>
+                    </select>
+                </div>
+            </div>
+
             <%--KEY WORD --%>
-            <div class="col-md-4 col-xs-12 date-input">
+            <div class="col-md-3 col-xs-12 date-input">
                 <div class="form-group">
                     <input class="form-control" type="text"
                            data-toggle="tooltip" title="Số vận đơn, địa chỉ giao hàng, mã giảm giá, SĐT người tạo, SĐT nhận hàng, ghi chú ... "
@@ -117,16 +128,16 @@
                                     </ul>
                                 </div>
                             </th>
-                            <th style="text-align: left">
+                            <th style="text-align: left; width: 90px;">
                                 <i style="color: #92c78a;" class="fa fa-barcode" data-toggle="tooltip" title="Mã vận đơn"></i>
                             </th>
                             <th style="text-align: center; width: 150px">
                                 <i style="color: #92c78a;" class="fa fa-commenting" data-toggle="tooltip" title="Trạng thái đơn hàng"></i>
                             </th>
-                            <th style="text-align: left">
+                            <th style="text-align: left;width: 100px;">
                                 <i style="color: #92c78a;" class="fa fa-calendar-plus-o" data-toggle="tooltip" title="Ngày tạo đơn"></i>
                             </th>
-                            <th style="text-align: left">
+                            <th style="text-align: left;width: 100px;">
                                 <i style="color: #92c78a;" class="fa fa-calendar-check-o" data-toggle="tooltip" title="Ngày kết thúc"></i>
                             </th>
                             <th style="text-align: left">
@@ -179,7 +190,7 @@
     <div class="modal-dialog">
         <div class="modal-content modal-transparent">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" style="color: white">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="owl-carousel owl-theme" id="list-ad">
@@ -189,7 +200,104 @@
     </div>
 </div>
 
+<%-- detail order--%>
+<div id='modal-order-detail' class='modal fade' role='dialog'>
+    <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                <h4 class='modal-title'>Chi tiết đơn hàng: <span id="modal-order-id"></span><span id="parent-id"></span></h4>
+            </div>
 
+            <div class='modal-body'>
+
+                <div class='col-md-12' title='Trạng thái đơn hàng'>
+                    <p style='text-align: center;' id="modal-order-status"></p>
+                    <p style='text-align: left;'>
+                        <span style='font-weight: bold;' id="modal-order-fail-message"></span>
+                    </p>
+                </div>
+                <div class='col-md-3 content-right'>
+                    <p style='text-decoration: underline;' title='Ngày tạo đơn'><i>Đơn hàng:</i></p>
+                    <p title='Ngày tạo đơn'>
+                        <img src='/resources/images/icon_ngaytao_donhang.png' class='img-icon'><span id="modal-created-order"></span>
+                    </p>
+                    <p title='Ngày kết thúc'>
+                        <img src='/resources/images/icon_ngayketthuc_donhang.png' class='img-icon'><span id="modal-closed-order"></span>
+                    </p>
+                    <p><img src='/resources/images/icon_loai_donhang.png' class='img-icon'>
+                        <span id="modal-order-COD"></span>
+                    </p>
+                    <p title='Mã coupon khuyến mại'>
+                        <i class='fa fa-gift' style='color: #eb7a25;'></i>&nbsp;&nbsp;
+                        <span id="modal-coupon-order"></span>
+                    </p>
+                    <p title='Phí ship đã trừ mã giảm giá'>
+                        <img src='/resources/images/icon_green_ship_amount.png' class='img-icon'>
+                        <span id="modal-ship-order"></span>
+                    </p>
+                    <p title='Tiền hàng'>
+                        <img src='/resources/images/icon_green_amount.png' class='img-icon'>
+                        <span id="modal-amount-order"></span>
+                    </p>
+                </div>
+
+                <div class='col-md-3 content-right'>
+                    <p style='text-decoration: underline;'><i>Lấy hàng:</i></p>
+                    <p title='Địa chỉ lấy hàng'>
+                        <img src='/resources/images/icon_location.png' class='img-icon'>
+                        <span id="modal-address-order"></span>
+                    </p>
+
+                    <p title='Tên chủ hàng'>
+                        <img src='/resources/images/icon_taikhoan.png' class='img-icon'>
+                        <span id="modal-fullname-shop"></span>
+                    </p>
+
+                    <p title='SĐT chủ hàng'>
+                        <img src='/resources/images/icon_phone.png' class='img-icon'>
+                        <span id="modal-phone-shop"></span>
+                    </p>
+                </div>
+
+                <div class='col-md-3 content-right'>
+                    <p style='text-decoration: underline;' title='Ngày tạo đơn'><i>Giao hàng:</i></p>
+                    <p title='Địa chỉ giao hàng'>
+                        <img src='/resources/images/icon_location.png' class='img-icon'>
+                        <span id="modal-dropoff-address"></span>
+                    </p>
+                    <p title='Tên khách hàng'>
+                        <img src='/resources/images/icon_taikhoan.png' class='img-icon'>
+                        <span id="modal-contact-name"></span>
+                    </p>
+                    <p title='SĐT khách hàng'>
+                        <img src='/resources/images/icon_phone.png' class='img-icon'>
+                        <span id="modal-contact-phone"></span>
+                    </p>
+                    <p title='Ghi chú'>
+                        <i class='fa fa-commenting' style='color: #eb7a25;'></i>&nbsp;&nbsp;
+                        <span id="modal-note"></span>
+                    </p>
+                </div>
+
+                <div class='col-md-3 content-right' style="display: none" id="modal-info-shipper">
+                    <p style='text-decoration: underline;' title='Ngày tạo đơn'><i>Tài xế:</i></p>
+                    <p title='Tên tài xế'>
+                        <img src='/resources/images/icon_logo.png' class='img-icon'>
+                        <span id="modal-shipper-fullname"></span>
+                    </p>
+                    <p title='SĐT tài xế'>
+                        <img src='/resources/images/icon_phone.png' class='img-icon'>
+                        <span id="modal-shipper-phone"></span>
+                    </p>
+                </div>
+            </div>
+
+            <div class='modal-footer'>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

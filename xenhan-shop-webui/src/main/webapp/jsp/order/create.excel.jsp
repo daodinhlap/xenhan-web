@@ -12,6 +12,7 @@
             <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
                 <span class="qq-upload-drop-area-text-selector"></span>
             </div>
+
             <div class="qq-upload-button-selector qq-upload-button">
                 <div>Chọn tập Excel</div>
             </div>
@@ -83,12 +84,13 @@
 <div class="col-md-8 col-md-offset-2  mobile-padding">
 	<div id="info-receiver" class="container card">
 		<div class="center" style="margin-top: 20px">
-			<h2 class="page-header">TẠO ĐƠN BẰNG EXCEL</h2>
+            <h2 class="page-header">TẠO ĐƠN BẰNG EXCEL<span id="des-type">${(type != null && type == 1) ? " : LẤY HÀNG HỘ SHOP" : " : GIAO HÀNG CHO KHÁCH"}</span></h2>
 		</div>
-		<div class="center container"
-			style="margin-bottom: 20px; margin-top: 30px">
+        <input id="selected-type" type="hidden" value="${type != null ? type : ''}">
 
-			<div class="row">
+		<div class="center container" style="margin-bottom: 20px">
+
+			<div class="row" style="margin-top: 30px;">
 				<div class="col-xs-12 col-sm-6 col-lg-6">
 					<div id="fine-uploader-gallery"></div>
 				</div>
@@ -99,6 +101,12 @@
 					</a><br>
 					<span style="color: red">Shop vui lòng tải file mẫu mới cập nhật ngày <strong>12/12/2017</strong></span>
 				</div>
+<%--				<div  class="col-xs-6 col-lg-4">
+					<select class="form-control" id="type" style="width: 205px">
+						<option value="2">Giao hàng cho khách</option>
+						<option value="1">Lấy hàng cho Shop</option>
+					</select>
+				</div>--%>
 			</div>
 
 			<c:if test="${not empty error}">
@@ -128,7 +136,7 @@
 									<b>Đơn hàng</b>
 								</div>
 								<div class="col-xs-6 col-sm-3">
-									<b>Thu hộ</b>
+									<b>Tiền hàng</b>
 								</div>
 								<div class="col-xs-6 col-sm-3">
 									<b>Phí ship</b>
@@ -294,6 +302,14 @@
 											data-pk="${loop.index}" data-original-title="Chọn Loại Đơn"
 											class="editable editable-empty">${order.COD ? 'COD' : 'Ứng tiền'}</a></td>
 									</tr>
+                                    <tr>
+                                        <td width="40%">Kiểu đơn*:</td>
+                                        <td><a href="#" id="type-order-${loop.index}"
+                                               data-type="select" data-url="/order-excel/sua-don-tu-excel"
+                                               data-value="${order.type}" data-name="type-order"
+                                               data-pk="${loop.index}" data-original-title="Chọn kiểu Đơn"
+                                               class="editable editable-empty">${order.type == 1 ? 'Lấy hàng' : 'Giao hàng'}</a></td>
+                                    </tr>
 									<tr>
 										<td>Tiền thu hộ*:</td>
 										<td><a href="#" data-url="/order-excel/sua-don-tu-excel"
@@ -346,6 +362,25 @@
 		</div>
 	</c:if>
 </div>
+
+<%--modal select create order--%>
+<div id="order-type" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm" style=" top: 45%;">
+        <div class="modal-content">
+            <div class="modal-body" style="text-align: center;padding: 3px;">
+				<button type="button" class="btn btn-success btn-lg btn-bold" onclick="selectType(2)">
+					<img width="30px" src="/resources/images/icon-dropoff-w.png"/>
+					TẠO ĐƠN GIAO HÀNG CHO KHÁCH</button>
+                <button type="button" class="btn btn-warning btn-lg btn-bold" onclick="selectType(1)"
+						style="margin-top: 10px;" >
+                    <img width="30px" src="/resources/images/icon-pickup-w.png"/>
+                        TẠO ĐƠN LẤY HÀNG HỘ SHOP</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <link href="/resources/css/app/fine-uploader.min.css" rel="stylesheet">
 <style>
 .borderless td, .borderless th {

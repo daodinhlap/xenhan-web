@@ -5,8 +5,9 @@ var districtSuggest;
 var hadSelectDistrict = false;
 var invokerDetect;
 var coupons = [];
+var ORDER_TYPE = 1;
 
-var URL_CREATE_ORDER_VIEW = BASE_URL + "/order/tao-don-giao-hang?type=0";
+var URL_CREATE_ORDER_VIEW = BASE_URL + "/order/tao-don-lay-hang?type=0";
 var URL_CREATE_ORDER = BASE_URL + "/order/create-order";
 var URL_EDIT_ORDER = BASE_URL + "/order/edit";
 var URL_DETECT = BASE_URL + "/detect?address=";
@@ -16,15 +17,23 @@ var URL_GET_COUPON = BASE_URL + "/shop/get-coupons";
 // ON LOAD
 $(document).ready(function() {
     handChangeCoupon();
-    handChangeCOD();
     handChangeAmount();
-    handClickBtnCreate();
-    handCheckConditionOrder();
+    handEditOrder();
+    handBtnCreateClick();
     handChangeProvince();
-    handSuggestAddress();
+    handChangeAddress();
+    handChangeCOD();
 });
 
-function handSuggestAddress() {
+function handChangeCOD() {
+    $('input[type=radio][name=type-order]').change(function() {
+        $('[name^=amount-label]').toggle();
+        form.setAmount(0);
+        handChangeAmount();
+    });
+}
+
+function handChangeAddress() {
     $('#address').keyup(function () {
         getSuggest();
         $("#error1").remove();
@@ -36,6 +45,7 @@ function handSuggestAddress() {
         hadSelectDistrict = true;
     })
 }
+
 function handChangeProvince() {
     $('#pickupDistrict-' + form.provinceId()).show();
     $('#district-' + form.provinceId()).show();
@@ -46,7 +56,14 @@ function handChangeProvince() {
         $('#district-' + form.provinceId()).show();
     });
 }
-function handCheckConditionOrder() {
+
+function handBtnCreateClick() {
+    $("#btn-create").click(function () {
+        $(this).attr("disabled","disabled");
+    });
+}
+
+function handEditOrder() {
     var orderStatus = $('#order-status').val();
     var isCOD = form.cod();
 
@@ -67,22 +84,17 @@ function handCheckConditionOrder() {
         $('[id^=district]').attr("disabled", 'disabled');
         $('#amount').attr("disabled", 'disabled');
     }
-
 }
+
 function handChangeCoupon() {
     $('#coupon').change(function() {
         checkCoupon(form.coupon());
     });
-    // on FOCUS COUPON
     $('#coupon').click(function () {
         getCoupons();
     });
 }
-function handChangeCOD() {
-    $('#cod').change(function() {
-        buildText();
-    });
-}
+
 function handChangeAmount() {
     buildText();
     $('#amount').keyup(function() {
@@ -91,12 +103,9 @@ function handChangeAmount() {
     $('#amount').change(function() {
         onChangeAmount();
     });
+    
 }
-function handClickBtnCreate() {
-    $("#btn-create").click(function () {
-        $(this).attr("disabled","disabled");
-    });
-}
+
 function getSuggest(){
     var address = form.address();
     if(!address) {
@@ -227,7 +236,8 @@ function next() {
     noti.cleanError();
 
     clearTab2();
-    getFee(form.provinceId(), form.districtId(), form.id());
+
+    getFee(form.provinceId(), form.pickupDistrictId(), form.id());
     move();
 }
 
@@ -305,25 +315,12 @@ function checkCoupon(){
 }
 
 function buildText(){
-    var goodAmountText= '';
-    var actionText = '';
-    
     var amount = form.amount() ? form.amount(): 0;
     var coupon = form.couponAmount() ? form.couponAmount(): 0;
-    var total = amount - (originalShipAmount - coupon);
+    var finalAmount = Number(amount) + Number(originalShipAmount - coupon);
 
-    if(form.cod() == 'true'){
-        goodAmountText = "Tiền thu hộ";
-        actionText = total > 0 ? "Xe Nhàn nợ Shop" : "Shop nợ Xe nhàn";
-    }
-    if(form.cod() == 'false'){
-        goodAmountText = "Tiền hàng";
-        actionText = total > 0 ? "Xe Nhàn trả Shop" : "Shop trả Xe nhàn";
-    }
     form.setShipAmount(currencyFormat(originalShipAmount - coupon));
-    $('#amount-text').text(goodAmountText);
-    $('#action').text(actionText);
-    $('#totalAmount').text(currencyFormat(Math.abs(total)));
+    form.setTotalAmount(currencyFormat(Math.abs(finalAmount)));
 }
 
 function move(){
@@ -354,7 +351,7 @@ function Form(){
     this.orderCreatedDate = function(){ return $('#created-time').val()};
     this.shopName = function(){ return $('#shop-name').val()};
 
-	this.cod = function(){ return $('#cod').val()};
+    this.cod = function() { return $('input[name=type-order]:checked').val() };
     this.amount = function(){ return numberFormat($('#amount').val())};
     this.coupon = function(){ return $('#coupon').val()};
     this.couponAmount = function(){ return numberFormat($('#couponAmount').text())};
@@ -365,6 +362,7 @@ function Form(){
     this.setCoupon = function(value){ return $('#couponAmount').text(value)};
     this.setCouponCode = function(value){ return $('#coupon').val(value)};
     this.setShipAmount = function(value){ return $('#shipAmount').text(value)};
+    this.setTotalAmount = function(value){ return $('#totalAmount').text(value)};
 
     this.typeDes = function(){ return $('#type-des').val()};
 
@@ -423,7 +421,8 @@ function makeModel(){
     order.pickupProvince = form.province();
     order.pickupDistrict = form.pickupDistrict();
     order.pickupPhone = form.shopPhone();
-    order.type = 2;
+    order.type = ORDER_TYPE;
+
     return order;
 }
 

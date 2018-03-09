@@ -37,3 +37,20 @@
 
 	</div>
 </div>
+
+<%--modal select create order--%>
+<div id="order-coupon-type" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-sm" style=" top: 45%;">
+		<div class="modal-content">
+			<div class="modal-body" style="text-align: center;padding: 3px;">
+				<button type="button" class="btn btn-warning btn-lg btn-bold" onclick="createPickupOrder()">
+					<img width="30px" src="/resources/images/icon-pickup-w.png"/>
+					TẠO ĐƠN LẤY HÀNG HỘ SHOP</button>
+				<button type="button" class="btn btn-success btn-lg btn-bold" style="margin-top: 10px;" onclick="createDropoffsOrder()">
+					<img width="30px" src="/resources/images/icon-dropoff-w.png"/>
+					TẠO ĐƠN GIAO HÀNG CHO KHÁCH</button>
+			</div>
+		</div>
+
+	</div>
+</div>
