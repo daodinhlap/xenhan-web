@@ -54,7 +54,8 @@
 					</a>
 					</li>
 
-					<li><a href="#" data-toggle="modal" data-target="#order-type">
+					<!-- <li><a href="#" data-toggle="modal" data-target="#order-type"> -->
+					<li><a href="/order/tao-don-giao-hang?type=0">
 						<img src="/resources/images/icon-order.png">
 						<span>Tạo đơn hàng</span></a>
 					</li>

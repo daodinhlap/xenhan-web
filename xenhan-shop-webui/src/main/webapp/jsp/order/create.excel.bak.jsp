@@ -84,9 +84,9 @@
 <div class="col-md-8 col-md-offset-2  mobile-padding">
 	<div id="info-receiver" class="container card">
 		<div class="center" style="margin-top: 20px">
-            <h2 class="page-header">TẠO ĐƠN BẰNG EXCEL - <span id="des-type"> GIAO HÀNG CHO KHÁCH</span></h2>
+            <h2 class="page-header">TẠO ĐƠN BẰNG EXCEL<span id="des-type">${(type != null && type == 1) ? " : LẤY HÀNG HỘ SHOP" : " : GIAO HÀNG CHO KHÁCH"}</span></h2>
 		</div>
-        <input id="selected-type" type="hidden" value="2">
+        <input id="selected-type" type="hidden" value="${type != null ? type : ''}">
 
 		<div class="center container" style="margin-bottom: 20px">
 
@@ -361,6 +361,24 @@
 			</div>
 		</div>
 	</c:if>
+</div>
+
+<%--modal select create order--%>
+<div id="order-type" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm" style=" top: 45%;">
+        <div class="modal-content">
+            <div class="modal-body" style="text-align: center;padding: 3px;">
+				<button type="button" class="btn btn-success btn-lg btn-bold" onclick="selectType(2)">
+					<img width="30px" src="/resources/images/icon-dropoff-w.png"/>
+					TẠO ĐƠN GIAO HÀNG CHO KHÁCH</button>
+                <button type="button" class="btn btn-warning btn-lg btn-bold" onclick="selectType(1)"
+						style="margin-top: 10px;" >
+                    <img width="30px" src="/resources/images/icon-pickup-w.png"/>
+                        TẠO ĐƠN LẤY HÀNG HỘ SHOP</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <link href="/resources/css/app/fine-uploader.min.css" rel="stylesheet">

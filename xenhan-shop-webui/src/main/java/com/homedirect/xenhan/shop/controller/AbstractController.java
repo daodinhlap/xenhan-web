@@ -86,7 +86,7 @@ public class AbstractController {
   }
 
   private List<CardResponse> resolveCoupon(RepositoryResponse<Object> response) throws IOException {
-    if(apiExchangeService.isUnSuccessResponse(response)) return Collections.EMPTY_LIST;
+    if(apiExchangeService.isUnSuccessResponse(response)) return Collections.emptyList();
     List<CardResponse> responses = MAPPER.readValue(JsonUtil.toJson(response.getData()), new TypeReference<List<CardResponse>>(){});
     List<CardResponse> cardResponses = responses.stream()
         .filter(coupon -> coupon.getExpirationDate().after(Calendar.getInstance().getTime()))

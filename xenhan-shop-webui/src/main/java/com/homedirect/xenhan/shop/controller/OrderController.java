@@ -84,11 +84,12 @@ public class OrderController extends AbstractController {
                              @RequestParam(value = "coupon", required = false) String coupon,
                              HttpServletRequest httpRequest) {
     Shop shop = getShopInfo(httpRequest);
-
     ModelAndView mv = new ModelAndView("order.create");
     mv.addObject("title","Xe Nhàn - " + OrderStatus.toAction(type));
     mv.addObject("shop", shop);
     mv.addObject("type", type);
+    
+    /*mv.addObject("coupon","");*/
     mv.addObject("coupon", StringUtils.isEmpty(coupon) ? "" : coupon.trim());
     mv.addObject("action", OrderStatus.toAction(type));
 

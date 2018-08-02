@@ -102,7 +102,7 @@
 	</div>
 
 	<div class="col-xs-12 col-md-4 form-field">
-		<label>Họ tên</label>
+		<label>Họ tên <span style="color: red">*</span></label>
 		<input placeholder="Họ tên người nhận hàng" value="${order.dropoff.contact.name}"
 			type="text" class="form-control" id="userName">
 	</div>
@@ -179,9 +179,9 @@
 	<div class="alert alert-success" style="clear: both; white-space: pre; padding: 0px;">
 		Tạo đơn giờ vàng nhận ngay ưu đãi giá phí ship chỉ 15.000đ/đơn
 
-		❤ Thời gian áp dụng: từ 01/03 - 31/03/2018
-		❤ Giờ tạo đơn: 19h - 7h
-		❤ Khu vực giao hàng được áp dụng: Nội thành Hà Nội, Nội thành và Ngoại thành HCM
+		❤ Thời gian áp dụng: từ 01/06 - 10/06/2018
+		❤ Giờ tạo đơn: 06h - 10h
+		❤ Khu vực giao hàng được áp dụng: Nội thành HCM
 		❤ Không áp dụng kèm code khuyến mại
 		❤ Không áp dụng khi sửa đơn sau khung giờ vàng
 	</div>
@@ -207,6 +207,7 @@
 		<input type="text" class="form-control" id="amount" style="text-align: right;"
 			   value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${empty order.goodAmount? 0: order.goodAmount}"/>">
 	</div>
+	
 	<div class="col-xs-12 col-md-4 form-field dropdown">
 		<label>Mã giảm giá</label>
 		<input type="text" class="form-control dropdown-toggle" data-toggle="dropdown" id="coupon"

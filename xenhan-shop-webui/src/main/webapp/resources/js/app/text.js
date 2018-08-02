@@ -22,6 +22,9 @@ var Error_message = {
 		NOT_MATCH_OLD_PIN: "PIN cũ không đúng",
 		EMPTY_PHONE_CONFIRM: "Vui lòng nhập số điện thoại",
 		EMPTY_PHONE: "Vui lòng nhập số điện thoại nhận",
+		/*star*/
+		EMPTY_USERNAME: "Vui lòng nhập nhập họ tên người nhận hàng",
+		/*end */
 		EMPTY_ACCOUNT_GAME: "Vui lòng nhập tài khoản game nhận",
 		PHONE_INVALID_FORMAT: "Số điện thoại không đúng định dạng. Xin vui lòng nhập lại",
 		QUANTITY_INVALID: "Số lượng không hợp lệ! Xin vui lòng nhập lại",

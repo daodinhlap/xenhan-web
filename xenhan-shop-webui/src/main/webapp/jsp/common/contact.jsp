@@ -16,7 +16,7 @@
 					<strong>Tại Hà Nội</strong><br>  Số 19 Trúc Khê<br>Phường
 					Láng Hạ, Quận Đống Đa<br> <abbr title="Phone">Hotline:</abbr>
 					0906.236.018 <br />
-					<abbr title="Phone">Điện Thoại:</abbr> 02471099710 <span
+					<abbr title="Phone">Điện Thoại:</abbr>  02873038283  <span
 						style="display: inline;">(Ext: 2)</span>
 				</address>
 
@@ -26,7 +26,7 @@
 					<strong>Tại Hồ Chí Minh</strong><br> Địa chỉ: 262/12 Lê Văn
 					Sỹ, <br>Phường 14, Quận 3<br> <abbr title="Phone">Hotline:</abbr>
 					0909.183.955 <br />
-					<abbr title="Phone">Điện Thoại:</abbr> 02871099710 <span
+					<abbr title="Phone">Điện Thoại:</abbr>  02873038283  <span
 						style="display: inline;">(Ext: 3)</span>
 				</address>
 			</div>

@@ -1,5 +1,15 @@
 $(document).ready(function () {
     var typeOfImportOrder = $("#selected-type").val();
+    swal({
+		  imageUrl: '/resources/images/Popup_5.PNG',
+		  imageWidth: 700,
+		  imageHeight: 450,
+		  width:600 ,
+		  Height:450,
+		  confirmButtonColor:true,
+		  confirmButtonText:"OK",
+		  animation: false
+		})
 	if(!typeOfImportOrder) {
         $("#order-type").modal();
     }

@@ -353,7 +353,7 @@ function Form(){
 
     this.cod = function() { return $('input[name=type-order]:checked').val() };
     this.amount = function(){ return numberFormat($('#amount').val())};
-    this.coupon = function(){ return $('#coupon').val()};
+	    this.coupon = function(){ return $('#coupon').val()};
     this.couponAmount = function(){ return numberFormat($('#couponAmount').text())};
     this.shipAmount = function(){ return numberFormat($('#shipAmount').text())};
 

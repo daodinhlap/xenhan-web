@@ -15,6 +15,34 @@ var URL_GET_COUPON = BASE_URL + "/shop/get-coupons";
 
 // ON LOAD
 $(document).ready(function() {
+	
+	swal({
+		  imageUrl: '/resources/images/Popup_5.PNG',
+		  imageWidth: 700,
+		  imageHeight: 450,
+		  width:600 ,
+		  Height:450,
+		  confirmButtonColor:true,
+		  confirmButtonText:"OK",
+		  animation: false
+		})
+	/*swal({
+		  title: 'Xe Nhàn Thông báo',
+		  animation:'true',
+		  html: 'Nhằm nâng cấp chất lượng dịch vụ & phục vụ Quý Shop ngày càng tốt hơn nữa. '+'</br>Xe Nhàn xin thông báo đến Quý Shop kể từ ngày 23/07/2018, Xe Nhàn xin tạm dừng phục vụ những Quý Shop có số đơn  gom dưới  ba (03) trong một lần gom'+
+		  'Xe Nhàn kính mong Quý Shop thông cảm vì sự thay đổi này.'+'</br> Mọi thông tin chi tiết  xin liên hệ  Chi nhánh HCM : 0909 183 955 | 0932 554 595',
+		  confirmText: 'Cool',
+		  background:'#fff8dc',
+		  width:770 ,
+		  type: 'info',
+		  confirmButtonText: 'OK',
+		 
+		})*/
+	/*warningInvalidTimeCoupon("Nhằm nâng cấp chất lượng dịch vụ & phục vụ Quý Shop ngày càng tốt hơn nữa.</br> " +
+			"Xe Nhàn xin thông báo đến Quý Shop kể từ ngày 23/07/2018, Xe Nhàn  xin tạm dừng phục vụ những Quý Shop có số đơn  gom dưới  ba (03) trong một lần gom " +
+			"</br>Xe Nhàn kính mong Quý Shop thông cảm vì sự thay đổi này.  "+
+			"</br>Mọi thông tin chi tiết  xin liên hệ </br> Chi nhánh HCM : 0909 183 955 | 0932 554 595 "
+			+ "</br>Trân trọng !");*/
     handChangeCoupon();
     handChangeCOD();
     handChangeAmount();
@@ -181,6 +209,7 @@ function onChangeAmount() {
 function create() {
     var orderRequest = makeModel();
     var url = URL_CREATE_ORDER;
+    
     if(form.type() == 1){
         url = URL_EDIT_ORDER;
     }
@@ -219,17 +248,23 @@ function create() {
 
 
 }
+ /*click tiep tuc */
+
 function next() {
+	if(form.userName() ==null)
+	{alert ("Hoj ten null ")
+		
+		}
+	else{
     if(form.validate().length != 0){
         noti.error(error);
         return;
     }
     noti.cleanError();
-
     clearTab2();
     getFee(form.provinceId(), form.districtId(), form.id());
     move();
-}
+}}
 
 
 function getFee(provinceId, districtId, orderId){
@@ -245,9 +280,10 @@ function getFee(provinceId, districtId, orderId){
         url : url
     }).done(function(data) {
         console.log(data);
-
         originalShipAmount = data;
+  
         form.setShipAmount(currencyFormat(data));
+        
         disableCouponWhenDiscountTime();
         buildText();
     }).fail(function(data) {
@@ -321,6 +357,7 @@ function buildText(){
         actionText = total > 0 ? "Xe Nhàn trả Shop" : "Shop trả Xe nhàn";
     }
     form.setShipAmount(currencyFormat(originalShipAmount - coupon));
+    /*form.setShipAmount('15000');*/
     $('#amount-text').text(goodAmountText);
     $('#action').text(actionText);
     $('#totalAmount').text(currencyFormat(Math.abs(total)));
@@ -369,6 +406,11 @@ function Form(){
     this.typeDes = function(){ return $('#type-des').val()};
 
     this.validate = function (){
+    	/*start*/
+    	if(!this.userName()){
+            error.push({message: Error_message.EMPTY_USERNAME, id: "userName"});
+        }
+    	/*end*/
         if(!this.phone()){
             error.push({message: Error_message.EMPTY_PHONE, id: "phone"});
         }
@@ -482,3 +524,48 @@ function useCoupon(coupon) {
     form.setCouponCode(coupon);
     checkCoupon();
 }
+
+
+/*function warningInvalidTimeCoupon(mess) {
+	$
+			.notify(
+					{
+						
+						icon : 'glyphicon glyphicon-warning-sign',
+						title : 'Xe Nhàn :',
+						message : mess
+					},
+					{
+						
+						delay : 10000,
+						timer : 1000,
+						element : 'body',
+						position : null,
+						type : "warning",
+						allow_dismiss : true,
+						newest_on_top : true,
+						placement : {
+							from : "top",
+							align : "center"
+						},
+						offset : 20,
+						spacing : 10,
+						z_index : 1031,
+						animate : {
+							enter : 'animated fadeInDown',
+							exit : 'animated fadeOutUp'
+						},
+						icon_type : 'class',
+						template : '<div data-notify="container" class="col-xs-11 col-sm-5 alert alert-{0}" role="alert">'
+								+ '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>'
+								+ '<div><span data-notify="icon"></span> '
+								+ '<span data-notify="title">{1}</span></div> '
+								+ '<div><span data-notify="message">{2}</span></div>'
+								+ '<div class="progress" data-notify="progressbar">'
+								+ '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="200" style="width: 100%;"></div>'
+								+ '</div>'
+								+ '<a href="{3}" target="{4}" data-notify="url"></a>'
+								+ '</div>'
+					});*/
+/*}
+*/
