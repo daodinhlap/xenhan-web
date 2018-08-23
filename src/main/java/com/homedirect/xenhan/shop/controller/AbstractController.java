@@ -48,7 +48,7 @@ public class AbstractController {
     String url = apiExchangeService.createUrlWithToken(httpRequest, "shop", "get-shop?shop-name=" + shopName);
     RepositoryResponse<ShopProfileData> shopResponse = apiExchangeService.get(httpRequest, url, new TypeReference<RepositoryResponse<ShopProfileData>>(){});
     logger.info("\n====> GET ShopProfileData INFO:{}", JsonUtil.toJson(shopResponse.getData()));
-
+    System.out.println("=============test");
     shop = shopResponse.getData().getShop();
     httpRequest.getSession().setAttribute(AttributeConfig.SHOP, shopResponse.getData().getShop());
     httpRequest.getSession().setAttribute(AttributeConfig.SHOP_PAYMENT_INFO, shopResponse.getData().getShopPaymentInfo());
