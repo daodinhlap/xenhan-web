@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: http://moom.vn/danhbamoigioi/sitemap.xml

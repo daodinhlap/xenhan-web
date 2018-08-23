@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans.xsd
+                    http://www.springframework.org/schema/security
+                    http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<global-method-security />
+
+	<beans:bean id="loginUrlAuthenticationEntryPoint"
+		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<beans:constructor-arg type="java.lang.String" value="/dang-nhap" />
+	</beans:bean>
+	
+	<beans:bean id="loginPathRequestMatcher" class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+		<beans:constructor-arg type="java.lang.String" value="/dang-nhap" />
+	</beans:bean> 
+
+	<beans:bean id="customUsernamePasswordAuthenticationFilter"
+		class="com.homedirect.xenhan.web.auth.XnAuthenticationFilter">
+		<beans:constructor-arg ref="apiExchangeService"/>
+			
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="sessionAuthenticationStrategy"
+			ref="session-management" />
+		<beans:property name="authenticationFailureHandler"
+			ref="failureHandler" />
+		<beans:property name="authenticationSuccessHandler"
+			ref="successHandler" />
+	</beans:bean>
+
+	<beans:bean id="successHandler"
+		class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+		<beans:property name="defaultTargetUrl" value="/" />
+	</beans:bean>
+
+	<beans:bean id="failureHandler"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/dang-nhap" />
+	</beans:bean>
+
+	<http auto-config="false" use-expressions="true"
+		disable-url-rewriting="true" entry-point-ref="loginUrlAuthenticationEntryPoint">
+		<csrf disabled="true" />
+		<custom-filter position="FORM_LOGIN_FILTER"
+			ref="customUsernamePasswordAuthenticationFilter" />
+		 <custom-filter after="FORM_LOGIN_FILTER" ref="concurrencyFilter" />
+
+		<intercept-url pattern="/dang-nhap" access="permitAll" />
+		<intercept-url pattern="/dang-ky" access="permitAll" />
+		<intercept-url pattern="/resources/*" access="permitAll" />
+
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+
+		<intercept-url pattern="/shop/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<intercept-url pattern="/order/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<intercept-url pattern="/order-excel/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		
+
+		<logout logout-success-url="/dang-nhap" />
+
+		<headers>
+			<frame-options policy="SAMEORIGIN" />
+			<hsts include-subdomains="true" disabled="false" />
+		</headers>
+
+		<session-management
+			session-authentication-strategy-ref="session-management" />
+	</http>
+
+
+	<beans:bean id="sessionRegistry" class="com.homedirect.xenhan.web.auth.XnSessionRegistry" />
+	
+	<beans:bean id="concurrencyFilter"
+		class="com.homedirect.xenhan.web.auth.XnConcurrentSessionFilter">
+		<beans:constructor-arg ref="sessionRegistry" />
+		<beans:constructor-arg name="expiredUrl" value="/" />
+	</beans:bean>
+
+	<beans:bean id="session-management"
+		class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
+		<beans:constructor-arg>
+			<beans:list>
+				<beans:bean
+					class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">
+					<beans:constructor-arg ref="sessionRegistry" />
+				</beans:bean>
+				<beans:bean
+					class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" />
+				<beans:bean
+					class="org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy">
+					<beans:constructor-arg ref="sessionRegistry" />
+				</beans:bean>
+			</beans:list>
+		</beans:constructor-arg>
+	</beans:bean>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="customAuthenticationProvider" />
+	</authentication-manager>
+
+	<beans:bean id="customAuthenticationProvider" class="com.homedirect.xenhan.web.auth.UserAuthProvider" />
+
+</beans:beans>
