@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!-- Templates -->
+	<definition name="layout.basic" template="/jsp/common/basic.jsp">
+		<put-attribute name="header" value="/jsp/common/header.jsp" />
+		<put-attribute name="menu" value="/jsp/common/menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="" />
+		<put-list-attribute name="stylesheets">	
+			<add-attribute value="/resources/css/frame/bootstrap.min.css" />
+			<add-attribute value="/resources/css/frame/font-awesome.min.css" />
+			<add-attribute value="/resources/css/frame/ionicons.min.css" />
+			<add-attribute value="/resources/plugins/pace/pace.min.css" />
+			<add-attribute value="/resources/plugins/design/material.min.css" />
+			<add-attribute value="/resources/css/frame/dashboard.css" />
+			<add-attribute value="/resources/css/app/style.css" />
+		</put-list-attribute>
+		<put-list-attribute name="scripts">
+			<add-attribute value="/resources/plugins/jquery-2.2.3.min.js" />
+			<add-attribute value="/resources/plugins/bootstrap.min.js" />
+			<add-attribute value="/resources/plugins/date.js" />
+			<add-attribute value="/resources/plugins/design/material.min.js" />
+			<add-attribute value="/resources/plugins/alert/bootbox.min.js" />
+			<add-attribute value="/resources/plugins/pace/pace.min.js" />
+			<add-attribute value="/resources/plugins/holder.js" />
+			<add-attribute value="/resources/js/app/text.js" />
+			<add-attribute value="/resources/js/app/moment.js" />
+			<add-attribute value="/resources/plugins/md5/md5.min.js" />
+			<add-attribute value="/resources/js/app/common.js" />
+		</put-list-attribute>
+	</definition>
+
+	<definition name="home" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/common/home.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="contact" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/common/contact.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+		</put-list-attribute>
+	</definition>
+
+	<definition name="public.change.password" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/public.change.password.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/user/change.password.js" />
+		</put-list-attribute>
+	</definition>
+
+	<definition name="public.download" extends="layout.basic">
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/jsp/public.download.jsp" />
+		<put-attribute name="menu" value="" />
+		<put-attribute name="footer" value="" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/app/download.app.js" />
+		</put-list-attribute>
+	</definition>
+
+	<definition name="public.*" extends="layout.basic">
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/jsp/public.{1}.jsp" />
+		<put-attribute name="menu" value="" />
+		<put-attribute name="footer" value="" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/app/home.js" />
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="order.create.excel" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/order/create.excel.jsp" />
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/css/app/bootstrap-editable.css" />
+		</put-list-attribute>
+		<put-list-attribute name="scripts" inherit="true">
+            <add-attribute value="/resources/js/model/order.js" />
+			<add-attribute value="/resources/js/upload/jquery.fine-uploader.min.js" />
+			<add-attribute value="/resources/js/app/bootstrap-editable.js" />
+			<add-attribute value="/resources/js/order/create.excel.js" />
+			<add-attribute value="/resources/plugins/promise-polyfill.js" />
+			<add-attribute value="/resources/plugins/sweetalert2.all.min.js" />
+		</put-list-attribute>
+	</definition>
+	
+
+	<definition name="order.create" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/order/create.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+            <add-attribute value="/resources/js/model/order.js" />
+			<add-attribute value="/resources/js/order/create.js" />
+			<add-attribute value="/resources/plugins/bootstrap-notify.min.js" />
+			<add-attribute value="/resources/plugins/promise-polyfill.js" />
+			<add-attribute value="/resources/plugins/sweetalert2.all.min.js" />
+		</put-list-attribute>
+	</definition>
+	
+	 <definition name="order.history" extends="layout.basic">
+        <put-attribute name="body" value="/jsp/order/history.jsp" />
+        <put-list-attribute name="scripts" inherit="true">
+            <add-attribute value="/resources/js/model/page.js" />
+            <add-attribute value="/resources/js/order/history.js" />
+			<add-attribute value="/resources/plugins/datePicker/moment-with-locales.js" />
+			<add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.js" />
+			<add-attribute value="/resources/plugins/carousel/owl.carousel.min.js" />
+        </put-list-attribute>
+        <put-list-attribute name="stylesheets" inherit="true">
+            <add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.css" />
+			<add-attribute value="/resources/plugins/carousel/owl.carousel.min.css" />
+			<add-attribute value="/resources/plugins/carousel/owl.theme.default.min.css" />
+        </put-list-attribute>
+    </definition>
+
+	<definition name="order.print" template="/jsp/order/bill.jsp">
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/css/frame/bootstrap.min.css" />
+			<add-attribute value="/resources/css/app/style.css" />
+		</put-list-attribute>
+		<put-list-attribute name="scripts">
+			<add-attribute value="/resources/plugins/jquery-2.2.3.min.js" />
+			<add-attribute value="/resources/plugins/barCode/JsBarcode.min.js" />
+		</put-list-attribute>
+	</definition>
+
+
+	<definition name="order.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/order/{1}.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/model/order.js" />
+			<add-attribute value="/resources/js/order/{1}.js" />
+			<add-attribute value="/resources/plugins/bootstrap-notify.min.js" />
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="shop.account" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/shop/account.jsp" />
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/css/app/bootstrap-editable.css" />
+		</put-list-attribute>
+        <put-list-attribute name="scripts" inherit="true">
+       		<add-attribute value="/resources/js/app/bootstrap-editable.js" />
+            <add-attribute value="/resources/js/shop/account.js" />
+			<add-attribute value="/resources/js/admin/list.js" />
+        </put-list-attribute>
+	</definition>
+
+	<definition name="shop.debit" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/shop/debit.jsp" />
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.css" />
+		</put-list-attribute>
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/model/page.js" />
+			<add-attribute value="/resources/plugins/datePicker/moment-with-locales.js" />
+			<add-attribute value="/resources/plugins/datePicker/bootstrap-datetimepicker.min.js" />
+			<add-attribute value="/resources/js/shop/debit.js" />
+		</put-list-attribute>
+	</definition>
+
+	<definition name="shop.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/shop/{1}.jsp" />
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/css/app/bootstrap-editable.css" />
+		</put-list-attribute>
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/app/bootstrap-editable.js" />
+			<add-attribute value="/resources/js/shop/{1}.js" />
+		</put-list-attribute>
+	</definition>
+
+	<definition name="admin.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/admin/{1}.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/admin/{1}.js" />
+		</put-list-attribute>
+	</definition>
+
+	<definition name="noti.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/noti/{1}.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/noti/{1}.js" />
+			<add-attribute value="/resources/plugins/carousel/owl.carousel.min.js" />
+			<add-attribute value="/resources/plugins/bootstrap-notify.min.js" />
+		</put-list-attribute>
+		<put-list-attribute name="stylesheets" inherit="true">
+			<add-attribute value="/resources/plugins/carousel/owl.carousel.min.css" />
+			<add-attribute value="/resources/plugins/carousel/owl.theme.default.min.css" />
+		</put-list-attribute>
+	</definition>
+
+	<definition name="coupon.*" extends="layout.basic">
+		<put-attribute name="body" value="/jsp/coupon/{1}.jsp" />
+		<put-list-attribute name="scripts" inherit="true">
+			<add-attribute value="/resources/js/coupon/{1}.js" />
+			<add-attribute value="/resources/plugins/bootstrap-notify.min.js" />
+		</put-list-attribute>
+	</definition>
+
+</tiles-definitions>

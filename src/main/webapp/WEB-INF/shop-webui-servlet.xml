@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans 
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc
+  		http://www.springframework.org/schema/mvc/spring-mvc.xsd    
+  		http://www.springframework.org/schema/security
+  		http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/context
+  		http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<annotation-driven />
+	<resources mapping="/resources/**" location="/resources/" />
+	
+	<context:component-scan base-package="com.homedirect.xenhan.shop.controller" />
+	<context:component-scan base-package="com.homedirect.xenhan.web.connection" />
+	<context:component-scan base-package="com.homedirect.xenhan.web.validator" />
+	<context:component-scan base-package="com.homedirect.xenhan.web.util" />
+
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760" />
+	</beans:bean>
+
+	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="order" value="2" />
+		<beans:property name="prefix" value="/jsp/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<beans:bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="order" value="1" />
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</beans:bean>
+
+	<beans:bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/tiles/definitions.xml</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
+
+	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<beans:property name="basename" value="classpath:text" />
+		<!-- <beans:property name="defaultEncoding" value="UTF-8" /> -->
+	</beans:bean>
+	
+	<beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<beans:property name="defaultLocale" value="vi" />
+		<beans:property name="cookieName" value="myAppLocaleCookie"/>
+		<beans:property name="cookieMaxAge" value="3600"/>
+	</beans:bean>
+	
+	<interceptors>
+		<beans:bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<beans:property name="paramName" value="language" />
+		</beans:bean>
+	</interceptors>
+
+	<beans:bean id="requestConfigBuilder" class="org.apache.http.client.config.RequestConfig" factory-method="custom">
+		<beans:property name="socketTimeout" value="30000" />
+		<beans:property name="connectTimeout" value="30000" />
+	</beans:bean>
+	
+	<beans:bean id="defaultHttpRequestRetryHandler" class="org.apache.http.impl.client.DefaultHttpRequestRetryHandler">
+		<beans:constructor-arg type ="int" value ="5"/>
+		<beans:constructor-arg type ="boolean" value ="true"/>
+	</beans:bean>
+
+	<beans:bean id="requestConfig" factory-bean="requestConfigBuilder" factory-method="build" />
+	
+	<beans:bean id="httpClientBuilder" class="org.apache.http.impl.client.HttpClientBuilder" factory-method="create">
+		<beans:property name="defaultRequestConfig" ref="requestConfig" />
+		<beans:property name="retryHandler" ref="defaultHttpRequestRetryHandler"/>
+		<beans:property name="keepAliveStrategy">
+			<beans:bean id="connectionKeepAliveStrategyCustomization" class="com.homedirect.xenhan.web.connection.ConnectionKeepAliveStrategyCustomization" />
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="httpClient" factory-bean="httpClientBuilder" factory-method="build" />
+
+	<beans:bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<beans:constructor-arg>
+			<beans:bean class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+				<beans:constructor-arg ref="httpClient" />
+			</beans:bean>
+		</beans:constructor-arg>
+	</beans:bean>
+
+</beans:beans>

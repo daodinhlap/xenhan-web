@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60">
+	<Properties>
+		<Property name="path">logs</Property>
+		<Property name="filename">xenhan-shop-web</Property>
+	</Properties>
+	<Appenders>
+		<Console name="stdout" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}.%M(%L) - %msg%n" />
+		</Console>
+		<RollingFile name="file"
+			fileName="${path}/${filename}.log" filePattern="${path}/${filename}-%d{yyyy-MM-dd}.log">
+			<PatternLayout
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}.%M(%L) - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="info" additivity="false">
+			 <appender-ref ref="stdout"/> 
+			<!-- <appender-ref ref="file"/>  -->
+		</Root>
+	</Loggers>
+</Configuration>
